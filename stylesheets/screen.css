@@ -63,17 +63,31 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 4, ../sass/screen.scss */
+/* line 1, ../sass/type.scss */
+body {
+  color: white;
+  font-family: helvetica;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+/* line 5, ../sass/screen.scss */
+body {
+  background: #333;
+}
+
+/* line 9, ../sass/screen.scss */
 .slider {
   -webkit-appearance: none;
-  background: #ddd;
+  border: 1pt solid white;
+  background: none;
   height: 2em;
   margin: 2em;
 }
-/* line 11, ../sass/screen.scss */
+/* line 17, ../sass/screen.scss */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background: red;
-  height: 4em;
-  width: 1em;
+  background: white;
+  height: 2em;
+  width: 2em;
 }

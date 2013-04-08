@@ -2,12 +2,12 @@ var myTemplate = [
     {
         "type" : "slider",
         "orientation" : "vertical",
-        "showValue" : true;
+        "showValue" : true
     },
     {
         "type" : "slider",
         "orientation" : "vertical",
-        "showValue" : false;
+        "showValue" : false
     }
 ];
 

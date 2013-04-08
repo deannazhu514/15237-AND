@@ -1,17 +1,23 @@
 @import "compass/reset";
 @import "compass/css3";
+@import "type.scss";
+
+body {
+    background: #333;
+}
 
 .slider {
     -webkit-appearance: none;
     // background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.51, #d1d1d1), color-stop(1, #a1a1a1) );
-    background: #ddd;
+    border: 1pt solid white;
+    background: none;
     height: 2em;
     margin: 2em;
     
     &::-webkit-slider-thumb {
         -webkit-appearance:none;
-        background: red;
-        height: 4em;
-        width: 1em;
+        background: white;
+        height: 2em;
+        width: 2em;
     }
 }

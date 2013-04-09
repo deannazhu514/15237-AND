@@ -4,6 +4,17 @@
 
 body {
     background: #333;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+}
+
+.palette {
+    padding: 2em;
+    padding-bottom: 0;
+    
+    &:active {
+        cursor: move;
+    }
 }
 
 .slider {
@@ -12,7 +23,6 @@ body {
     border: 1pt solid white;
     background: none;
     height: 2em;
-    margin: 2em;
     
     &::-webkit-slider-thumb {
         -webkit-appearance:none;

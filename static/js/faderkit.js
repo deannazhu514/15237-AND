@@ -24,18 +24,37 @@ function makePalette(template) {
 }
 
 function makeControl(type, orientation, value) {
-    var palette = $("<section>"),
+    var palette = $("<section>").addClass("palette"),
         control = $("<input>").attr({
             type:  "range",
-            class: "slider",
+            class: type,
         }),
         value   = (value) ? $("<span>").html($(control).val())
                           : null;
-    
+
     $(control).mousemove(function(){
         $(value).html($(control).val())
     });
     
+    var $dragging = null;
+    
+    $("body").mousemove(function(event) {
+        if ($dragging) {
+            $dragging.offset({
+                top:  event.pageY,
+                left: event.pageX
+            });
+        }
+    });
+    
+    $("body").mousedown(function(event){
+        $dragging = $(event.target);
+    });
+    
+    $("body").mouseup(function(event){
+        $dragging = null;
+    });
+
     $("body").append(palette);
         $(palette).append(control);
         $(palette).append(value);

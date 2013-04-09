@@ -5,7 +5,7 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
 	
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
-	<!-- <script type="text/javascript" src="js/lib/jsqrcode/grid.js"></script>
+	 <script type="text/javascript" src="js/lib/jsqrcode/grid.js"></script>
     <script type="text/javascript" src="js/lib/jsqrcode/version.js"></script>
     <script type="text/javascript" src="js/lib/jsqrcode/detector.js"></script>
     <script type="text/javascript" src="js/lib/jsqrcode/formatinf.js"></script>
@@ -22,7 +22,7 @@
 	<script type="text/javascript" src="js/lib/jsqrcode/findpat.js"></script>
 	<script type="text/javascript" src="js/lib/jsqrcode/alignpat.js"></script>
 	<script type="text/javascript" src="js/lib/jsqrcode/databr.js"></script>
-
+<!--
 	<script type="text/javascript" src="js/qr.js"></script> 
 	<script type="text/javascript" src="js/init.js"></script> 
 	<script type="text/javascript" src="js/camera.js"></script> -->
@@ -36,7 +36,7 @@
 		<div id = "content">
 			
 			<video  id="vid" autoplay width="320" height="240">Put your fallback message here.</video>
-			<canvas id="canvas" width="320" height="240" ></canvas><br>
+			<canvas id="qr-canvas" width="320" height="240" ></canvas><br>
 			
 			<button onclick="snapshot()">Take Picture</button>
 			<button onclick="scan()">Scan Code</button>
@@ -47,12 +47,15 @@
 		<script>
 			
 			var video = document.querySelector("#vid");
-			var canvas = document.querySelector('#canvas');
-			var ctx = canvas.getContext('2d');
+			var canvas = document.querySelector('#qr-canvas');
+			var cv = document.getElementById("canvas");
+      var ctx = canvas.getContext('2d');
 			var localMediaStream = null;
+      var savestr = "";
 
 			var onCameraFail = function (e) {
 				console.log('Camera failed.', e);
+        alert('uhoh');
 			};
 
 			var localMediaStream = null;
@@ -77,7 +80,11 @@
 			
 			function scan() {
 				if (snapshot) {
-					console.log("hehe");
+          qrcode.callback = function(a) {
+            alert(a);
+          }
+					qrcode.decode();
+          console.log("l: " + savestr);
 				}
 			}
 			
@@ -85,7 +92,7 @@
 				var str = canvas.toDataURL("image/png");
 				var image = document.createElement("img");
 				image.src = str;
-				var savestr = str.replace("image/png", "image/octet-stream");
+				savestr = str.replace("image/png", "image/octet-stream");
 				document.location.href = savestr;
 				return image;
 			}

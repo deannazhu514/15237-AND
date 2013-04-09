@@ -3,10 +3,25 @@
   <head>
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-	
+	<script type="text/javascript" src="js/lib/jsqrcode/grid.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/version.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/detector.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/formatinf.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/errorlevel.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/bitmat.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/datablock.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/bmparser.js"></script>
+    <script type="text/javascript" src="js/lib/jsqrcode/datamask.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/rsdecoder.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/gf256poly.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/gf256.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/decoder.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/QRCode.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/findpat.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/alignpat.js"></script>
+	<script type="text/javascript" src="js/lib/jsqrcode/databr.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
 	<script type="text/javascript" src="js/qrcode.js"></script>
-
   </head>
   <body onload="update_qrcode()">
 
@@ -21,27 +36,8 @@
 		<a href="home.html" id="platform">Go Back </a>
 	</div>
 		
-	<script>
-		
-		var username = "deanna is awesome";
-		var draw_qrcode = function(text, typeNumber, errorCorrectLevel) {
-			document.write(create_qrcode(text, typeNumber, errorCorrectLevel) );
-		};
-
-		var create_qrcode = function(text, typeNumber, errorCorrectLevel, table) {
-			var qr = qrcode(typeNumber || 4, errorCorrectLevel || 'M');
-			qr.addData(text);
-			qr.make();
-			return qr.createImgTag();
-		};
-
-		var update_qrcode = function() {
-			var qrtext = username;
-			document.getElementById('qr-text').innerHTML = qrtext
-			document.getElementById('qr').innerHTML = create_qrcode(qrtext);
-		};
-	
-	</script>
+	<script src="js/client.js"></script>
+  
 
 	</body>
 </html>

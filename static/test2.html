@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      // draw cloud
+      context.beginPath();
+      context.moveTo(170, 80);
+      context.bezierCurveTo(130, 100, 130, 150, 230, 150);
+      context.bezierCurveTo(250, 180, 320, 180, 340, 150);
+      context.bezierCurveTo(420, 150, 420, 120, 390, 100);
+      context.bezierCurveTo(430, 40, 370, 30, 340, 50);
+      context.bezierCurveTo(320, 5, 250, 20, 250, 50);
+      context.bezierCurveTo(200, 5, 150, 20, 170, 80);
+      context.closePath();
+      context.lineWidth = 5;
+      context.fillStyle = '#8ED6FF';
+      context.fill();
+      context.strokeStyle = '#0000ff';
+      context.stroke();
+
+      // save canvas image as data url (png format by default)
+      var dataURL = canvas.toDataURL();
+      console.log(dataURL);
+      
+      function share(){
+    try {
+        var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+    } catch(e) {
+        var img = canvas.toDataURL().split(',')[1];
+    }
+    // open the popup in the click handler so it will not be blocked
+    var w = window.open();
+    w.document.write('Uploading...');
+    // upload to imgur using jquery/CORS
+    // https://developer.mozilla.org/En/HTTP_access_control
+    $.ajax({
+        url: 'http://api.imgur.com/2/upload.json',
+        type: 'POST',
+        data: {
+            type: 'base64',
+            // get your key here, quick and fast http://imgur.com/register/api_anon
+            key: 'YOUR-API-KEY',
+            name: 'neon.jpg',
+            title: 'test title',
+            caption: 'test caption',
+            image: img
+        },
+        dataType: 'json'
+    }).success(function(data) {
+        w.location.href = data['upload']['links']['imgur_page'];
+        console.log(w.location.href);
+    }).error(function() {
+        alert('Could not reach api.imgur.com. Sorry :(');
+        w.close();
+    });
+}
+
+share();
+    </script>
+  </body>
+</html>

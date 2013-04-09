@@ -1,28 +1,43 @@
-<!doctype html>
+<!doctype html public>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Controls Demo</title>
+    <title>SoundCloud Demo</title>
     
     <link href="./css/screen.css" rel="stylesheet" type="text/css">
     <script src="./js/lib/jquery.js"></script>
     <script src="./js/faderkit.js"></script>
-
-</head>
-<body>
-
 	<script src="//connect.soundcloud.com/sdk.js"></script>
 	<script>
-	  SC.initialize({
-		client_id: "9268390212aced64095b7087e66d5d7a"
+
+	  $(document).ready(function() {
+		  SC.initialize({
+			  client_id: '3d503a64aaf395aac54de428f7808b82',
+			  redirect_uri: 'http://localhost:8080/SCdemo.html'
+		  });
+
+		  $('button').click(function(){
+			  SC.connect(function() {
+				  SC.get('/me', function(data) {
+					  $('#name').text(data.username);
+				  });
+			  });
+			  
+		  });
+		  
 	  });
 
-	  SC.stream("/tracks/293", {
-		  autoPlay: true,
-		  ontimedcomments: function(comments){
-			console.log(comments[0].body);
-		  }
-		});
+	</script>
+</head>
+<body>
+	<button>Connect</button>
+	<script type="text/javascript">
+	  $(document).ready(function() {
+		  
+		  SC.stream("/tracks/69175111", {
+			  autoPlay: true,
+			});
+	  });
 
 	</script>
 </body>

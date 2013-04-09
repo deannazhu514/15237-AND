@@ -3,6 +3,23 @@
   <head>
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script>
+		console.log("hehe");
+		// initialize client with app credentials
+		SC.initialize({
+		  client_id: 'dizzypiggy',
+		  redirect_uri: 'www.google.com'
+		});
+
+		// initiate auth popup
+		SC.connect(function() {
+		  SC.get('/me', function(me) { 
+			alert('Hello, ' + me.username); 
+		  });
+		});
+	</script>
   </head>
   <body>
 
@@ -24,7 +41,5 @@
 			<a href="sliders.html" id="platform"> Guest </a>
 	</div> 
  
-
-	<script src="jquery.js"></script>
 	</body>
 </html>

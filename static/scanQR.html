@@ -57,7 +57,6 @@
 
 			var localMediaStream = null;
 			
-			
 			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 			window.URL = window.URL || window.webkitURL;
 			navigator.getUserMedia({video:true}, function (stream) {
@@ -68,6 +67,11 @@
 			function snapshot() {
 				if (localMediaStream) {
 					ctx.drawImage(video, 0, 0, 320, 240);
+					var snappic = convertCanvasToImage(canvas);
+					//var win = window.open();
+					//$(win.document.body).html(Canvas2Image.saveAsPNG(canvas, false));
+					//exportAndView();
+					
 				}
 			}
 			
@@ -76,6 +80,16 @@
 					console.log("hehe");
 				}
 			}
+			
+			function convertCanvasToImage(canvas) {
+				var str = canvas.toDataURL("image/png");
+				var image = document.createElement("img");
+				image.src = str;
+				var savestr = str.replace("image/png", "image/octet-stream");
+				document.location.href = savestr;
+				return image;
+			}
+			
 		</script>
 		
 	</body>

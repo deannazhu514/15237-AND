@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Controls Demo</title>
+    
+    <link href="./css/screen.css" rel="stylesheet" type="text/css">
+    <script src="./js/lib/jquery.js"></script>
+    <script src="./js/faderkit.js"></script>
+
+</head>
+<body>
+
+	<script src="//connect.soundcloud.com/sdk.js"></script>
+	<script>
+	  SC.initialize({
+		client_id: "9268390212aced64095b7087e66d5d7a"
+	  });
+
+	  SC.stream("/tracks/293", {
+		  autoPlay: true,
+		  ontimedcomments: function(comments){
+			console.log(comments[0].body);
+		  }
+		});
+	</script>
+</body>
+</html>

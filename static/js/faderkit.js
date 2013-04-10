@@ -4,14 +4,11 @@ var myTemplate = [
         "type" : "slider",
         "orientation" : "vertical",
         "showValue" : true
-<<<<<<< HEAD
-=======
     },
     {
         "type" : "slider",
         "orientation" : "horizontal",
         "showValue" : false
->>>>>>> refined controls
     }
 ];
 

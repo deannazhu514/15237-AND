@@ -1,18 +1,19 @@
+var currentSound;	
 var myTemplate = [
     {
         "type" : "slider",
         "orientation" : "vertical",
         "showValue" : true
-    },
-    {
-        "type" : "slider",
-        "orientation" : "vertical",
-        "showValue" : false
     }
 ];
 
 $(document).ready(function(){
     makePalette(myTemplate);
+	SC.stream("/tracks/69175111", function(sound){
+			currentSound = sound;
+			sound.play();
+	});
+
 });
 
 function makePalette(template) {
@@ -34,6 +35,11 @@ function makeControl(type, orientation, value) {
 
     $(control).mousemove(function(){
         $(value).html($(control).val())
+		if (currentSound != null) {
+			if (type === "slider") {
+				currentSound.setVolume($(control).val());
+			}
+		}
     });
     
     var $dragging = null;

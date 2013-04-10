@@ -41,6 +41,7 @@
 			<button onclick="snapshot()">Take Picture</button>
 			<button onclick="scan()">Scan Code</button>
 			<a href="home.html" id="platform">Go Back </a>
+      <input type="file" accept="image/*;capture=camera">
 			
 		</div>
 		
@@ -52,6 +53,7 @@
       var ctx = canvas.getContext('2d');
 			var localMediaStream = null;
       var savestr = "";
+      
 
 			var onCameraFail = function (e) {
 				console.log('Camera failed.', e);
@@ -70,7 +72,7 @@
 			function snapshot() {
 				if (localMediaStream) {
 					ctx.drawImage(video, 0, 0, 320, 240);
-					var snappic = convertCanvasToImage(canvas);
+					//var snappic = convertCanvasToImage(canvas);
 					//var win = window.open();
 					//$(win.document.body).html(Canvas2Image.saveAsPNG(canvas, false));
 					//exportAndView();

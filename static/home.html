@@ -4,22 +4,7 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
-	<script src="http://connect.soundcloud.com/sdk.js"></script>
-	<script>
-		console.log("hehe");
-		// initialize client with app credentials
-		SC.initialize({
-		  client_id: 'dizzypiggy',
-		  redirect_uri: 'www.google.com'
-		});
 
-		// initiate auth popup
-		SC.connect(function() {
-		  SC.get('/me', function(me) { 
-			alert('Hello, ' + me.username); 
-		  });
-		});
-	</script>
   </head>
   <body>
 
@@ -40,16 +25,36 @@
 			<a href="loggedin.html" id="platform"> Log In </a>
 			<a href="scanQR.html" id="platform"> Scan QR Code </a>
 			<a href="sliders.html" id="platform"> Guest </a> -->
-      <div class="button" id = "login"> Log In </div>
-      <div class="button" id = "scan"> Scan QR Code </div>
-      <div class="button" id = "guest"> Guest </div>
+      <div class="button" id = "loginbut"> Log In </div>
+      <div class="button" id = "scanbut"> Scan QR Code </div>
+      <div class="button" id = "guestbut"> Guest </div>
 	</div> 
   <script>
-    var logbutton = $("login");
-    logbutton.click(function() {
-    
+    $("#loginbut").click(function() {
+      location.href = "loggedin.html";
+    });
+    $("#scanbut").click(function() {
+      location.href = "scanQR.html";
+    });
+    $("#guestbut").click(function() {
+      location.href = "sliders.html";
     });
   </script>
- 
+ <!--<script src="http://connect.soundcloud.com/sdk.js"></script>-->
+<!--<script>
+// initialize client with app credentials
+SC.initialize({
+  client_id: '3d503a64aaf395aac54de428f7808b82',
+  redirect_uri: 'http://google.com'
+});
+
+// initiate auth popup
+SC.connect(function() {
+  SC.get('/me', function(me) { 
+    alert('Hello, ' + me.username); 
+  });
+});
+console.log('hi');
+</script> -->
 	</body>
 </html>

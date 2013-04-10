@@ -56,8 +56,8 @@ function makeControl(type, orientation, value) {
     $("body").mousemove(function(event) {
         if ($dragging) {
             $dragging.offset({
-                top:  Math.floor(event.pageY / 40) * 40,
-                left: Math.floor(event.pageX / 40) * 40
+                top:  Math.floor(event.pageY / 58) * 58,
+                left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
             });
         }
     });

@@ -9,6 +9,23 @@ body {
        -moz-user-select: none;
 }
 
+input[type=button] {
+    background: none;
+    cursor: pointer;
+    padding: .5em;
+    border: 1pt solid rgba(255,0,0,.75);
+    color: rgba(255,0,0,.75);
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    
+    &:hover {
+        background: red;
+        border-color: red;
+        color: #333;
+    }
+}
+
 .palette {
     padding-bottom: 0;   
     position: relative; 

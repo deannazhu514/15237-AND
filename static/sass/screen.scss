@@ -10,31 +10,59 @@ body {
 }
 
 .palette {
-    padding: 4em;
-    padding-bottom: 0;
-    
-    &:active, &:hover {
-        cursor: move;
-    }
-}
-
-.slider {
-    -webkit-appearance: none;
-    // background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.51, #d1d1d1), color-stop(1, #a1a1a1) );
-    border: 1pt solid white;
-    background: none;
-    height: 2em;
+    padding-bottom: 0;   
+    position: relative; 
     width: 25%;
     
-    &::-webkit-slider-thumb {
-        -webkit-appearance:none;
-        background: white;
-        height: 2em;
-        width: 2em;
+    .move {
+        background: none;
+        border: none;
+        color: red;
+        font-size: 2em;
+        padding: 0;
+    
+        &:active, &:hover {
+            cursor: move;
+        }
     }
     
-    &.vertical {
-        -webkit-transform: rotate(90deg);
-        // -webkit-appearance: slider-vertical;
+    .value {
+        font-size: 2em;
+        display: block;
+        margin: .5em 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .slider {
+        -webkit-appearance: none;
+        // background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.51, #d1d1d1), color-stop(1, #a1a1a1) );
+        border: 1pt solid rgba(255,0,0,.75);
+        background: none;
+        height: 4em;
+        width: 100%;
+        
+        &:hover {
+            border: 1pt solid rgba(255,0,0,1);
+            background: rgba(255,0,0,.25);
+        }
+    
+        &::-webkit-slider-thumb {
+            -webkit-appearance:none;
+            background: red;
+            height: 4em;
+            width: 2em;
+            cursor: pointer;
+            opacity: .75;
+            
+            &:hover {
+                opacity: 1;
+            }            
+        }
+    
+        &.vertical {
+            -webkit-transform: rotate(-90deg);
+            // -webkit-appearance: slider-vertical;
+        }
     }
 }

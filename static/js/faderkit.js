@@ -2,7 +2,7 @@ var currentSound;
 var myTemplate = [
     {
         "type" : "slider",
-        "orientation" : "vertical",
+        "orientation" : "horizontal",
         "showValue" : true
     },
     {
@@ -14,7 +14,14 @@ var myTemplate = [
 
 $(document).ready(function(){
     makePalette(myTemplate);
+<<<<<<< HEAD
 
+=======
+	SC.stream("/tracks/69175111", function(sound){
+			currentSound = sound;
+			sound.play();
+	});
+>>>>>>> prettified things
 });
 
 function makePalette(template) {
@@ -31,8 +38,13 @@ function makeControl(type, orientation, value) {
             type:  "range",
             class: type + " " + orientation,
         }),
-        value   = (value) ? $("<span>").html($(control).val())
-                          : null;
+        value   = (value) ? $("<span class='value'>").html($(control).val())
+                          : null,
+        handle  = $("<input>").attr({
+            type:  "button",
+            value: "=",
+            class: "move"
+        });
 
     $(control).mousemove(function(){
         $(value).html($(control).val())
@@ -54,9 +66,9 @@ function makeControl(type, orientation, value) {
         }
     });
     
-    $(".palette").mousedown(function(event){
+    $(handle).mousedown(function(event){
         console.log("boop")
-        $dragging = $(this);
+        $dragging = $(this).parents(".palette");
     });
     
     $(document).mouseup(function(event){
@@ -64,6 +76,7 @@ function makeControl(type, orientation, value) {
     });
 
     $("body").append(palette);
+        $(palette).append(handle);
         $(palette).append(control);
         $(palette).append(value);
 }

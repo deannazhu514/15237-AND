@@ -14,14 +14,10 @@ var myTemplate = [
 
 $(document).ready(function(){
     makePalette(myTemplate);
-<<<<<<< HEAD
-
-=======
 	SC.stream("/tracks/69175111", function(sound){
 			currentSound = sound;
 			sound.play();
 	});
->>>>>>> prettified things
 });
 
 function makePalette(template) {

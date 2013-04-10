@@ -1,3 +1,4 @@
+@import url(style.css);
 /* line 17, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -71,24 +72,24 @@ body {
   font-size: 10pt;
 }
 
-/* line 5, ../sass/screen.scss */
+/* line 6, ../sass/screen.scss */
 body {
   background: #333;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
 
-/* line 11, ../sass/screen.scss */
+/* line 12, ../sass/screen.scss */
 .palette {
   padding: 4em;
   padding-bottom: 0;
 }
-/* line 15, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 .palette:active, .palette:hover {
   cursor: move;
 }
 
-/* line 20, ../sass/screen.scss */
+/* line 21, ../sass/screen.scss */
 .slider {
   -webkit-appearance: none;
   border: 1pt solid white;
@@ -96,14 +97,14 @@ body {
   height: 2em;
   width: 25%;
 }
-/* line 28, ../sass/screen.scss */
+/* line 29, ../sass/screen.scss */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
   height: 2em;
   width: 2em;
 }
-/* line 35, ../sass/screen.scss */
+/* line 36, ../sass/screen.scss */
 .slider.vertical {
   -webkit-transform: rotate(90deg);
 }

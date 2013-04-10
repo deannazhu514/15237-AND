@@ -4,6 +4,14 @@ var myTemplate = [
         "type" : "slider",
         "orientation" : "vertical",
         "showValue" : true
+<<<<<<< HEAD
+=======
+    },
+    {
+        "type" : "slider",
+        "orientation" : "horizontal",
+        "showValue" : false
+>>>>>>> refined controls
     }
 ];
 
@@ -28,7 +36,7 @@ function makeControl(type, orientation, value) {
     var palette = $("<section>").addClass("palette"),
         control = $("<input>").attr({
             type:  "range",
-            class: type,
+            class: type + " " + orientation,
         }),
         value   = (value) ? $("<span>").html($(control).val())
                           : null;
@@ -53,11 +61,12 @@ function makeControl(type, orientation, value) {
         }
     });
     
-    $("body").mousedown(function(event){
-        $dragging = $(event.target);
+    $(".palette").mousedown(function(event){
+        console.log("boop")
+        $dragging = $(this);
     });
     
-    $("body").mouseup(function(event){
+    $(document).mouseup(function(event){
         $dragging = null;
     });
 

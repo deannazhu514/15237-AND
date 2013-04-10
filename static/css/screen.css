@@ -80,11 +80,11 @@ body {
 
 /* line 11, ../sass/screen.scss */
 .palette {
-  padding: 2em;
+  padding: 4em;
   padding-bottom: 0;
 }
 /* line 15, ../sass/screen.scss */
-.palette:active {
+.palette:active, .palette:hover {
   cursor: move;
 }
 
@@ -94,11 +94,16 @@ body {
   border: 1pt solid white;
   background: none;
   height: 2em;
+  width: 25%;
 }
-/* line 27, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
   height: 2em;
   width: 2em;
+}
+/* line 35, ../sass/screen.scss */
+.slider.vertical {
+  -webkit-transform: rotate(90deg);
 }

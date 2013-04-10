@@ -9,10 +9,10 @@ body {
 }
 
 .palette {
-    padding: 2em;
+    padding: 4em;
     padding-bottom: 0;
     
-    &:active {
+    &:active, &:hover {
         cursor: move;
     }
 }
@@ -23,11 +23,17 @@ body {
     border: 1pt solid white;
     background: none;
     height: 2em;
+    width: 25%;
     
     &::-webkit-slider-thumb {
         -webkit-appearance:none;
         background: white;
         height: 2em;
         width: 2em;
+    }
+    
+    &.vertical {
+        -webkit-transform: rotate(90deg);
+        // -webkit-appearance: slider-vertical;
     }
 }

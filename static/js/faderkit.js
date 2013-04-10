@@ -14,10 +14,6 @@ var myTemplate = [
 
 $(document).ready(function(){
     makePalette(myTemplate);
-	SC.stream("/tracks/69175111", function(sound){
-			currentSound = sound;
-			sound.play();
-	});
 
 });
 
@@ -41,7 +37,7 @@ function makeControl(type, orientation, value) {
     $(control).mousemove(function(){
         $(value).html($(control).val())
 		if (currentSound != null) {
-			if (type === "slider") {
+			if (type === "slider" && orientation == "vertical") {
 				currentSound.setVolume($(control).val());
 			}
 		}

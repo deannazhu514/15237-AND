@@ -16,7 +16,7 @@
 			  redirect_uri: 'http://localhost:8080/SCdemo.html'
 		  });
 
-		  $('button').click(function(){
+		  $('#connect').click(function(){
 			  SC.connect(function() {
 				  SC.get('/me', function(data) {
 					  $('#name').text(data.username);
@@ -24,6 +24,13 @@
 			  });
 			  
 		  });
+		   
+		   $('#play').click(function(){
+			  currentSound.togglePause();		  
+		  });
+		  /* $('#pause').click(function(){
+			  currentSound.pause();		  
+		  });*/
 		  
 	  });
 
@@ -32,18 +39,18 @@
 <body>
 	<span> Click slider to change the volume, click connect to log in to SoundCloud</span>
 	<br>
-	<button>Connect</button>
+	<button id = "connect">Connect</button>
+	<button id = "play">Play/Pause</button>
 	<script type="text/javascript">
 	
-	/*
 
-	  $(document).ready(function() {
+		//YEAH LOTR MEDLEY WHEEEEEEE~
+	$(document).ready(function() {
 		    
-	  SC.stream("/tracks/69175111", function(sound){
-				currentSound = sound;
-				sound.play();
-			});
-	  });*/
+		SC.stream("/tracks/69175111", function(sound){
+			currentSound = sound;
+		});
+	});
 
 	</script>
 </body>

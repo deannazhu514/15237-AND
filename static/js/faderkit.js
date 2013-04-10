@@ -56,14 +56,13 @@ function makeControl(type, orientation, value) {
     $("body").mousemove(function(event) {
         if ($dragging) {
             $dragging.offset({
-                top:  event.pageY,
-                left: event.pageX
+                top:  Math.floor(event.pageY / 40) * 40,
+                left: Math.floor(event.pageX / 40) * 40
             });
         }
     });
     
     $(handle).mousedown(function(event){
-        console.log("boop")
         $dragging = $(this).parents(".palette");
     });
     

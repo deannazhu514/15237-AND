@@ -1,40 +1,14 @@
-<!doctype html public>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>SoundCloud Demo</title>
-    
     <link href="./css/screen.css" rel="stylesheet" type="text/css">
     <script src="./js/lib/jquery.js"></script>
     <script src="./js/faderkit.js"></script>
-	<script src="//connect.soundcloud.com/sdk.js"></script>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script src="./js/scConnect"></script>
 	<script>
-
-	  $(document).ready(function() {
-		  SC.initialize({
-			  client_id: '3d503a64aaf395aac54de428f7808b82',
-			  redirect_uri: 'http://localhost:8080/SCdemo.html'
-		  });
-		  
-		  SC.stream("/tracks/69175111", function(sound){
-			currentSound = sound;
-			});
-
-		  $('#connect').click(function(){
-			  SC.connect(function() {
-				  SC.get('/me', function(data) {
-					  $('#name').text(data.username);
-				  });
-			  });
-			  
-		  });
-		   
-		   $('#play').click(function(){
-			  currentSound.togglePause();		  
-		  });
-		  
-	  });
-
 	</script>
 </head>
 <body>

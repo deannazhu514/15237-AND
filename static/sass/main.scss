@@ -7,11 +7,19 @@
 
 $default: rgba(255,0,0,.75);
 $active:  rgba(255,0,0,1);
+$background: #333;
+
+// GRID
+
+$col: 25%;
+$gutter: 1.625%;
 
 body {
     background: #333;
     -webkit-user-select: none;
        -moz-user-select: none;
+       
+   margin: $gutter;
 }
 
 input[type=button] {
@@ -28,67 +36,5 @@ input[type=button] {
         background: red;
         border-color: red;
         color: #333;
-    }
-}
-
-.track {
-    width: 25%;
-}
-
-.palette {
-    padding-bottom: 0;   
-    position: relative; 
-    width: 100%;
-    
-    .move {
-        background: none;
-        border: none;
-        color: red;
-        font-size: 2em;
-        padding: 0;
-    
-        &:active, &:hover {
-            cursor: move;
-        }
-    }
-    
-    .value {
-        font-size: 2em;
-        display: block;
-        margin: .5em 0;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .slider {
-        -webkit-appearance: none;
-        // background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.51, #d1d1d1), color-stop(1, #a1a1a1) );
-        border: 1pt solid $default;
-        background: none;
-        height: 4em;
-        width: 100%;
-        
-        &:hover {
-            border: 1pt solid $active;
-            background: rgba(255,0,0,.25);
-        }
-    
-        &::-webkit-slider-thumb {
-            -webkit-appearance:none;
-            background: red;
-            height: 4em;
-            width: 2em;
-            cursor: pointer;
-            opacity: .75;
-            
-            &:hover {
-                opacity: 1;
-            }            
-        }
-    
-        &.vertical {
-            -webkit-transform: rotate(-90deg);
-            // -webkit-appearance: slider-vertical;
-        }
     }
 }

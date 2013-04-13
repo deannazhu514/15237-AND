@@ -72,14 +72,15 @@ body {
   font-size: 10pt;
 }
 
-/* line 11, ../sass/main.scss */
+/* line 17, ../sass/main.scss */
 body {
   background: #333;
   -webkit-user-select: none;
   -moz-user-select: none;
+  margin: 1.625%;
 }
 
-/* line 17, ../sass/main.scss */
+/* line 25, ../sass/main.scss */
 input[type=button] {
   background: none;
   cursor: pointer;
@@ -90,37 +91,50 @@ input[type=button] {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 27, ../sass/main.scss */
+/* line 35, ../sass/main.scss */
 input[type=button]:hover {
   background: red;
   border-color: red;
   color: #333;
 }
 
-/* line 34, ../sass/main.scss */
+/* line 1, ../sass/track.scss */
 .track {
-  width: 25%;
+  width: 50%;
+  padding: 1.625%;
+  margin: 1.625% 0 0 1.625%;
+  border: 2pt rgba(255, 0, 0, 0.75) solid;
+  box-sizing: border-box;
+}
+/* line 8, ../sass/track.scss */
+.track:nth-of-type(1) {
+  margin-left: 0;
 }
 
-/* line 38, ../sass/main.scss */
+/* line 13, ../sass/track.scss */
 .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 43, ../sass/main.scss */
+/* line 18, ../sass/track.scss */
 .palette .move {
   background: none;
   border: none;
   color: red;
-  font-size: 2em;
+  width: 2em;
+  height: .5em;
+  display: block;
+  margin: .5em;
+  border-top: 2pt solid rgba(255, 0, 0, 0.75);
+  border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 50, ../sass/main.scss */
+/* line 30, ../sass/track.scss */
 .palette .move:active, .palette .move:hover {
-  cursor: move;
+  background: none;
 }
-/* line 55, ../sass/main.scss */
+/* line 35, ../sass/track.scss */
 .palette .value {
   font-size: 2em;
   display: block;
@@ -128,33 +142,35 @@ input[type=button]:hover {
   width: 100%;
   text-align: center;
 }
-/* line 63, ../sass/main.scss */
+/* line 43, ../sass/track.scss */
 .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
   background: none;
   height: 4em;
   width: 100%;
+  overflow: hidden;
 }
-/* line 71, ../sass/main.scss */
+/* line 52, ../sass/track.scss */
 .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 76, ../sass/main.scss */
+/* line 57, ../sass/track.scss */
 .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
   height: 4em;
-  width: 2em;
+  width: 10%;
   cursor: pointer;
   opacity: .75;
+  padding-left: 100%;
 }
-/* line 84, ../sass/main.scss */
+/* line 66, ../sass/track.scss */
 .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 89, ../sass/main.scss */
+/* line 71, ../sass/track.scss */
 .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }
@@ -163,11 +179,10 @@ input[type=button]:hover {
 .turntable {
   height: 20em;
   width: 20em;
-  border: rgba(255, 0, 0, 0.75) 1px solid;
   border-radius: 20em;
   position: relative;
 }
-/* line 8, ../sass/turntable.scss */
+/* line 7, ../sass/turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -176,7 +191,7 @@ input[type=button]:hover {
   left: 12.5%;
   position: absolute;
 }
-/* line 17, ../sass/turntable.scss */
+/* line 16, ../sass/turntable.scss */
 .turntable .scrubber {
   background: rgba(255, 0, 0, 0.75);
   height: 100%;

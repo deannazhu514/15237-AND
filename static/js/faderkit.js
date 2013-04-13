@@ -67,7 +67,7 @@ function makeControl(type, orientation, value) {
                           : null,
         handle  = $("<input>").attr({
             type:  "button",
-            value: "=",
+            value: " ",
             class: "move"
         });
 

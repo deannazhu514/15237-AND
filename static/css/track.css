@@ -1,0 +1,6 @@
+/* line 1, ../sass/track.scss */
+.track {
+  height: 100%;
+  width: 100%;
+  border: red 1px solid;
+}

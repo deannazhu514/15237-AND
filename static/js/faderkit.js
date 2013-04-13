@@ -1,6 +1,13 @@
 var currentSound;	
 var myTemplate = [
     {
+        "type" : "turntable",
+        "artist" : "asdfasfd",
+        "song" : "asdfasdf",
+        "art" : "http://placekitten.com/500",
+        "duration" : 120
+    },
+    {
         "type" : "slider",
         "orientation" : "horizontal",
         "showValue" : true
@@ -17,19 +24,45 @@ $(document).ready(function(){
 });
 
 function makePalette(template) {
+    // Container for all controls and information for a single track
+    var track = $("<section>").addClass("track");
     for (var i = 0; i < template.length; i++) {
-        makeControl(template[i].type,
-                    template[i].orientation,
-                    template[i].showValue);
+        var element;
+        if (template[i].type === "turntable") {
+            element = makeTurntable(template[i].artist,
+                                    template[i].song,
+                                    template[i].art,
+                                    template[i].duration);
+        } else {
+            element = makeControl(template[i].type,
+                                  template[i].orientation,
+                                  template[i].showValue);
+        }
+        
+        track.append(element);
     }
+    $("body").append(track);
+}
+
+function makeTurntable(artist, song, artSrc, duration) {
+    var turntable = $("<div>").addClass("turntable"),
+        scrubber  = $("<div>").addClass("scrubber"),
+        art       = $("<img>").attr({
+            src:   artSrc,
+            class: "art"
+        })    
+    $(turntable).append(scrubber);
+    $(turntable).append(art);
+    return $(turntable);
 }
 
 function makeControl(type, orientation, value) {
     var palette = $("<section>").addClass("palette"),
+        inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
-            type:  "range",
-            class: type + " " + orientation,
-        }),
+                      type:  inputType,
+                      class: type + " " + orientation,
+                  }),
         value   = (value) ? $("<span class='value'>").html($(control).val())
                           : null,
         handle  = $("<input>").attr({
@@ -66,8 +99,9 @@ function makeControl(type, orientation, value) {
         $dragging = null;
     });
 
-    $("body").append(palette);
-        $(palette).append(handle);
-        $(palette).append(control);
-        $(palette).append(value);
+    $(palette).append(handle);
+    $(palette).append(control);
+    $(palette).append(value);
+    
+    return $(palette);
 }

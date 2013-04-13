@@ -1,0 +1,24 @@
+.turntable {
+    height: 20em;
+    width: 20em;
+    border: $default 1px solid;
+    border-radius: 20em;
+    position: relative;
+    
+    img.art {
+        height: 75%;
+        width: 75%;
+        border-radius: 100em;
+        top: 12.5%;
+        left: 12.5%;
+        position: absolute;
+    }
+    
+    .scrubber {
+        background: $default;
+        height: 100%;
+        width: 100%;
+        border-radius: 100em;
+        position: absolute;
+    }
+}

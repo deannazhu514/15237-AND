@@ -158,29 +158,3 @@ input[type=button]:hover {
 .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }
-
-/* line 1, ../sass/turntable.scss */
-.turntable {
-  height: 20em;
-  width: 20em;
-  border: rgba(255, 0, 0, 0.75) 1px solid;
-  border-radius: 20em;
-  position: relative;
-}
-/* line 8, ../sass/turntable.scss */
-.turntable img.art {
-  height: 75%;
-  width: 75%;
-  border-radius: 100em;
-  top: 12.5%;
-  left: 12.5%;
-  position: absolute;
-}
-/* line 17, ../sass/turntable.scss */
-.turntable .scrubber {
-  background: rgba(255, 0, 0, 0.75);
-  height: 100%;
-  width: 100%;
-  border-radius: 100em;
-  position: absolute;
-}

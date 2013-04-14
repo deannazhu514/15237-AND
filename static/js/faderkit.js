@@ -1,4 +1,3 @@
-var currentSound;	
 var myTemplate = [
     {
         "type" : "slider",

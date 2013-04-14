@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link href="css/screen.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+	<script src="./js/sc.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.js"></script>
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script>
+
+	  $(document).ready(function() {
+		  connect();
+		  
+		  $('#loginbut').click(function(){
+			 SC.connect(function() {
+			  SC.get('/me', function(me) { 
+			  
+				console.log(me);
+				document.getElementById("loginbut").value = "Continue"; //FIX thisss?
+			  });
+			});
+			  
+		  });
+	  });
+
+	</script>
+  </head>
+  <body>
+
+	<div id="title">
+		<h1>Spectrum</h1>
+	</div>
+
+	<div id = "content">
+			<div class = "field">
+				<label id="login">Username</label>
+				<input id="login-input" name="login" type="text" placeholder="Enter username"/>
+			</div>
+			<div class = "field">
+				<label id="pw">Password</label>
+				<input id="pw-input" name="pw" type="text" placeholder="Enter password"/>
+			</div>
+   
+      <div class="button" id = "loginbut"> Log In via SoundCloud </div>
+      <div class="button" id = "scanbut"> Scan QR Code </div>
+      <div class="button" id = "guestbut"> Guest </div>
+	</div> 
+	
+	<script>  	  
+		/* $("#loginbut").click(function() {
+		  location.href = "loggedin.html";
+		}); */
+		$("#scanbut").click(function() {
+		  location.href = "scanQR.html";
+		});
+		$("#guestbut").click(function() {
+		  location.href = "sliders.html";
+		});
+	  </script>
+
+	</body>
+</html>

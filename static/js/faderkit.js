@@ -1,46 +1,90 @@
-var myTemplate = [
-    {
-        "type" : "slider",
-        "orientation" : "horizontal",
-        "showValue" : true
-    },
-    {
-        "type" : "slider",
-        "orientation" : "horizontal",
-        "showValue" : false
-    }
-];
+var currentSound;	
+var myTemplate = {
+    "artist" : "artist name",
+    "song" : "song title",
+    "ui" :  [
+        {
+            "type" : "turntable",
+            "artist" : "asdfasfd",
+            "song" : "asdfasdf",
+            "art" : "http://placekitten.com/500",
+            "duration" : 120
+        },
+        {
+            "type" : "slider",
+            "orientation" : "horizontal",
+            "showValue" : true
+        },
+        {
+            "type" : "slider",
+			"name" : "vol",
+            "orientation" : "horizontal",
+            "showValue" : true
+        }
+    ]
+}
 
 $(document).ready(function(){
     makePalette(myTemplate);
 });
 
 function makePalette(template) {
-    for (var i = 0; i < template.length; i++) {
-        makeControl(template[i].type,
-                    template[i].orientation,
-                    template[i].showValue);
+    // Container for all controls and information for a single track
+    var track  = $("<section>").addClass("track"),
+        header = $("<header>"),
+        title  = $("<h1>").html(template.song),
+        artist = $("<author>").html(template.artist);
+    
+    $(header).append(title, artist);
+    $(track).append(header);
+
+    for (var i = 0; i < template.ui.length; i++) {
+        var element;
+        if (template.ui[i].type === "turntable") {
+            element = makeTurntable(template.ui[i].art,
+                                    template.ui[i].duration);
+        } else {
+            element = makeControl(template.ui[i].type,
+                                  template.ui[i].orientation,
+                                  template.ui[i].showValue);
+        }
+        
+        track.append(element);
     }
+    $("body").append(track);
+}
+
+function makeTurntable(artSrc, duration) {
+    var turntable = $("<div>").addClass("turntable"),
+        scrubber  = $("<div>").addClass("scrubber"),
+        art       = $("<img>").attr({
+            src:   artSrc,
+            class: "art"
+        });
+    $(turntable).append(scrubber);
+    $(turntable).append(art);
+    return $(turntable);
 }
 
 function makeControl(type, orientation, value) {
     var palette = $("<section>").addClass("palette"),
+        inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
-            type:  "range",
-            class: type + " " + orientation,
-        }),
+                      type:  inputType,
+                      class: type + " " + orientation,
+                  }),
         value   = (value) ? $("<span class='value'>").html($(control).val())
                           : null,
         handle  = $("<input>").attr({
             type:  "button",
-            value: "=",
+            value: " ",
             class: "move"
         });
 
     $(control).mousemove(function(){
         $(value).html($(control).val())
 		if (currentSound != null) {
-			if (type === "slider" && orientation == "horizontal") {
+			if (name == "vol") {
 				currentSound.setVolume($(control).val());
 			}
 		}
@@ -65,8 +109,9 @@ function makeControl(type, orientation, value) {
         $dragging = null;
     });
 
-    $("body").append(palette);
-        $(palette).append(handle);
-        $(palette).append(control);
-        $(palette).append(value);
+    $(palette).append(handle);
+    $(palette).append(control);
+    $(palette).append(value);
+    
+    return $(palette);
 }

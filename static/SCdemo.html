@@ -18,11 +18,13 @@
 			
 		});
 		
-		 SC.get('/playlists/1234323', function(playlist) {
-		  for (var i = 0; i < playlist.tracks.length; i++) {
-			console.log(playlist.tracks[i].length);
+		 /*SC.get('/playlists/1234323', function(playlist) {
+		 if (playlist.tracks != null) {
+			  for (var i = 0; i < playlist.tracks.length; i++) {
+				console.log(playlist.tracks[i].length);
+			  }
 		  }
-		});
+		});*/
 		  
 		SC.stream("/tracks/69175111", function(sound){
 			currentSound = sound;

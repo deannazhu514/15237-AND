@@ -1,0 +1,40 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "type.scss";
+@import "style.css";
+
+// COLORS
+
+$default: rgba(255,0,0,.75);
+$active:  rgba(255,0,0,1);
+$background: #333;
+
+// GRID
+
+$col: 25%;
+$gutter: 1.625%;
+
+body {
+    background: #333;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+       
+   margin: $gutter;
+}
+
+input[type=button] {
+    background: none;
+    cursor: pointer;
+    padding: .5em;
+    border: 1pt solid $default;
+    color: $default;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    
+    &:hover {
+        background: red;
+        border-color: red;
+        color: #333;
+    }
+}

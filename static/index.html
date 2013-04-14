@@ -9,18 +9,31 @@
 	<script>
 
 	  $(document).ready(function() {
-		  connect();
-		  
-		  $('#loginbut').click(function(){
-			 SC.connect(function() {
-			  SC.get('/me', function(me) { 
-			  
-				console.log(me);
-				document.getElementById("loginbut").value = "Continue"; //FIX thisss?
-			  });
-			});
-			  
+		connect();
+		var loggedin = false;
+
+		$('#loginbut').click(function(){
+			if (!loggedin) {
+				 SC.connect(function() {
+				  SC.get('/me', function(me) { 
+					if (me != null) {
+						loggedin = true;
+						console.log(me);
+						location.href = "loggedin.html";
+					}
+					
+				  });
+				});
+			}		  
 		  });
+		  
+		$("#scanbut").click(function() {
+		  location.href = "scanQR.html";
+		});
+		$("#guestbut").click(function() {
+		  location.href = "sliders.html";
+		});
+	  
 	  });
 
 	</script>
@@ -45,18 +58,6 @@
       <div class="button" id = "scanbut"> Scan QR Code </div>
       <div class="button" id = "guestbut"> Guest </div>
 	</div> 
-	
-	<script>  	  
-		/* $("#loginbut").click(function() {
-		  location.href = "loggedin.html";
-		}); */
-		$("#scanbut").click(function() {
-		  location.href = "scanQR.html";
-		});
-		$("#guestbut").click(function() {
-		  location.href = "sliders.html";
-		});
-	  </script>
 
 	</body>
 </html>

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+    	<script type="text/javascript" src="js/lib/jquery.js"></script>
+    </head>
+    <body>
+	<header id="title">
+		<h1>Spectrum</h1>
+	</header>
+	<div id = "content">
+			<div class = "field">
+				<label id="login">Username</label>
+				<input id="login-input" name="login" type="text" placeholder="Enter username"/>
+			</div>
+			<div class = "field">
+				<label id="pw">Password</label>
+				<input id="pw-input" name="pw" type="text" placeholder="Enter password"/>
+			</div>
+
+            <div class="button" id = "loginbut"> Log In </div>
+            <div class="button" id = "scanbut"> Scan QR Code </div>
+            <div class="button" id = "guestbut"> Guest </div>
+	</div> 
+    <script>
+        $("#loginbut").click(function() {
+            location.href = "loggedin.html";
+        });
+        $("#scanbut").click(function() {
+            location.href = "scanQR.html";
+        });
+        $("#guestbut").click(function() {
+            location.href = "sliders.html";
+        });
+    </script>
+ 
+	</body>
+</html>

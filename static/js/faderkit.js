@@ -35,7 +35,7 @@ function makePalette(template) {
         title  = $("<h1>").html(template.song),
         artist = $("<author>").html(template.artist);
     
-    $(header).append(title, artist);
+    $(header).append(artist, title);
     $(track).append(header);
 
     for (var i = 0; i < template.ui.length; i++) {
@@ -109,9 +109,7 @@ function makeControl(type, orientation, value) {
         $dragging = null;
     });
 
-    $(palette).append(handle);
-    $(palette).append(control);
-    $(palette).append(value);
+    $(palette).append(handle, control, value);
     
     return $(palette);
 }

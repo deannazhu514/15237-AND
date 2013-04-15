@@ -110,15 +110,30 @@ input[type=button]:hover {
 .track:nth-of-type(1) {
   margin-left: 0;
 }
-
+/* line 12, ../sass/track.scss */
+.track header {
+  margin-bottom: 1em;
+}
 /* line 13, ../sass/track.scss */
-.palette {
+.track header h1 {
+  font-size: 2em;
+  color: rgba(255, 0, 0, 0.75);
+  line-height: 1.5em;
+}
+/* line 19, ../sass/track.scss */
+.track header author {
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 1em;
+}
+/* line 28, ../sass/track.scss */
+.track .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 18, ../sass/track.scss */
-.palette .move {
+/* line 33, ../sass/track.scss */
+.track .palette .move {
   background: none;
   border: none;
   color: red;
@@ -130,20 +145,20 @@ input[type=button]:hover {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 30, ../sass/track.scss */
-.palette .move:active, .palette .move:hover {
+/* line 45, ../sass/track.scss */
+.track .palette .move:active, .track .palette .move:hover {
   background: none;
 }
-/* line 35, ../sass/track.scss */
-.palette .value {
+/* line 50, ../sass/track.scss */
+.track .palette .value {
   font-size: 2em;
   display: block;
   margin: 0.5em 0;
   width: 100%;
   text-align: center;
 }
-/* line 43, ../sass/track.scss */
-.palette .slider {
+/* line 58, ../sass/track.scss */
+.track .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
   background: none;
@@ -151,13 +166,13 @@ input[type=button]:hover {
   width: 100%;
   overflow: hidden;
 }
-/* line 52, ../sass/track.scss */
-.palette .slider:hover {
+/* line 67, ../sass/track.scss */
+.track .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 57, ../sass/track.scss */
-.palette .slider::-webkit-slider-thumb {
+/* line 72, ../sass/track.scss */
+.track .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
   height: 4em;
@@ -166,12 +181,12 @@ input[type=button]:hover {
   opacity: .75;
   padding-left: 100%;
 }
-/* line 66, ../sass/track.scss */
-.palette .slider::-webkit-slider-thumb:hover {
+/* line 81, ../sass/track.scss */
+.track .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 71, ../sass/track.scss */
-.palette .slider.vertical {
+/* line 86, ../sass/track.scss */
+.track .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }
 

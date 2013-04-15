@@ -97,3 +97,17 @@ input[type=button]:hover {
   border-color: red;
   color: #333;
 }
+
+/* line 43, ../sass/main.scss */
+header section#add-device {
+  display: none;
+  position: fixed;
+  height: 50%;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+}
+/* line 51, ../sass/main.scss */
+header section#add-device.open {
+  display: block;
+}

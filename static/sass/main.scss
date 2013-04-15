@@ -5,8 +5,8 @@
 
 // COLORS
 
-$default: rgba(255,0,0,.75);
-$active:  rgba(255,0,0,1);
+$default:    rgba(255,0,0,.75);
+$active:     rgba(255,0,0,1);
 $background: #333;
 
 // GRID
@@ -37,4 +37,19 @@ input[type=button] {
         border-color: red;
         color: #333;
     }
+}
+
+header {
+    section#add-device {
+        display: none;
+        position: fixed;
+        height: 50%;
+        width: 50%;
+        top: 25%;
+        left: 25%;
+        
+        &.open {
+            display: block;
+        }
+    }    
 }

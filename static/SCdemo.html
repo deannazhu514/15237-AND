@@ -33,7 +33,7 @@
 			}
 		});
 		   
-		$('#play').click(function(){
+		$('.turntable').click(function(){
 			if (currentSound) {
 				currentSound.togglePause();	
 			}				
@@ -53,7 +53,6 @@
         </section>
     </header>
 	<div> Click slider to change the volume, click connect to log in to SoundCloud</div>
-	<input type="button" id="play" value="Play/Pause">
 	<script type="text/javascript">
 	$(document).ready(function() {
 		SC.stream("/tracks/69175111", function(sound){

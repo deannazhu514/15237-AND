@@ -1,7 +1,7 @@
 var currentSound;	
 var myTemplate = {
     "artist" : "artist name",
-    "song" : "song title",
+    "song" : "Song Title",
     "ui" :  [
         {
             "type" : "turntable",

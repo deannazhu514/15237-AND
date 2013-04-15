@@ -1,7 +1,12 @@
 $(document).ready(function(){
-    var drag;
-    var turntable = $(".turntable");
-    var height = turntable.height();
+    turntable();
+    openPanel();
+});
+
+function turntable() {
+    var drag,
+        turntable = $(".turntable"),
+        height = turntable.height();
     
     turntable.mousedown(function() {
         drag = true;
@@ -16,7 +21,7 @@ $(document).ready(function(){
         if (drag) {
             var radians = Math.atan2(event.pageX - height,
                                      event.pageY - height);
-            var degree = -(radians * (180 / Math.PI) + 90);
+            var degree = -(radians * (180 / Math.PI));
             turntable.css({
                 "-moz-transform": "rotate(" + degree + "deg)",
                 "-webkit-transform": "rotate(" + degree + "deg)",
@@ -27,7 +32,17 @@ $(document).ready(function(){
         }
     })
     
-    $(".turntable img").mousemove(function(event) {
-        preventDefault;
+    $(".turntable img").mousedown(function(event) {
+        event.preventDefault();
     })
-});
+
+}
+
+function openPanel() {
+    var buttons = $(".panel-button");
+    
+    buttons.click(function(){
+        var id = $(this).id();
+        alert(id)
+    })
+}

@@ -1,5 +1,4 @@
 var currentSound;	
-
 var myTemplate = {
     "artist" : "artist name",
     "song" : "song title",
@@ -25,44 +24,29 @@ var myTemplate = {
     ]
 }
 
-var myTemplate = [
-    {
-        "type" : "turntable",
-        "artist" : "asdfasfd",
-        "song" : "asdfasdf",
-        "art" : "http://placekitten.com/500",
-        "duration" : 120
-    },
-    {
-        "type" : "slider",
-        "orientation" : "horizontal",
-        "showValue" : true
-    },
-    {
-        "type" : "slider",
-        "orientation" : "horizontal",
-        "showValue" : false
-    }
-];
-
 $(document).ready(function(){
     makePalette(myTemplate);
 });
 
 function makePalette(template) {
     // Container for all controls and information for a single track
-    var track = $("<section>").addClass("track");
-    for (var i = 0; i < template.length; i++) {
+    var track  = $("<section>").addClass("track"),
+        header = $("<header>"),
+        title  = $("<h1>").html(template.song),
+        artist = $("<author>").html(template.artist);
+    
+    $(header).append(title, artist);
+    $(track).append(header);
+
+    for (var i = 0; i < template.ui.length; i++) {
         var element;
-        if (template[i].type === "turntable") {
-            element = makeTurntable(template[i].artist,
-                                    template[i].song,
-                                    template[i].art,
-                                    template[i].duration);
+        if (template.ui[i].type === "turntable") {
+            element = makeTurntable(template.ui[i].art,
+                                    template.ui[i].duration);
         } else {
-            element = makeControl(template[i].type,
-                                  template[i].orientation,
-                                  template[i].showValue);
+            element = makeControl(template.ui[i].type,
+                                  template.ui[i].orientation,
+                                  template.ui[i].showValue);
         }
         
         track.append(element);
@@ -70,13 +54,13 @@ function makePalette(template) {
     $("body").append(track);
 }
 
-function makeTurntable(artist, song, artSrc, duration) {
+function makeTurntable(artSrc, duration) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber  = $("<div>").addClass("scrubber"),
         art       = $("<img>").attr({
             src:   artSrc,
             class: "art"
-        })    
+        });
     $(turntable).append(scrubber);
     $(turntable).append(art);
     return $(turntable);

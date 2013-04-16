@@ -13,25 +13,14 @@
 	<script>
 
 	  $(document).ready(function() {
+		var user = 41365598;
+		var playlists;
+		
 		SC.initialize({
-			client_id: '3d503a64aaf395aac54de428f7808b82',
-			
+			client_id: '3d503a64aaf395aac54de428f7808b82',			
 		});
 		
-		 /*SC.get('/playlists/1234323', function(playlist) {
-		 if (playlist.tracks != null) {
-			  for (var i = 0; i < playlist.tracks.length; i++) {
-				console.log(playlist.tracks[i].length);
-			  }
-		  }
-		});*/
-		  
-		SC.stream("/tracks/69175111", function(sound){
-			currentSound = sound;
-			if (currentSound.isHTML5) {
-				console.log("lala");
-			}
-		});
+		getPlaylists(user);
 		   
 		$('.turntable').click(function(){
 			if (currentSound) {
@@ -47,18 +36,24 @@
 </head>
 <body>
     <header>
+		<input type="button" id = "loginbut" class="panel-button" value="SoundCloud Connect" id="settings">
         <input type="button" class="panel-button" value="Settings" id="settings">
         <input type="button" class="panel-button" value="Add a Device" id="add-device">
+		<p id = "loginmsg"> Not logged in yet. </p>
         <section id="add-device">
             <img src="http://placekitten.com/600">
         </section>
     </header>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		SC.stream("/tracks/69175111", function(sound){
-			currentSound = sound;
+		$(document).ready(function() {
+			SC.stream("/tracks/69175111", function(sound){
+				currentSound = sound;
+			});
+			
+			$('#loginbut').click(function(){
+				connect();
+			});
 		});
-	});
 	</script>
 </body>
 </html>

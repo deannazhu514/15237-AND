@@ -6,6 +6,8 @@ var mongo = require('mongodb');
 var staticPort = 8999;
 var mongoPort = 9000;
 
+app.use(express.bodyParser());
+
 /*BEGIN MONGO CODE*/
 /*
 var client = new mongo.Db("users", new mongo.Server('localhost', mongoPort, { w: 1}));
@@ -88,7 +90,8 @@ app.get("/login/:username", function(request, response) {
 
 app.post("/login", function(request, response) {
 	console.log(request.body);
-	var user = request.user;
+	var user = request.body.user;
+	console.log(user);
 	response.send({
 		userID : user,
 		success:true

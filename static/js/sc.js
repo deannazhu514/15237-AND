@@ -11,24 +11,28 @@ function connect(){
 	});
 	
 	 SC.connect(function() {
-		SC.get('/me', function(me) { 
-			
+		SC.get('/me', function(me) { 			
 			if (me != null) {
 				SCuser = me;
-				console.log(me);
 				//send user info to server + session ID
-				$.ajax({
-				  type: "post",
-				  data: {"user": SCuser.id},
-				  url: "/login",
-				  success: function(data) { 
-						
-					}
-				});
-				location.href = "loggedin.html"; 
+				loginUser(me);
 				loggedin = true;
-			}				
+				$("#loginmsg").html("Logged in as "+me.full_name);
+			} else {
+				alert("Couldn't connect to SoundCloud!");
+			}			
 	  });
+	});
+}
+
+function loginUser(userID){
+	$.ajax({
+		type: "post",
+		data: {"user": userID, "date": new Date()},
+		url: "/login",
+		success: function(data) { 
+			console.log(data);
+		}
 	});
 }
 
@@ -39,6 +43,8 @@ function getPlaylists(SCuser){
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					tracks.push(playlist.tracks[i]);
+					console.log(playlist.tracks[i]);
+					
 				}
 				SCplaylists[playlist.id] = tracks;
 			}			
@@ -46,3 +52,5 @@ function getPlaylists(SCuser){
 	 });
 }
 
+function addTrack(){
+}

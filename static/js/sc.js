@@ -98,7 +98,7 @@ function getPlaylists(SCuser){
 						if (sounds[tempid] == undefined) {
 							SC.stream('/tracks/'+this.id, function(sound) {
 								sounds[tempid] = sound;
-								currentSound.play();
+								sound.play();
 								$(ttable).toggleClass("playing");
 							});
 						} else {

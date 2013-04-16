@@ -4,13 +4,12 @@ $(document).ready(function(){
 });
 
 function turntable() {
-    var drag,
-        turntable = $(".turntable"),
-        height = turntable.height();
+    var drag, turntable, height;
     
-    turntable.mousedown(function() {
+    $(".turntable").mousedown(function() {
         drag = true;
-        console.log("hey")
+        turntable = $(this);
+        height = turntable.height();
     })
     
     $(document).mouseup(function() {
@@ -33,6 +32,7 @@ function turntable() {
     })
     
     $(".turntable img").mousedown(function(event) {
+        turntable = $(".turntable"),
         event.preventDefault();
     })
 

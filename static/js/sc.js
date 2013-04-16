@@ -3,7 +3,6 @@ var currentSound;
 var loggedin;
 SCplaylists = {};
 
-
 function connect(){
 	 SC.initialize({
 		client_id: '3d503a64aaf395aac54de428f7808b82',
@@ -18,6 +17,7 @@ function connect(){
 				loginUser(me);
 				loggedin = true;
 				$("#loginmsg").html("Logged in as "+me.full_name);
+				$("#loginbut").remove();
 			} else {
 				alert("Couldn't connect to SoundCloud!");
 			}			

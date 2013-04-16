@@ -11,7 +11,6 @@
     <script src="./js/interaction.js"></script>
 	<script src="//connect.soundcloud.com/sdk.js"></script>
 	<script>
-
 	  $(document).ready(function() {
 		var user = 41365598;
 		var playlists;
@@ -28,18 +27,15 @@
 				$(this).toggleClass("playing");
 			}				
 		});
-		  
-		  
 	});
-
 	</script>
 </head>
 <body>
     <header>
-		<input type="button" id = "loginbut" class="panel-button" value="SoundCloud Connect" id="settings">
-        <input type="button" class="panel-button" value="Settings" id="settings">
+		<input type="button" id ="loginbut" class="panel-button" value="SoundCloud Connect" id="settings">
+        <!-- <input type="button" class="panel-button" value="Settings" id="settings"> -->
         <input type="button" class="panel-button" value="Add a Device" id="add-device">
-		<p id = "loginmsg"> Not logged in yet. </p>
+		<p id="loginmsg"></p>
         <section id="add-device">
             <img src="http://placekitten.com/600">
         </section>

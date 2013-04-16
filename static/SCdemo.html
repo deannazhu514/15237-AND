@@ -13,22 +13,11 @@
 	<script>
 
 	  $(document).ready(function() {
-		var user = 41365598;
-		var playlists;
 		
 		SC.initialize({
 			client_id: '3d503a64aaf395aac54de428f7808b82',			
 		});
 		
-		getPlaylists(user);
-		   
-		$('.turntable').click(function(){
-			if (currentSound) {
-				currentSound.togglePause();	
-				$(this).toggleClass("playing");
-			}				
-		});
-		  
 		  
 	});
 
@@ -45,14 +34,22 @@
         </section>
     </header>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			SC.stream("/tracks/69175111", function(sound){
-				currentSound = sound;
-			});
-			
+		$(document).ready(function() {			
 			$('#loginbut').click(function(){
 				connect();
 			});
+			
+			$('.track').mousedown(function(){
+			console.log("lalal");
+			if (currentSound) {
+				currentSound.togglePause();	
+				$(this).toggleClass("playing");
+			} else {
+				init();
+			}			
+		});
+		  
+
 		});
 	</script>
 </body>

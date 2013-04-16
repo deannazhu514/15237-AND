@@ -1,5 +1,12 @@
-var currentSound;	
-var data = [
+var currentSound;
+var data = [];
+var slider = {
+                "type" : "slider",
+                "orientation" : "horizontal",
+                "showValue" : true
+            };
+
+/*var data = [
     {
         "artist" : "artist name",
         "song" : "Song Title",
@@ -72,7 +79,7 @@ $(document).ready(function(){
     for (var i = 0; i < data.length; i++) {
         makePalette(data[i]);
     }
-});
+});*/
 
 function makePalette(template) {
     // Container for all controls and information for a single track

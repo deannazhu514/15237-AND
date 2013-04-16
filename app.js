@@ -6,6 +6,8 @@ var mongo = require('mongodb');
 var staticPort = 8999;
 var mongoPort = 9000;
 
+var users = {};
+
 app.use(express.bodyParser());
 
 /*BEGIN MONGO CODE*/
@@ -80,22 +82,46 @@ app.get("/static/js/:staticFilename", function (req, res) {
   res.sendfile("static/js/" + req.params.staticFilename);
 });
 
-
-
-
 //implement authentication later
 app.get("/login/:username", function(request, response) {
 	
 });
 
 app.post("/login", function(request, response) {
-	console.log(request.body);
+	//console.log(request.body);
+	var id = request.body.user;
+	if (users[id] == undefined)
+		users[id] = {};
+	response.send({
+		userID : id,
+		success:true
+	});
+});
+
+app.post("/tracks", function(request, response) {
+	//console.log(request.body);
 	var user = request.body.user;
-	console.log(user);
+	var track = request.body.track;
+
+	if (users[user]["playlists"] == undefined) {
+		users[user]["playlists"] = [];
+		users[user]["current"] = track;
+	}
+	
+	users[user]["playlists"].push(track);
+		
 	response.send({
 		userID : user,
 		success:true
 	});  
+});
+
+
+app.get("/current/:id", function(request, response){
+	var id = request.params.id;
+	response.send({
+		current: users[id]["current"]
+	});
 });
 
 app.get("newRoom/:accountName", function(request, response) {

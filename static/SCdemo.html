@@ -33,9 +33,10 @@
 			}
 		});
 		   
-		$('#play').click(function(){
+		$('.turntable').click(function(){
 			if (currentSound) {
 				currentSound.togglePause();	
+				$(this).toggleClass("playing");
 			}				
 		});
 		  
@@ -45,15 +46,13 @@
 	</script>
 </head>
 <body>
-    <!-- <nav>
+    <header>
         <input type="button" class="panel-button" value="Settings" id="settings">
         <input type="button" class="panel-button" value="Add a Device" id="add-device">
-    </nav>
-    <section id="add-device">
-        <img src="http://placekitten.com/600">
-    </section> -->
-	<div> Click slider to change the volume, click connect to log in to SoundCloud</div>
-	<input type="button" id="play" value="Play/Pause">
+        <section id="add-device">
+            <img src="http://placekitten.com/600">
+        </section>
+    </header>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		SC.stream("/tracks/69175111", function(sound){

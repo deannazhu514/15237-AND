@@ -42,7 +42,7 @@ function openPanel() {
     var buttons = $(".panel-button");
     
     buttons.click(function(){
-        var id = $(this).id();
-        alert(id)
+        var id = $(this).attr('id');
+        $("section#" + id).toggleClass("open");
     })
 }

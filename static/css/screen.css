@@ -203,14 +203,43 @@ header section#add-device.open {
   -webkit-transform: rotate(-90deg);
 }
 
-/* line 1, ../sass/turntable.scss */
+@-webkit-keyframes play-spin {
+  /* line 2, ../sass/turntable.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 3, ../sass/turntable.scss */
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  /* line 4, ../sass/turntable.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* line 7, ../sass/turntable.scss */
 .turntable {
   height: 20em;
   width: 20em;
   border-radius: 20em;
   position: relative;
 }
-/* line 7, ../sass/turntable.scss */
+/* line 13, ../sass/turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -219,11 +248,15 @@ header section#add-device.open {
   left: 12.5%;
   position: absolute;
 }
-/* line 16, ../sass/turntable.scss */
+/* line 22, ../sass/turntable.scss */
 .turntable .scrubber {
   background: rgba(255, 0, 0, 0.75);
   height: 100%;
   width: 100%;
   border-radius: 100em;
   position: absolute;
+}
+/* line 32, ../sass/turntable.scss */
+.turntable.playing {
+  -webkit-animation: play-spin 1s infinite;
 }

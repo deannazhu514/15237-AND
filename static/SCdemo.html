@@ -36,6 +36,7 @@
 		$('.turntable').click(function(){
 			if (currentSound) {
 				currentSound.togglePause();	
+				$(this).toggleClass("playing");
 			}				
 		});
 		  
@@ -52,7 +53,6 @@
             <img src="http://placekitten.com/600">
         </section>
     </header>
-	<div> Click slider to change the volume, click connect to log in to SoundCloud</div>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		SC.stream("/tracks/69175111", function(sound){

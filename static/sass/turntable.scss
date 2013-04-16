@@ -1,3 +1,9 @@
+@-webkit-keyframes play-spin {
+    0% { @include rotateZ(0deg)}
+    50% { @include rotateZ(180deg)}
+    100% { @include rotateZ(360deg)}
+}
+
 .turntable {
     height: 20em;
     width: 20em;
@@ -19,5 +25,11 @@
         width: 100%;
         border-radius: 100em;
         position: absolute;
+    }
+    
+    // spin while playing
+    
+    &.playing {
+        -webkit-animation: play-spin 1s infinite;
     }
 }

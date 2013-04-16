@@ -1,7 +1,10 @@
 @-webkit-keyframes play-spin {
     0% { @include rotateZ(0deg)}
-    50% { @include rotateZ(180deg)}
     100% { @include rotateZ(360deg)}
+}
+
+@mixin animation($name, $duration, $iteration-count, $timing-function) {
+    -webkit-animation: $name $duration $iteration-count $timing-function;
 }
 
 .turntable {
@@ -30,6 +33,6 @@
     // spin while playing
     
     &.playing {
-        -webkit-animation: play-spin 2s infinite linear;
+        @include animation(play-spin, 2s, infinite, linear);
     }
 }

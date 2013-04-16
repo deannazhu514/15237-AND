@@ -2,11 +2,9 @@ var currentSound;
 var myTemplate = {
     "artist" : "artist name",
     "song" : "Song Title",
-    "ui" :  [
+    "ui" : [
         {
             "type" : "turntable",
-            "artist" : "asdfasfd",
-            "song" : "asdfasdf",
             "art" : "http://placekitten.com/500",
             "duration" : 120
         },
@@ -90,23 +88,23 @@ function makeControl(type, orientation, value) {
 		}
     });
     
-    var $dragging = null;
+    var drag = null;
+
+    $(handle).mousedown(function(event){
+        drag = $(this).parents(".palette");
+    });
     
-    $("body").mousemove(function(event) {
-        if ($dragging) {
-            $dragging.offset({
+    $(document).mousemove(function(event) {
+        if (drag) {
+            drag.offset({
                 top:  Math.floor(event.pageY / 100) * 100,
                 left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
             });
         }
-    });
-    
-    $(handle).mousedown(function(event){
-        $dragging = $(this).parents(".palette");
-    });
+    });    
     
     $(document).mouseup(function(event){
-        $dragging = null;
+        drag = null;
     });
 
     $(palette).append(handle, control, value);

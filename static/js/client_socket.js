@@ -1,5 +1,5 @@
 
-var socket = io.connect("http://localhost:8888");
+var socket = io.connect("http://localhost:8111");
 
 var auto_sort_flag = true;
 var loop_flag = false;
@@ -23,7 +23,8 @@ socket.on("update", function(audio) {
   //var song = $("#song");
   var song = document.getElementById("song");
   var song_name = $("#song_name");
-  if (song_name !== audio.name) {
+	console.log(song_name.html());
+  if (song_name.html() !== audio.name) {
     //grab the appropriate song from soundcloud
     //create new audio dom obj here
     song = song; //update var
@@ -31,7 +32,6 @@ socket.on("update", function(audio) {
   }
   song.volume = audio.volume;
   song.playbackRate = audio.speed;
-  console.log(song);
   //console.log(song.paused);
   if (audio.play) {
     if (song.paused) {
@@ -46,6 +46,10 @@ socket.on("update", function(audio) {
   if (Math.abs(song.currentTime - audio.time) > 1) {
     song.currentTime = audio.time;
   }
+}); 
+
+socket.on("requestUsername", function() {
+	socket.emit("subscribe", username);
 });
 
 /*

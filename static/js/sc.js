@@ -1,5 +1,6 @@
 var current; //currentSound id
 var currentSound;
+var currentID;
 var loggedin;
 var ready = false;
 var slider = {
@@ -8,7 +9,7 @@ var slider = {
                 "showValue" : true
             };
 
-function connect(){
+function connect(){	
 
 	 SC.initialize({
 		client_id: '3d503a64aaf395aac54de428f7808b82',
@@ -41,14 +42,14 @@ function connect(){
 }
 
 function init() {
-	if (ready){
-		getCurrentSong(localStorage["user"]);
-		current = localStorage["current"];
+	if (true){
+		//getCurrentSong(localStorage["user"]);
+		//current = localStorage["current"];
 				
-		SC.stream('/tracks/'+current, function(sound){
+		SC.stream('/tracks/'+'69175111', function(sound){
 			console.log("playinggg", sound);
 			currentSound = sound;
-			sound.play();
+			currentID = '69175111';
 			if (currentSound.isHTML5) {
 				console.log("lala");
 			}
@@ -61,14 +62,14 @@ function loginUser(userID){
 		type: "post",
 		data: {"user": userID, "date": new Date()},
 		url: "/login",
-		success: function(data) { 
+		success: function(data) {
 			console.log(data);
 			localStorage["current"] = data;
 		}
 	});
 }
 
-function getPlaylists(SCuser, currentSound){
+function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(playlists){	 
 		playlists.forEach(function(playlist){
 			var tracks = [];
@@ -88,7 +89,37 @@ function getPlaylists(SCuser, currentSound){
 					addTrack(SCuser, track2);
 					makePalette(track2);					
 				}
-			}			
+			$('.turntable').click(function(){
+			console.log('hi');
+			if (currentSound) {
+				var tempid = this.id;
+				var ttable = this;
+				if (tempid != currentID) {
+					SC.stream('/tracks/'+this.id, function(sound) {
+						currentSound = sound;
+						currentID = tempid;
+						console.log(currentID);
+						$(ttable).toggleClass("playing");
+						currentSound.togglePause();
+					});
+				} else {
+					currentSound.togglePause();
+					$(this).toggleClass("playing");
+				}
+			}
+		}); /*
+			$('.track').mousedown(function(){
+			console.log("lalal");
+			if (currentSound) {
+				currentSound.togglePause();	
+				console.log('afdsjkf');
+				$(this).toggleClass("playing");
+			} else {
+				console.log('sup');
+				init();
+			} 
+		});*/
+			}
 		});
 	 });
 	 loggedin = true;
@@ -117,3 +148,10 @@ function getCurrentSong(userID){
 		}
 	});
 }
+
+	$(document).ready(function() {
+		SC.stream("/tracks/69175111", function(sound){
+			currentSound = sound;
+		});
+		init();
+	});

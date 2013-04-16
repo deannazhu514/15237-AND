@@ -87,7 +87,7 @@ function makePalette(template) {
         header = $("<header>"),
         title  = $("<h1>").html(template.song),
         artist = $("<author>").html(template.artist);
-    
+    var tid = template.id;
     $(header).append(artist, title);
     $(track).append(header);
 
@@ -95,7 +95,7 @@ function makePalette(template) {
         var element;
         if (template.ui[i].type === "turntable") {
             element = makeTurntable(template.ui[i].art,
-                                    template.ui[i].duration);
+                                    template.ui[i].duration, tid);
         } else {
             element = makeControl(template.ui[i].type,
                                   template.ui[i].orientation,
@@ -107,7 +107,7 @@ function makePalette(template) {
     $("ul#tracks").append(track);
 }
 
-function makeTurntable(artSrc, duration) {
+function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber  = $("<div>").addClass("scrubber"),
         art       = $("<img>").attr({
@@ -116,6 +116,7 @@ function makeTurntable(artSrc, duration) {
         });
     $(turntable).append(scrubber);
     $(turntable).append(art);
+		$(turntable).attr('id',tid);
     return $(turntable);
 }
 

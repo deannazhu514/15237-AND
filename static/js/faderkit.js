@@ -61,12 +61,12 @@ function makeControl(type, orientation, value) {
 
     $(control).mousemove(function(){
         $(value).html($(control).val())
-		console.log(this);
+		console.log(this);/*
 		if (currentSound != null) {
 			if (name == "vol") {
 				currentSound.setVolume($(control).val());
 			}
-		}
+		}*/
     });
     
     var drag = null;

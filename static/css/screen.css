@@ -77,7 +77,7 @@ body {
   background: #333;
   -webkit-user-select: none;
   -moz-user-select: none;
-  margin: 1.625%;
+  margin: 1.5625%;
 }
 
 /* line 16, ../sass/_main.scss */
@@ -163,39 +163,40 @@ header section#add-device.open {
 
 /* line 3, ../sass/_track.scss */
 .track {
-  width: 50%;
-  padding: 1.625%;
-  margin: 1.625% 0 0 1.625%;
+  width: 46.875%;
+  padding: 1.5625%;
+  margin: 1.5625% 0 0 1.5625%;
   border: 2pt rgba(255, 0, 0, 0.75) solid;
   box-sizing: border-box;
+  float: left;
 }
-/* line 10, ../sass/_track.scss */
+/* line 12, ../sass/_track.scss */
 .track:nth-of-type(1) {
   margin-left: 0;
 }
-/* line 14, ../sass/_track.scss */
+/* line 16, ../sass/_track.scss */
 .track header {
   margin-bottom: 1em;
 }
-/* line 15, ../sass/_track.scss */
+/* line 17, ../sass/_track.scss */
 .track header h1 {
   font-size: 2em;
   color: rgba(255, 0, 0, 0.75);
   line-height: 1.5em;
 }
-/* line 21, ../sass/_track.scss */
+/* line 23, ../sass/_track.scss */
 .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 30, ../sass/_track.scss */
+/* line 32, ../sass/_track.scss */
 .track .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 35, ../sass/_track.scss */
+/* line 37, ../sass/_track.scss */
 .track .palette .move {
   background: none;
   border: none;
@@ -208,11 +209,11 @@ header section#add-device.open {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 47, ../sass/_track.scss */
+/* line 49, ../sass/_track.scss */
 .track .palette .move:active, .track .palette .move:hover {
   background: none;
 }
-/* line 52, ../sass/_track.scss */
+/* line 54, ../sass/_track.scss */
 .track .palette .value {
   font-size: 2em;
   display: block;
@@ -220,7 +221,7 @@ header section#add-device.open {
   width: 100%;
   text-align: center;
 }
-/* line 60, ../sass/_track.scss */
+/* line 62, ../sass/_track.scss */
 .track .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
@@ -229,12 +230,12 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 69, ../sass/_track.scss */
+/* line 71, ../sass/_track.scss */
 .track .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 74, ../sass/_track.scss */
+/* line 76, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
@@ -243,11 +244,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 82, ../sass/_track.scss */
+/* line 84, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 87, ../sass/_track.scss */
+/* line 89, ../sass/_track.scss */
 .track .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

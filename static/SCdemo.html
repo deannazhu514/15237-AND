@@ -18,6 +18,7 @@
 		   
 		$('.turntable').click(function(){
 			if (currentSound) {
+				console.log("hi", currentSound);
 				currentSound.togglePause();	
 				$(this).toggleClass("playing");
 			}				
@@ -28,7 +29,7 @@
 <body>
     <header>
 		<input type="button" id ="loginbut" class="panel-button" value="SoundCloud Connect" id="settings">
-        <!-- <input type="button" class="panel-button" value="Settings" id="settings"> -->
+        <input type="button" class="panel-button" value="Settings" id="settings">
         <input type="button" class="panel-button" value="Add a Device" id="add-device">
 		<p id="loginmsg"></p>
         <section id="add-device">
@@ -38,10 +39,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#loginbut').click(function(){
-				console.log('hi');
 				connect();
 			});
-			loginUser(41365598);
 		});
 	</script>
 	<section id="controls">

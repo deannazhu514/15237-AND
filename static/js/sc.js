@@ -3,6 +3,7 @@ var currentSound;
 var currentID;
 var loggedin;
 var ready = false;
+var sounds = {};
 var slider = {
                 "type" : "slider",
                 "orientation" : "horizontal",
@@ -31,6 +32,7 @@ function connect(){
 					console.log("making paletta");
 					makePalette(data[i]);
 				}
+				
 				ready = true;
 
 				$("#loginbut").remove();
@@ -39,24 +41,24 @@ function connect(){
 			}			
 	  });
 	});
+	//init();
 }
-
+/*
 function init() {
-	if (true){
-		//getCurrentSong(localStorage["user"]);
-		//current = localStorage["current"];
-				
-		SC.stream('/tracks/'+'69175111', function(sound){
-			console.log("playinggg", sound);
-			currentSound = sound;
-			currentID = '69175111';
-			if (currentSound.isHTML5) {
-				console.log("lala");
-			}
-		});
+	if (localStorage["current"] == undefined){	
+		localStorage["current"] = '2345435';
 	}
+	getCurrentSong(localStorage["user"]);
+	current = localStorage["current"];
+	SC.stream('/tracks/'+current, function(sound){
+		console.log("playinggg", sound);
+		currentSound = sound;
+		if (currentSound.isHTML5) {
+			console.log("lala");
+		}
+	});
 }
-
+*/
 function loginUser(userID){
 	$.ajax({
 		type: "post",
@@ -78,7 +80,7 @@ function getPlaylists(SCuser){
 					var track = playlist.tracks[i];
 					var track2 = {
 						"id": track.id,
-						"artist":track.user.full_name,
+						"artist": track.user.username,
 						"song": track.title,
 						"ui": [{
 								"type": "turntable",
@@ -89,36 +91,21 @@ function getPlaylists(SCuser){
 					addTrack(SCuser, track2);
 					makePalette(track2);					
 				}
-			$('.turntable').click(function(){
-			console.log('hi');
-			if (currentSound) {
-				var tempid = this.id;
-				var ttable = this;
-				if (tempid != currentID) {
-					SC.stream('/tracks/'+this.id, function(sound) {
-						currentSound = sound;
-						currentID = tempid;
-						console.log(currentID);
-						$(ttable).toggleClass("playing");
-						currentSound.togglePause();
-					});
-				} else {
-					currentSound.togglePause();
-					$(this).toggleClass("playing");
-				}
-			}
-		}); /*
-			$('.track').mousedown(function(){
-			console.log("lalal");
-			if (currentSound) {
-				currentSound.togglePause();	
-				console.log('afdsjkf');
-				$(this).toggleClass("playing");
-			} else {
-				console.log('sup');
-				init();
-			} 
-		});*/
+				$('.turntable').click(function(){
+						console.log("this", this.id);
+						var tempid = this.id;
+						var ttable = this;
+						if (sounds[tempid] == undefined) {
+							SC.stream('/tracks/'+this.id, function(sound) {
+								sounds[tempid] = sound;
+								currentSound.play();
+								$(ttable).toggleClass("playing");
+							});
+						} else {
+							sounds[tempid].togglePause();
+							$(this).toggleClass("playing");
+						}
+				}); 
 			}
 		});
 	 });
@@ -144,14 +131,7 @@ function getCurrentSong(userID){
 		url: "/current/"+userID,
 		success: function(data) {
 			localStorage["current"] = data.current.id;
-			console.log("current", data);
 		}
 	});
 }
 
-	$(document).ready(function() {
-		SC.stream("/tracks/69175111", function(sound){
-			currentSound = sound;
-		});
-		init();
-	});

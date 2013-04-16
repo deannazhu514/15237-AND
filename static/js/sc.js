@@ -14,7 +14,7 @@ function connect(){
 
 	 SC.initialize({
 		client_id: '3d503a64aaf395aac54de428f7808b82',
-		redirect_uri: 'http://localhost:8999/static/callback.html'
+		redirect_uri: 'http://antonioono.com/spectrum/static/callback.html'
 	});
 	
 	 SC.connect(function() {
@@ -78,13 +78,15 @@ function getPlaylists(SCuser){
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
+					var artwork = (track.artwork_url) ? track.artwork_url
+					                                  : "http://placekitten.com/250"
 					var track2 = {
 						"id": track.id,
 						"artist": track.user.username,
 						"song": track.title,
 						"ui": [{
 								"type": "turntable",
-								"art": track.artwork_url,
+								"art": artwork,
 								"duration": track.duration
 								}, slider, slider]
 					};

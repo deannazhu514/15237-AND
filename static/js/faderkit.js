@@ -1,42 +1,11 @@
 var currentSound;
 var data = [];
 var slider = {
-                "type" : "slider",
-                "orientation" : "horizontal",
-                "showValue" : true
-            };
-
-/*var data = [
-    {
-        "artist" : "artist name",
-        "song" : "Song Title",
-        "ui" : [
-            {
-                "type" : "turntable",
-                "art" : "http://placekitten.com/500",
-                "duration" : 120
-            },
-            {
-                "type" : "slider",
-                "orientation" : "horizontal",
-                "showValue" : true
-            },
-            {
-                "type" : "slider",
-                "name" : "vol",
-                "orientation" : "horizontal",
-                "showValue" : true
-            }
-        ]
-    },
-]
-
-$(document).ready(function(){
-    for (var i = 0; i < data.length; i++) {
-        makePalette(data[i]);
-    }
-});*/
-
+    "type" : "slider",
+    "orientation" : "horizontal",
+    "showValue" : true
+};
+            
 function makePalette(template) {
     // Container for all controls and information for a single track
     var track  = $("<li>").addClass("track"),

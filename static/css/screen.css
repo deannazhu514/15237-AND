@@ -163,7 +163,7 @@ header section#add-device.open {
   -webkit-animation: play-spin 2s infinite linear;
 }
 
-/* line 3, ../sass/_track.scss */
+/* line 9, ../sass/_track.scss */
 .track {
   width: 93.75%;
   padding: 1.5625%;
@@ -172,59 +172,76 @@ header section#add-device.open {
   box-sizing: border-box;
   float: left;
 }
-/* line 10, ../sass/_track.scss */
+/* line 17, ../sass/_track.scss */
 .track:nth-of-type(1) {
   margin-left: 0;
 }
+@media screen and (max-width: 54em) {
+  /* line 4, ../sass/_track.scss */
+  .track:nth-of-type(n+2) .turntable, .track:nth-of-type(n+2) .palette {
+    display: none;
+  }
+}
 @media screen and (min-width: 54em) {
-  /* line 3, ../sass/_track.scss */
+  /* line 9, ../sass/_track.scss */
   .track {
     width: 46.875%;
     margin: 1.5625% 0 0 1.5625%;
   }
-  /* line 18, ../sass/_track.scss */
+  /* line 32, ../sass/_track.scss */
   .track:nth-of-type(3n) {
     margin-left: 0;
+  }
+}
+@media screen and (min-width: 54em) and (max-width: 84em) {
+  /* line 4, ../sass/_track.scss */
+  .track:nth-of-type(n+3) .turntable, .track:nth-of-type(n+3) .palette {
+    display: none;
   }
 }
 @media screen and (min-width: 84em) {
-  /* line 3, ../sass/_track.scss */
+  /* line 9, ../sass/_track.scss */
   .track {
     width: 31.25%;
   }
-  /* line 26, ../sass/_track.scss */
+  /* line 47, ../sass/_track.scss */
   .track:nth-of-type(3n) {
     margin: 1.5625% 0 0 1.5625%;
   }
-  /* line 30, ../sass/_track.scss */
+  /* line 51, ../sass/_track.scss */
   .track:nth-of-type(4n) {
     margin-left: 0;
   }
+  /* line 4, ../sass/_track.scss */
+  .track:nth-of-type(n+4) .turntable, .track:nth-of-type(n+4) .palette {
+    display: none;
+  }
 }
-/* line 38, ../sass/_track.scss */
+/* line 61, ../sass/_track.scss */
 .track header {
   margin-bottom: 1em;
 }
-/* line 39, ../sass/_track.scss */
+/* line 62, ../sass/_track.scss */
 .track header h1 {
   font-size: 2em;
   color: rgba(255, 0, 0, 0.75);
   line-height: 1.5em;
 }
-/* line 45, ../sass/_track.scss */
+/* line 68, ../sass/_track.scss */
 .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 54, ../sass/_track.scss */
-.track .palette {
+
+/* line 78, ../sass/_track.scss */
+.palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 59, ../sass/_track.scss */
-.track .palette .move {
+/* line 83, ../sass/_track.scss */
+.palette .move {
   background: none;
   border: none;
   color: red;
@@ -236,20 +253,20 @@ header section#add-device.open {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 71, ../sass/_track.scss */
-.track .palette .move:active, .track .palette .move:hover {
+/* line 95, ../sass/_track.scss */
+.palette .move:active, .palette .move:hover {
   background: none;
 }
-/* line 76, ../sass/_track.scss */
-.track .palette .value {
+/* line 100, ../sass/_track.scss */
+.palette .value {
   font-size: 2em;
   display: block;
   margin: 0.5em 0;
   width: 100%;
   text-align: center;
 }
-/* line 84, ../sass/_track.scss */
-.track .palette .slider {
+/* line 108, ../sass/_track.scss */
+.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
   background: none;
@@ -257,13 +274,13 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 93, ../sass/_track.scss */
-.track .palette .slider:hover {
+/* line 117, ../sass/_track.scss */
+.palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 98, ../sass/_track.scss */
-.track .palette .slider::-webkit-slider-thumb {
+/* line 122, ../sass/_track.scss */
+.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
   height: 4em;
@@ -271,11 +288,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 106, ../sass/_track.scss */
-.track .palette .slider::-webkit-slider-thumb:hover {
+/* line 130, ../sass/_track.scss */
+.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 111, ../sass/_track.scss */
-.track .palette .slider.vertical {
+/* line 135, ../sass/_track.scss */
+.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

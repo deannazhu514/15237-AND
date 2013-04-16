@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>SoundCloud Demo</title>
-    
     <link href="./css/screen.css" rel="stylesheet" type="text/css">
     <script src="./js/lib/jquery.js"></script>
     <script src="./js/faderkit.js"></script>
@@ -51,5 +50,14 @@
 			});
 		});
 	</script>
+	<section id="controls">
+        
+    </section>
+    <script>
+        var globalVol = makeControl("slider", "horizontal", false);
+        $("#controls").append(globalVol)
+    </script>
+    <ul id="tracks">
+    </ul>
 </body>
 </html>

@@ -30,6 +30,6 @@
     // spin while playing
     
     &.playing {
-        -webkit-animation: play-spin 1s infinite;
+        -webkit-animation: play-spin 2s infinite linear;
     }
 }

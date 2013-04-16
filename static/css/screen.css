@@ -258,5 +258,5 @@ header section#add-device.open {
 }
 /* line 32, ../sass/turntable.scss */
 .turntable.playing {
-  -webkit-animation: play-spin 1s infinite;
+  -webkit-animation: play-spin 2s infinite linear;
 }

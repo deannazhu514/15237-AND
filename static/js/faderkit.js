@@ -1,5 +1,12 @@
-var currentSound;	
-var data = [
+var currentSound;
+var data = [];
+var slider = {
+                "type" : "slider",
+                "orientation" : "horizontal",
+                "showValue" : true
+            };
+
+/*var data = [
     {
         "artist" : "artist name",
         "song" : "Song Title",
@@ -72,11 +79,11 @@ $(document).ready(function(){
     for (var i = 0; i < data.length; i++) {
         makePalette(data[i]);
     }
-});
+});*/
 
 function makePalette(template) {
     // Container for all controls and information for a single track
-    var track  = $("<section>").addClass("track"),
+    var track  = $("<li>").addClass("track"),
         header = $("<header>"),
         title  = $("<h1>").html(template.song),
         artist = $("<author>").html(template.artist);
@@ -97,7 +104,7 @@ function makePalette(template) {
         
         track.append(element);
     }
-    $("body").append(track);
+    $("ul#tracks").append(track);
 }
 
 function makeTurntable(artSrc, duration) {

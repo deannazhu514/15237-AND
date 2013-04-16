@@ -1,0 +1,18 @@
+.guest {
+    font-size: 2em;
+
+    #controls {
+        display: none;
+    }
+    
+    header {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        top: 40%;
+        
+        #settings {
+            display: none;
+        }
+    }
+}

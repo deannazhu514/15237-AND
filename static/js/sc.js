@@ -1,8 +1,7 @@
 var current; //currentSound id
 var currentSound;
 var currentID;
-var loggedin;
-var ready = false;
+var loggedin = false;
 var sounds = {};
 var slider = {
                 "type" : "slider",
@@ -28,13 +27,6 @@ function connect(){
 				loggedin = true;
 				$("#loginmsg").html("Logged in as "+me.full_name);
 				getPlaylists(me.id);
-
-				for (var i = 0; i < data.length; i++) {
-					console.log("making paletta");
-					makePalette(data[i]);
-				}
-				
-				ready = true;
 
 				$("#loginbut").remove();
 			} else {

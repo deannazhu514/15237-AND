@@ -63,7 +63,8 @@ function makeControl(type, orientation, value, tid) {
         $(value).html($(control).val());
 		var id = $(control).parent().attr("id");
 		if (sounds[id] != undefined)
-					sounds[id].setVolume($(control).val());
+					change_volume($(control).val());
+					console.log('here');
     });
     
     var drag = null;

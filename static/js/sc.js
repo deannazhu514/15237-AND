@@ -96,6 +96,7 @@ function getPlaylists(SCuser){
 								sounds[tempid] = sound;
 								sound.play();
 								$(ttable).toggleClass("playing");
+								
 							});
 						} else {
 							sounds[tempid].togglePause();

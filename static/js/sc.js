@@ -24,7 +24,6 @@ function connect(){
 				localStorage["user"] = me.id;
 				loggedin = true;
 				$("#loginmsg").html("Logged in as "+me.full_name);
-<<<<<<< HEAD
 				getPlaylists(me.id);
 
 				for (var i = 0; i < data.length; i++) {
@@ -32,9 +31,8 @@ function connect(){
 					makePalette(data[i]);
 				}
 				ready = true;
-=======
+
 				$("#loginbut").remove();
->>>>>>> 90aaa590af454c4f4fa67a9c9e28191a9854e1e5
 			} else {
 				alert("Couldn't connect to SoundCloud!");
 			}			

@@ -3,14 +3,21 @@ var currentSound;
 var currentID;
 var loggedin = false;
 var sounds = {};
-var slider = {
+var volslider = {
                 "type" : "slider",
+				"name" : "volume",
                 "orientation" : "horizontal",
                 "showValue" : true
             };
 
+var pbslider = {
+                "type" : "slider",
+				"name" : "playback",
+                "orientation" : "horizontal",
+                "showValue" : true
+            };			
+			
 function connect(){	
-
 	 SC.initialize({
 		client_id: '3d503a64aaf395aac54de428f7808b82',
 		redirect_uri: 'http://localhost:8999/static/callback.html'
@@ -34,24 +41,8 @@ function connect(){
 			}			
 	  });
 	});
-	//init();
 }
-/*
-function init() {
-	if (localStorage["current"] == undefined){	
-		localStorage["current"] = '2345435';
-	}
-	getCurrentSong(localStorage["user"]);
-	current = localStorage["current"];
-	SC.stream('/tracks/'+current, function(sound){
-		console.log("playinggg", sound);
-		currentSound = sound;
-		if (currentSound.isHTML5) {
-			console.log("lala");
-		}
-	});
-}
-*/
+
 function loginUser(userID){
 	$.ajax({
 		type: "post",
@@ -82,26 +73,11 @@ function getPlaylists(SCuser){
 								"type": "turntable",
 								"art": artwork,
 								"duration": track.duration
-								}, slider, slider]
+								}, volslider, pbslider]
 					};
 					addTrack(SCuser, track2);
 					makePalette(track2);					
 				}
-				$('.turntable').click(function(){
-						var tempid = this.id;
-						var ttable = this;
-						if (sounds[tempid] == undefined) {
-							SC.stream('/tracks/'+this.id, function(sound) {
-								console.log(sound);
-								sounds[tempid] = sound;
-								sound.play();
-								$(ttable).toggleClass("playing");
-							});
-						} else {
-							sounds[tempid].togglePause();
-							$(this).toggleClass("playing");
-						}
-				}); 
 			}
 		});
 	 });

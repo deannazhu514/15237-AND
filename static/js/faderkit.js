@@ -1,4 +1,3 @@
-var data = [];
 var slider = {
     "type" : "slider",
     "orientation" : "horizontal",
@@ -22,6 +21,7 @@ function makePalette(template) {
                                     template.ui[i].duration, tid);
         } else {
             element = makeControl(template.ui[i].type,
+								  template.ui[i].name,
                                   template.ui[i].orientation,
                                   template.ui[i].showValue, tid);
         }
@@ -41,10 +41,26 @@ function makeTurntable(artSrc, duration, tid) {
     $(turntable).append(scrubber);
     $(turntable).append(art);
 	$(turntable).attr('id',tid);
-    return $(turntable);
+	$(turntable).click(function(){
+		var tempid = tid;
+		var ttable = this;
+		if (sounds[tempid] == undefined) {
+			SC.stream('/tracks/'+this.id, function(sound) {
+			//console.log(sound);
+			sounds[tempid] = sound;
+			sound.play();
+			$(ttable).toggleClass("playing");
+			});
+		} else {
+			sounds[tempid].togglePause();
+			$(this).toggleClass("playing");
+						}
+	}); 
+	
+	return $(turntable);
 }
 
-function makeControl(type, orientation, value, tid) {
+function makeControl(type, name, orientation, value, tid) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
@@ -60,10 +76,26 @@ function makeControl(type, orientation, value, tid) {
         });
 
     $(control).mousemove(function(){
-        $(value).html($(control).val());
+		var val = $(control).val();
 		var id = $(control).parent().attr("id");
-		if (sounds[id] != undefined)
-					sounds[id].setVolume($(control).val());
+		var sound = sounds[id];
+		if (sound != undefined) {		
+			if (name == "volume") {
+				$(value).html(val);
+				sound.setVolume(val);
+			}			
+			else if (name == "playback") {
+				if (sound.isHTML5) {
+					sound.playbackRate = val/50;
+				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
+					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000));
+					//sound.setPosition(sound.duration*val/100);					
+				}
+				console.log("change playback rate here");
+				
+			}
+				
+		}
     });
     
     var drag = null;

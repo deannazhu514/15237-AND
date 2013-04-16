@@ -15,7 +15,6 @@
 		SC.initialize({
 			client_id: '3d503a64aaf395aac54de428f7808b82',			
 		});
-	
 		   
 		$('.turntable').click(function(){
 			if (currentSound) {
@@ -23,6 +22,7 @@
 				$(this).toggleClass("playing");
 			}				
 		});
+
 	});
 	</script>
 </head>
@@ -37,22 +37,12 @@
         </section>
     </header>
 	<script type="text/javascript">
-		$(document).ready(function() {			
+		$(document).ready(function() {
 			$('#loginbut').click(function(){
+				console.log('hi');
 				connect();
 			});
-			
-			$('.track').mousedown(function(){
-			console.log("lalal");
-			if (currentSound) {
-				currentSound.togglePause();	
-				$(this).toggleClass("playing");
-			} else {
-				init();
-			}			
-		});
-		  
-
+			loginUser(41365598);
 		});
 	</script>
 	<section id="controls">

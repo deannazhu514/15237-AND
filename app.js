@@ -132,6 +132,11 @@ app.get("newRoom/:accountName", function(request, response) {
   });
 });
 
+app.get("/socket.io/:fileName", function (req, res) {
+	console.log('hi');
+	res.sendfile("node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js");
+});
+
 app.get("/room/:roomString", function (request, response) {
 
 });
@@ -139,11 +144,13 @@ app.get("/room/:roomString", function (request, response) {
 app.listen(staticPort);
 
 /* server variables*/
-var io = require("socket.io");
+var io = require("socket.io").listen(8111);
 var ports = {};
-var minPort = 8000;
-var maxPort = 8998;
-var nextPort = 8000;
+//var minPort = 8000;
+//var maxPort = 8998;
+//var nextPort = 8000;
+var socketRoomList = {};
+var socketPOrt = 8111;
 var interval = 3000; //milliseconds
 var deviceList = {};
 var auto_sort_flag = true;
@@ -152,89 +159,76 @@ var songList = [];
 var n = 0;
 
 
-/*end server variables */
+/*end server variables */	
 
-function init_socket(x, socket) {
+io.sockets.on('connection', function (socket) {
+	socket.room = "";
+	socket.on("subscribe", function(room) {
+		init_socket(socket,room);
+		socketRoomList[room] = true;
+		console.log("room: " + room);
+	});
+	socket.emit("requestUsername");
+});
+
+function init_socket(socket,room) {
   socket.on("volume", function(value) {
     audio.volume = value; //percentage value between 0 and 100 here
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
     songList[n].actionList.push({"volume": value});
   });
   socket.on("mute", function() {
     audio.mute = true; //boolean here
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("unmute", function() {
     audio.mute = false;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("auto_off", function() {
     audio.auto = false;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("auto_on", function() {
     audio.auto = true;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("speed", function(value) {
     audio.volume = value;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
     songList[n].actionList.push({"speed": value });
   });
   socket.on("play", function() {
     audio.play = true;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("pause", function() {
     audio.play = false;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("next_song", function(name) {
     audio_init(name);
-    x.sockets.emit("update", audio); //not volatile
+    io.sockets.emit("update", audio); //not volatile
                                       //song change is high priority
   });
   socket.on("loop_off", function() {
     audio.loop = false;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("loop_on", function() {
     audio.loop = true;
-    x.sockets.volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("change_time", function(value) {
     audio.time = value;
-    x.sockets.volatile.emit("update", audio);
-  });
-  
-}
-
-function new_port() {
-
-  /*god im so lazy*/
-  while (true) {
-    var portNum = nextPort;
-    if (typeof(ports[portNum]) !== 'undefined') {
-      var x = io.listen(portNum);
-      ports[portNum] = x;
-      break;
-    } else {
-      nextPort++;
-      if (nextPort > 8998) {
-        nextPort = 8000;
-      }
-    }
-  }
-  
-  x.sockets.on("connection", function(socket) {
-    deviceList[socket.id] = true;
-    init_socket(x,socket); 
+    io.sockets.in(room).volatile.emit("update", audio);
   });
 }
+
 
 /*
 function rec_message(socket) {
-  io.sockets.volatile.emit("update", audio);
+  io.sockets.in(room).volatile.emit("update", audio);
 }*/
 
 function audio_init(name) {
@@ -261,10 +255,8 @@ function audio_init(name) {
 
 
 function refresh() {
-  for (port in ports) {
-    ports[port].sockets.volatile.emit("update", audio);
-  }
-  //io.sockets.volatile.emit("update", audio);
+
+  io.sockets.volatile.emit("update", audio);
   /*
   if (auto_sort_flag) {
     auto_sort();

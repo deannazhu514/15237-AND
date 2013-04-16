@@ -112,6 +112,26 @@ header section#add-device.open {
   display: block;
 }
 
+/* line 1, ../sass/_guest.scss */
+.guest {
+  font-size: 2em;
+}
+/* line 4, ../sass/_guest.scss */
+.guest #controls {
+  display: none;
+}
+/* line 8, ../sass/_guest.scss */
+.guest header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: 40%;
+}
+/* line 14, ../sass/_guest.scss */
+.guest header #settings {
+  display: none;
+}
+
 @-webkit-keyframes play-spin {
   /* line 2, ../sass/_turntable.scss */
   0% {

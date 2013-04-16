@@ -106,6 +106,7 @@ function getPlaylists(SCuser){
 		});
 	 });
 	 loggedin = true;
+	 $("body").removeClass("guest");
 }
 
 function addTrack(userID, track){

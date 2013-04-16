@@ -1,29 +1,55 @@
 var currentSound;	
-var myTemplate = {
-    "artist" : "artist name",
-    "song" : "Song Title",
-    "ui" : [
-        {
-            "type" : "turntable",
-            "art" : "http://placekitten.com/500",
-            "duration" : 120
-        },
-        {
-            "type" : "slider",
-            "orientation" : "horizontal",
-            "showValue" : true
-        },
-        {
-            "type" : "slider",
-			"name" : "vol",
-            "orientation" : "horizontal",
-            "showValue" : true
-        }
-    ]
-}
+var data = [
+    {
+        "artist" : "artist name",
+        "song" : "Song Title",
+        "ui" : [
+            {
+                "type" : "turntable",
+                "art" : "http://placekitten.com/500",
+                "duration" : 120
+            },
+            {
+                "type" : "slider",
+                "orientation" : "horizontal",
+                "showValue" : true
+            },
+            {
+                "type" : "slider",
+                "name" : "vol",
+                "orientation" : "horizontal",
+                "showValue" : true
+            }
+        ]
+    },
+    {
+        "artist" : "artist name",
+        "song" : "Song Title",
+        "ui" : [
+            {
+                "type" : "turntable",
+                "art" : "http://placekitten.com/500",
+                "duration" : 120
+            },
+            {
+                "type" : "slider",
+                "orientation" : "horizontal",
+                "showValue" : true
+            },
+            {
+                "type" : "slider",
+                "name" : "vol",
+                "orientation" : "horizontal",
+                "showValue" : true
+            }
+        ]
+    }
+]
 
 $(document).ready(function(){
-    makePalette(myTemplate);
+    for (var i = 0; i < data.length; i++) {
+        makePalette(data[i]);
+    }
 });
 
 function makePalette(template) {

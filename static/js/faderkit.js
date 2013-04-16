@@ -88,14 +88,32 @@ function makeControl(type, name, orientation, value, tid) {
 				if (sound.isHTML5) {
 					sound.playbackRate = val/50;
 				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
-					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000));
-					//sound.setPosition(sound.duration*val/100);					
+					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000)%60);				
 				}
-				console.log("change playback rate here");
-				
+				console.log("change playback rate here");		
 			}
 				
 		}
+	});
+   $(control).click(function(){
+		var val = $(control).val();
+		var id = $(control).parent().attr("id");
+		var sound = sounds[id];
+		if (sound != undefined) {		
+			if (name == "volume") {
+				$(value).html(val);
+				sound.setVolume(val);
+			}			
+			else if (name == "playback") {
+				if (sound.isHTML5) {
+					sound.playbackRate = val/50;
+				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
+					//TODO: CHANGE PLAYBACK RATE HERE
+					sound.setPosition(sound.duration*val/100);					
+				}
+			}		
+		}		
+		
     });
     
     var drag = null;

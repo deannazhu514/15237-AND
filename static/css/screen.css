@@ -128,7 +128,7 @@ header section#add-device.open {
   top: 40%;
 }
 /* line 14, ../sass/_guest.scss */
-.guest header #settings {
+.guest header #settings, .guest header #add-device {
   display: none;
 }
 

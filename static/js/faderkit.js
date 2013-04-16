@@ -23,7 +23,7 @@ function makePalette(template) {
         } else {
             element = makeControl(template.ui[i].type,
                                   template.ui[i].orientation,
-                                  template.ui[i].showValue);
+                                  template.ui[i].showValue, tid);
         }
         
         track.append(element);
@@ -40,11 +40,11 @@ function makeTurntable(artSrc, duration, tid) {
         });
     $(turntable).append(scrubber);
     $(turntable).append(art);
-		$(turntable).attr('id',tid);
+	$(turntable).attr('id',tid);
     return $(turntable);
 }
 
-function makeControl(type, orientation, value) {
+function makeControl(type, orientation, value, tid) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
@@ -60,13 +60,10 @@ function makeControl(type, orientation, value) {
         });
 
     $(control).mousemove(function(){
-        $(value).html($(control).val())
-		console.log(this);/*
-		if (currentSound != null) {
-			if (name == "vol") {
-				currentSound.setVolume($(control).val());
-			}
-		}*/
+        $(value).html($(control).val());
+		var id = $(control).parent().attr("id");
+		if (sounds[id] != undefined)
+					sounds[id].setVolume($(control).val());
     });
     
     var drag = null;
@@ -89,6 +86,7 @@ function makeControl(type, orientation, value) {
     });
 
     $(palette).append(handle, control, value);
+	$(palette).attr('id',tid);
     
     return $(palette);
 }

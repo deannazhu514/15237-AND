@@ -163,40 +163,47 @@ header section#add-device.open {
 
 /* line 3, ../sass/_track.scss */
 .track {
-  width: 46.875%;
+  width: 93.75%;
   padding: 1.5625%;
-  margin: 1.5625% 0 0 1.5625%;
+  margin: 1.5625% 0 0 0;
   border: 2pt rgba(255, 0, 0, 0.75) solid;
   box-sizing: border-box;
   float: left;
 }
-/* line 12, ../sass/_track.scss */
+@media screen and (min-width: 54em) {
+  /* line 3, ../sass/_track.scss */
+  .track {
+    width: 46.875%;
+    margin: 1.5625% 0 0 1.5625%;
+  }
+}
+/* line 18, ../sass/_track.scss */
 .track:nth-of-type(1) {
   margin-left: 0;
 }
-/* line 16, ../sass/_track.scss */
+/* line 22, ../sass/_track.scss */
 .track header {
   margin-bottom: 1em;
 }
-/* line 17, ../sass/_track.scss */
+/* line 23, ../sass/_track.scss */
 .track header h1 {
   font-size: 2em;
   color: rgba(255, 0, 0, 0.75);
   line-height: 1.5em;
 }
-/* line 23, ../sass/_track.scss */
+/* line 29, ../sass/_track.scss */
 .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 32, ../sass/_track.scss */
+/* line 38, ../sass/_track.scss */
 .track .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 37, ../sass/_track.scss */
+/* line 43, ../sass/_track.scss */
 .track .palette .move {
   background: none;
   border: none;
@@ -209,11 +216,11 @@ header section#add-device.open {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 49, ../sass/_track.scss */
+/* line 55, ../sass/_track.scss */
 .track .palette .move:active, .track .palette .move:hover {
   background: none;
 }
-/* line 54, ../sass/_track.scss */
+/* line 60, ../sass/_track.scss */
 .track .palette .value {
   font-size: 2em;
   display: block;
@@ -221,7 +228,7 @@ header section#add-device.open {
   width: 100%;
   text-align: center;
 }
-/* line 62, ../sass/_track.scss */
+/* line 68, ../sass/_track.scss */
 .track .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
@@ -230,12 +237,12 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 71, ../sass/_track.scss */
+/* line 77, ../sass/_track.scss */
 .track .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 76, ../sass/_track.scss */
+/* line 82, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
@@ -244,11 +251,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 84, ../sass/_track.scss */
+/* line 90, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 89, ../sass/_track.scss */
+/* line 95, ../sass/_track.scss */
 .track .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

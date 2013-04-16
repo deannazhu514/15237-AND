@@ -1,11 +1,17 @@
 @import "_turntable.scss";
 
 .track {
-    width: $col * 2;
+    width: $col * $columns;
     padding: $gutter;
-    margin: $gutter 0 0 $gutter;
+    margin: $gutter 0 0 0;
     border: 2pt $default solid;
     box-sizing: border-box;
+    
+    @media screen and (min-width: 54em) {
+        width: $col * ($columns / 2);
+        margin: $gutter 0 0 $gutter;
+    }
+
     
     float: left;
     

@@ -64,7 +64,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 1, ../sass/type.scss */
+/* line 1, ../sass/lib/_type.scss */
 body {
   color: red;
   font-family: helvetica;
@@ -72,7 +72,7 @@ body {
   font-size: 10pt;
 }
 
-/* line 17, ../sass/main.scss */
+/* line 8, ../sass/_main.scss */
 body {
   background: #333;
   -webkit-user-select: none;
@@ -80,7 +80,7 @@ body {
   margin: 1.625%;
 }
 
-/* line 25, ../sass/main.scss */
+/* line 16, ../sass/_main.scss */
 input[type=button] {
   background: none;
   cursor: pointer;
@@ -91,14 +91,14 @@ input[type=button] {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 35, ../sass/main.scss */
+/* line 26, ../sass/_main.scss */
 input[type=button]:hover {
   background: red;
   border-color: red;
   color: #333;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 34, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -107,12 +107,61 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 51, ../sass/main.scss */
+/* line 42, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
 
-/* line 1, ../sass/track.scss */
+@-webkit-keyframes play-spin {
+  /* line 2, ../sass/_turntable.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 3, ../sass/_turntable.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* line 6, ../sass/_turntable.scss */
+.turntable {
+  height: 20em;
+  width: 20em;
+  border-radius: 20em;
+  position: relative;
+}
+/* line 12, ../sass/_turntable.scss */
+.turntable img.art {
+  height: 75%;
+  width: 75%;
+  border-radius: 100em;
+  top: 12.5%;
+  left: 12.5%;
+  position: absolute;
+}
+/* line 21, ../sass/_turntable.scss */
+.turntable .scrubber {
+  background: rgba(255, 0, 0, 0.75);
+  height: 100%;
+  width: 100%;
+  border-radius: 100em;
+  position: absolute;
+}
+/* line 31, ../sass/_turntable.scss */
+.turntable.playing {
+  -webkit-animation: play-spin 2s infinite linear;
+}
+
+/* line 3, ../sass/_track.scss */
 .track {
   width: 50%;
   padding: 1.625%;
@@ -120,33 +169,33 @@ header section#add-device.open {
   border: 2pt rgba(255, 0, 0, 0.75) solid;
   box-sizing: border-box;
 }
-/* line 8, ../sass/track.scss */
+/* line 10, ../sass/_track.scss */
 .track:nth-of-type(1) {
   margin-left: 0;
 }
-/* line 12, ../sass/track.scss */
+/* line 14, ../sass/_track.scss */
 .track header {
   margin-bottom: 1em;
 }
-/* line 13, ../sass/track.scss */
+/* line 15, ../sass/_track.scss */
 .track header h1 {
   font-size: 2em;
   color: rgba(255, 0, 0, 0.75);
   line-height: 1.5em;
 }
-/* line 19, ../sass/track.scss */
+/* line 21, ../sass/_track.scss */
 .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 28, ../sass/track.scss */
+/* line 30, ../sass/_track.scss */
 .track .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 33, ../sass/track.scss */
+/* line 35, ../sass/_track.scss */
 .track .palette .move {
   background: none;
   border: none;
@@ -159,11 +208,11 @@ header section#add-device.open {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 45, ../sass/track.scss */
+/* line 47, ../sass/_track.scss */
 .track .palette .move:active, .track .palette .move:hover {
   background: none;
 }
-/* line 50, ../sass/track.scss */
+/* line 52, ../sass/_track.scss */
 .track .palette .value {
   font-size: 2em;
   display: block;
@@ -171,7 +220,7 @@ header section#add-device.open {
   width: 100%;
   text-align: center;
 }
-/* line 58, ../sass/track.scss */
+/* line 60, ../sass/_track.scss */
 .track .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
@@ -180,12 +229,12 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 67, ../sass/track.scss */
+/* line 69, ../sass/_track.scss */
 .track .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 72, ../sass/track.scss */
+/* line 74, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
@@ -194,60 +243,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 80, ../sass/track.scss */
+/* line 82, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 85, ../sass/track.scss */
+/* line 87, ../sass/_track.scss */
 .track .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
-}
-
-@-webkit-keyframes play-spin {
-  /* line 2, ../sass/turntable.scss */
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  /* line 3, ../sass/turntable.scss */
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-/* line 10, ../sass/turntable.scss */
-.turntable {
-  height: 20em;
-  width: 20em;
-  border-radius: 20em;
-  position: relative;
-}
-/* line 16, ../sass/turntable.scss */
-.turntable img.art {
-  height: 75%;
-  width: 75%;
-  border-radius: 100em;
-  top: 12.5%;
-  left: 12.5%;
-  position: absolute;
-}
-/* line 25, ../sass/turntable.scss */
-.turntable .scrubber {
-  background: rgba(255, 0, 0, 0.75);
-  height: 100%;
-  width: 100%;
-  border-radius: 100em;
-  position: absolute;
-}
-/* line 35, ../sass/turntable.scss */
-.turntable.playing {
-  -webkit-animation: play-spin 2s infinite linear;
 }

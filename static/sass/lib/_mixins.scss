@@ -1,0 +1,5 @@
+// ANIMATION
+
+@mixin animation($name, $duration, $iteration-count, $timing-function) {
+    -webkit-animation: $name $duration $iteration-count $timing-function;
+}

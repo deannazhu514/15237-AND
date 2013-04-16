@@ -3,10 +3,6 @@
     100% { @include rotateZ(360deg)}
 }
 
-@mixin animation($name, $duration, $iteration-count, $timing-function) {
-    -webkit-animation: $name $duration $iteration-count $timing-function;
-}
-
 .turntable {
     height: 20em;
     width: 20em;

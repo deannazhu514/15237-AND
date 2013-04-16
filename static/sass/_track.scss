@@ -7,17 +7,33 @@
     border: 2pt $default solid;
     box-sizing: border-box;
     
-    @media screen and (min-width: 54em) {
-        width: $col * ($columns / 2);
-        margin: $gutter 0 0 $gutter;
-    }
-
-    
-    float: left;
-    
     &:nth-of-type(1) {
         margin-left: 0;
     }
+    
+    @media screen and (min-width: 54em) {
+        width: $col * ($columns / 2);
+        margin: $gutter 0 0 $gutter;
+        
+        &:nth-of-type(3n) {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (min-width: 84em) {
+        width: $col * ($columns / 3);
+        
+        &:nth-of-type(3n) {
+            margin: $gutter 0 0 $gutter;
+        }
+        
+        &:nth-of-type(4n) {
+            margin-left: 0;
+        }
+    }
+    
+    float: left;
+    
     
     header {
         h1 {

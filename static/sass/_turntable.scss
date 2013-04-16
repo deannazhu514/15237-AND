@@ -4,10 +4,13 @@
 }
 
 .turntable {
-    height: 20em;
-    width: 20em;
+    $d: 24em;
+    height: $d;
+    width:  $d;
     border-radius: 20em;
     position: relative;
+    left: 50%;
+    margin-left: -$d / 2;
     
     img.art {
         height: 75%;

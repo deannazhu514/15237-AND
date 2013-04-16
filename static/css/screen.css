@@ -134,12 +134,14 @@ header section#add-device.open {
 
 /* line 6, ../sass/_turntable.scss */
 .turntable {
-  height: 20em;
-  width: 20em;
+  height: 24em;
+  width: 24em;
   border-radius: 20em;
   position: relative;
+  left: 50%;
+  margin-left: -12em;
 }
-/* line 12, ../sass/_turntable.scss */
+/* line 15, ../sass/_turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -148,7 +150,7 @@ header section#add-device.open {
   left: 12.5%;
   position: absolute;
 }
-/* line 21, ../sass/_turntable.scss */
+/* line 24, ../sass/_turntable.scss */
 .turntable .scrubber {
   background: rgba(255, 0, 0, 0.75);
   height: 100%;
@@ -156,7 +158,7 @@ header section#add-device.open {
   border-radius: 100em;
   position: absolute;
 }
-/* line 31, ../sass/_turntable.scss */
+/* line 34, ../sass/_turntable.scss */
 .turntable.playing {
   -webkit-animation: play-spin 2s infinite linear;
 }
@@ -170,40 +172,58 @@ header section#add-device.open {
   box-sizing: border-box;
   float: left;
 }
+/* line 10, ../sass/_track.scss */
+.track:nth-of-type(1) {
+  margin-left: 0;
+}
 @media screen and (min-width: 54em) {
   /* line 3, ../sass/_track.scss */
   .track {
     width: 46.875%;
     margin: 1.5625% 0 0 1.5625%;
   }
+  /* line 18, ../sass/_track.scss */
+  .track:nth-of-type(3n) {
+    margin-left: 0;
+  }
 }
-/* line 18, ../sass/_track.scss */
-.track:nth-of-type(1) {
-  margin-left: 0;
+@media screen and (min-width: 84em) {
+  /* line 3, ../sass/_track.scss */
+  .track {
+    width: 31.25%;
+  }
+  /* line 26, ../sass/_track.scss */
+  .track:nth-of-type(3n) {
+    margin: 1.5625% 0 0 1.5625%;
+  }
+  /* line 30, ../sass/_track.scss */
+  .track:nth-of-type(4n) {
+    margin-left: 0;
+  }
 }
-/* line 22, ../sass/_track.scss */
+/* line 38, ../sass/_track.scss */
 .track header {
   margin-bottom: 1em;
 }
-/* line 23, ../sass/_track.scss */
+/* line 39, ../sass/_track.scss */
 .track header h1 {
   font-size: 2em;
   color: rgba(255, 0, 0, 0.75);
   line-height: 1.5em;
 }
-/* line 29, ../sass/_track.scss */
+/* line 45, ../sass/_track.scss */
 .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 38, ../sass/_track.scss */
+/* line 54, ../sass/_track.scss */
 .track .palette {
   padding-bottom: 0;
   position: relative;
   width: 100%;
 }
-/* line 43, ../sass/_track.scss */
+/* line 59, ../sass/_track.scss */
 .track .palette .move {
   background: none;
   border: none;
@@ -216,11 +236,11 @@ header section#add-device.open {
   border-bottom: 2pt solid rgba(255, 0, 0, 0.75);
   padding: 0;
 }
-/* line 55, ../sass/_track.scss */
+/* line 71, ../sass/_track.scss */
 .track .palette .move:active, .track .palette .move:hover {
   background: none;
 }
-/* line 60, ../sass/_track.scss */
+/* line 76, ../sass/_track.scss */
 .track .palette .value {
   font-size: 2em;
   display: block;
@@ -228,7 +248,7 @@ header section#add-device.open {
   width: 100%;
   text-align: center;
 }
-/* line 68, ../sass/_track.scss */
+/* line 84, ../sass/_track.scss */
 .track .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
@@ -237,12 +257,12 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 77, ../sass/_track.scss */
+/* line 93, ../sass/_track.scss */
 .track .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 82, ../sass/_track.scss */
+/* line 98, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
@@ -251,11 +271,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 90, ../sass/_track.scss */
+/* line 106, ../sass/_track.scss */
 .track .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 95, ../sass/_track.scss */
+/* line 111, ../sass/_track.scss */
 .track .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

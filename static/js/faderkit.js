@@ -43,6 +43,28 @@ var data = [
                 "showValue" : true
             }
         ]
+    },
+    {
+        "artist" : "artist name",
+        "song" : "Song Title",
+        "ui" : [
+            {
+                "type" : "turntable",
+                "art" : "http://placekitten.com/500",
+                "duration" : 120
+            },
+            {
+                "type" : "slider",
+                "orientation" : "horizontal",
+                "showValue" : true
+            },
+            {
+                "type" : "slider",
+                "name" : "vol",
+                "orientation" : "horizontal",
+                "showValue" : true
+            }
+        ]
     }
 ]
 

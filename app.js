@@ -82,8 +82,17 @@ app.get("/static/js/:staticFilename", function (req, res) {
 
 
 //implement authentication later
-app.get("login/:username", function(request, response) {
-  
+app.get("/login/:username", function(request, response) {
+	
+});
+
+app.post("/login", function(request, response) {
+	console.log(request.body);
+	var user = request.user;
+	response.send({
+		userID : user,
+		success:true
+	});  
 });
 
 app.get("newRoom/:accountName", function(request, response) {

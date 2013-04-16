@@ -3,35 +3,23 @@
   <head>
 	<link href="css/screen.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
+	
 	<script src="./js/sc.js"></script>
 	<script type="text/javascript" src="js/lib/jquery.js"></script>
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
 	<script>
 
 	  $(document).ready(function() {
-		connect();
-		var loggedin = false;
 
 		$('#loginbut').click(function(){
-			if (!loggedin) {
-				 SC.connect(function() {
-				  SC.get('/me', function(me) { 
-					if (me != null) {
-						loggedin = true;
-						console.log(me);
-						location.href = "loggedin.html";
-					}
-					
-				  });
-				});
-			}		  
+			connect();
 		  });
 		  
 		$("#scanbut").click(function() {
 		  location.href = "scanQR.html";
 		});
 		$("#guestbut").click(function() {
-		  location.href = "sliders.html";
+		  location.href = "loggedin.html";
 		});
 	  
 	  });

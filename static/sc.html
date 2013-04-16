@@ -1,0 +1,48 @@
+<!doctype html public>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SoundCloud</title>
+    
+    <link href="./css/screen.css" rel="stylesheet" type="text/css">
+    <script src="./js/lib/jquery.js"></script>
+    <script src="./js/faderkit.js"></script>
+    <script src="./js/sc.js"></script>
+    <script src="./js/interaction.js"></script>
+	<script src="//connect.soundcloud.com/sdk.js"></script>
+	<script>
+
+	  $(document).ready(function() {
+		var user = 41365598;
+		var playlists;
+		SC.initialize({
+			client_id: '3d503a64aaf395aac54de428f7808b82',			
+		});
+		
+		getPlaylists(user)
+		   
+		$('#play').click(function(){
+			if (currentSound) {
+				currentSound.togglePause();	
+			}				
+		});
+		
+		  
+		  
+	});
+
+	</script>
+</head>
+<body>
+
+	<div> Click slider to change the volume, click connect to log in to SoundCloud</div>
+	<input type="button" id="play" value="Play/Pause">
+	<script type="text/javascript">
+	$(document).ready(function() {
+		SC.stream("/tracks/69175111", function(sound){
+			currentSound = sound;
+		});
+	});
+	</script>
+</body>
+</html>

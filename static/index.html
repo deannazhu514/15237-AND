@@ -10,12 +10,11 @@
     <script src="./js/sc.js"></script>
     <script src="./js/interaction.js"></script>
     <script src="//connect.soundcloud.com/sdk.js"></script>
-		<script src="http://localhost:8999/socket.io/socket.io.js"></script>
+	<script src="http://localhost:8999/socket.io/socket.io.js"></script>
 	<script src="js/client_socket.js"></script>
 	<script src="js/client.js"></script>
     <script>
       $(document).ready(function() {
-
         SC.initialize({
             client_id: '3d503a64aaf395aac54de428f7808b82',			
         });
@@ -25,9 +24,20 @@
 </head>
 <body class="guest">
     <header>
-        <input type="button" id ="loginbut" class="panel-button" value="Connect with SoundCloud" id="settings">
+		<form name="myform" action="javascript:connectDevice()">
+			<div class="row">
+            <label>Username:</label>  <input id="username" name="Username" type="text" placeholder="Soundcloud username"/> 
+			</div>
+			<div class="row">
+            <label>Session ID:</label>  <input id="session" name="Session" type="text"/>
+			</div>
+			<div class="row right">
+			<input type="submit" id="addbut" class="panel-button" value="Add a Device">
+			</div>
+		 </form>
+        <input type="button" class="panel-button" value="Connect with SoundCloud" id ="loginbut">
         <input type="button" class="panel-button" value="Settings" id="settings">
-        <input type="button" class="panel-button" value="Add a Device" id="add-device">
+        <input type="button" class="panel-button" value="Add a Device" id="settings"> 
         <p id="loginmsg"></p>
         <section id="add-device">
             <img src="http://placekitten.com/600">

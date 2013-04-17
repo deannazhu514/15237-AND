@@ -83,18 +83,67 @@ app.get("/static/js/:staticFilename", function (req, res) {
 });
 
 //implement authentication later
-app.get("/login/:username", function(request, response) {
+app.get("/login/:id", function(request, response) {
+	var id = request.params.id;
+	var user = users[id];
+	response.send({
+		user: user,
+		success:true
+	});
+});
+
+app.get("/sessionCode/:id", function(request, response) {
+	var id = request.params.id;
+	var session = users[id].session;
+	response.send({
+		userID : id,
+		session: session,
+		success:true
+	});
 	
 });
 
+//login via SoundCloud
 app.post("/login", function(request, response) {
 	//console.log(request.body);
 	var id = request.body.user;
-	if (users[id] == undefined)
+	var deviceID = request.body.deviceID;
+	if (users[id] == undefined) {
 		users[id] = {};
+		users[id].devices = {};
+		users[id].devices[deviceID] = {
+					"controls":[],
+					"connected": true
+		};
+		users[id].session = id; //CHANGE THIS TO ACTUALLY UNIQUE LATER
+	} else {
+		
+	}
 	response.send({
 		userID : id,
 		success:true
+	});
+});
+
+//login via device connect
+app.post("/login/:id", function(request, response) {
+	console.log(request.body);
+	var id = request.body.user;
+	var session = request.body.session;
+	var deviceID = request.body.deviceID;
+	var success = (users[id] != undefined) && (session == users[id].session);
+	if (success) {
+		if (users[id].devices == undefined) {	
+			users[id].devices = {};
+		}
+		users[id].devices[deviceID] = {
+				"controls":[],
+				"connected": true
+		}; 
+	}
+	response.send({
+		userID : id,
+		success: success
 	});
 });
 

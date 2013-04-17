@@ -8,7 +8,7 @@ function makePalette(template) {
     // Container for all controls and information for a single track
     var track  = $("<li>").addClass("track"),
         header = $("<header>"),
-		title  = $(<h1>".html(template.song),
+		title  = $("<h1>").html(template.song),
         artist = $("<author>").html(template.artist);
     var tid = template.id;
     $(header).append(artist, title);

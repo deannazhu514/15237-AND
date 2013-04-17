@@ -81,7 +81,7 @@ body {
 }
 
 /* line 16, ../sass/_main.scss */
-input[type=button] {
+input[type=button], input[type=submit] {
   background: none;
   cursor: pointer;
   padding: .5em;
@@ -92,7 +92,7 @@ input[type=button] {
   font-weight: bold;
 }
 /* line 26, ../sass/_main.scss */
-input[type=button]:hover {
+input[type=button]:hover, input[type=submit]:hover {
   background: red;
   border-color: red;
   color: #333;
@@ -101,11 +101,12 @@ input[type=button]:hover {
 /* line 34, ../sass/_main.scss */
 header section#add-device {
   display: none;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 3em;
   position: fixed;
-  height: 50%;
-  width: 50%;
-  top: 25%;
+  top: 0;
   left: 25%;
+  background: black;
 }
 /* line 42, ../sass/_main.scss */
 header section#add-device.open {

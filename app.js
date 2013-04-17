@@ -121,6 +121,7 @@ app.post("/login", function(request, response) {
 	}
 	response.send({
 		userID : id,
+		session : users[id].session,
 		success:true
 	});
 });

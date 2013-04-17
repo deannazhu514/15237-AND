@@ -91,6 +91,8 @@ function loginUser(userID, deviceID){
 		success: function(data) {
 			console.log(data);
 			localStorage["current"] = data;
+			$('#usertext').html("Username: "+data.userID);
+			$('#sessiontext').html("Session ID: "+data.session);
 		}
 	});
 }
@@ -107,7 +109,7 @@ function sendDevice(userID, session, deviceID){
 			} else {
 				$("#loginmsg").html("Device connected!");			
 				$("#loginbut").remove();
-				$('form').remove();
+				$('form').remove(); 
 			}
 		}
 	});

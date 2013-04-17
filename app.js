@@ -101,8 +101,11 @@ app.post("/login", function(request, response) {
 app.post("/tracks", function(request, response) {
 	//console.log(request.body);
 	var user = request.body.user;
+	console.log(user);
 	var track = request.body.track;
-
+	if (users[user] == undefined) {
+		users[user] = {};
+	}
 	if (users[user]["playlists"] == undefined) {
 		users[user]["playlists"] = [];
 		users[user]["current"] = track;
@@ -151,13 +154,14 @@ var ports = {};
 //var nextPort = 8000;
 var socketRoomList = {};
 var socketPOrt = 8111;
-var interval = 3000; //milliseconds
+var interval = 200; //milliseconds
 var deviceList = {};
 var auto_sort_flag = true;
 var audio = {};
 var songList = [];
 var n = 0;
-
+var testval = 300;
+var trackIDList = {};
 
 /*end server variables */	
 
@@ -167,15 +171,21 @@ io.sockets.on('connection', function (socket) {
 		init_socket(socket,room);
 		socketRoomList[room] = true;
 		console.log("room: " + room);
+		socket.join(room);
+		if (io.sockets.clients(room).length === 1) {
+			socket.emit("playback");
+			console.log('sup');
+		}
 	});
 	socket.emit("requestUsername");
 });
 
+
 function init_socket(socket,room) {
+
   socket.on("volume", function(value) {
     audio.volume = value; //percentage value between 0 and 100 here
     io.sockets.in(room).volatile.emit("update", audio);
-    songList[n].actionList.push({"volume": value});
   });
   socket.on("mute", function() {
     audio.mute = true; //boolean here
@@ -194,9 +204,8 @@ function init_socket(socket,room) {
     io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("speed", function(value) {
-    audio.volume = value;
+    audio.speed = value;
     io.sockets.in(room).volatile.emit("update", audio);
-    songList[n].actionList.push({"speed": value });
   });
   socket.on("play", function() {
     audio.play = true;
@@ -237,7 +246,7 @@ function audio_init(name) {
     mute:  false,
     auto: true,
     speed: 1,
-    play: true,
+    play: false,
     loop: false,
     time: 0,
     start: new Date().getTime()
@@ -245,7 +254,7 @@ function audio_init(name) {
   audio.name = name;
   songList.push( {
     name: name,
-    start: start,
+    start: audio.start,
     actionList: []
   });
   n = songList.length;
@@ -255,8 +264,8 @@ function audio_init(name) {
 
 
 function refresh() {
-
   io.sockets.volatile.emit("update", audio);
+	console.log("vol: " + audio.volume);
   /*
   if (auto_sort_flag) {
     auto_sort();
@@ -264,6 +273,8 @@ function refresh() {
   audio.time += interval;
   */
 }
+
+audio_init('blah');
 
 function auto_sort() {
 

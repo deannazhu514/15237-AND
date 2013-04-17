@@ -1,13 +1,14 @@
 var current; //currentSound id
 var currentSound;
-var currentID;
 var loggedin = false;
 var tracks = {};
 var sounds = {};
 var context, analyser, compressor;
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
+
 var redirect_uri = 'http://localhost:8999/static/callback.html';
+//var redirect_uri = 'http://128.237.249.225:8999/static/callback.html';
 var stream_add =  '?client_id='+client_id;
 
 
@@ -37,8 +38,7 @@ function init() {
 	analyser = context.createAnalyser();
 	compressor = context.createDynamicsCompressor();
 
-}
-			
+}	
 			
 function connect(){	
 	 SC.initialize({
@@ -50,15 +50,16 @@ function connect(){
 	 SC.connect(function() {
 		SC.get('/me', function(me) { 			
 			if (me != null) {
-				
 				//send user info to server
-				loginUser(me.id);
+				var deviceID = new Date();
+				loginUser(me.id, deviceID);
 				localStorage["user"] = me.id;
 				loggedin = true;
 				$("#loginmsg").html("Logged in as "+me.full_name);
 				getPlaylists(me.id);
 
 				$("#loginbut").remove();
+				$('form').remove();
 				init();
 			} else {
 				alert("Couldn't connect to SoundCloud!");
@@ -67,14 +68,49 @@ function connect(){
 	});
 }
 
-function loginUser(userID){
+function connectDevice(){	
+	var username = $("#username").val();
+	var session = $("#session").val();
+	var deviceID = new Date(); //CHANGE TO SOMETHING ELSE THAT MAKES SENSE HEHE
+	if (username == "" || session == "") {
+		alert("Please enter username and session code");
+	} else {
+		sendDevice(username, session, deviceID);
+		localStorage["user"] = username;
+		loggedin = true;
+
+	}
+}
+
+function loginUser(userID, deviceID){
 	$.ajax({
 		type: "post",
-		data: {"user": userID, "date": new Date()},
+		data: {"user": userID, "deviceID": deviceID},
 		url: "/login",
 		success: function(data) {
 			console.log(data);
 			localStorage["current"] = data;
+			$('#usertext').html("Username: "+data.userID);
+			$('#sessiontext').html("Session ID: "+data.session);
+		}
+	});
+}
+
+function sendDevice(userID, session, deviceID){
+	$.ajax({
+		type: "post",
+		data: {"user": userID, "session": session, "deviceID": deviceID},
+		url: "/login/"+userID,
+		success: function(data) {
+			console.log(data);
+			if (!data.success) {
+				$("#loginmsg").html("Device  not connected!");
+			} else {
+				console.log(data);
+				$("#loginmsg").html("Device "+data.deviceNum+" connected!");			
+				$("#loginbut").remove();
+				$('form').remove(); 
+			}
 		}
 	});
 }

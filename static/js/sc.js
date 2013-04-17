@@ -4,10 +4,12 @@ var currentID;
 var loggedin = false;
 var tracks = {};
 var sounds = {};
-var context, myAudioAnalyser;
+var context, analyser, compressor;
+
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 var redirect_uri = 'http://localhost:8999/static/callback.html';
 var stream_add =  '?client_id='+client_id;
+
 
 var volslider = {
                 "type" : "slider",
@@ -18,6 +20,13 @@ var volslider = {
 
 var pbslider = {
                 "type" : "slider",
+				"name" : "pbr",
+                "orientation" : "horizontal",
+                "showValue" : true
+            };	
+			
+var playbackslider = {
+                "type" : "slider",
 				"name" : "playback",
                 "orientation" : "horizontal",
                 "showValue" : true
@@ -25,18 +34,10 @@ var pbslider = {
 			
 function init() {
 	context = new webkitAudioContext();
-/*   
-    var source;
-    // `stream_url` you'd get from 
-    // requesting http://api.soundcloud.com/tracks/6981096.json
-    var url = 'https://api.soundcloud.com/tracks/87076291/stream' +
-          stream_add;
+	analyser = context.createAnalyser();
+	compressor = context.createDynamicsCompressor();
 
-	audio.src = url;
-	source = context.createMediaElementSource(audio);
-	source.connect(context.destination);*/
-//source.mediaElement.play();
-}			
+}
 			
 			
 function connect(){	
@@ -97,7 +98,7 @@ function getPlaylists(SCuser){
 								"type": "turntable",
 								"art": artwork,
 								"duration": track.duration
-								}, volslider, pbslider]
+								}, volslider, pbslider, playbackslider]
 					};
 					//console.log(track2);
 					tracks[track.id] = track2;
@@ -111,6 +112,23 @@ function getPlaylists(SCuser){
 	 loggedin = true;
 	 $("body").removeClass("guest");
 }
+
+function play(){
+	
+	this.source.loop = true;
+	this.source.mediaElement.play();
+	this.playing = true;
+}
+
+function stop(){
+	this.source.mediaElement.pause();
+	this.playing = false;
+};
+
+function togglePause(){
+	this.playing ? this.stop() : this.play();
+};
+
 
 function addTrack(userID, track){
 	$.ajax({

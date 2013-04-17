@@ -50,35 +50,31 @@ function makeTurntable(artSrc, duration, tid) {
 		var cursound = sounds[tempid];		
 		
 		if (cursound == undefined) {
-			/*var audio = new Audio();
+			var sound = {};
+			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;
-			source = context.createMediaElementSource(audio);
-			source.connect(context.destination);
-			sounds[tempid] = source.mediaElement;
-			// Create a gain node.
-			var gainNode = context.createGainNode();
-			// Connect the source to the gain node.
-			source.connect(gainNode);
-			// Connect the gain node to the destination.
-			gainNode.connect(context.destination);
-			gainNode.gain.value = 0.5;
-			//sounds[tempid].play();
-			
-			source.mediaElement.play();
-			*/
-			SC.stream('/tracks/'+this.id, function(sound) {
-				sounds[tempid] = sound;
-				sound.play({
-					onfinish: function() {
-						sound.stop();
-						$(ttable).toggleClass("playing");	
-					}
-				});
+			audio.addEventListener('ended', function() {
+				console.log("finished playing");
 				$(ttable).toggleClass("playing");
+				sound.stop();
+				
 			});
+			var source = context.createMediaElementSource(audio);	
+				console.log(source);
+			sound.source = source;
+			sound.play = play;
+			sound.togglePause = togglePause;
+			sound.stop = stop;	
+			sounds[tempid] = sound;
+			
+			sound.play();
+			
+			sounds[tempid] = sound;
+			$(ttable).toggleClass("playing");			
+	
 		} else {			
-			console.log(cursound);
 			cursound.togglePause();
+			console.log(cursound.source);
 			$(this).toggleClass("playing");	
 		}
 	}); 
@@ -105,38 +101,35 @@ function makeControl(type, name, orientation, value, tid) {
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
 		var sound = sounds[id];
-		$(value).html(val);
-		if (sound != undefined) {		
+		if (sound != undefined) {	
+			var s = sound.source.mediaElement;
 			if (name == "volume") {
-				sound.setVolume(val);
+				s.volume = val/100;
+				$(value).html("volume:"+val);
 			}			
-			else if (name == "playback") {
-				if (sound.isHTML5) {
-					sound.playbackRate = 5;
-				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
-					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000)%60);				
-				}
-				console.log("change playback rate here");		
-			}
+			else if (name == "pbr") {
+				$(value).html("playback:" + val/50);			
+			} else if (name == "playback") {
+				$(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
 				
+			}
 		}
 	});
    $(control).click(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
 		var sound = sounds[id];
-		if (sound != undefined) {		
+		if (sound != undefined) {	
+			var s = sound.source.mediaElement;
 			if (name == "volume") {
-				$(value).html(val);
-				sound.setVolume(val);
+				s.volume = val/100;
+				$(value).html("volume:"+val);
 			}			
-			else if (name == "playback") {
-				if (sound.isHTML5) {
-					sound.playbackRate = val/50;
-				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
-					//TODO: CHANGE PLAYBACK RATE HERE
-					sound.setPosition(sound.duration*val/100);					
-				}
+			else if (name == "pbr") {
+				s.playbackRate = val/50;
+			} else if (name == "playback") {
+				s.currentTime = (s.duration*val/100);					
+				$(value).html("position:"+s.currentTime);	
 			}		
 		}		
 		

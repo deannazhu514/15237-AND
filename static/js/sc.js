@@ -30,7 +30,7 @@ var playbackslider = {
                 "type" : "slider",
 				"name" : "playback",
                 "orientation" : "horizontal",
-                "showValue" : false
+                "showValue" : true
             };			
 			
 function init() {

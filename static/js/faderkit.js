@@ -36,7 +36,7 @@ function makePalette(template) {
 
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
-        scrubber  = $("<div>").addClass("scrubber"),
+        scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
             class: "indicator semi",
             id: "indicator1"
@@ -80,7 +80,17 @@ function makeTurntable(artSrc, duration, tid) {
 			sound.play();
 			
 			sounds[tempid] = sound;
-			$(ttable).toggleClass("playing");			
+			$(ttable).toggleClass("playing");
+			
+			if (cursound) {
+				 var id = $(control).parent().attr("id");
+				 var s = sounds[id].source.mediaElement;
+					setInterval(function () {
+					    if (name == "playback") {
+					        $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
+					    }
+					}, 1000);
+			}		
 	
 		} else {			
 			cursound.togglePause();
@@ -91,40 +101,41 @@ function makeTurntable(artSrc, duration, tid) {
 	return $(turntable);
 }
 
-function makeControl(type, name, orientation, value, tid) {
+function makeControl(type, name, orientation, showValue, tid) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
                       type:  inputType,
                       class: type + " " + orientation,
                   }),
-        value   = (value) ? $("<span>").addClass("value").html($(control).val())
-                          : null,
-        label   = $("<label>").html(name);
+        value   = $("<span>").addClass("value").html($(control).val()),
+        label   = $("<label>").html(name),
         handle  = $("<input>").attr({
             type:  "button",
             value: " ",
             class: "move"
         });
-		var changeSlider = function(elt, elt2, pos) {
-			elt.val(pos); 
-			elt2.html(pos);
-			console.log(pos);
-		};
+	var changeSlider = function(elt, elt2, pos) {
+		elt.val(pos); 
+		elt2.html(pos);
+		console.log(pos);
+	};
+	
+	if (name === 'volume') {
+		$(control).mouseover(function(){
+			changingVol = true;
+		});
 		
-		if (name == 'volume') {
-			$(control).mouseover(function(){
-				changingVol = true;
-			});
-			
-			$(control).mouseout(function() {
-				changingVol = false;
-			});
-		}
+		$(control).mouseout(function() {
+			changingVol = false;
+		});
+	}
+	
     $(control).mousemove(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
-
+		function setTime() {
+		}
 
 		var sound = sounds[id];
 		if (sound != undefined) {	
@@ -132,14 +143,14 @@ function makeControl(type, name, orientation, value, tid) {
 			if (name == "volume") {
 				s.volume = val/100;
 				$(value).html("volume:"+val);
-			}			
-			else if (name == "pbr") {
+			} else if (name == "pbr") {
 				$(value).html("playback:" + val/50);			
 			} else if (name == "playback") {
-				$(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
-			}
+    			
+            }
 		}
 	});
+	
    $(control).click(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
@@ -159,12 +170,13 @@ function makeControl(type, name, orientation, value, tid) {
 		}		
 		
     });
-		if (name == 'volume') {
-			$(control).data('changeSlider', changeSlider);
-			$(control).data('val', $(control));
-			$(control).data('val2', $(value));
-			ctrls[tid] = $(control);
-		}
+
+	if (name == 'volume') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		ctrls[tid] = $(control);
+	}
     var drag = null;
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");
@@ -183,8 +195,19 @@ function makeControl(type, name, orientation, value, tid) {
     $(document).mouseup(function(event){
         drag = null;
     });
+    
+    
+    if (name === 'playback') {
+        $(value).html("0:00");
+        $(control).val(0);
+    }
 
-    $(palette).append(handle, control, label, value);
+    $(palette).append(handle, control, label);
+    
+    if (showValue) {
+        $(palette).append(value);
+        console.log("val")
+    }
 	$(palette).attr('id',tid);
     
     return $(palette);

@@ -357,7 +357,7 @@ header section#add-device.open {
   width: 100%;
   text-align: center;
 }
-/* line 111, ../sass/_track.scss */
+/* line 115, ../sass/_track.scss */
 .palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 0, 0, 0.75);
@@ -366,12 +366,12 @@ header section#add-device.open {
   width: 100%;
   overflow: hidden;
 }
-/* line 120, ../sass/_track.scss */
+/* line 124, ../sass/_track.scss */
 .palette .slider:hover {
   border: 1pt solid red;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 125, ../sass/_track.scss */
+/* line 129, ../sass/_track.scss */
 .palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: red;
@@ -380,11 +380,11 @@ header section#add-device.open {
   cursor: pointer;
   opacity: .75;
 }
-/* line 133, ../sass/_track.scss */
+/* line 137, ../sass/_track.scss */
 .palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 138, ../sass/_track.scss */
+/* line 142, ../sass/_track.scss */
 .palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

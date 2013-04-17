@@ -8,7 +8,7 @@ function makePalette(template) {
     // Container for all controls and information for a single track
     var track  = $("<li>").addClass("track"),
         header = $("<header>"),
-        title  = $("<h1>").html(template.song),
+		title  = $(<h1>".html(template.song),
         artist = $("<author>").html(template.artist);
     var tid = template.id;
     $(header).append(artist, title);
@@ -44,17 +44,24 @@ function makeTurntable(artSrc, duration, tid) {
 	$(turntable).click(function(){
 		var tempid = tid;
 		var ttable = this;
-		if (sounds[tempid] == undefined) {
+		var cursound = sounds[tempid];		
+		
+		if (cursound == undefined) {
 			SC.stream('/tracks/'+this.id, function(sound) {
-			//console.log(sound);
-			sounds[tempid] = sound;
-			sound.play();
-			$(ttable).toggleClass("playing");
+				sounds[tempid] = sound;
+				sound.play({
+					onfinish: function() {
+						sound.stop();
+						$(ttable).toggleClass("playing");	
+					}
+				});
+				$(ttable).toggleClass("playing");
 			});
 		} else {
-			sounds[tempid].togglePause();
-			$(this).toggleClass("playing");
-						}
+			console.log(cursound);
+			cursound.togglePause();
+			$(this).toggleClass("playing");	
+		}
 	}); 
 	
 	return $(turntable);
@@ -79,9 +86,9 @@ function makeControl(type, name, orientation, value, tid) {
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
 		var sound = sounds[id];
+		$(value).html(val);
 		if (sound != undefined) {		
 			if (name == "volume") {
-				$(value).html(val);
 				sound.setVolume(val);
 			}			
 			else if (name == "playback") {

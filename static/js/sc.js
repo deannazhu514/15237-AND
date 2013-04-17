@@ -82,7 +82,6 @@ function connectDevice(){
 		localStorage["user"] = username;
 		currentID = username;
 		loggedin = true;
-
 	}
 }
 
@@ -121,13 +120,46 @@ function sendDevice(userID, session, deviceID){
 }
 
 function getDevices() {
-	console.log(currentID);
 	$.ajax({
 		type: "get",
 		data: {"user": currentID},
 		url: "/devices/"+currentID,
 		success: function(data) {
-			
+			var num = data.deviceNum;
+			for (var i = 0; i < num; num++) {
+				/*var button = $('<input>').html("Device"+(i+1));
+				$('#devices').append(button);*/
+				console.log("track"+i);
+			}
+		}
+	});
+}
+
+function getModules(){
+	console.log("getModules");
+	for (track in tracks) {
+		console.log(track);
+		var trackbut = $('<input type=button>')
+						.addClass("panel-button")
+						.val(""+track);
+		trackbut.mousedown( function(event) {
+			console.log(this);
+			sendModule(2, "track", this.value);
+		});
+		$('#modules').append(trackbut);
+	}
+}
+
+function sendModule(device, module, modulename) {
+	$.ajax({
+		type: "post",
+		data: {"user": currentID,
+				"device": device,
+				"module": module,
+				"name": modulename
+		},
+		url: "/sendModule",
+		success: function(data) {
 			console.log(data);
 		}
 	});
@@ -155,13 +187,11 @@ function getPlaylists(SCuser){
 								"duration": track.duration
 								}, volslider, pbslider, playbackslider]
 					};
-					//console.log(track2);
 					tracks[track.id] = track2;
 					addTrack(SCuser, track2);
 					makePalette(track2);					
 				}
 			}
-			//playlists[playlist.id] = tracks;
 		});
 	 });
 	 loggedin = true;

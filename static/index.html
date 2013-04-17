@@ -45,9 +45,10 @@
         </section>
 		
 		<section id="settings">
-			<div id="sessiontext"> Select device, select tracks to move</div>
-			<div id="devices"></div>
-			<input type="button" class="panel-button" value="Track1" id ="testbut">
+			<div id="sessiontext"> Select track to move to device</div>
+				<div id="devices"></div>
+				<div id="modules"></div>
+				<!-- <input type="button" class="panel-button" value="Track1" id ="testbut"> -->
         </section>
     </header>
     <script type="text/javascript">
@@ -57,12 +58,10 @@
             });
 			
 			$('#settings').click(function(){
-				getDevices();
+				//getDevices();
+				getModules();
 			});
-			
-            $('#testbut').click(function(){
-                addControl(2, this.value);
-            });
+	
         });
     </script>
     <section id="controls">

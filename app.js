@@ -143,21 +143,23 @@ app.post("/login", function(request, response) {
 
 //login via device connect
 app.post("/login/:id", function(request, response) {
-	var id = request.body.user;
+	var id = request.params.id;
 	var num = "";
 	var session = request.body.session;
 	var deviceID = request.body.deviceID;
 	var success = (users[id] != undefined) && (session == users[id].session);
 	if (success) {
-		console.log(users[id].deviceCount);
+		console.log(users[id]);
 		users[id].deviceCount++;
-		users[id].devices[deviceID] = {
-				"num" : users[id].deviceCount,
+		var deviceCount = users[id].deviceCount;
+		users[id].devices[deviceCount] = {
+				"id" : deviceID,
+				"num" : deviceCount,
 				"controls" : [],
 				"connected" : true
 		};	
 		console.log(users[id].devices[deviceID]);
-		num = users[id].devices[deviceID].num;		
+		num = users[id].devices[deviceCount].num;		
 	}
 	response.send({
 		userID : id,
@@ -165,6 +167,24 @@ app.post("/login/:id", function(request, response) {
 		success: success
 	});
 });
+
+app.post("/sendModule", function(request, response) {
+	var id = request.body.user;
+	var device = request.body.device;
+	var module = request.body.module;
+	var moduleID = request.body.name;
+	
+	var success = (users[id] != undefined) && (users[id].devices[device] != undefined);
+	if (success) {
+		console.log("sending "+module+"to "+ device);
+	}
+	response.send({
+		userID : id,
+		success: success
+	});
+});
+
+
 
 app.post("/tracks", function(request, response) {
 	//console.log(request.body);

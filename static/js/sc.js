@@ -15,21 +15,21 @@ var volslider = {
                 "type" : "slider",
 				"name" : "volume",
                 "orientation" : "horizontal",
-                "showValue" : true
+                "showValue" : false
             };
 
 var pbslider = {
                 "type" : "slider",
 				"name" : "pbr",
                 "orientation" : "horizontal",
-                "showValue" : true
+                "showValue" : false
             };	
 			
 var playbackslider = {
                 "type" : "slider",
 				"name" : "playback",
                 "orientation" : "horizontal",
-                "showValue" : true
+                "showValue" : false
             };			
 			
 function init() {

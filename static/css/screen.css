@@ -152,7 +152,7 @@ header section#add-device.open {
   }
 }
 
-/* line 6, ../sass/_turntable.scss */
+/* line 39, ../sass/_turntable.scss */
 .turntable {
   height: 24em;
   width: 24em;
@@ -161,7 +161,7 @@ header section#add-device.open {
   left: 50%;
   margin-left: -12em;
 }
-/* line 15, ../sass/_turntable.scss */
+/* line 48, ../sass/_turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -171,31 +171,85 @@ header section#add-device.open {
   left: 12.5%;
   position: absolute;
 }
-/* line 25, ../sass/_turntable.scss */
+/* line 58, ../sass/_turntable.scss */
 .turntable .scrubber {
-  background: rgba(255, 0, 0, 0.125);
+  background: #333333;
   height: 100%;
   width: 100%;
   border-radius: 100em;
   border: rgba(255, 0, 0, 0.75) solid 1px;
   position: absolute;
 }
-/* line 33, ../sass/_turntable.scss */
-.turntable .scrubber .indicator {
+/* line 66, ../sass/_turntable.scss */
+.turntable .scrubber .semi {
   position: absolute;
-  border-radius: 0 0 100em 100em;
-  height: 50%;
-  width: 100%;
+  border-radius: 100em 0 0 100em;
+  height: 100%;
+  width: 50%;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+/* line 74, ../sass/_turntable.scss */
+.turntable .scrubber .semi.indicator {
   background: red;
-  transform: rotate;
 }
-/* line 47, ../sass/_turntable.scss */
+/* line 77, ../sass/_turntable.scss */
+.turntable .scrubber .semi.indicator#indicator1 {
+  -webkit-transition: all 10s 0s;
+  -webkit-transition-delay: linear;
+  -moz-transition: all 10s 0s linear;
+  -o-transition: all 10s 0s linear;
+  transition: all 10s 0s linear;
+}
+/* line 81, ../sass/_turntable.scss */
+.turntable .scrubber .semi.indicator#indicator2 {
+  -webkit-transition: all 20s 0s;
+  -webkit-transition-delay: linear;
+  -moz-transition: all 20s 0s linear;
+  -o-transition: all 20s 0s linear;
+  transition: all 20s 0s linear;
+}
+/* line 86, ../sass/_turntable.scss */
+.turntable .scrubber .semi.mask {
+  background: #333333;
+  -webkit-transition: visibility 10s 0s;
+  -webkit-transition-delay: linear;
+  -moz-transition: visibility 10s 0s linear;
+  -o-transition: visibility 10s 0s linear;
+  transition: visibility 10s 0s linear;
+  visibility: visible;
+}
+/* line 98, ../sass/_turntable.scss */
 .turntable.playing img.art {
-  -webkit-animation: play-spin 2s infinite linear;
+  -webkit-animation: play-spin 4s infinite linear;
 }
-/* line 53, ../sass/_turntable.scss */
-.turntable:hover .scrubber {
-  background: rgba(255, 0, 0, 0.75);
+/* line 105, ../sass/_turntable.scss */
+.turntable.playing .semi.indicator#indicator1 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+/* line 110, ../sass/_turntable.scss */
+.turntable.playing .semi.indicator#indicator2 {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+/* line 116, ../sass/_turntable.scss */
+.turntable.playing .semi.mask {
+  visibility: hidden;
 }
 
 /* line 9, ../sass/_track.scss */

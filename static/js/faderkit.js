@@ -37,14 +37,21 @@ function makePalette(template) {
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber  = $("<div>").addClass("scrubber"),
-        indicator1 = $("<div>").addClass("indicator"),
-        indicator2 = $("<div>").addClass("indicator"),
+        indicator1 = $("<div>").attr({
+            class: "indicator semi",
+            id: "indicator1"
+        }),
+        indicator2 = $("<div>").attr({
+            class: "indicator semi",
+            id: "indicator2"
+        }),
+        mask = $("<div>").addClass("mask semi"),
         art = $("<img>").attr({
             src:   artSrc,
             class: "art"
         });
         
-    $(scrubber).append(indicator1, indicator2);
+    $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
 	$(turntable).click(function(){

@@ -16,22 +16,42 @@
         height: 75%;
         width: 75%;
         border-radius: 100em;
+        border: $default solid 1px;
         top: 12.5%;
         left: 12.5%;
         position: absolute;
     }
     
     .scrubber {
-        background: $default;
+        background: $inactive;
         height: 100%;
         width: 100%;
         border-radius: 100em;
+        border: $default solid 1px;
         position: absolute;
+        
+        .indicator {
+            position: absolute;
+            border-radius: 0 0 100em 100em;
+            height: 50%;
+            width: 100%;
+            background: red;
+            transform: rotate
+        }
     }
     
     // spin while playing
     
     &.playing {
-        @include animation(play-spin, 2s, infinite, linear);
+    
+        img.art {
+            @include animation(play-spin, 2s, infinite, linear);
+        }
+    }
+    
+    &:hover {
+        .scrubber {
+            background: $default;
+        }
     }
 }

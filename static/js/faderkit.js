@@ -11,7 +11,7 @@ function makePalette(template) {
     // Container for all controls and information for a single track
     var track  = $("<li>").addClass("track"),
         header = $("<header>"),
-        title  = $("<h1>").html(template.song),
+		title  = $("<h1>").html(template.song),
         artist = $("<author>").html(template.artist);
     var tid = template.id;
     $(header).append(artist, title);
@@ -37,17 +37,22 @@ function makePalette(template) {
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber  = $("<div>").addClass("scrubber"),
-        art       = $("<img>").attr({
+        indicator1 = $("<div>").addClass("indicator"),
+        indicator2 = $("<div>").addClass("indicator"),
+        art = $("<img>").attr({
             src:   artSrc,
             class: "art"
         });
-    $(turntable).append(scrubber);
-    $(turntable).append(art);
+        
+    $(scrubber).append(indicator1, indicator2);
+    $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
 	$(turntable).click(function(){
 		var tempid = tid;
 		var ttable = this;
-		if (sounds[tempid] == undefined) {
+		var cursound = sounds[tempid];		
+		
+		if (cursound == undefined) {
 			SC.stream('/tracks/'+this.id, function(sound) {
 			sounds[tempid] = sound;
 			sound.playing = true;
@@ -98,23 +103,41 @@ function makeControl(type, name, orientation, value, tid) {
 
 
 		var sound = sounds[id];
+
 		if (sound != undefined) {
 			if (name == "volume") {
 				$(value).html(val);
 				change_volume(val);
+			else if (name == "playback") {
+				if (sound.isHTML5) {
+					sound.playbackRate = 5;
+				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
+					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000)%60);				
+				}
+				console.log("change playback rate here");		
 			}
+				
+		}
+	});
+   $(control).click(function(){
+		var val = $(control).val();
+		var id = $(control).parent().attr("id");
+		var sound = sounds[id];
+		if (sound != undefined) {		
+			if (name == "volume") {
+				$(value).html(val);
+				sound.setVolume(val);
+			}			
 			else if (name == "playback") {
 				if (sound.isHTML5) {
 					sound.playbackRate = val/50;
 				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
-					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000));
-					//sound.setPosition(sound.duration*val/100);					
+					//TODO: CHANGE PLAYBACK RATE HERE
+					sound.setPosition(sound.duration*val/100);					
 				}
-				console.log("change playback rate here");
-				
-			}
-				
-		}
+			}		
+		}		
+		
     });
 		if (name == 'volume') {
 			$(control).data('changeSlider', changeSlider);

@@ -43,11 +43,20 @@
             <div id="usertext" ></div>
 			<div id="sessiontext" ></div>
         </section>
+		
+		<section id="settings">
+			<div id="sessiontext" > Click </div>
+			<input type="button" class="panel-button" value="Track1" id ="testbut">
+        </section>
     </header>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#loginbut').click(function(){
                 connect();
+            });
+			
+            $('#testbut').click(function(){
+                addControl(2, this.value);
             });
         });
     </script>

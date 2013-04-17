@@ -83,7 +83,6 @@ function connectDevice(){
 }
 
 function loginUser(userID, deviceID){
-	console.log("heee");
 	$.ajax({
 		type: "post",
 		data: {"user": userID, "deviceID": deviceID},
@@ -107,7 +106,8 @@ function sendDevice(userID, session, deviceID){
 			if (!data.success) {
 				$("#loginmsg").html("Device  not connected!");
 			} else {
-				$("#loginmsg").html("Device connected!");			
+				console.log(data);
+				$("#loginmsg").html("Device "+data.deviceNum+" connected!");			
 				$("#loginbut").remove();
 				$('form').remove(); 
 			}

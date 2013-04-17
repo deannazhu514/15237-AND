@@ -1,3 +1,6 @@
+var ctrls = {};
+var changingVol = false;
+
 var slider = {
     "type" : "slider",
     "orientation" : "horizontal",
@@ -67,20 +70,17 @@ function makeTurntable(artSrc, duration, tid) {
 			source.mediaElement.play();
 			*/
 			SC.stream('/tracks/'+this.id, function(sound) {
-				sounds[tempid] = sound;
-				sound.play({
-					onfinish: function() {
-						sound.stop();
-						$(ttable).toggleClass("playing");	
-					}
-				});
-				$(ttable).toggleClass("playing");
+			sounds[tempid] = sound;
+			sound.playing = true;
+			
+			sound.play();
+			$(this).toggleClass("playing");
 			});
-		} else {			
-			console.log(cursound);
-			cursound.togglePause();
-			$(this).toggleClass("playing");	
-		}
+		} else {
+			sounds[tempid].playing = !sounds[tempid].playing;
+			//sounds[tempid].togglePause();
+			$(this).toggleClass("playing");
+			}
 	}); 
 	
 	return $(turntable);
@@ -100,17 +100,33 @@ function makeControl(type, name, orientation, value, tid) {
             value: " ",
             class: "move"
         });
-
+		var changeSlider = function(elt, elt2, pos) {
+			elt.val(pos); 
+			elt2.html(pos);
+			console.log(pos);
+		};
+		
+		if (name == 'volume') {
+			$(control).mouseover(function(){
+				changingVol = true;
+			});
+			
+			$(control).mouseout(function() {
+				changingVol = false;
+			});
+		}
     $(control).mousemove(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
+
+
 		var sound = sounds[id];
-		$(value).html(val);
-		if (sound != undefined) {		
+
+		if (sound != undefined) {
 			if (name == "volume") {
-				sound.setVolume(val);
-			}			
-			else if (name == "playback") {
+				$(value).html(val);
+				change_volume(val);
+			} else if (name == "playback") {
 				if (sound.isHTML5) {
 					sound.playbackRate = 5;
 				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
@@ -141,11 +157,16 @@ function makeControl(type, name, orientation, value, tid) {
 		}		
 		
     });
-    
+		if (name == 'volume') {
+			$(control).data('changeSlider', changeSlider);
+			$(control).data('val', $(control));
+			$(control).data('val2', $(value));
+			ctrls[tid] = $(control);
+		}
     var drag = null;
-
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");
+				
     });
     
     $(document).mousemove(function(event) {
@@ -154,7 +175,7 @@ function makeControl(type, name, orientation, value, tid) {
                 top:  Math.floor(event.pageY / 100) * 100,
                 left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
             });
-        }
+        } 
     });    
     
     $(document).mouseup(function(event){

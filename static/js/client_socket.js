@@ -3,7 +3,9 @@ var socket = io.connect("http://localhost:8111");
 
 var auto_sort_flag = true;
 var loop_flag = false;
-
+var playback_device = false;
+var actual_vol = 0;
+var trackList = {};
 
 //rather than the server just sending a single
 //attribute to change, we send the
@@ -17,7 +19,7 @@ var loop_flag = false;
 //yet. However, this isn't necessary
 //since theoretically the new update will come not long
 //after and override the older inconsistency soon enough. 
-
+/*
 //since sockets use tcp we can ensure no misordering of packets
 socket.on("update", function(audio) {
   //var song = $("#song");
@@ -46,17 +48,54 @@ socket.on("update", function(audio) {
   if (Math.abs(song.currentTime - audio.time) > 1) {
     song.currentTime = audio.time;
   }
+}); */
+
+
+socket.on("update", function(audio) {
+	for (key in sounds) {
+		var tt = sounds[key];
+	
+		actual_vol = audio.volume;
+		if (playback_device) {
+			tt.setVolume(audio.volume);
+		} else {
+			tt.setVolume(0);
+		}
+		console.log("audio vol : " + audio.volume);
+		if (!changingVol) {
+			var tempfnc = ctrls[key].data('changeSlider');
+			var val = ctrls[key].data('val');
+			var val2 = ctrls[key].data('val2');
+			tempfnc(val, val2, audio.volume);
+			console.log(changingVol);
+		}
+		if (sounds[key].playing && sounds[key].paused) {
+			sounds[key].play();
+			alert('hi');
+		} else if (!sounds[key].playing && !sounds[key].paused){
+			sounds[key].pause();
+			alert('sp');
+		}
+	}
 }); 
+
+
 
 socket.on("requestUsername", function() {
 	socket.emit("subscribe", username);
 });
 
-/*
+socket.on("playback", function() {
+	playback_device = true;
+	console.log('playback true');
+});	
+
+
 function change_volume(value) {
+	console.log(value);
   socket.emit("volume", value);
 }
-
+/*
 function change_speed(value) {
   socket.emit("speed", value);
 }

@@ -1,4 +1,6 @@
-var data = [];
+var ctrls = {};
+var changingVol = false;
+
 var slider = {
     "type" : "slider",
     "orientation" : "horizontal",
@@ -22,6 +24,7 @@ function makePalette(template) {
                                     template.ui[i].duration, tid);
         } else {
             element = makeControl(template.ui[i].type,
+								  template.ui[i].name,
                                   template.ui[i].orientation,
                                   template.ui[i].showValue, tid);
         }
@@ -41,10 +44,26 @@ function makeTurntable(artSrc, duration, tid) {
     $(turntable).append(scrubber);
     $(turntable).append(art);
 	$(turntable).attr('id',tid);
-    return $(turntable);
+	$(turntable).click(function(){
+		var tempid = tid;
+		var ttable = this;
+		if (sounds[tempid] == undefined) {
+			SC.stream('/tracks/'+this.id, function(sound) {
+			sounds[tempid] = sound;
+			sound.playing = true;
+			sound.play();
+			});
+		} else {
+			sounds[tempid].playing = !sounds[tempid].playing;
+			//sounds[tempid].togglePause();
+			$(this).toggleClass("playing");
+			}
+	}); 
+	
+	return $(turntable);
 }
 
-function makeControl(type, orientation, value, tid) {
+function makeControl(type, name, orientation, value, tid) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
@@ -58,19 +77,55 @@ function makeControl(type, orientation, value, tid) {
             value: " ",
             class: "move"
         });
-
+		var changeSlider = function(elt, elt2, pos) {
+			elt.val(pos); 
+			elt2.html(pos);
+			console.log(pos);
+		};
+		
+		if (name == 'volume') {
+			$(control).mouseover(function(){
+				changingVol = true;
+			});
+			
+			$(control).mouseout(function() {
+				changingVol = false;
+			});
+		}
     $(control).mousemove(function(){
-        $(value).html($(control).val());
+		var val = $(control).val();
 		var id = $(control).parent().attr("id");
-		if (sounds[id] != undefined)
-					change_volume($(control).val());
-					console.log('here');
-    });
-    
-    var drag = null;
 
+
+		var sound = sounds[id];
+		if (sound != undefined) {
+			if (name == "volume") {
+				$(value).html(val);
+				change_volume(val);
+			}
+			else if (name == "playback") {
+				if (sound.isHTML5) {
+					sound.playbackRate = val/50;
+				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
+					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000));
+					//sound.setPosition(sound.duration*val/100);					
+				}
+				console.log("change playback rate here");
+				
+			}
+				
+		}
+    });
+		if (name == 'volume') {
+			$(control).data('changeSlider', changeSlider);
+			$(control).data('val', $(control));
+			$(control).data('val2', $(value));
+			ctrls[tid] = $(control);
+		}
+    var drag = null;
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");
+				
     });
     
     $(document).mousemove(function(event) {
@@ -79,7 +134,7 @@ function makeControl(type, orientation, value, tid) {
                 top:  Math.floor(event.pageY / 100) * 100,
                 left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
             });
-        }
+        } 
     });    
     
     $(document).mouseup(function(event){

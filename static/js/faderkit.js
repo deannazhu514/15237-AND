@@ -99,8 +99,9 @@ function makeControl(type, name, orientation, value, tid) {
                       type:  inputType,
                       class: type + " " + orientation,
                   }),
-        value   = (value) ? $("<span class='value'>").html($(control).val())
+        value   = (value) ? $("<span>").addClass("value").html($(control).val())
                           : null,
+        label   = $("<label>").html(name);
         handle  = $("<input>").attr({
             type:  "button",
             value: " ",
@@ -137,8 +138,6 @@ function makeControl(type, name, orientation, value, tid) {
 				$(value).html("playback:" + val/50);			
 			} else if (name == "playback") {
 				$(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
-
-				
 			}
 		}
 	});
@@ -186,7 +185,7 @@ function makeControl(type, name, orientation, value, tid) {
         drag = null;
     });
 
-    $(palette).append(handle, control, value);
+    $(palette).append(handle, control, label, value);
 	$(palette).attr('id',tid);
     
     return $(palette);

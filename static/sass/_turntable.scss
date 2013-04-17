@@ -3,6 +3,39 @@
     100% { @include rotateZ(360deg)}
 }
 
+// @-webkit-keyframes indicator1-spin {
+//     0% {
+//         @include rotateZ(0deg);
+//     }
+//     100% {
+//         @include rotateZ(180deg)
+//     }
+// }
+// 
+// @-webkit-keyframes indicator2-spin {
+//     0% {
+//         @include rotateZ(0deg);
+//     }
+//     100% {
+//         @include rotateZ(360deg)
+//     }
+// }
+// 
+// @-webkit-keyframes hide-mask {
+//     0% {
+//         opacity: 1;
+//     }
+//     50% {
+//         opacity: 1;
+//     }
+//     51% {
+//         opacity: 0;
+//     }
+//     100% {
+//         opacity: 0;
+//     }
+// }
+
 .turntable {
     $d: 24em;
     height: $d;
@@ -23,20 +56,38 @@
     }
     
     .scrubber {
-        background: $inactive;
+        background: $background;
         height: 100%;
         width: 100%;
         border-radius: 100em;
         border: $default solid 1px;
         position: absolute;
         
-        .indicator {
+        .semi {
             position: absolute;
-            border-radius: 0 0 100em 100em;
-            height: 50%;
-            width: 100%;
-            background: red;
-            transform: rotate
+            border-radius: 100em 0 0 100em;
+            height: 100%;
+            width: 50%;
+            @include rotateZ(0deg);
+            @include transform-origin(100%);
+            
+            &.indicator {
+                background: $active;
+                
+                &#indicator1 {
+                    @include transition(all 10s 0s linear);
+                }
+                
+                &#indicator2 {
+                    @include transition(all 20s 0s linear);
+                }
+            }
+            
+            &.mask {
+                background: $background;
+                @include transition(visibility 10s 0s linear);
+                visibility: visible;
+            }
         }
     }
     
@@ -45,13 +96,35 @@
     &.playing {
     
         img.art {
-            @include animation(play-spin, 2s, infinite, linear);
+            @include animation(play-spin, 4s, infinite, linear);
+        }
+        
+        .semi {
+            
+            &.indicator {
+                &#indicator1 {
+                    // @include animation(indicator1-spin, 20s, infinite, linear);
+                    @include rotateZ(180deg);
+                }
+                
+                &#indicator2 {
+                    // @include animation(indicator2-spin, 40s, infinite, linear);
+                    @include rotateZ(360deg);
+                }
+            }
+            
+            &.mask {
+                // @include animation(hide-mask, 40s, 1, linear);
+                visibility: hidden;
+            }
         }
     }
     
     &:hover {
-        .scrubber {
-            background: $default;
+        // background: $default !important;
+
+        .scrubber .semi {
+            // background: $default !important;
         }
     }
 }

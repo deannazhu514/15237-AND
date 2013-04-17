@@ -54,28 +54,32 @@ socket.on("update", function(audio) {
 socket.on("update", function(audio) {
 	for (key in sounds) {
 		var tt = sounds[key];
-	
+		var s = tt.source.mediaElement;
 		actual_vol = audio.volume;
 		if (playback_device) {
-			tt.setVolume(audio.volume);
+			if (audio.volume > 1) {
+				console.log(audio.volume);
+			}
+			s.volume = audio.volume;
 		} else {
-			tt.setVolume(0);
+			s.volume = 0;
 		}
-		console.log("audio vol : " + audio.volume);
+		s.playbackRate = audio.speed;
 		if (!changingVol) {
 			var tempfnc = ctrls[key].data('changeSlider');
 			var val = ctrls[key].data('val');
 			var val2 = ctrls[key].data('val2');
 			tempfnc(val, val2, audio.volume);
-			console.log(changingVol);
 		}
-		if (sounds[key].playing && sounds[key].paused) {
-			sounds[key].play();
-			alert('hi');
-		} else if (!sounds[key].playing && !sounds[key].paused){
-			sounds[key].pause();
-			alert('sp');
+		trackList[key].playing = audio.play;
+		if (trackList[key].playing && s.paused) {
+			tt.togglePause();
+		} else if (!trackList[key].playing && !s.paused){
+			tt.togglePause();
+		} else {
+			
 		}
+		
 	}
 }); 
 
@@ -92,13 +96,12 @@ socket.on("playback", function() {
 
 
 function change_volume(value) {
-	console.log(value);
   socket.emit("volume", value);
 }
-/*
+
 function change_speed(value) {
   socket.emit("speed", value);
-}
+}/*
 
 function mute() {
   socket.emit("mute");

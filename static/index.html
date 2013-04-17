@@ -17,13 +17,6 @@
             client_id: '3d503a64aaf395aac54de428f7808b82',			
         });
 
-        $('.turntable').click(function(){
-            if (currentSound) {
-                console.log("hi", currentSound);
-                currentSound.togglePause();	
-                $(this).toggleClass("playing");
-            }				
-        });
     });
     </script>
 </head>
@@ -49,7 +42,7 @@
     </section>
     <script>
         var globalVol = makeControl("slider", "horizontal", false);
-        $("#controls").append(globalVol)
+        $("#controls").append(globalVol);
     </script>
     <ul id="tracks">
     </ul>

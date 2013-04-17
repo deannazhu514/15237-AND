@@ -50,6 +50,22 @@ function makeTurntable(artSrc, duration, tid) {
 		var cursound = sounds[tempid];		
 		
 		if (cursound == undefined) {
+			/*var audio = new Audio();
+			audio.src = tracks[tempid].url+stream_add;
+			source = context.createMediaElementSource(audio);
+			source.connect(context.destination);
+			sounds[tempid] = source.mediaElement;
+			// Create a gain node.
+			var gainNode = context.createGainNode();
+			// Connect the source to the gain node.
+			source.connect(gainNode);
+			// Connect the gain node to the destination.
+			gainNode.connect(context.destination);
+			gainNode.gain.value = 0.5;
+			//sounds[tempid].play();
+			
+			source.mediaElement.play();
+			*/
 			SC.stream('/tracks/'+this.id, function(sound) {
 				sounds[tempid] = sound;
 				sound.play({
@@ -60,7 +76,7 @@ function makeTurntable(artSrc, duration, tid) {
 				});
 				$(ttable).toggleClass("playing");
 			});
-		} else {
+		} else {			
 			console.log(cursound);
 			cursound.togglePause();
 			$(this).toggleClass("playing");	

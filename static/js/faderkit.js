@@ -108,6 +108,7 @@ function makeControl(type, name, orientation, value, tid) {
 			if (name == "volume") {
 				$(value).html(val);
 				change_volume(val);
+			}
 			else if (name == "playback") {
 				if (sound.isHTML5) {
 					sound.playbackRate = 5;

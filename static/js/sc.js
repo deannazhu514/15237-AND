@@ -1,14 +1,16 @@
 var current; //currentSound id
 var currentSound;
+var currentID;
 var loggedin = false;
 var tracks = {};
 var sounds = {};
 var context, analyser, compressor;
 
-var client_id = '3d503a64aaf395aac54de428f7808b82';
-
+//var client_id = '3d503a64aaf395aac54de428f7808b82';
+//var redirect_uri = 'http://128.237.113.212:8999/static/callback.html';
+var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
 var redirect_uri = 'http://localhost:8999/static/callback.html';
-//var redirect_uri = 'http://128.237.249.225:8999/static/callback.html';
+
 var stream_add =  '?client_id='+client_id;
 
 
@@ -52,6 +54,7 @@ function connect(){
 			if (me != null) {
 				//send user info to server
 				var deviceID = new Date();
+				currentID = me.id;
 				loginUser(me.id, deviceID);
 				localStorage["user"] = me.id;
 				loggedin = true;
@@ -77,10 +80,12 @@ function connectDevice(){
 	} else {
 		sendDevice(username, session, deviceID);
 		localStorage["user"] = username;
+		currentID = username;
 		loggedin = true;
 
 	}
 }
+
 
 function loginUser(userID, deviceID){
 	$.ajax({
@@ -114,6 +119,20 @@ function sendDevice(userID, session, deviceID){
 		}
 	});
 }
+
+function getDevices() {
+	console.log(currentID);
+	$.ajax({
+		type: "get",
+		data: {"user": currentID},
+		url: "/devices/"+currentID,
+		success: function(data) {
+			
+			console.log(data);
+		}
+	});
+}
+
 
 function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(playlists){	 
@@ -177,7 +196,6 @@ function addTrack(userID, track){
 	});
 }
 
-
 function getCurrentSong(userID){
 	$.ajax({
 		type: "get",
@@ -189,3 +207,6 @@ function getCurrentSong(userID){
 	});
 }
 
+function addControl(){
+
+}

@@ -88,7 +88,6 @@ function makeTurntable(artSrc, duration, tid) {
 			$(this).toggleClass("playing");	
 		}
 	}); 
-	
 	return $(turntable);
 }
 

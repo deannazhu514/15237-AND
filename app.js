@@ -92,6 +92,15 @@ app.get("/login/:id", function(request, response) {
 	});
 });
 
+app.get("/devices/:id", function(request, response) {
+	var id = request.params.id;
+	var deviceNum = users[id].deviceCount;
+	response.send({
+		deviceNum: deviceNum,
+		success:true
+	});
+});
+
 app.get("/sessionCode/:id", function(request, response) {
 	var id = request.params.id;
 	var session = users[id].session;

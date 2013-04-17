@@ -113,6 +113,20 @@ header section#add-device.open {
   display: block;
 }
 
+header section#settings {
+  display: none;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 2em;
+  position: fixed;
+  top: 0;
+  left: 25%;
+  background: black;
+}
+
+header section#settings.open {
+  display: block;
+}
+
 /* line 1, ../sass/_guest.scss */
 .guest {
   font-size: 2em;

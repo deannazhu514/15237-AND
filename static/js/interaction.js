@@ -32,10 +32,9 @@ function turntable() {
     })
     
     $(".turntable img").mousedown(function(event) {
-        turntable = $(".turntable"),
+        turntable = $(".turntable");
         event.preventDefault();
     })
-
 }
 
 function openPanel() {

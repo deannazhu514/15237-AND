@@ -166,21 +166,36 @@ header section#add-device.open {
   height: 75%;
   width: 75%;
   border-radius: 100em;
+  border: rgba(255, 0, 0, 0.75) solid 1px;
   top: 12.5%;
   left: 12.5%;
   position: absolute;
 }
-/* line 24, ../sass/_turntable.scss */
+/* line 25, ../sass/_turntable.scss */
 .turntable .scrubber {
-  background: rgba(255, 0, 0, 0.75);
+  background: rgba(255, 0, 0, 0.125);
   height: 100%;
   width: 100%;
   border-radius: 100em;
+  border: rgba(255, 0, 0, 0.75) solid 1px;
   position: absolute;
 }
-/* line 34, ../sass/_turntable.scss */
-.turntable.playing {
+/* line 33, ../sass/_turntable.scss */
+.turntable .scrubber .indicator {
+  position: absolute;
+  border-radius: 0 0 100em 100em;
+  height: 50%;
+  width: 100%;
+  background: red;
+  transform: rotate;
+}
+/* line 47, ../sass/_turntable.scss */
+.turntable.playing img.art {
   -webkit-animation: play-spin 2s infinite linear;
+}
+/* line 53, ../sass/_turntable.scss */
+.turntable:hover .scrubber {
+  background: rgba(255, 0, 0, 0.75);
 }
 
 /* line 9, ../sass/_track.scss */

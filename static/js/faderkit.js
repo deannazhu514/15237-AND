@@ -1,3 +1,6 @@
+var ctrls = {};
+var changingVol = false;
+
 var slider = {
     "type" : "slider",
     "orientation" : "horizontal",
@@ -96,10 +99,26 @@ function makeControl(type, name, orientation, value, tid) {
             value: " ",
             class: "move"
         });
-
+		var changeSlider = function(elt, elt2, pos) {
+			elt.val(pos); 
+			elt2.html(pos);
+			console.log(pos);
+		};
+		
+		if (name == 'volume') {
+			$(control).mouseover(function(){
+				changingVol = true;
+			});
+			
+			$(control).mouseout(function() {
+				changingVol = false;
+			});
+		}
     $(control).mousemove(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
+
+
 		var sound = sounds[id];
 		if (sound != undefined) {	
 			var s = sound.source.mediaElement;
@@ -111,6 +130,7 @@ function makeControl(type, name, orientation, value, tid) {
 				$(value).html("playback:" + val/50);			
 			} else if (name == "playback") {
 				$(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
+
 				
 			}
 		}
@@ -134,11 +154,16 @@ function makeControl(type, name, orientation, value, tid) {
 		}		
 		
     });
-    
+		if (name == 'volume') {
+			$(control).data('changeSlider', changeSlider);
+			$(control).data('val', $(control));
+			$(control).data('val2', $(value));
+			ctrls[tid] = $(control);
+		}
     var drag = null;
-
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");
+				
     });
     
     $(document).mousemove(function(event) {
@@ -147,7 +172,7 @@ function makeControl(type, name, orientation, value, tid) {
                 top:  Math.floor(event.pageY / 100) * 100,
                 left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
             });
-        }
+        } 
     });    
     
     $(document).mouseup(function(event){

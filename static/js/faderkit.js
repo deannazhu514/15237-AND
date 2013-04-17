@@ -34,12 +34,15 @@ function makePalette(template) {
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber  = $("<div>").addClass("scrubber"),
-        art       = $("<img>").attr({
+        indicator1 = $("<div>").addClass("indicator"),
+        indicator2 = $("<div>").addClass("indicator"),
+        art = $("<img>").attr({
             src:   artSrc,
             class: "art"
         });
-    $(turntable).append(scrubber);
-    $(turntable).append(art);
+        
+    $(scrubber).append(indicator1, indicator2);
+    $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
 	$(turntable).click(function(){
 		var tempid = tid;
@@ -93,7 +96,7 @@ function makeControl(type, name, orientation, value, tid) {
 			}			
 			else if (name == "playback") {
 				if (sound.isHTML5) {
-					sound.playbackRate = val/50;
+					sound.playbackRate = 5;
 				} else { //CAN SET THE PLAY POSITION HEHEHE AND DISPLAY
 					$(value).html(Math.floor(sound.position/60000)+":"+Math.floor(sound.position/1000)%60);				
 				}

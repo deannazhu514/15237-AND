@@ -212,7 +212,7 @@ var ports = {};
 //var maxPort = 8998;
 //var nextPort = 8000;
 var socketRoomList = {};
-var socketPOrt = 8111;
+var socketPort = 8111;
 var interval = 200; //milliseconds
 var deviceList = {};
 var auto_sort_flag = true;
@@ -233,7 +233,6 @@ io.sockets.on('connection', function (socket) {
 		socket.join(room);
 		if (io.sockets.clients(room).length === 1) {
 			socket.emit("playback");
-			console.log('sup');
 		}
 	});
 	socket.emit("requestUsername");
@@ -289,7 +288,7 @@ function init_socket(socket,room) {
   });
   socket.on("change_time", function(value) {
     audio.time = value;
-    io.sockets.in(room).volatile.emit("update", audio);
+    io.sockets.in(room).volatile.emit("update_time", value);
   });
 }
 
@@ -324,7 +323,6 @@ function audio_init(name) {
 
 function refresh() {
   io.sockets.volatile.emit("update", audio);
-	console.log("vol: " + audio.volume);
   /*
   if (auto_sort_flag) {
     auto_sort();

@@ -220,6 +220,19 @@ function makeControl(type, name, orientation, showValue, tid) {
 		$(control).data('val2', $(value));
 		ctrls[tid] = $(control);
 	}
+	if (name == 'pbr') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		ctrls[tid] = $(control);
+	}
+	if (name == 'playback') {
+				$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		ctrls[tid] = $(control);
+	}
+	
     var drag = null;
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");

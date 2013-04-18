@@ -4,6 +4,7 @@ var socket = io.connect("http://128.237.113.212:8111");
 var auto_sort_flag = true;
 var loop_flag = false;
 var playback_device = false;
+var nonstream = false;
 var actual_vol = 0;
 var trackList = {};
 
@@ -60,6 +61,33 @@ socket.on("update_time", function(value) {
 });
 
 socket.on("update", function(a) {
+	if (!nonstream) {
+		supdate(a);
+	} else {
+		nupdate(a);
+	}
+
+});
+
+function nupdate(a){
+	for (key in a) {
+		audio = a[key];
+		if (trackList[key] != undefined) {
+			trackList[key].playing = audio.play;
+			trackList[key].volume = audio.volume;
+			trackList[key].pbr = audio.speed;
+			if (!changingVol) {
+			var tempobj = ctrls[key]['vol'];
+			var tempfnc = tempobj.data('changeSlider');
+			var val = tempobj.data('val');
+			var val2 = tempobj.data('val2');
+			tempfnc(val, val2, audio.volume);
+			}
+		}
+	}
+}
+
+function supdate(a) {
 	for (key in sounds) {
 		audio = a[key];
 		var tt = sounds[key];
@@ -76,12 +104,28 @@ socket.on("update", function(a) {
 		
 		s.playbackRate = audio.speed;
 		if (!changingVol) {
-			var tempfnc = ctrls[key].data('changeSlider');
-			var val = ctrls[key].data('val');
-			var val2 = ctrls[key].data('val2');
-			tempfnc(val, val2, audio.volume);
+			var tempobj = ctrls[key]['vol'];
+			var tempfnc = tempobj.data('changeSlider');
+			var val = tempobj.data('val');
+			var val2 = tempobj.data('val2');
+			tempfnc(val, val2, audio.volume*100);
 		}
+		if (!changingPBR) {
+			var tempobj = ctrls[key]['pbr'];
+			var tempfnc = tempobj.data('changeSlider');
+			var val = tempobj.data('val');
+			var val2 = tempobj.data('val2');
+			tempfnc(val, val2, audio.speed*50);
+		} /*if (!changingPB) {
+			var tempobj = ctrls[key]['pb'];
+			var tempfnc = tempobj.data('changeSlider');
+			var val = tempobj.data('val');
+			var val2 = tempobj.data('val2');
+			tempfnc(val, val2, audio.speed);
+		}*/
 		trackList[key].playing = audio.play;
+		trackList[key].volume = audio.volume;
+		trackList[key].pbr = audio.speed;
 		if (trackList[key].playing && s.paused) {
 			tt.togglePause();
 		} else if (!trackList[key].playing && !s.paused){
@@ -91,7 +135,7 @@ socket.on("update", function(a) {
 		}
 		
 	}
-}); 
+}
 
 
 
@@ -105,9 +149,35 @@ socket.on("playback", function() {
 	console.log('playback true');
 });	
 
+socket.on("getmod", function(track, num) {
+	//if (deviceNum == num) {
+	if (true) {
+		nonstream = true;
+		track.id = parseFloat(track.id);
+		console.log(track.id);
+		makePalette(track);
+		trackList[track] = {
+						playing: false,
+						pbr: 1.0,
+						volume: 1.0,
+						time: 0,
+						setTime: false
+					};
+	}
+	/*if (device === deviceNum) {
+		if (module == 'track') {
+			
+		}
+	} */
+});
+
 
 function change_volume(id, value) {
+	
   socket.emit("volume", id, value);
+	console.log('change volume');
+	console.log(typeof(id));
+	console.log(typeof(value));
 }
 
 function change_speed(id, value) {

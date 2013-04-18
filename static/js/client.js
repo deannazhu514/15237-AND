@@ -1,4 +1,4 @@
-var username = "deanna";
+
 
 String.prototype.hashCode = function(){
     var hash = 0, i, char;

@@ -1,5 +1,7 @@
 var ctrls = {};
 var changingVol = false;
+var changingPBR = false;
+var changingPB = false;
 var intids = {};
 
 
@@ -10,6 +12,18 @@ var slider = {
 };
             
 function makePalette(template) {
+		if (typeof(template.id) == 'string') {
+			template.id = parseFloat(template.id);
+		}
+		
+		console.log(typeof(template.id));
+					trackList[template.id] = {
+						playing: false,
+						pbr: 1.0,
+						volume: 1.0,
+						time: 0,
+						setTime: false
+					};
     // Container for all controls and information for a single track
     var track  = $("<li>").addClass("track"),
         header = $("<header>"),
@@ -22,18 +36,64 @@ function makePalette(template) {
     for (var i = 0; i < template.ui.length; i++) {
         var element;
         if (template.ui[i].type === "turntable") {
+				
+						if (nonstream) {
+							element = makeTurntable2(template.ui[i].art,
+                                    template.ui[i].duration, tid);
+						} else {
             element = makeTurntable(template.ui[i].art,
                                     template.ui[i].duration, tid);
+						}
         } else {
             element = makeControl(template.ui[i].type,
 								  template.ui[i].name,
                                   template.ui[i].orientation,
-                                  template.ui[i].showValue, tid);
+                                  template.ui[i].showValue, tid, template.ui[i].duration);
         }
         
         track.append(element);
     }
     $("ul#tracks").append(track);
+}
+
+function makeTurntable2(artSrc, duration, tid) {
+		console.log(typeof(tid));
+    var turntable = $("<div>").addClass("turntable"),
+        scrubber   = $("<div>").addClass("scrubber"),
+        indicator1 = $("<div>").attr({
+            class: "indicator semi",
+            id: "indicator1"
+        }),
+        indicator2 = $("<div>").attr({
+            class: "indicator semi",
+            id: "indicator2"
+        }),
+        mask = $("<div>").addClass("mask semi"),
+        art = $("<img>").attr({
+            src:   artSrc,
+            class: "art"
+        });
+        
+    $(scrubber).append(indicator1, indicator2, mask);
+    $(turntable).append(scrubber, art);
+		$(turntable).attr('id',tid);
+		$(turntable).click(function(){
+		var tempid = tid;
+		var ttable = this;
+		
+					
+			//cursound.togglePause();
+			//trackList[tempid].playing = !trackList[tempid].playing;
+			
+			if (trackList[tempid].playing) {
+				socket.emit('pause',tid);
+			} else {
+				socket.emit('play',tid);
+			}
+			$(this).toggleClass("playing");	
+		
+	}); 
+	return $(turntable);
 }
 
 function makeTurntable(artSrc, duration, tid) {
@@ -121,7 +181,8 @@ function makeTurntable(artSrc, duration, tid) {
 	return $(turntable);
 }
 
-function makeControl(type, name, orientation, showValue, tid) {
+function makeControl(type, name, orientation, showValue, tid, duration) {
+
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
@@ -136,7 +197,7 @@ function makeControl(type, name, orientation, showValue, tid) {
             class: "move"
         });
 		var changeSlider = function(elt, elt2, pos) {
-			elt.val(pos*100); 
+			elt.val(pos); 
 			//elt2.html(pos*100);
 		};
 	if (name === 'volume') {
@@ -148,14 +209,23 @@ function makeControl(type, name, orientation, showValue, tid) {
 		});
 	}
 	
+	if (name === 'pbr') {
+		$(control).mouseover(function(){
+			changingPBR = true;
+		});
+		$(control).mouseout(function() {
+			changingPBR = false;
+		});
+	}
+	
     $(control).mousemove(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
 		function setTime() {
 		}
-
+		/*
 		var sound = sounds[id];
-		if (sound != undefined) {	
+		if (sound != undefined) {
 			var s = sound.source.mediaElement;
 			if (name == "volume") {
 				$(value).html(val);
@@ -167,27 +237,29 @@ function makeControl(type, name, orientation, showValue, tid) {
 			} else if (name == "playback") {
     			
             }
-		}
+		}*/
 	});
 	
    $(control).click(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
-		var sound = sounds[id];
-		if (sound != undefined) {
-			var s = sound.source.mediaElement;
+		//var sound = sounds[id];
+		if (true) {
+			//var s = sound.source.mediaElement;
 			if (name == "volume") {
 				//s.volume = val/100;
 				change_volume(id,val/100);
+				
 				$(value).html("volume:"+val);
 			}			
 			else if (name == "pbr") {
 				change_speed(id,val/50);
+				
 				//s.playbackRate = val/50;
 			} else if (name == "playback") {
 				//s.currentTime = (s.duration*val/100);					
-				change_time(id,s.duration*val/100);
-				$(value).html("position:"+s.duration*val/100);
+				change_time(id,duration*val/100);
+				$(value).html("position:"+duration*val/100);
 			}
 		}
 		
@@ -212,25 +284,28 @@ function makeControl(type, name, orientation, showValue, tid) {
 					trackList[tid].setTime = true;
 				}
 		} */
-
+	if (ctrls[tid] == undefined) {
+			ctrls[tid] = {};
+		}
 	if (name == 'volume') {
+
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
-		ctrls[tid] = $(control);
-	} /*
+		ctrls[tid]['vol'] = $(control);
+	} 
 	if (name == 'pbr') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
-		ctrls[tid] = $(control);
+		ctrls[tid]['pbr'] = $(control);
 	}
 	if (name == 'playback') {
 				$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
-		ctrls[tid] = $(control);
-	}*/
+		ctrls[tid]['pb'] = $(control);
+	}
 	
     var drag = null;
     $(handle).mousedown(function(event){
@@ -259,7 +334,7 @@ function makeControl(type, name, orientation, showValue, tid) {
 
     $(palette).append(handle, control, label);
     
-    if (showValue) {
+    if (showValue == 'true') {
         $(palette).append(value);
         console.log("val")
     }

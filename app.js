@@ -177,6 +177,7 @@ app.post("/sendModule", function(request, response) {
 	var success = (users[id] != undefined) && (users[id].devices[device] != undefined);
 	if (success) {
 		console.log("sending "+module+"to "+ device);
+		
 	}
 	response.send({
 		userID : id,
@@ -229,7 +230,7 @@ app.get("/socket.io/:fileName", function (req, res) {
 });
 
 app.get("/room/:roomString", function (request, response) {
-
+	
 });
 
 app.listen(staticPort);
@@ -323,6 +324,14 @@ function init_socket(socket,room) {
     audio[id].time = value;
     io.sockets.in(room).volatile.emit("update_time", value);
   });
+	socket.on("sendModule", function (trackz, num) {
+		console.log(trackz);
+		io.sockets.in(room).emit("getmod", trackz, num);
+	});
+	/*socket.on("sendModule", function (device, module, modulename, length) {
+		
+		io.sockets.in(room).emit("getmod", device, module, modulename, length);
+	});*/
 }
 
 

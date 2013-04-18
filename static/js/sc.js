@@ -5,6 +5,7 @@ var loggedin = false;
 var tracks = {};
 var sounds = {};
 var context, analyser, compressor;
+var deviceNum;
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
@@ -113,6 +114,7 @@ function sendDevice(userID, session, deviceID){
 				$("#loginmsg").html("Device "+data.deviceNum+" connected!");			
 				$("#loginbut").remove();
 				$('form').remove(); 
+				deviceNum = data.deviceNum;
 			}
 		}
 	});
@@ -137,16 +139,34 @@ function getDevices() {
 function getModules(){
 	console.log("getModules");
 	for (track in tracks) {
-		console.log(track);
-		var trackbut = $('<input type=button>')
-						.addClass("panel-button")
-						.val(""+track);
-		trackbut.mousedown( function(event) {
-			console.log(this);
-			sendModule(2, "track", this.value);
-		});
-		$('#modules').append(trackbut);
+		if (tracks[track]['appended'] == undefined) {
+			console.log(track);
+			
+			tracks[track]['appended'] = true;
+			var trackbut = $('<input type=button>')
+							.addClass("panel-button")
+							.val(""+track+tracks[track].song);
+			var bleh = function(t) {
+				console.log('t: ' + t);
+				sendModule2(2, "track", t);
+			};
+			var x = track;
+			console.log('x: ' + x);
+			var blah = function() { bleh(x); };
+			trackbut.mousedown( function(event) {
+				console.log(this);
+				sendModule2(2, 'track', parseFloat(this.value.substring(0, 8)));
+			});
+				//console.log(tracks[track].song);
+			$('#modules').append(trackbut);
+		}
 	}
+}
+
+function sendModule2(device, module, modulename) {
+	//socket.emit("sendModule", device, module, modulename);
+	
+	socket.emit("sendModule", tracks[modulename], device);
 }
 
 function sendModule(device, module, modulename) {
@@ -160,6 +180,7 @@ function sendModule(device, module, modulename) {
 		url: "/sendModule",
 		success: function(data) {
 			console.log(data);
+			
 		}
 	});
 }
@@ -183,16 +204,13 @@ function getPlaylists(SCuser){
 						"ui": [{
 								"type": "turntable",
 								"art": artwork,
-								"duration": track.duration
+								"duration": track.duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
+																					 //OTHERWISE WE SHOULD USE ESTIMATEDDURATION
+																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
 								}, volslider, pbslider, playbackslider]
 					};
-					trackList[track.id] = {
-						playing: false,
-						pbr: 1.0,
-						volume: 1.0,
-						time: 0,
-						setTime: false
-					};
+					console.log(track.duration);
+
 					socket.emit("newtrack", track.id);
 					//console.log(track2);
 					tracks[track.id] = track2;

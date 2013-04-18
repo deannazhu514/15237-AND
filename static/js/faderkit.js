@@ -1,5 +1,7 @@
 var ctrls = {};
 var changingVol = false;
+var intids = {}'
+
 
 var slider = {
     "type" : "slider",
@@ -36,7 +38,7 @@ function makePalette(template) {
 
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
-        scrubber  = $("<div>").addClass("scrubber"),
+        scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
             class: "indicator semi",
             id: "indicator1"
@@ -79,6 +81,7 @@ function makeTurntable(artSrc, duration, tid) {
 			//sound.play();
 			
 			sounds[tempid] = sound;
+//<<<<<<< HEAD
 			if(trackList[tempid] == undefined) {
 				alert('wat');
 			}
@@ -88,11 +91,21 @@ function makeTurntable(artSrc, duration, tid) {
 				socket.emit('play');
 			}
 			//trackList[tempid].playing = !trackList[tempid].playing;
-			cursound = sound;
-			console.log(cursound.source.mediaElement.paused);
+			//cursound = sound;
+			//console.log(cursound.source.mediaElement.paused);
 			console.log(trackList[tempid].playing);
 			$(ttable).toggleClass("playing");			
-	
+			
+			
+			if (cursound) {
+				 var id = $(control).parent().attr("id");
+				 var s = sounds[id].source.mediaElement;
+					setInterval(function () {
+					    if (name == "playback") {
+					        $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
+					    }
+					}, 1000);
+			}		
 		} else {			
 			//cursound.togglePause();
 			//trackList[tempid].playing = !trackList[tempid].playing;
@@ -109,16 +122,15 @@ function makeTurntable(artSrc, duration, tid) {
 	return $(turntable);
 }
 
-function makeControl(type, name, orientation, value, tid) {
+function makeControl(type, name, orientation, showValue, tid) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
                       type:  inputType,
                       class: type + " " + orientation,
                   }),
-        value   = (value) ? $("<span>").addClass("value").html($(control).val())
-                          : null,
-        label   = $("<label>").html(name);
+        value   = $("<span>").addClass("value").html($(control).val()),
+        label   = $("<label>").html(name),
         handle  = $("<input>").attr({
             type:  "button",
             value: " ",
@@ -128,20 +140,20 @@ function makeControl(type, name, orientation, value, tid) {
 			elt.val(pos*100); 
 			//elt2.html(pos*100);
 		};
-		
-		if (name == 'volume') {
-			$(control).mouseover(function(){
-				changingVol = true;
-			});
-			
-			$(control).mouseout(function() {
-				changingVol = false;
-			});
-		}
+	if (name === 'volume') {
+		$(control).mouseover(function(){
+			changingVol = true;
+		});
+		$(control).mouseout(function() {
+			changingVol = false;
+		});
+	}
+	
     $(control).mousemove(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
-
+		function setTime() {
+		}
 
 		var sound = sounds[id];
 		if (sound != undefined) {	
@@ -151,12 +163,14 @@ function makeControl(type, name, orientation, value, tid) {
 				change_volume(val/100);
 			}
 			else if (name == "pbr") {
-				$(value).html("playback:" + val/50);			
+				s.volume = val/100;
+				$(value).html("volume:"+val);
 			} else if (name == "playback") {
-				$(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
-			}
+    			
+            }
 		}
 	});
+	
    $(control).click(function(){
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
@@ -174,17 +188,38 @@ function makeControl(type, name, orientation, value, tid) {
 			} else if (name == "playback") {
 				//s.currentTime = (s.duration*val/100);					
 				change_time(s.duration*val/100);
-				$(value).html("position:"+s.currentTime);	
-			}		
-		}		
+				$(value).html("position:"+s.duration*val/100);
+			}
+		}
 		
     });
-		if (name == 'volume') {
-			$(control).data('changeSlider', changeSlider);
-			$(control).data('val', $(control));
-			$(control).data('val2', $(value));
-			ctrls[tid] = $(control);
-		}
+		
+		/*
+		var fff = function(id,v) {
+			id.clearInterval();
+			
+		};
+		var iid = setInterval(fff(tid, $(value)), 1000);
+		
+		if (name == 'playback') {
+					
+				var func = function(song, v) {
+					v.html(Math.floor(song.currentTime/60)+":"+Math.floor(song.currentTime%60));
+					console.log('awk');
+				};
+				if (trackList[tid] != undefined && !trackList[tid].setTime) {
+					console.log('yo');
+					window.setInterval(func(sounds[tid],$(value)), 100);
+					trackList[tid].setTime = true;
+				}
+		} */
+
+	if (name == 'volume') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		ctrls[tid] = $(control);
+	}
     var drag = null;
     $(handle).mousedown(function(event){
         drag = $(this).parents(".palette");
@@ -203,8 +238,19 @@ function makeControl(type, name, orientation, value, tid) {
     $(document).mouseup(function(event){
         drag = null;
     });
+		
+    if (name === 'playback') {
+        $(value).html("0:00");
+        $(control).val(0);
 
-    $(palette).append(handle, control, label, value);
+    }
+
+    $(palette).append(handle, control, label);
+    
+    if (showValue) {
+        $(palette).append(value);
+        console.log("val")
+    }
 	$(palette).attr('id',tid);
     
     return $(palette);

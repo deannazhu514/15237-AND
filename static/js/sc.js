@@ -30,7 +30,7 @@ var playbackslider = {
                 "type" : "slider",
 				"name" : "playback",
                 "orientation" : "horizontal",
-                "showValue" : false
+                "showValue" : true
             };			
 			
 function init() {
@@ -140,7 +140,8 @@ function getPlaylists(SCuser){
 						playing: false,
 						pbr: 1.0,
 						volume: 1.0,
-						time: 0
+						time: 0,
+						setTime: false
 					};
 					
 					//console.log(track2);

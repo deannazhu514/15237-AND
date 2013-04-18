@@ -51,6 +51,14 @@ socket.on("update", function(audio) {
 }); */
 
 
+socket.on("update_time", function(value) {
+	for (key in sounds) {
+				var tt = sounds[key];
+		var s = tt.source.mediaElement;
+		s.currentTime = value;
+	}
+});
+
 socket.on("update", function(audio) {
 	for (key in sounds) {
 		var tt = sounds[key];
@@ -64,6 +72,7 @@ socket.on("update", function(audio) {
 		} else {
 			s.volume = 0;
 		}
+		
 		s.playbackRate = audio.speed;
 		if (!changingVol) {
 			var tempfnc = ctrls[key].data('changeSlider');
@@ -102,12 +111,8 @@ function change_volume(value) {
 
 function change_speed(value) {
   socket.emit("speed", value);
-}/*
-
-function mute() {
-  socket.emit("mute");
 }
 
-function unmute() {
-  socket.emit("unmute");
-}*/
+function change_time(value) {
+	socket.emit("change_time", value);
+}

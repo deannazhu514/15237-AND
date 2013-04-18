@@ -92,6 +92,15 @@ app.get("/login/:id", function(request, response) {
 	});
 });
 
+app.get("/devices/:id", function(request, response) {
+	var id = request.params.id;
+	var deviceNum = users[id].deviceCount;
+	response.send({
+		deviceNum: deviceNum,
+		success:true
+	});
+});
+
 app.get("/sessionCode/:id", function(request, response) {
 	var id = request.params.id;
 	var session = users[id].session;
@@ -134,21 +143,23 @@ app.post("/login", function(request, response) {
 
 //login via device connect
 app.post("/login/:id", function(request, response) {
-	var id = request.body.user;
+	var id = request.params.id;
 	var num = "";
 	var session = request.body.session;
 	var deviceID = request.body.deviceID;
 	var success = (users[id] != undefined) && (session == users[id].session);
 	if (success) {
-		console.log(users[id].deviceCount);
+		console.log(users[id]);
 		users[id].deviceCount++;
-		users[id].devices[deviceID] = {
-				"num" : users[id].deviceCount,
+		var deviceCount = users[id].deviceCount;
+		users[id].devices[deviceCount] = {
+				"id" : deviceID,
+				"num" : deviceCount,
 				"controls" : [],
 				"connected" : true
 		};	
 		console.log(users[id].devices[deviceID]);
-		num = users[id].devices[deviceID].num;		
+		num = users[id].devices[deviceCount].num;		
 	}
 	response.send({
 		userID : id,
@@ -156,6 +167,24 @@ app.post("/login/:id", function(request, response) {
 		success: success
 	});
 });
+
+app.post("/sendModule", function(request, response) {
+	var id = request.body.user;
+	var device = request.body.device;
+	var module = request.body.module;
+	var moduleID = request.body.name;
+	
+	var success = (users[id] != undefined) && (users[id].devices[device] != undefined);
+	if (success) {
+		console.log("sending "+module+"to "+ device);
+	}
+	response.send({
+		userID : id,
+		success: success
+	});
+});
+
+
 
 app.post("/tracks", function(request, response) {
 	//console.log(request.body);
@@ -240,54 +269,58 @@ io.sockets.on('connection', function (socket) {
 
 
 function init_socket(socket,room) {
-
-  socket.on("volume", function(value) {
-    audio.volume = value; //percentage value between 0 and 100 here
+	socket.on('newtrack', function(id) {
+		audio_init(id);
+		console.log(audio);
+	});
+  socket.on("volume", function(id, value) {
+    audio[id].volume = value; //percentage value between 0 and 100 here
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("mute", function() {
-    audio.mute = true; //boolean here
+  socket.on("mute", function(id) {
+    audio[id].mute = true; //boolean here
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("unmute", function() {
-    audio.mute = false;
+  socket.on("unmute", function(id) {
+    audio[id].mute = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("auto_off", function() {
-    audio.auto = false;
+  socket.on("auto_off", function(id) {
+    audio[id].auto = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("auto_on", function() {
-    audio.auto = true;
+  socket.on("auto_on", function(id) {
+    audio[id].auto = true;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("speed", function(value) {
-    audio.speed = value;
+  socket.on("speed", function(id, value) {
+    audio[id].speed = value;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("play", function() {
-    audio.play = true;
+  socket.on("play", function(id) {
+    audio[id].play = true;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("pause", function() {
-    audio.play = false;
+  socket.on("pause", function(id) {
+    audio[id].play = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("next_song", function(name) {
+	/*
+  socket.on("next_song", function(id, name) {
     audio_init(name);
     io.sockets.emit("update", audio); //not volatile
                                       //song change is high priority
-  });
-  socket.on("loop_off", function() {
-    audio.loop = false;
+  });*/
+  socket.on("loop_off", function(id) {
+    audio[id].loop = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("loop_on", function() {
-    audio.loop = true;
+  socket.on("loop_on", function(id) {
+    audio[id].loop = true;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("change_time", function(value) {
-    audio.time = value;
+  socket.on("change_time", function(id, value) {
+    audio[id].time = value;
     io.sockets.in(room).volatile.emit("update_time", value);
   });
 }
@@ -298,8 +331,8 @@ function rec_message(socket) {
   io.sockets.in(room).volatile.emit("update", audio);
 }*/
 
-function audio_init(name) {
-  audio = {
+function audio_init(id) {
+	audio[id] = {
     volume:  1,
     mute:  false,
     auto: true,
@@ -307,31 +340,34 @@ function audio_init(name) {
     play: false,
     loop: false,
     time: 0,
-    start: new Date().getTime()
+    start: new Date().getTime(),
+		id: id
   }
-  audio.name = name;
+  /*
+	audio[id].name = name;
+	
   songList.push( {
     name: name,
-    start: audio.start,
+    start: audio[id].start,
     actionList: []
   });
-  n = songList.length;
+  n = songList.length;*/
 }
 
 
 
 
 function refresh() {
-  io.sockets.volatile.emit("update", audio);
+	if (Object.keys(audio).length > 0) {
+		io.sockets.volatile.emit("update", audio);
+	}
   /*
   if (auto_sort_flag) {
     auto_sort();
   }
-  audio.time += interval;
+  audio[id].time += interval;
   */
 }
-
-audio_init('blah');
 
 function auto_sort() {
 

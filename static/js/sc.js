@@ -1,5 +1,6 @@
 var current; //currentSound id
 var currentSound;
+var currentID;
 var loggedin = false;
 var tracks = {};
 var sounds = {};
@@ -52,6 +53,7 @@ function connect(){
 			if (me != null) {
 				//send user info to server
 				var deviceID = new Date();
+				currentID = me.id;
 				loginUser(me.id, deviceID);
 				localStorage["user"] = me.id;
 				loggedin = true;
@@ -77,10 +79,11 @@ function connectDevice(){
 	} else {
 		sendDevice(username, session, deviceID);
 		localStorage["user"] = username;
+		currentID = username;
 		loggedin = true;
-
 	}
 }
+
 
 function loginUser(userID, deviceID){
 	$.ajax({
@@ -115,6 +118,53 @@ function sendDevice(userID, session, deviceID){
 	});
 }
 
+function getDevices() {
+	$.ajax({
+		type: "get",
+		data: {"user": currentID},
+		url: "/devices/"+currentID,
+		success: function(data) {
+			var num = data.deviceNum;
+			for (var i = 0; i < num; num++) {
+				/*var button = $('<input>').html("Device"+(i+1));
+				$('#devices').append(button);*/
+				console.log("track"+i);
+			}
+		}
+	});
+}
+
+function getModules(){
+	console.log("getModules");
+	for (track in tracks) {
+		console.log(track);
+		var trackbut = $('<input type=button>')
+						.addClass("panel-button")
+						.val(""+track);
+		trackbut.mousedown( function(event) {
+			console.log(this);
+			sendModule(2, "track", this.value);
+		});
+		$('#modules').append(trackbut);
+	}
+}
+
+function sendModule(device, module, modulename) {
+	$.ajax({
+		type: "post",
+		data: {"user": currentID,
+				"device": device,
+				"module": module,
+				"name": modulename
+		},
+		url: "/sendModule",
+		success: function(data) {
+			console.log(data);
+		}
+	});
+}
+
+
 function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(playlists){	 
 		playlists.forEach(function(playlist){
@@ -143,14 +193,13 @@ function getPlaylists(SCuser){
 						time: 0,
 						setTime: false
 					};
-					
+					socket.emit("newtrack", track.id);
 					//console.log(track2);
 					tracks[track.id] = track2;
 					addTrack(SCuser, track2);
 					makePalette(track2);					
 				}
 			}
-			//playlists[playlist.id] = tracks;
 		});
 	 });
 	 loggedin = true;
@@ -185,7 +234,6 @@ function addTrack(userID, track){
 	});
 }
 
-
 function getCurrentSong(userID){
 	$.ajax({
 		type: "get",
@@ -197,3 +245,6 @@ function getCurrentSong(userID){
 	});
 }
 
+function addControl(){
+
+}

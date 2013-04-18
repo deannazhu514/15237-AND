@@ -59,8 +59,9 @@ socket.on("update_time", function(value) {
 	}
 });
 
-socket.on("update", function(audio) {
+socket.on("update", function(a) {
 	for (key in sounds) {
+		audio = a[key];
 		var tt = sounds[key];
 		var s = tt.source.mediaElement;
 		actual_vol = audio.volume;
@@ -105,12 +106,12 @@ socket.on("playback", function() {
 });	
 
 
-function change_volume(value) {
-  socket.emit("volume", value);
+function change_volume(id, value) {
+  socket.emit("volume", id, value);
 }
 
-function change_speed(value) {
-  socket.emit("speed", value);
+function change_speed(id, value) {
+  socket.emit("speed", id, value);
 }
 
 function change_time(value) {

@@ -1,6 +1,6 @@
 var ctrls = {};
 var changingVol = false;
-var intids = {}'
+var intids = {};
 
 
 var slider = {
@@ -86,9 +86,9 @@ function makeTurntable(artSrc, duration, tid) {
 				alert('wat');
 			}
 			if(trackList[tempid].playing) {
-				socket.emit('pause');
+				socket.emit('pause',tid);
 			} else {
-				socket.emit('play');
+				socket.emit('play',tid);
 			}
 			//trackList[tempid].playing = !trackList[tempid].playing;
 			//cursound = sound;
@@ -110,15 +110,14 @@ function makeTurntable(artSrc, duration, tid) {
 			//cursound.togglePause();
 			//trackList[tempid].playing = !trackList[tempid].playing;
 						if(trackList[tempid].playing) {
-				socket.emit('pause');
+				socket.emit('pause',tid);
 			} else {
-				socket.emit('play');
+				socket.emit('play',tid);
 			}
 			console.log(cursound.source.mediaElement.paused);
 			$(this).toggleClass("playing");	
 		}
 	}); 
-	
 	return $(turntable);
 }
 
@@ -160,11 +159,11 @@ function makeControl(type, name, orientation, showValue, tid) {
 			var s = sound.source.mediaElement;
 			if (name == "volume") {
 				$(value).html(val);
-				change_volume(val/100);
+				change_volume(id,val/100);
 			}
 			else if (name == "pbr") {
-				s.volume = val/100;
-				$(value).html("volume:"+val);
+				//s.volume = val/100;
+				//$(value).html("volume:"+val);
 			} else if (name == "playback") {
     			
             }
@@ -175,19 +174,19 @@ function makeControl(type, name, orientation, showValue, tid) {
 		var val = $(control).val();
 		var id = $(control).parent().attr("id");
 		var sound = sounds[id];
-		if (sound != undefined) {	
+		if (sound != undefined) {
 			var s = sound.source.mediaElement;
 			if (name == "volume") {
 				//s.volume = val/100;
-				change_volume(val/100);
+				change_volume(id,val/100);
 				$(value).html("volume:"+val);
 			}			
 			else if (name == "pbr") {
-				change_speed(val/50);
+				change_speed(id,val/50);
 				//s.playbackRate = val/50;
 			} else if (name == "playback") {
 				//s.currentTime = (s.duration*val/100);					
-				change_time(s.duration*val/100);
+				change_time(id,s.duration*val/100);
 				$(value).html("position:"+s.duration*val/100);
 			}
 		}
@@ -219,7 +218,7 @@ function makeControl(type, name, orientation, showValue, tid) {
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid] = $(control);
-	}
+	} /*
 	if (name == 'pbr') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
@@ -231,7 +230,7 @@ function makeControl(type, name, orientation, showValue, tid) {
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid] = $(control);
-	}
+	}*/
 	
     var drag = null;
     $(handle).mousedown(function(event){

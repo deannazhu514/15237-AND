@@ -16,7 +16,7 @@
     <script>
       $(document).ready(function() {
         SC.initialize({
-            client_id: '3d503a64aaf395aac54de428f7808b82',			
+            client_id: '8c81dbd8c3ad36c29dfc54d06b566fe6',			
         });
 
     });
@@ -45,8 +45,10 @@
         </section>
 		
 		<section id="settings">
-			<div id="sessiontext" > Click </div>
-			<input type="button" class="panel-button" value="Track1" id ="testbut">
+			<div id="sessiontext"> Select track to move to device</div>
+				<div id="devices"></div>
+				<div id="modules"></div>
+				<!-- <input type="button" class="panel-button" value="Track1" id ="testbut"> -->
         </section>
     </header>
     <script type="text/javascript">
@@ -55,9 +57,11 @@
                 connect();
             });
 			
-            $('#testbut').click(function(){
-                addControl(2, this.value);
-            });
+			$('#settings').click(function(){
+				//getDevices();
+				getModules();
+			});
+	
         });
     </script>
     <section id="controls">

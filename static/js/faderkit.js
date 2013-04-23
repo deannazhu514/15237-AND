@@ -4,11 +4,7 @@ var changingPBR = false;
 var changingPB = false;
 var intids = {};
 
-var colors = {
-    "1": "red",
-    "2": "orange",
-    "3": "yellow"
-}
+var colors = ["red","orange","yellow"]
 
 var slider = {
     "type" : "slider",
@@ -81,30 +77,31 @@ function makeTurntable2(artSrc, duration, tid) {
         
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
-		$(turntable).attr('id',tid);
-		$(turntable).click(function(){
-		var tempid = tid;
-		var ttable = this;
+	$(turntable).attr('id',tid);
+	$(turntable).click(function(){
+    	var tempid = tid;
+    	var ttable = this;
+    	
+    	
+    	//cursound.togglePause();
+    	//trackList[tempid].playing = !trackList[tempid].playing;
 		
-					
-			//cursound.togglePause();
-			//trackList[tempid].playing = !trackList[tempid].playing;
-			
-			if (trackList[tempid].playing) {
-				socket.emit('pause',tid);
-			} else {
-				socket.emit('play',tid);
-			}
-			$(this).toggleClass("playing");	
-		
+		if (trackList[tempid].playing) {
+			socket.emit('pause',tid);
+		} else {
+			socket.emit('play',tid);
+		}
+		$(this).toggleClass("playing");	
+	
 	}); 
 	return $(turntable);
 }
 
 // Called after volume change
-function volumeGlow(vol) {
-    $(".turntable").css({
-        "box-shadow": "0 0 " + vol + "px" + colors.1
+function volumeGlow(vol, item) {
+    var glow = vol * 2
+    $(item).css({
+        "box-shadow": "0 0 " + glow + "px " + colors[1]
     })
 }
 
@@ -131,8 +128,8 @@ function makeTurntable(artSrc, duration, tid) {
 	$(turntable).click(function(){
 		var tempid = tid;
 		var ttable = this;
-		var cursound = sounds[tempid];		
-		
+		var cursound = sounds[tempid];	
+				
 		if (cursound == undefined) {
 			var sound = {};
 			var audio = new Audio();
@@ -153,7 +150,7 @@ function makeTurntable(artSrc, duration, tid) {
 			//sound.play();
 			
 			sounds[tempid] = sound;
-//<<<<<<< HEAD
+
 			if(trackList[tempid] == undefined) {
 				alert('wat');
 			}
@@ -172,11 +169,12 @@ function makeTurntable(artSrc, duration, tid) {
 			if (cursound) {
 				 var id = $(control).parent().attr("id");
 				 var s = sounds[id].source.mediaElement;
-					setInterval(function () {
-					    if (name == "playback") {
-					        $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
-					    }
-					}, 1000);
+				setInterval(function () {
+					if (name == "playback") {
+					    $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
+					}
+				}, 1000);
+
 			}		
 		} else {			
 			//cursound.togglePause();
@@ -190,7 +188,6 @@ function makeTurntable(artSrc, duration, tid) {
 			$(this).toggleClass("playing");	
 		}
 	});
-	volumeGlow(50);
 	return $(turntable);
 }
 
@@ -264,7 +261,7 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 				change_volume(id,val/100);
 				$(value).html("volume:"+val);
 				// Set visual glow of volume
-				volumeGlow(val);
+				volumeGlow(val, $(this).parent().siblings(".turntable"));
 			} else if (name == "pbr") {
 				change_speed(id,val/50);
 				
@@ -341,10 +338,9 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
     if (name === 'playback') {
         $(value).html("0:00");
         $(control).val(0);
-
     }
 
-    $(palette).append(handle, control, label);
+    $(palette).append(control, label);
     
     if (showValue == 'true') {
         $(palette).append(value);

@@ -4,6 +4,11 @@ var changingPBR = false;
 var changingPB = false;
 var intids = {};
 
+var colors = {
+    "1": "red",
+    "2": "orange",
+    "3": "yellow"
+}
 
 var slider = {
     "type" : "slider",
@@ -96,6 +101,13 @@ function makeTurntable2(artSrc, duration, tid) {
 	return $(turntable);
 }
 
+// Called after volume change
+function volumeGlow(vol) {
+    $(".turntable").css({
+        "box-shadow": "0 0 " + vol + "px" + colors.1
+    })
+}
+
 function makeTurntable(artSrc, duration, tid) {
     var turntable = $("<div>").addClass("turntable"),
         scrubber   = $("<div>").addClass("scrubber"),
@@ -177,7 +189,8 @@ function makeTurntable(artSrc, duration, tid) {
 			console.log(cursound.source.mediaElement.paused);
 			$(this).toggleClass("playing");	
 		}
-	}); 
+	});
+	volumeGlow(50);
 	return $(turntable);
 }
 
@@ -249,10 +262,10 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 			if (name == "volume") {
 				//s.volume = val/100;
 				change_volume(id,val/100);
-				
 				$(value).html("volume:"+val);
-			}			
-			else if (name == "pbr") {
+				// Set visual glow of volume
+				volumeGlow(val);
+			} else if (name == "pbr") {
 				change_speed(id,val/50);
 				
 				//s.playbackRate = val/50;
@@ -307,24 +320,23 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 		ctrls[tid]['pb'] = $(control);
 	}
 	
-    var drag = null;
-    $(handle).mousedown(function(event){
-        drag = $(this).parents(".palette");
-				
-    });
-    
-    $(document).mousemove(function(event) {
-        if (drag) {
-            drag.offset({
-                top:  Math.floor(event.pageY / 100) * 100,
-                left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
-            });
-        } 
-    });    
-    
-    $(document).mouseup(function(event){
-        drag = null;
-    });
+    // var drag = null;
+    // $(handle).mousedown(function(event){
+    //     drag = $(this).parents(".palette");
+    // });
+    // 
+    // $(document).mousemove(function(event) {
+    //     if (drag) {
+    //         drag.offset({
+    //             top:  Math.floor(event.pageY / 100) * 100,
+    //             left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
+    //         });
+    //     } 
+    // });    
+    // 
+    // $(document).mouseup(function(event){
+    //     drag = null;
+    // });
 		
     if (name === 'playback') {
         $(value).html("0:00");

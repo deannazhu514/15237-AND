@@ -86,7 +86,7 @@
     .move {
         background: none;
         border: none;
-        color: red;
+        color: $active;
         width: 2em;
         height: .5em;
         display: block;
@@ -128,7 +128,7 @@
 
         &::-webkit-slider-thumb {
             -webkit-appearance:none;
-            background: red;
+            background: $active;
             height: 4em;
             width: 2em;
             cursor: pointer;

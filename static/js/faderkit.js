@@ -126,12 +126,15 @@ function makeTurntable(artSrc, duration, tid) {
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
 	$(turntable).click(function(){
+    	// default glow when playing starts
+    	volumeGlow(50, turntable);
 		var tempid = tid;
 		var ttable = this;
 		var cursound = sounds[tempid];	
 		console.log(tempid);
 		console.log(typeof(tempid));
 		if (cursound == undefined && (!nonstream)) {
+
 			var sound = {};
 			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;
@@ -139,10 +142,9 @@ function makeTurntable(artSrc, duration, tid) {
 				console.log("finished playing");
 				$(ttable).toggleClass("playing");
 				sound.stop();
-				
 			});
 			var source = context.createMediaElementSource(audio);	
-				console.log(source);
+			console.log(source);
 			sound.source = source;
 			sound.play = play;
 			sound.togglePause = togglePause;
@@ -165,7 +167,8 @@ function makeTurntable(artSrc, duration, tid) {
 			//console.log(cursound.source.mediaElement.paused);
 			console.log(trackList[tempid].playing);
 			$(ttable).toggleClass("playing");			
-			
+			// remove glow
+
 			
 			if (cursound) {
 				 var id = $(control).parent().attr("id");
@@ -178,9 +181,10 @@ function makeTurntable(artSrc, duration, tid) {
 
 			}		
 		} else {			
+    		volumeGlow(0, turntable);
 			//cursound.togglePause();
 			//trackList[tempid].playing = !trackList[tempid].playing;
-						if(trackList[tempid].playing) {
+			if(trackList[tempid].playing) {
 				socket.emit('pause',tid);
 			} else {
 				socket.emit('play',tid);
@@ -192,8 +196,8 @@ function makeTurntable(artSrc, duration, tid) {
 	return $(turntable);
 }
 
-function makeControl(type, name, orientation, showValue, tid, duration) {
-
+function makeControl (type, name, orientation,
+                      showValue, tid, duration) {
     var palette = $("<section>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
@@ -207,10 +211,11 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             value: " ",
             class: "move"
         });
-		var changeSlider = function(elt, elt2, pos) {
-			elt.val(pos); 
-			//elt2.html(pos*100);
-		};
+        
+    var changeSlider = function(elt, elt2, pos) {
+        elt.val(pos);
+    };
+
 	if (name === 'volume') {
 		$(control).mouseover(function(){
 			changingVol = true;
@@ -252,8 +257,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 	});
 	
    $(control).click(function(){
-		var val = $(control).val();
-		var id = $(control).parent().attr("id");
+		var val = $(control).val(),
+		    id  = $(control).parent().attr("id");
 		//var sound = sounds[id];
 		if (true) {
 			//var s = sound.source.mediaElement;
@@ -262,7 +267,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 				change_volume(id,val/100);
 				$(value).html("volume:"+val);
 				// Set visual glow of volume
-				volumeGlow(val, $(this).parent().siblings(".turntable"));
+				volumeGlow(val,
+    			$(this).parent().siblings(".turntable"));
 			} else if (name == "pbr") {
 				change_speed(id,val/50);
 				

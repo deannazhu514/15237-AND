@@ -66,7 +66,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 1, ../sass/lib/_type.scss */
 body {
-  color: red;
+  color: rgba(255, 255, 255, 0.75);
   font-family: helvetica;
   font-weight: bold;
   font-size: 10pt;
@@ -162,8 +162,13 @@ header section#add-device.open {
   margin-left: -12em;
   margin-top: 2em;
   margin-bottom: 2em;
+  -webkit-transition: box-shadow 0.5s 0s;
+  -webkit-transition-delay: ease-in;
+  -moz-transition: box-shadow 0.5s 0s ease-in;
+  -o-transition: box-shadow 0.5s 0s ease-in;
+  transition: box-shadow 0.5s 0s ease-in;
 }
-/* line 50, ../sass/_turntable.scss */
+/* line 52, ../sass/_turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -173,7 +178,7 @@ header section#add-device.open {
   left: 12.5%;
   position: absolute;
 }
-/* line 60, ../sass/_turntable.scss */
+/* line 62, ../sass/_turntable.scss */
 .turntable .scrubber {
   background: #333333;
   height: 100%;
@@ -182,7 +187,7 @@ header section#add-device.open {
   border: rgba(255, 255, 255, 0.75) solid 1px;
   position: absolute;
 }
-/* line 68, ../sass/_turntable.scss */
+/* line 70, ../sass/_turntable.scss */
 .turntable .scrubber .semi {
   position: absolute;
   border-radius: 100em 0 0 100em;
@@ -199,11 +204,11 @@ header section#add-device.open {
   -o-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
 }
-/* line 76, ../sass/_turntable.scss */
+/* line 78, ../sass/_turntable.scss */
 .turntable .scrubber .semi.indicator {
   background: white;
 }
-/* line 79, ../sass/_turntable.scss */
+/* line 81, ../sass/_turntable.scss */
 .turntable .scrubber .semi.indicator#indicator1 {
   -webkit-transition: all 10s 0s;
   -webkit-transition-delay: linear;
@@ -211,7 +216,7 @@ header section#add-device.open {
   -o-transition: all 10s 0s linear;
   transition: all 10s 0s linear;
 }
-/* line 83, ../sass/_turntable.scss */
+/* line 85, ../sass/_turntable.scss */
 .turntable .scrubber .semi.indicator#indicator2 {
   -webkit-transition: all 20s 0s;
   -webkit-transition-delay: linear;
@@ -219,7 +224,7 @@ header section#add-device.open {
   -o-transition: all 20s 0s linear;
   transition: all 20s 0s linear;
 }
-/* line 88, ../sass/_turntable.scss */
+/* line 90, ../sass/_turntable.scss */
 .turntable .scrubber .semi.mask {
   background: #333333;
   -webkit-transition: visibility 10s 0s;
@@ -229,11 +234,11 @@ header section#add-device.open {
   transition: visibility 10s 0s linear;
   visibility: visible;
 }
-/* line 100, ../sass/_turntable.scss */
+/* line 102, ../sass/_turntable.scss */
 .turntable.playing img.art {
   -webkit-animation: play-spin 4s infinite linear;
 }
-/* line 107, ../sass/_turntable.scss */
+/* line 109, ../sass/_turntable.scss */
 .turntable.playing .semi.indicator#indicator1 {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -241,7 +246,7 @@ header section#add-device.open {
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 112, ../sass/_turntable.scss */
+/* line 114, ../sass/_turntable.scss */
 .turntable.playing .semi.indicator#indicator2 {
   -webkit-transform: rotate(360deg);
   -moz-transform: rotate(360deg);
@@ -249,7 +254,7 @@ header section#add-device.open {
   -o-transform: rotate(360deg);
   transform: rotate(360deg);
 }
-/* line 118, ../sass/_turntable.scss */
+/* line 120, ../sass/_turntable.scss */
 .turntable.playing .semi.mask {
   visibility: hidden;
 }

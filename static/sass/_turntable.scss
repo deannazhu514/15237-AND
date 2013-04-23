@@ -47,6 +47,8 @@
     margin-top: 2em;
     margin-bottom: 2em;
     
+    @include transition(box-shadow .5s 0s ease-in);
+    
     img.art {
         height: 75%;
         width: 75%;

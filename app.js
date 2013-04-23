@@ -242,6 +242,7 @@ var ports = {};
 //var maxPort = 8998;
 //var nextPort = 8000;
 var socketRoomList = {};
+var socketList = {};
 var socketPort = 8111;
 var interval = 200; //milliseconds
 var deviceList = {};
@@ -256,41 +257,64 @@ var trackIDList = {};
 
 io.sockets.on('connection', function (socket) {
 	socket.room = "";
-	socket.on("subscribe", function(room) {
+	socketList[socket.id] = socket;
+	socket.on("subscribe", function(room, h, w) {
 		init_socket(socket,room);
-		socketRoomList[room] = true;
+		if (socketRoomList[room] == undefined ) {
+			socketRoomList[room] = {};
+		}
+		//socketRoomList[room] = socketRoomList[room] + 1;
+		socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket };
 		console.log("room: " + room);
 		socket.join(room);
 		if (io.sockets.clients(room).length === 1) {
 			socket.emit("playback");
+		} else {
+			var size = w * h;
+			var min = socket.id;
+			for (id in socketRoomList[room]) {
+				var s = socketRoomList[room][id];
+				var tempsize = s.h * s.w;
+				if (tempsize < size) {
+					min = id;
+					size = tempsize;
+				}
+			}
 		}
 	});
-	socket.emit("requestUsername");
+	socket.emit("requestInit");
 });
 
 
 function init_socket(socket,room) {
-	socket.on('newtrack', function(id) {
+	socket.on('newtrack', function(id) { //we don't use this currently
 		audio_init(id);
 		console.log(audio);
+	});
+	socket.on("disconnect", function() {
+		console.log('NEW PLAYBACK');
+		if (io.sockets.clients(room).length >= 1) {
+			io.sockets.clients(room)[0].emit("playback");
+		}
+		socketRoomList[room] = socketRoomList[room] - 1;
 	});
   socket.on("volume", function(id, value) {
     audio[id].volume = value; //percentage value between 0 and 100 here
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("mute", function(id) {
+  socket.on("mute", function(id) { //unused
     audio[id].mute = true; //boolean here
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("unmute", function(id) {
+  socket.on("unmute", function(id) { //unused 
     audio[id].mute = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("auto_off", function(id) {
+  socket.on("auto_off", function(id) { //unused 
     audio[id].auto = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("auto_on", function(id) {
+  socket.on("auto_on", function(id) { //unused
     audio[id].auto = true;
     io.sockets.in(room).volatile.emit("update", audio);
   });
@@ -312,11 +336,11 @@ function init_socket(socket,room) {
     io.sockets.emit("update", audio); //not volatile
                                       //song change is high priority
   });*/
-  socket.on("loop_off", function(id) {
+  socket.on("loop_off", function(id) { //unused
     audio[id].loop = false;
     io.sockets.in(room).volatile.emit("update", audio);
   });
-  socket.on("loop_on", function(id) {
+  socket.on("loop_on", function(id) { //unused
     audio[id].loop = true;
     io.sockets.in(room).volatile.emit("update", audio);
   });

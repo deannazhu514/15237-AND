@@ -24,8 +24,8 @@ input[type=button] {
     font-weight: bold;
     
     &:hover {
-        background: red;
-        border-color: red;
+        background: $active;
+        border-color: $active;
         color: #333;
     }
 }

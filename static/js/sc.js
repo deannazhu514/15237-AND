@@ -10,7 +10,11 @@ var deviceNum;
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
 var redirect_uri = 'http://localhost:8999/static/callback.html';
+<<<<<<< HEAD
 //var redirect_uri = 'http://128.237.113.212:8999/static/callback.html';
+=======
+// var redirect_uri = 'http://128.237.113.212:8999/static/callback.html';
+>>>>>>> changed redir uri
 var stream_add =  '?client_id='+client_id;
 
 

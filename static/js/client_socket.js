@@ -1,5 +1,5 @@
-
-var socket = io.connect("http://128.237.113.212:8111");
+var socket = io.connect("http://localhost:8111");
+//var socket = io.connect("http://128.237.113.212:8111");
 
 var auto_sort_flag = true;
 var loop_flag = false;

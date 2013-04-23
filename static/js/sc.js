@@ -113,6 +113,7 @@ function sendDevice(userID, session, deviceID){
 			} else {
 				console.log(data);
 				$("#loginmsg").html("Device "+data.deviceNum+" connected!");			
+				nonstream = true;
 				$("#loginbut").remove();
 				$('form').remove(); 
 				deviceNum = data.deviceNum;

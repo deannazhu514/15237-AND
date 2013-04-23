@@ -128,8 +128,10 @@ function supdate(a) {
 		trackList[key].pbr = audio.speed;
 		if (trackList[key].playing && s.paused) {
 			tt.togglePause();
+			console.log('playing');
 		} else if (!trackList[key].playing && !s.paused){
 			tt.togglePause();
+			console.log('paused');
 		} else {
 			
 		}
@@ -160,7 +162,7 @@ function togglePlayback() {
 socket.on("getmod", function(track, num) {
 	//if (deviceNum == num) {
 	if (true) {
-		nonstream = true;
+		//nonstream = true;
 		track.id = parseFloat(track.id);
 		console.log(track.id);
 		makePalette(track);

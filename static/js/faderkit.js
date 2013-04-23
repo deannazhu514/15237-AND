@@ -320,24 +320,23 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 		ctrls[tid]['pb'] = $(control);
 	}
 	
-    var drag = null;
-    $(handle).mousedown(function(event){
-        drag = $(this).parents(".palette");
-				
-    });
-    
-    $(document).mousemove(function(event) {
-        if (drag) {
-            drag.offset({
-                top:  Math.floor(event.pageY / 100) * 100,
-                left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
-            });
-        } 
-    });    
-    
-    $(document).mouseup(function(event){
-        drag = null;
-    });
+    // var drag = null;
+    // $(handle).mousedown(function(event){
+    //     drag = $(this).parents(".palette");
+    // });
+    // 
+    // $(document).mousemove(function(event) {
+    //     if (drag) {
+    //         drag.offset({
+    //             top:  Math.floor(event.pageY / 100) * 100,
+    //             left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
+    //         });
+    //     } 
+    // });    
+    // 
+    // $(document).mouseup(function(event){
+    //     drag = null;
+    // });
 		
     if (name === 'playback') {
         $(value).html("0:00");

@@ -139,15 +139,23 @@ function supdate(a) {
 
 
 
-socket.on("requestUsername", function() {
+socket.on("requestInit", function() {
 	socket.emit("subscribe", username);
-	console.log(username);
+	var h = window.innerHeight;
+	var w = window.innerWidth;
+	console.log(username, h,w);
 });
 
 socket.on("playback", function() {
-	playback_device = true;
-	console.log('playback true');
+	if (!nonstream) {
+		playback_device = true;
+		console.log('playback true');
+	}
 });	
+
+function togglePlayback() {
+	playback_device = !playback_device;
+}
 
 socket.on("getmod", function(track, num) {
 	//if (deviceNum == num) {

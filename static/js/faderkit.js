@@ -26,33 +26,34 @@ function makePalette(template) {
 						setTime: false
 					};
     // Container for all controls and information for a single track
-    var track  = $("<li>").addClass("track"),
-        header = $("<header>"),
-		title  = $("<h1>").html(template.song),
-        artist = $("<author>").html(template.artist);
-    var tid = template.id;
+    var track    = $("<li>").addClass("track"),
+        header   = $("<header>"),
+		title    = $("<h1>").html(template.song),
+        artist   = $("<author>").html(template.artist),
+        controls = $("<ul>").addClass("controls"),
+        tid      = template.id;
     $(header).append(artist, title);
     $(track).append(header);
-		console.log('tid: ' + tid);
+    console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {
         var element;
         if (template.ui[i].type === "turntable") {
-				
-						if (nonstream) {
-							element = makeTurntable2(template.ui[i].art,
-                                    template.ui[i].duration, tid);
-						} else {
-            element = makeTurntable(template.ui[i].art,
-                                    template.ui[i].duration, tid);
-						}
+			if (nonstream) {
+				element = makeTurntable2(template.ui[i].art,
+                          template.ui[i].duration, tid);
+			} else {
+                element = makeTurntable(template.ui[i].art,
+                          template.ui[i].duration, tid);
+			}
+		track.append(element);
         } else {
             element = makeControl(template.ui[i].type,
 								  template.ui[i].name,
                                   template.ui[i].orientation,
                                   template.ui[i].showValue, tid, template.ui[i].duration);
+            controls.append(element);
         }
-        
-        track.append(element);
+        track.append(controls);
     }
     $("ul#tracks").append(track);
 }
@@ -198,7 +199,7 @@ function makeTurntable(artSrc, duration, tid) {
 
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
-    var palette = $("<section>").addClass("palette"),
+    var palette = $("<li>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
                       type:  inputType,
@@ -356,4 +357,9 @@ function makeControl (type, name, orientation,
 	$(palette).attr('id',tid);
     
     return $(palette);
+}
+
+
+function makePicker() {
+    
 }

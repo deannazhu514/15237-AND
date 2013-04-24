@@ -8,6 +8,6 @@ $background: #333;
 // GRID
 
 $columns: 4;
-$gutter: (100% / $columns) / 16;
+$gutter: (100% / $columns) / 8;
 $gutters: $columns - 1;
 $col: (100% / $columns) - $gutter;

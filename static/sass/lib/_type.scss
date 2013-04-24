@@ -4,3 +4,9 @@ body {
     font-weight: bold;
     font-size: 10pt;
 }
+
+@mixin small-caps($size: 1em) {
+    text-transform: uppercase;
+    letter-spacing: .125em;
+    font-size: $size;
+}

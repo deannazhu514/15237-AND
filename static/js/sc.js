@@ -43,7 +43,7 @@ function init() {
 
 }	
 			
-function connect(){	
+function connect(){
 	 SC.initialize({
 		client_id: client_id,
 		redirect_uri: redirect_uri
@@ -53,6 +53,7 @@ function connect(){
 	 SC.connect(function() {
 		SC.get('/me', function(me) { 			
 			if (me != null) {
+				username = me.id;
 				//send user info to server
 				var deviceID = new Date();
 				currentID = me.id;
@@ -61,13 +62,14 @@ function connect(){
 				loggedin = true;
 				$("#loginmsg").html("Logged in as "+me.full_name);
 				getPlaylists(me.id);
+				client_socket_init();
 
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
 			} else {
 				alert("Couldn't connect to SoundCloud!");
-			}			
+			}
 	  });
 	});
 }
@@ -113,6 +115,7 @@ function sendDevice(userID, session, deviceID){
 			} else {
 				console.log(data);
 				$("#loginmsg").html("Device "+data.deviceNum+" connected!");			
+				nonstream = true;
 				$("#loginbut").remove();
 				$('form').remove(); 
 				deviceNum = data.deviceNum;
@@ -188,6 +191,7 @@ function sendModule(device, module, modulename) {
 
 
 function getPlaylists(SCuser){
+	username = SCuser;
 	 SC.get('/users/'+SCuser+'/playlists', function(playlists){	 
 		playlists.forEach(function(playlist){
 			//var tracks = {};
@@ -216,10 +220,13 @@ function getPlaylists(SCuser){
 					//console.log(track2);
 					tracks[track.id] = track2;
 					addTrack(SCuser, track2);
-					makePalette(track2);					
+					//makePalette(track2);					
 				}
 			}
 		});
+	 console.log("HELLO?");
+	 socket.emit('tracklist', tracks);
+	 console.log(tracks);
 	 });
 	 loggedin = true;
 	 $("body").removeClass("guest");

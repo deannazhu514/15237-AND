@@ -33,7 +33,7 @@ function makePalette(template) {
     var tid = template.id;
     $(header).append(artist, title);
     $(track).append(header);
-
+		console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {
         var element;
         if (template.ui[i].type === "turntable") {
@@ -129,8 +129,9 @@ function makeTurntable(artSrc, duration, tid) {
 		var tempid = tid;
 		var ttable = this;
 		var cursound = sounds[tempid];	
-				
-		if (cursound == undefined) {
+		console.log(tempid);
+		console.log(typeof(tempid));
+		if (cursound == undefined && (!nonstream)) {
 			var sound = {};
 			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;

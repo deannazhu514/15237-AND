@@ -1,4 +1,4 @@
-var socket = io.connect("http://localhost:8111");
+var socket;// = io.connect("http://localhost:8111");
 //var socket = io.connect("http://128.237.113.212:8111");
 
 var auto_sort_flag = true;
@@ -7,6 +7,7 @@ var playback_device = false;
 var nonstream = false;
 var actual_vol = 0;
 var trackList = {};
+var username;
 
 //rather than the server just sending a single
 //attribute to change, we send the
@@ -51,7 +52,8 @@ socket.on("update", function(audio) {
   }
 }); */
 
-
+function client_socket_init() {
+socket = io.connect("http://localhost:8111");
 socket.on("update_time", function(value) {
 	for (key in sounds) {
 				var tt = sounds[key];
@@ -68,7 +70,55 @@ socket.on("update", function(a) {
 	}
 
 });
+socket.on("getmod", function(track, num) {
+	//if (deviceNum == num) {
+	if (true) {
+		//nonstream = true;
+		track.id = parseFloat(track.id);
+		console.log(track.id);
+		makePalette(track);
+		trackList[track] = {
+						playing: false,
+						pbr: 1.0,
+						volume: 1.0,
+						time: 0,
+						setTime: false
+					};
+	}
+	/*if (device === deviceNum) {
+		if (module == 'track') {
+			
+		}
+	} */
+});
+socket.on("remove_track", function() {
+	$(".track").remove();
+});
 
+socket.on('add_track', function(track) {
+	console.log('adding track ' + track);
+	makePalette(track);
+});
+socket.on("requestInit", function() {
+	var h = window.innerHeight;
+	var w = window.innerWidth;
+	socket.emit("subscribe", username, h, w);
+	console.log(username, h,w);
+	
+});
+
+socket.on("playback", function() {
+	if (!nonstream) {
+		playback_device = true;
+		console.log('playback true');
+	}
+});	
+
+socket.on("send_tracks", function() {
+	send_tracks();
+});
+
+}
 function nupdate(a){
 	for (key in a) {
 		audio = a[key];
@@ -108,7 +158,9 @@ function supdate(a) {
 			var tempfnc = tempobj.data('changeSlider');
 			var val = tempobj.data('val');
 			var val2 = tempobj.data('val2');
-			tempfnc(val, val2, audio.volume*100);
+			if (tempfnc != undefined) {
+				tempfnc(val, val2, audio.volume*100);
+			}
 		}
 		if (!changingPBR) {
 			var tempobj = ctrls[key]['pbr'];
@@ -128,57 +180,34 @@ function supdate(a) {
 		trackList[key].pbr = audio.speed;
 		if (trackList[key].playing && s.paused) {
 			tt.togglePause();
+			console.log('playing');
 		} else if (!trackList[key].playing && !s.paused){
 			tt.togglePause();
+			console.log('paused');
 		} else {
 			
 		}
 		
 	}
+	//socket.emit('tracklist', $.map(trackList, function (value, key) { return key; }));
 }
 
 
+function sups (){
+	$(".track").remove();
+}
 
-socket.on("requestInit", function() {
-	socket.emit("subscribe", username);
-	var h = window.innerHeight;
-	var w = window.innerWidth;
-	console.log(username, h,w);
-});
 
-socket.on("playback", function() {
-	if (!nonstream) {
-		playback_device = true;
-		console.log('playback true');
-	}
-});	
 
 function togglePlayback() {
 	playback_device = !playback_device;
 }
 
-socket.on("getmod", function(track, num) {
-	//if (deviceNum == num) {
-	if (true) {
-		nonstream = true;
-		track.id = parseFloat(track.id);
-		console.log(track.id);
-		makePalette(track);
-		trackList[track] = {
-						playing: false,
-						pbr: 1.0,
-						volume: 1.0,
-						time: 0,
-						setTime: false
-					};
-	}
-	/*if (device === deviceNum) {
-		if (module == 'track') {
-			
-		}
-	} */
-});
 
+
+function send_tracks() {
+	socket.emit('tracklist', tracks);
+}
 
 function change_volume(id, value) {
 	

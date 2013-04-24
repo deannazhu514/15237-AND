@@ -1,0 +1,17 @@
+4/23/13 User Studies Feedback
+
+Deanna:
+
+	* Warm->cool maybe... very personal preference depending on user
+	* Desktop track sizes are too big
+	* Be able to expand the song when minimized
+	* Limit the title  size in settings track buttons
+	* Better layout of songs in settings (have buttons be a set width?)
+	* Overflow ellipse (CSS property )
+	* Having the song title scroll (rather than just cutoff) only for the song playing or on mouseover
+	* Clearer visual breaks between Settings button and text below
+	* Give it a name
+	* Hammer.js  swipe gestures?
+	* Functionality lol
+	* Have a random generated number to add new device because typing in userID etc. is too long
+

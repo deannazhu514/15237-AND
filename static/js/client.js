@@ -22,7 +22,7 @@ function newRoom() {
   });
 }
 
-		var username = "s is awesome";
+		//var username = "s is awesome";
 		var draw_qrcode = function(text, typeNumber, errorCorrectLevel) {
 			document.write(create_qrcode(text, typeNumber, errorCorrectLevel) );
 		};

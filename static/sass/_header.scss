@@ -1,40 +1,48 @@
 body > header {
 
-    #loginmsg{
-        line-height: 1.5em;
-        float: right;
-    }
-
-    .picker {
-    
-        .set {
-            width: $col;
-            padding-left: $gutter;
-            display: inline-block;
-            vertical-align: top;
+    section#settings {
+        display: none;
+        
+        &.open {
+            display: block;
             
-            &:nth-child(1) {
-                padding-left: 0;
-            }
-            
-            ul.tracks {         
-               
-                li.track {
-                    width: 100%;
-                    text-align: left;
-                    margin-left: -.5em;
-                    margin-bottom: .5em;
-                    @include button;
-                    
-                    h1 {
-                        font-size: 2em;
-                    }
-                    
-                    author {
-                        @include small-caps(.75em);
+            .picker {
+                
+                    .set {
+                        width: $col;
+                        padding-left: $gutter;
+                        display: inline-block;
+                        vertical-align: top;
+                        
+                        &:nth-child(1) {
+                            padding-left: 0;
+                        }
+                        
+                        ul.tracks {         
+                           
+                            li.track {
+                                width: 100%;
+                                text-align: left;
+                                margin-left: -.5em;
+                                margin-bottom: .5em;
+                                @include button;
+                                
+                                h1 {
+                                    font-size: 2em;
+                                }
+                                
+                                author {
+                                    @include small-caps(.75em);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+
+    #loginmsg{
+        line-height: 1.5em;
+        float: right;
     }
 }

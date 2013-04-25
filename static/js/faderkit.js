@@ -252,21 +252,12 @@ function makeTurntable(artSrc, duration, tid) {
 			sound.togglePause = togglePause;
 			sound.stop = stop;	
 			sounds[tempid] = sound;
-			//sound.play();
-			
-			sounds[tempid] = sound;
 
-			if(trackList[tempid] == undefined) {
-				alert('wat');
-			}
 			if(trackList[tempid].playing) {
 				socket.emit('pause',tid);
 			} else {
 				socket.emit('play',tid);
 			}
-			//trackList[tempid].playing = !trackList[tempid].playing;
-			//cursound = sound;
-			//console.log(cursound.source.mediaElement.paused);
 			console.log(trackList[tempid].playing);
 			$(ttable).toggleClass("playing");			
 			// remove glow
@@ -284,8 +275,6 @@ function makeTurntable(artSrc, duration, tid) {
 			}		
 		} else {			
     		volumeGlow(0, turntable);
-			//cursound.togglePause();
-			//trackList[tempid].playing = !trackList[tempid].playing;
 			if(trackList[tempid].playing) {
 				socket.emit('pause',tid);
 			} else {
@@ -483,5 +472,5 @@ function makePicker(sets) {
         }
         picker.append(section);
     }
-    // $("body > header").append(picker);
+    $("header #settings").append(picker);
 }

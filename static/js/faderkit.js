@@ -118,7 +118,7 @@ function makePalette(template) {
 	if (typeof(template.id) == 'string') {
 		template.id = parseFloat(template.id);
 	}
-		
+	
 	console.log(typeof(template.id));
 					trackList[template.id] = {
 						playing: false,
@@ -145,7 +145,7 @@ function makePalette(template) {
                           template.ui[0].duration, tid);
 			} else {
                 element = makeTurntable(template.ui[i].art,
-                          template.ui[i].duration, tid);
+                          template.ui[0].duration, tid);
 			}
 		track.append(element);
         } else {
@@ -242,6 +242,7 @@ function makeTurntable(artSrc, duration, tid) {
 			var sound = {};
 			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;
+			
 			audio.addEventListener('ended', function() {
 				console.log("finished playing");
 				$(ttable).toggleClass("playing");
@@ -369,7 +370,7 @@ function makeControl (type, name, orientation,
 				//s.playbackRate = val/50;
 			} else if (name == "playback") {
 				//s.currentTime = (s.duration*val/100);					
-				change_time(id,duration*val/100);
+				change_time(id, duration*val/100);
 				console.log("DURATION IS: " + duration);
 				$(value).html("position:"+duration*val/100);
 			}

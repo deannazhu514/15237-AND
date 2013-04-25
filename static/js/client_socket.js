@@ -116,7 +116,13 @@ socket.on("playback", function() {
 
 socket.on("send_tracks", function() {
 	send_tracks();
+
 });
+
+	 for (key in tracks) {
+		console.log(typeof(socket));
+		socket.emit("newtrack", tracks[key].id);
+	 }
 
 }
 function nupdate(a){
@@ -207,6 +213,7 @@ function togglePlayback() {
 
 function send_tracks() {
 	socket.emit('tracklist', tracks);
+	
 }
 
 function change_volume(id, value) {

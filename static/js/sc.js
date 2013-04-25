@@ -214,8 +214,9 @@ function getPlaylists(SCuser){
 																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
 								}, volslider, pbslider, playbackslider]
 					};
-					console.log(track.duration);
-
+					console.log('duration ' + track.duration);
+					
+					//console.log(socket.id);
 					socket.emit("newtrack", track.id);
 					//console.log(track2);
 					tracks[track.id] = track2;
@@ -226,6 +227,10 @@ function getPlaylists(SCuser){
 		});
 	 console.log("HELLO?");
 	 socket.emit('tracklist', tracks);
+	 for (key in tracks) {
+		console.log(typeof(socket));
+		socket.emit("newtrack", tracks[key].id);
+	 }
 	 console.log(tracks);
 	 });
 	 loggedin = true;

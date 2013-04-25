@@ -304,11 +304,8 @@ function readjust_devices(room,socket) {
 			var i = 0;
 			//making temp hardcopy of tracklist
 			var templist = {};
-				console.log('tracks');
-				console.log(socketRoomList[room].tracks);
 			for (id in socketRoomList[room].tracks) {
 				templist[id] = socketRoomList[room].tracks[id];
-				console.log(socketRoomList[room].tracks[id]);
 			}
 			var len = Object.keys(templist).length
 			console.log('len is: ' + len);
@@ -330,25 +327,15 @@ function readjust_devices(room,socket) {
 						temptrack = templist[key];
 						delete templist[key];
 						len--;
-						console.log('hiiiiiiii');
 						break;
 					}
-					console.log('adding_track to : ' + id);
 					socketRoomList[room][id].s.emit("add_track", temptrack);
 					//i++;
 				}
 				console.log('id: ' + id);
-				console.log('id: ' + id);
-				console.log('id: ' + id);
-				console.log('id: ' + id);
-				console.log('id: ' + id);
-				console.log('id: ' + id);
-				console.log('id: ' + id);
 			}
 			console.log(i);
-			console.log('here');
 			while (i < len) {
-				console.log('wtf');
 				var temptrack;
 					for (key in templist) {
 						temptrack = templist[key];
@@ -358,22 +345,31 @@ function readjust_devices(room,socket) {
 					}
 				socketRoomList[room][min].s.emit("add_track", temptrack);
 				//i++;
-				console.log('SUP');
-				console.log('SUP');
-				console.log('SUP');
-				console.log('SUP');
-				console.log('SUP');
-				console.log('SUP');
-				console.log('SUP');
 			}
 		}
 		
 
 
 function init_socket(socket,room) {
-	socket.on('newtrack', function(id) { //we don't use this currently
+	socket.on('newtrack', function(id) {
+		console.log("STOP");
+		console.log("STOP");
+		console.log("STOP");
+		console.log("STOP");
+		console.log("STOP");
+		console.log("STOP");
+		console.log("STOP");
 		audio_init(id);
-		//console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
+		console.log("audio is: " + audio);
 	});
 	socket.on("disconnect", function() {
 		console.log('NEW PLAYBACK');
@@ -382,6 +378,7 @@ function init_socket(socket,room) {
 		}
 		if (socketRoomList[room].size != undefined)
 		socketRoomList[room].size = socketRoomList[room].size -1;
+		readjust_devices(room, socket);
 	});
   socket.on("volume", function(id, value) {
     audio[id].volume = value; //percentage value between 0 and 100 here
@@ -438,11 +435,9 @@ function init_socket(socket,room) {
 		io.sockets.in(room).emit("getmod", trackz, num);
 	});
 	socket.on("tracklist", function(tracks) {
+		console.log("RECEIVDTRACKLIST");
 		socketRoomList[room].tracks = tracks;
-		console.log("tracks r: ")
-		console.log(tracks);
 		readjust_devices(room, socket);
-		console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	});
 	/*socket.on("sendModule", function (device, module, modulename, length) {
 		
@@ -457,6 +452,7 @@ function rec_message(socket) {
 }*/
 
 function audio_init(id) {
+	console.log("SUPPPPPPPPPPP");
 	audio[id] = {
     volume:  1,
     mute:  false,

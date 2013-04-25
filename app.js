@@ -1,5 +1,7 @@
 var express = require("express");
 
+
+
 var app = express();
 var mongo = require('mongodb');
 
@@ -127,7 +129,7 @@ app.post("/login", function(request, response) {
 					"controls":[],
 					"connected": true
 		};
-		console.log(users[id].devices[deviceID].num);
+		console.log("user num: " + users[id].devices[deviceID].num);
 		num =  users[id].devices[deviceID].num;
 		users[id].session = id; //CHANGE THIS TO ACTUALLY UNIQUE LATER
 	} else {
@@ -149,7 +151,7 @@ app.post("/login/:id", function(request, response) {
 	var deviceID = request.body.deviceID;
 	var success = (users[id] != undefined) && (session == users[id].session);
 	if (success) {
-		console.log(users[id]);
+		console.log("userr id: " + users[id]);
 		users[id].deviceCount++;
 		var deviceCount = users[id].deviceCount;
 		users[id].devices[deviceCount] = {
@@ -158,7 +160,7 @@ app.post("/login/:id", function(request, response) {
 				"controls" : [],
 				"connected" : true
 		};	
-		console.log(users[id].devices[deviceID]);
+		console.log("device: " + users[id].devices[deviceID]);
 		num = users[id].devices[deviceCount].num;		
 	}
 	response.send({
@@ -237,6 +239,7 @@ app.listen(staticPort);
 
 /* server variables*/
 var io = require("socket.io").listen(8111);
+io.set('log level', 1);
 var ports = {};
 //var minPort = 8000;
 //var maxPort = 8998;
@@ -251,7 +254,7 @@ var audio = {};
 var songList = [];
 var n = 0;
 var testval = 300;
-var trackIDList = {};
+//var trackIDList = {};
 
 /*end server variables */	
 
@@ -259,19 +262,36 @@ io.sockets.on('connection', function (socket) {
 	socket.room = "";
 	socketList[socket.id] = socket;
 	socket.on("subscribe", function(room, h, w) {
+		
 		init_socket(socket,room);
+		io.sockets.in(room).emit('remove_track');
 		if (socketRoomList[room] == undefined ) {
-			socketRoomList[room] = {};
+			socketRoomList[room] = {tracks: [], size: 0};
 		}
 		//socketRoomList[room] = socketRoomList[room] + 1;
+		if (socketRoomList[room].size != undefined) {
+			socketRoomList[room].size = socketRoomList[room].size + 1;
+		}
 		socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket };
 		console.log("room: " + room);
 		socket.join(room);
 		if (io.sockets.clients(room).length === 1) {
 			socket.emit("playback");
+			socket.emit("send_tracks");
 		} else {
-			var size = w * h;
+			readjust_devices(room, socket);
+			}
+			
+
+	});
+	socket.emit("requestInit");
+
+});
+
+function readjust_devices(room,socket) {
 			var min = socket.id;
+			var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
+			console.log("size: "  + size);
 			for (id in socketRoomList[room]) {
 				var s = socketRoomList[room][id];
 				var tempsize = s.h * s.w;
@@ -280,23 +300,88 @@ io.sockets.on('connection', function (socket) {
 					size = tempsize;
 				}
 			}
+			
+			var i = 0;
+			//making temp hardcopy of tracklist
+			var templist = {};
+				console.log('tracks');
+				console.log(socketRoomList[room].tracks);
+			for (id in socketRoomList[room].tracks) {
+				templist[id] = socketRoomList[room].tracks[id];
+				console.log(socketRoomList[room].tracks[id]);
+			}
+			var len = Object.keys(templist).length
+			console.log('len is: ' + len);
+			// below doesnt work because i have to get jquery to work with node
+			//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
+			for (id in socketRoomList[room]) {
+				if (id == 'tracks') {
+					continue;
+				} 
+				if (id == 'size') {
+					continue;
+				}
+				if (i >= len) {
+					break;
+				}
+				if (id != min) {
+					var temptrack;
+					for (key in templist) {
+						temptrack = templist[key];
+						delete templist[key];
+						len--;
+						console.log('hiiiiiiii');
+						break;
+					}
+					console.log('adding_track to : ' + id);
+					socketRoomList[room][id].s.emit("add_track", temptrack);
+					//i++;
+				}
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+				console.log('id: ' + id);
+			}
+			console.log(i);
+			console.log('here');
+			while (i < len) {
+				console.log('wtf');
+				var temptrack;
+					for (key in templist) {
+						temptrack = templist[key];
+						delete templist[key];
+						len--;
+						break;
+					}
+				socketRoomList[room][min].s.emit("add_track", temptrack);
+				//i++;
+				console.log('SUP');
+				console.log('SUP');
+				console.log('SUP');
+				console.log('SUP');
+				console.log('SUP');
+				console.log('SUP');
+				console.log('SUP');
+			}
 		}
-	});
-	socket.emit("requestInit");
-});
+		
 
 
 function init_socket(socket,room) {
 	socket.on('newtrack', function(id) { //we don't use this currently
 		audio_init(id);
-		console.log(audio);
+		//console.log("audio is: " + audio);
 	});
 	socket.on("disconnect", function() {
 		console.log('NEW PLAYBACK');
 		if (io.sockets.clients(room).length >= 1) {
 			io.sockets.clients(room)[0].emit("playback");
 		}
-		socketRoomList[room] = socketRoomList[room] - 1;
+		if (socketRoomList[room].size != undefined)
+		socketRoomList[room].size = socketRoomList[room].size -1;
 	});
   socket.on("volume", function(id, value) {
     audio[id].volume = value; //percentage value between 0 and 100 here
@@ -349,8 +434,15 @@ function init_socket(socket,room) {
     io.sockets.in(room).volatile.emit("update_time", value);
   });
 	socket.on("sendModule", function (trackz, num) {
-		console.log(trackz);
+		console.log("trackz are: " + trackz);
 		io.sockets.in(room).emit("getmod", trackz, num);
+	});
+	socket.on("tracklist", function(tracks) {
+		socketRoomList[room].tracks = tracks;
+		console.log("tracks r: ")
+		console.log(tracks);
+		readjust_devices(room, socket);
+		console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	});
 	/*socket.on("sendModule", function (device, module, modulename, length) {
 		
@@ -388,7 +480,9 @@ function audio_init(id) {
 }
 
 
-
+function del_track() {
+	io.sockets.emit("remove_track");
+}
 
 function refresh() {
 	if (Object.keys(audio).length > 0) {

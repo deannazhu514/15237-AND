@@ -177,9 +177,9 @@ function supdate(a) {
 			var tempfnc = tempobj.data('changeSlider');
 			var val = tempobj.data('val');
 			var val2 = tempobj.data('val2');
-			if (tempfnc != undefined);
+			if (typeof(tempfnc) != 'undefined');
 			 {
-			 tempfnc(val, val2, audio.speed*50);
+			 //tempfnc(val, val2, audio.speed*50);
 			 }
 		} /*if (!changingPB) {
 			var tempobj = ctrls[key]['pb'];

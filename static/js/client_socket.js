@@ -103,6 +103,9 @@ socket.on("requestInit", function() {
 	var h = window.innerHeight;
 	var w = window.innerWidth;
 	socket.emit("subscribe", username, h, w);
+	for (key in tracks) {
+		socket.emit("newtrack", tracks[key].id);
+	}
 	console.log(username, h,w);
 	
 });
@@ -118,9 +121,10 @@ socket.on("send_tracks", function() {
 	send_tracks();
 
 });
-
+	console.log(tracks);
 	 for (key in tracks) {
-		console.log(typeof(socket));
+		console.log("SOCKET");
+		alert(key);
 		socket.emit("newtrack", tracks[key].id);
 	 }
 
@@ -173,7 +177,10 @@ function supdate(a) {
 			var tempfnc = tempobj.data('changeSlider');
 			var val = tempobj.data('val');
 			var val2 = tempobj.data('val2');
-			tempfnc(val, val2, audio.speed*50);
+			if (tempfnc != undefined);
+			 {
+			 tempfnc(val, val2, audio.speed*50);
+			 }
 		} /*if (!changingPB) {
 			var tempobj = ctrls[key]['pb'];
 			var tempfnc = tempobj.data('changeSlider');

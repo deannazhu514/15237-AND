@@ -378,6 +378,7 @@ function makeControl (type, name, orientation,
 			} else if (name == "playback") {
 				//s.currentTime = (s.duration*val/100);					
 				change_time(id,duration*val/100);
+				console.log("DURATION IS: " + duration);
 				$(value).html("position:"+duration*val/100);
 			}
 		}

@@ -351,7 +351,7 @@ function readjust_devices(room,socket) {
 
 
 function init_socket(socket,room) {
-	socket.on('newtrack', function(id) {
+	socket.on("newtrack", function(id) {
 		console.log("STOP");
 		console.log("STOP");
 		console.log("STOP");
@@ -453,17 +453,19 @@ function rec_message(socket) {
 
 function audio_init(id) {
 	console.log("SUPPPPPPPPPPP");
-	audio[id] = {
-    volume:  1,
-    mute:  false,
-    auto: true,
-    speed: 1,
-    play: false,
-    loop: false,
-    time: 0,
-    start: new Date().getTime(),
-		id: id
-  }
+	if (audio[id] == undefined) {
+		audio[id] = {
+			volume:  1,
+			mute:  false,
+			auto: true,
+			speed: 1,
+			play: false,
+			loop: false,
+			time: 0,
+			start: new Date().getTime(),
+			id: id
+		}
+	}
   /*
 	audio[id].name = name;
 	

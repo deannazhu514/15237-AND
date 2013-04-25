@@ -63,7 +63,7 @@ function connect(){
 				$("#loginmsg").html("Logged in as "+me.full_name);
 				getPlaylists(me.id);
 				client_socket_init();
-
+				console.log('called init');
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
@@ -219,7 +219,9 @@ function getPlaylists(SCuser){
 					//console.log(socket.id);
 					socket.emit("newtrack", track.id);
 					//console.log(track2);
+					console.log('track2: ');
 					tracks[track.id] = track2;
+					console.log(tracks);
 					addTrack(SCuser, track2);
 					//makePalette(track2);					
 				}
@@ -228,10 +230,10 @@ function getPlaylists(SCuser){
 	 console.log("HELLO?");
 	 socket.emit('tracklist', tracks);
 	 for (key in tracks) {
-		console.log(typeof(socket));
+		console.log('key is ' + tracks[key].id);
 		socket.emit("newtrack", tracks[key].id);
 	 }
-	 console.log(tracks);
+	 //console.log(tracks);
 	 });
 	 loggedin = true;
 	 $("body").removeClass("guest");

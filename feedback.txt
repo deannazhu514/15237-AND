@@ -8,7 +8,7 @@ Deanna:
 	* Limit the title  size in settings track buttons
 	* Better layout of songs in settings (have buttons be a set width?)
 	* Overflow ellipse (CSS property )
-	* Having the song title scroll (rather than just cutoff) only for the song playing or on mouseover
+	* Having the song title scroll maybe (rather than just cutoff) only for the song playing or on mouseover
 	* Clearer visual breaks between Settings button and text below
 	* Give it a name
 	* Hammer.js  swipe gestures?
@@ -34,3 +34,19 @@ Antonio:
 - Scratches
 - BPM
 - BPM display
+
+
+Changes:
+
+	UI:
+		-more neutral color scheme
+		-less boxy track views, easier to look at
+		-less crowded text 
+	Functionality
+		-better multi-screen
+		
+		
+	*in general, trying to move towards making this more DJ realistic while maintaining autoplay ability
+		to address different user needs
+	
+	

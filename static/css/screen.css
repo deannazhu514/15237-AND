@@ -80,7 +80,7 @@ body {
 }
 
 /* line 15, ../sass/_main.scss */
-input[type=button] {
+input[type=button], input[type=submit] {
   background: none;
   cursor: pointer;
   padding: .5em;
@@ -91,7 +91,7 @@ input[type=button] {
   font-weight: bold;
 }
 /* line 17, ../sass/lib/_mixins.scss */
-input[type=button]:hover {
+input[type=button]:hover, input[type=submit]:hover {
   background: white;
   border-color: white;
   color: #333;

@@ -13,20 +13,7 @@ body {
 }
 
 input[type=button] {
-    background: none;
-    cursor: pointer;
-    padding: .5em;
-    border: 1pt solid $default;
-    color: $default;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    font-weight: bold;
-    
-    &:hover {
-        background: $active;
-        border-color: $active;
-        color: #333;
-    }
+    @include button;
 }
 
 header {

@@ -11,6 +11,107 @@ var slider = {
     "orientation" : "horizontal",
     "showValue" : true
 };
+
+$(document).ready(function(){
+    var sets = [{
+        "name" : "my first set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my second set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my third set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my fourth set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    }];
+    
+    makePicker(sets);
+})
             
 function makePalette(template) {
 		if (typeof(template.id) == 'string') {
@@ -32,8 +133,7 @@ function makePalette(template) {
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
-    $(header).append(artist, title);
-    $(track).append(header);
+    $(header).append(title, artist);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {
         var element;
@@ -55,6 +155,7 @@ function makePalette(template) {
         }
         track.append(controls);
     }
+    $(track).append(header);
     $("ul#tracks").append(track);
 }
 
@@ -107,7 +208,7 @@ function volumeGlow(vol, item) {
 }
 
 function makeTurntable(artSrc, duration, tid) {
-    var turntable = $("<div>").addClass("turntable"),
+    var turntable  = $("<div>").addClass("turntable"),
         scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
             class: "indicator semi",
@@ -359,7 +460,26 @@ function makeControl (type, name, orientation,
     return $(palette);
 }
 
+// SET & TRACK PICKING UI
 
-function makePicker() {
-    
+function makePicker(sets) {
+    var picker = $("<section>").addClass("picker");
+    console.log("MAKE PICKER")
+    for (var i = 0; i < sets.length; i++) {
+        var set = sets[i].tracks,
+            ul  = $("<ul>").addClass("set"),
+            h1  = $("<h1>").html(sets[i].name)
+        for (var j = 0; j < set.length; j++) {
+            var track = set[j],
+                li    = $("<li>").addClass("track"),
+                input = $("<input>").attr({
+                    type: "button",
+                    value: set[j].song
+                });
+            li.append(input);
+            ul.append(li);
+        }
+        picker.append(h1, ul);
+    }
+    $("body > header").append(picker);
 }

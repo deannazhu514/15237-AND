@@ -1,4 +1,3 @@
-@import url(style.css);
 /* line 17, ../../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -72,7 +71,7 @@ body {
   font-size: 10pt;
 }
 
-/* line 8, ../sass/_main.scss */
+/* line 7, ../sass/_main.scss */
 body {
   background: #333;
   -webkit-user-select: none;
@@ -80,7 +79,7 @@ body {
   margin: 3.125%;
 }
 
-/* line 16, ../sass/_main.scss */
+/* line 15, ../sass/_main.scss */
 input[type=button] {
   background: none;
   cursor: pointer;
@@ -91,14 +90,14 @@ input[type=button] {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 26, ../sass/_main.scss */
+/* line 25, ../sass/_main.scss */
 input[type=button]:hover {
   background: white;
   border-color: white;
   color: #333;
 }
 
-/* line 34, ../sass/_main.scss */
+/* line 33, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -107,9 +106,14 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 42, ../sass/_main.scss */
+/* line 41, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
+}
+
+/* line 3, ../sass/_header.scss */
+body > header ul.picker li {
+  float: right;
 }
 
 /* line 1, ../sass/_guest.scss */
@@ -259,65 +263,65 @@ header section#add-device.open {
   visibility: hidden;
 }
 
-/* line 9, ../sass/_track.scss */
-.track {
+/* line 10, ../sass/_track.scss */
+.tracks .track {
   width: 87.5%;
   padding: 3.125% 0;
   margin: 3.125% 0 0 0;
   box-sizing: border-box;
   float: left;
 }
-/* line 16, ../sass/_track.scss */
-.track:nth-of-type(1) {
+/* line 17, ../sass/_track.scss */
+.tracks .track:nth-of-type(1) {
   margin-left: 0;
 }
 @media screen and (max-width: 54em) {
   /* line 4, ../sass/_track.scss */
-  .track:nth-of-type(n+2) .turntable, .track:nth-of-type(n+2) .palette {
+  .tracks .track:nth-of-type(n+2) .turntable, .tracks .track:nth-of-type(n+2) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 54em) {
-  /* line 9, ../sass/_track.scss */
-  .track {
+  /* line 10, ../sass/_track.scss */
+  .tracks .track {
     width: 43.75%;
     margin: 3.125% 0 0 3.125%;
   }
-  /* line 31, ../sass/_track.scss */
-  .track:nth-of-type(3n) {
+  /* line 32, ../sass/_track.scss */
+  .tracks .track:nth-of-type(3n) {
     margin-left: 0;
   }
 }
 @media screen and (min-width: 54em) and (max-width: 84em) {
   /* line 4, ../sass/_track.scss */
-  .track:nth-of-type(n+3) .turntable, .track:nth-of-type(n+3) .palette {
+  .tracks .track:nth-of-type(n+3) .turntable, .tracks .track:nth-of-type(n+3) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 84em) {
-  /* line 9, ../sass/_track.scss */
-  .track {
+  /* line 10, ../sass/_track.scss */
+  .tracks .track {
     width: 29.16667%;
   }
-  /* line 46, ../sass/_track.scss */
-  .track:nth-of-type(3n) {
+  /* line 47, ../sass/_track.scss */
+  .tracks .track:nth-of-type(3n) {
     margin: 3.125% 0 0 3.125%;
   }
-  /* line 50, ../sass/_track.scss */
-  .track:nth-of-type(4n) {
+  /* line 51, ../sass/_track.scss */
+  .tracks .track:nth-of-type(4n) {
     margin-left: 0;
   }
   /* line 4, ../sass/_track.scss */
-  .track:nth-of-type(n+4) .turntable, .track:nth-of-type(n+4) .palette {
+  .tracks .track:nth-of-type(n+4) .turntable, .tracks .track:nth-of-type(n+4) .palette {
     display: none;
   }
 }
-/* line 60, ../sass/_track.scss */
-.track header {
+/* line 61, ../sass/_track.scss */
+.tracks .track header {
   margin-bottom: 1em;
 }
-/* line 61, ../sass/_track.scss */
-.track header h1 {
+/* line 62, ../sass/_track.scss */
+.tracks .track header h1 {
   font-size: 2em;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.5em;
@@ -325,21 +329,20 @@ header section#add-device.open {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 70, ../sass/_track.scss */
-.track header author {
+/* line 71, ../sass/_track.scss */
+.tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-
-/* line 80, ../sass/_track.scss */
-ul.controls li.palette {
+/* line 81, ../sass/_track.scss */
+.tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
-/* line 85, ../sass/_track.scss */
-ul.controls li.palette .move {
+/* line 86, ../sass/_track.scss */
+.tracks ul.controls li.palette .move {
   background: none;
   border: none;
   color: white;
@@ -351,28 +354,28 @@ ul.controls li.palette .move {
   border-bottom: 2pt solid rgba(255, 255, 255, 0.75);
   padding: 0;
 }
-/* line 97, ../sass/_track.scss */
-ul.controls li.palette .move:active, ul.controls li.palette .move:hover {
+/* line 98, ../sass/_track.scss */
+.tracks ul.controls li.palette .move:active, .tracks ul.controls li.palette .move:hover {
   background: none;
 }
-/* line 102, ../sass/_track.scss */
-ul.controls li.palette .value {
+/* line 103, ../sass/_track.scss */
+.tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
   margin: 0.5em 0;
   width: 100%;
   text-align: center;
 }
-/* line 110, ../sass/_track.scss */
-ul.controls li.palette label {
+/* line 111, ../sass/_track.scss */
+.tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
   display: block;
   padding-top: 1em;
 }
-/* line 116, ../sass/_track.scss */
-ul.controls li.palette .slider {
+/* line 117, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 255, 255, 0.75);
   background: none;
@@ -380,17 +383,17 @@ ul.controls li.palette .slider {
   width: 100%;
   margin: 2em 0;
 }
-/* line 124, ../sass/_track.scss */
-ul.controls li.palette .slider:hover {
+/* line 125, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 128, ../sass/_track.scss */
-ul.controls li.palette .slider:hover::-webkit-slider-thumb {
+/* line 129, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 133, ../sass/_track.scss */
-ul.controls li.palette .slider::-webkit-slider-thumb {
+/* line 134, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
   height: 4em;
@@ -398,11 +401,11 @@ ul.controls li.palette .slider::-webkit-slider-thumb {
   cursor: pointer;
   opacity: .75;
 }
-/* line 141, ../sass/_track.scss */
-ul.controls li.palette .slider::-webkit-slider-thumb:hover {
+/* line 142, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 146, ../sass/_track.scss */
-ul.controls li.palette .slider.vertical {
+/* line 147, ../sass/_track.scss */
+.tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

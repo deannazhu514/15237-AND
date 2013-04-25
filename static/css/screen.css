@@ -112,23 +112,26 @@ header section#add-device.open {
 }
 
 /* line 3, ../sass/_header.scss */
-body > header #loginmsg {
-  line-height: 1.5em;
-  float: right;
+body > header section#settings {
+  display: none;
 }
-/* line 10, ../sass/_header.scss */
-body > header .picker .set {
+/* line 6, ../sass/_header.scss */
+body > header section#settings.open {
+  display: block;
+}
+/* line 11, ../sass/_header.scss */
+body > header section#settings.open .picker .set {
   width: 21.875%;
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 16, ../sass/_header.scss */
-body > header .picker .set:nth-child(1) {
+/* line 17, ../sass/_header.scss */
+body > header section#settings.open .picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 22, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track {
+/* line 23, ../sass/_header.scss */
+body > header section#settings.open .picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
   margin-left: -.5em;
@@ -143,20 +146,25 @@ body > header .picker .set ul.tracks li.track {
   font-weight: bold;
 }
 /* line 17, ../sass/lib/_mixins.scss */
-body > header .picker .set ul.tracks li.track:hover {
+body > header section#settings.open .picker .set ul.tracks li.track:hover {
   background: white;
   border-color: white;
   color: #333;
 }
-/* line 29, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track h1 {
+/* line 30, ../sass/_header.scss */
+body > header section#settings.open .picker .set ul.tracks li.track h1 {
   font-size: 2em;
 }
-/* line 33, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track author {
+/* line 34, ../sass/_header.scss */
+body > header section#settings.open .picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
+}
+/* line 44, ../sass/_header.scss */
+body > header #loginmsg {
+  line-height: 1.5em;
+  float: right;
 }
 
 /* line 1, ../sass/_guest.scss */

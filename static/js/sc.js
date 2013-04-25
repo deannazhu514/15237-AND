@@ -60,7 +60,7 @@ function connect(){
 				loginUser(me.id, deviceID);
 				localStorage["user"] = me.id;
 				loggedin = true;
-				$("#loginmsg").html("Logged in as "+me.full_name);
+				$("#loginmsg").html(me.full_name);
 				getPlaylists(me.id);
 				client_socket_init();
 				console.log('called init');

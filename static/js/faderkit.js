@@ -472,5 +472,5 @@ function makePicker(sets) {
         }
         picker.append(section);
     }
-    // $("body > header").append(picker);
+    $("header #settings").append(picker);
 }

@@ -56,8 +56,8 @@
             $('#loginbut').click(function(){
                 connect();
             });
-			$('#settings').click(function(){
-				//getDevices();
+			$('input#settings').click(function(){
+				$("section#settings").toggleClass("open");
 				getModules();
 			});
         });

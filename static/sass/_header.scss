@@ -1,5 +1,10 @@
 body > header {
 
+    #loginmsg{
+        line-height: 1.5em;
+        float: right;
+    }
+
     .picker {
     
         .set {
@@ -7,6 +12,10 @@ body > header {
             padding-left: $gutter;
             display: inline-block;
             vertical-align: top;
+            
+            &:nth-child(1) {
+                padding-left: 0;
+            }
             
             ul.tracks {         
                
@@ -16,6 +25,10 @@ body > header {
                     margin-left: -.5em;
                     margin-bottom: .5em;
                     @include button;
+                    
+                    h1 {
+                        font-size: 2em;
+                    }
                     
                     author {
                         @include small-caps(.75em);

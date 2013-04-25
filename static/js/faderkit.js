@@ -483,5 +483,5 @@ function makePicker(sets) {
         }
         picker.append(section);
     }
-    $("body > header").append(picker);
+    // $("body > header").append(picker);
 }

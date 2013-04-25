@@ -111,14 +111,23 @@ header section#add-device.open {
   display: block;
 }
 
-/* line 5, ../sass/_header.scss */
+/* line 3, ../sass/_header.scss */
+body > header #loginmsg {
+  line-height: 1.5em;
+  float: right;
+}
+/* line 10, ../sass/_header.scss */
 body > header .picker .set {
   width: 21.875%;
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 13, ../sass/_header.scss */
+/* line 16, ../sass/_header.scss */
+body > header .picker .set:nth-child(1) {
+  padding-left: 0;
+}
+/* line 22, ../sass/_header.scss */
 body > header .picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -139,7 +148,11 @@ body > header .picker .set ul.tracks li.track:hover {
   border-color: white;
   color: #333;
 }
-/* line 20, ../sass/_header.scss */
+/* line 29, ../sass/_header.scss */
+body > header .picker .set ul.tracks li.track h1 {
+  font-size: 2em;
+}
+/* line 33, ../sass/_header.scss */
 body > header .picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -162,7 +175,7 @@ body > header .picker .set ul.tracks li.track author {
   top: 40%;
 }
 /* line 14, ../sass/_guest.scss */
-.guest header #settings, .guest header #add-device {
+.guest header #settings, .guest header #add-device, .guest header .picker {
   display: none;
 }
 
@@ -294,7 +307,7 @@ body > header .picker .set ul.tracks li.track author {
 }
 
 /* line 10, ../sass/_track.scss */
-body > .tracks .track {
+body > #tracks .track {
   width: 87.5%;
   padding: 3.125% 0;
   margin: 3.125% 0 0 0;
@@ -302,56 +315,56 @@ body > .tracks .track {
   float: left;
 }
 /* line 17, ../sass/_track.scss */
-body > .tracks .track:nth-of-type(1) {
+body > #tracks .track:nth-of-type(1) {
   margin-left: 0;
 }
 @media screen and (max-width: 54em) {
   /* line 4, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(n+2) .turntable, body > .tracks .track:nth-of-type(n+2) .palette {
+  body > #tracks .track:nth-of-type(n+2) .turntable, body > #tracks .track:nth-of-type(n+2) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 54em) {
   /* line 10, ../sass/_track.scss */
-  body > .tracks .track {
+  body > #tracks .track {
     width: 43.75%;
     margin: 3.125% 0 0 3.125%;
   }
   /* line 32, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(3n) {
+  body > #tracks .track:nth-of-type(3n) {
     margin-left: 0;
   }
 }
 @media screen and (min-width: 54em) and (max-width: 84em) {
   /* line 4, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(n+3) .turntable, body > .tracks .track:nth-of-type(n+3) .palette {
+  body > #tracks .track:nth-of-type(n+3) .turntable, body > #tracks .track:nth-of-type(n+3) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 84em) {
   /* line 10, ../sass/_track.scss */
-  body > .tracks .track {
+  body > #tracks .track {
     width: 29.16667%;
   }
   /* line 47, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(3n) {
+  body > #tracks .track:nth-of-type(3n) {
     margin: 3.125% 0 0 3.125%;
   }
   /* line 51, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(4n) {
+  body > #tracks .track:nth-of-type(4n) {
     margin-left: 0;
   }
   /* line 4, ../sass/_track.scss */
-  body > .tracks .track:nth-of-type(n+4) .turntable, body > .tracks .track:nth-of-type(n+4) .palette {
+  body > #tracks .track:nth-of-type(n+4) .turntable, body > #tracks .track:nth-of-type(n+4) .palette {
     display: none;
   }
 }
 /* line 61, ../sass/_track.scss */
-body > .tracks .track header {
+body > #tracks .track header {
   margin-bottom: 1em;
 }
 /* line 62, ../sass/_track.scss */
-body > .tracks .track header h1 {
+body > #tracks .track header h1 {
   font-size: 2em;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.5em;
@@ -360,19 +373,19 @@ body > .tracks .track header h1 {
   text-overflow: ellipsis;
 }
 /* line 71, ../sass/_track.scss */
-body > .tracks .track header author {
+body > #tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
 /* line 81, ../sass/_track.scss */
-body > .tracks ul.controls li.palette {
+body > #tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
 /* line 86, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .move {
+body > #tracks ul.controls li.palette .move {
   background: none;
   border: none;
   color: white;
@@ -385,11 +398,11 @@ body > .tracks ul.controls li.palette .move {
   padding: 0;
 }
 /* line 98, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .move:active, body > .tracks ul.controls li.palette .move:hover {
+body > #tracks ul.controls li.palette .move:active, body > #tracks ul.controls li.palette .move:hover {
   background: none;
 }
 /* line 103, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .value {
+body > #tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
   margin: 0.5em 0;
@@ -397,7 +410,7 @@ body > .tracks ul.controls li.palette .value {
   text-align: center;
 }
 /* line 111, ../sass/_track.scss */
-body > .tracks ul.controls li.palette label {
+body > #tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
@@ -405,7 +418,7 @@ body > .tracks ul.controls li.palette label {
   padding-top: 1em;
 }
 /* line 117, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider {
+body > #tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 255, 255, 0.75);
   background: none;
@@ -414,16 +427,16 @@ body > .tracks ul.controls li.palette .slider {
   margin: 2em 0;
 }
 /* line 125, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider:hover {
+body > #tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
 /* line 129, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
+body > #tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
 /* line 134, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider::-webkit-slider-thumb {
+body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
   height: 4em;
@@ -432,10 +445,10 @@ body > .tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   opacity: .75;
 }
 /* line 142, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
+body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
 /* line 147, ../sass/_track.scss */
-body > .tracks ul.controls li.palette .slider.vertical {
+body > #tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

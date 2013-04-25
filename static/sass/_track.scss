@@ -6,7 +6,7 @@
     }
 }
 
-body > .tracks {
+body > #tracks {
     .track {
         width: $col * $columns;
         padding: $gutter 0;

@@ -466,20 +466,21 @@ function makePicker(sets) {
     var picker = $("<section>").addClass("picker");
     console.log("MAKE PICKER")
     for (var i = 0; i < sets.length; i++) {
-        var set = sets[i].tracks,
-            ul  = $("<ul>").addClass("set"),
-            h1  = $("<h1>").html(sets[i].name)
+        var set     = sets[i].tracks,
+            section = $("<section>").addClass("set"),
+            ul      = $("<ul>").addClass("tracks"),
+            h1      = $("<h1>").html(sets[i].name);
+            section.append(h1, ul);
+            
         for (var j = 0; j < set.length; j++) {
             var track = set[j],
                 li    = $("<li>").addClass("track"),
-                input = $("<input>").attr({
-                    type: "button",
-                    value: set[j].song
-                });
-            li.append(input);
+                title = $("<h1>").html(set[j].song).addClass("title"),
+                author = $("<author>").html(set[j].artist).addClass("author");
+            li.append(title, author);
             ul.append(li);
         }
-        picker.append(h1, ul);
+        picker.append(section);
     }
     $("body > header").append(picker);
 }

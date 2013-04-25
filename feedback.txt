@@ -15,3 +15,22 @@ Deanna:
 	* Functionality lol
 	* Have a random generated number to add new device because typing in userID etc. is too long
 
+Antonio:
+
+- Auto BPM sync — "very essential"
+- Global controls palette should be on largest display
+
+## Have two modes
+- Turntable mode
+-- Open tracks on different devices
+- Auto mode
+-- Cycles through set
+
+## Additions to global controls
+
+- Treble / bass
+- L/R
+- Fader — 'not as smooth as it should be'
+- Scratches
+- BPM
+- BPM display

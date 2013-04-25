@@ -90,14 +90,14 @@ input[type=button] {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 25, ../sass/_main.scss */
+/* line 17, ../sass/lib/_mixins.scss */
 input[type=button]:hover {
   background: white;
   border-color: white;
   color: #333;
 }
 
-/* line 33, ../sass/_main.scss */
+/* line 20, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -106,14 +106,44 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 41, ../sass/_main.scss */
+/* line 28, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
 
-/* line 3, ../sass/_header.scss */
-body > header ul.picker li {
-  float: right;
+/* line 5, ../sass/_header.scss */
+body > header .picker .set {
+  width: 21.875%;
+  padding-left: 3.125%;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 13, ../sass/_header.scss */
+body > header .picker .set ul.tracks li.track {
+  width: 100%;
+  text-align: left;
+  margin-left: -.5em;
+  margin-bottom: .5em;
+  background: none;
+  cursor: pointer;
+  padding: .5em;
+  border: 1pt solid rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+}
+/* line 17, ../sass/lib/_mixins.scss */
+body > header .picker .set ul.tracks li.track:hover {
+  background: white;
+  border-color: white;
+  color: #333;
+}
+/* line 20, ../sass/_header.scss */
+body > header .picker .set ul.tracks li.track author {
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 0.75em;
 }
 
 /* line 1, ../sass/_guest.scss */
@@ -264,7 +294,7 @@ body > header ul.picker li {
 }
 
 /* line 10, ../sass/_track.scss */
-.tracks .track {
+body > .tracks .track {
   width: 87.5%;
   padding: 3.125% 0;
   margin: 3.125% 0 0 0;
@@ -272,56 +302,56 @@ body > header ul.picker li {
   float: left;
 }
 /* line 17, ../sass/_track.scss */
-.tracks .track:nth-of-type(1) {
+body > .tracks .track:nth-of-type(1) {
   margin-left: 0;
 }
 @media screen and (max-width: 54em) {
   /* line 4, ../sass/_track.scss */
-  .tracks .track:nth-of-type(n+2) .turntable, .tracks .track:nth-of-type(n+2) .palette {
+  body > .tracks .track:nth-of-type(n+2) .turntable, body > .tracks .track:nth-of-type(n+2) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 54em) {
   /* line 10, ../sass/_track.scss */
-  .tracks .track {
+  body > .tracks .track {
     width: 43.75%;
     margin: 3.125% 0 0 3.125%;
   }
   /* line 32, ../sass/_track.scss */
-  .tracks .track:nth-of-type(3n) {
+  body > .tracks .track:nth-of-type(3n) {
     margin-left: 0;
   }
 }
 @media screen and (min-width: 54em) and (max-width: 84em) {
   /* line 4, ../sass/_track.scss */
-  .tracks .track:nth-of-type(n+3) .turntable, .tracks .track:nth-of-type(n+3) .palette {
+  body > .tracks .track:nth-of-type(n+3) .turntable, body > .tracks .track:nth-of-type(n+3) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 84em) {
   /* line 10, ../sass/_track.scss */
-  .tracks .track {
+  body > .tracks .track {
     width: 29.16667%;
   }
   /* line 47, ../sass/_track.scss */
-  .tracks .track:nth-of-type(3n) {
+  body > .tracks .track:nth-of-type(3n) {
     margin: 3.125% 0 0 3.125%;
   }
   /* line 51, ../sass/_track.scss */
-  .tracks .track:nth-of-type(4n) {
+  body > .tracks .track:nth-of-type(4n) {
     margin-left: 0;
   }
   /* line 4, ../sass/_track.scss */
-  .tracks .track:nth-of-type(n+4) .turntable, .tracks .track:nth-of-type(n+4) .palette {
+  body > .tracks .track:nth-of-type(n+4) .turntable, body > .tracks .track:nth-of-type(n+4) .palette {
     display: none;
   }
 }
 /* line 61, ../sass/_track.scss */
-.tracks .track header {
+body > .tracks .track header {
   margin-bottom: 1em;
 }
 /* line 62, ../sass/_track.scss */
-.tracks .track header h1 {
+body > .tracks .track header h1 {
   font-size: 2em;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.5em;
@@ -330,19 +360,19 @@ body > header ul.picker li {
   text-overflow: ellipsis;
 }
 /* line 71, ../sass/_track.scss */
-.tracks .track header author {
+body > .tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
 /* line 81, ../sass/_track.scss */
-.tracks ul.controls li.palette {
+body > .tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
 /* line 86, ../sass/_track.scss */
-.tracks ul.controls li.palette .move {
+body > .tracks ul.controls li.palette .move {
   background: none;
   border: none;
   color: white;
@@ -355,11 +385,11 @@ body > header ul.picker li {
   padding: 0;
 }
 /* line 98, ../sass/_track.scss */
-.tracks ul.controls li.palette .move:active, .tracks ul.controls li.palette .move:hover {
+body > .tracks ul.controls li.palette .move:active, body > .tracks ul.controls li.palette .move:hover {
   background: none;
 }
 /* line 103, ../sass/_track.scss */
-.tracks ul.controls li.palette .value {
+body > .tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
   margin: 0.5em 0;
@@ -367,7 +397,7 @@ body > header ul.picker li {
   text-align: center;
 }
 /* line 111, ../sass/_track.scss */
-.tracks ul.controls li.palette label {
+body > .tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
@@ -375,7 +405,7 @@ body > header ul.picker li {
   padding-top: 1em;
 }
 /* line 117, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider {
+body > .tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 255, 255, 0.75);
   background: none;
@@ -384,16 +414,16 @@ body > header ul.picker li {
   margin: 2em 0;
 }
 /* line 125, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider:hover {
+body > .tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
 /* line 129, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
+body > .tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
 /* line 134, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider::-webkit-slider-thumb {
+body > .tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
   height: 4em;
@@ -402,10 +432,10 @@ body > header ul.picker li {
   opacity: .75;
 }
 /* line 142, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
+body > .tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
 /* line 147, ../sass/_track.scss */
-.tracks ul.controls li.palette .slider.vertical {
+body > .tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

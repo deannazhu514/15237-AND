@@ -1,7 +1,27 @@
 body > header {
-    ul.picker {
-        li {
-            float: right;
+
+    .picker {
+    
+        .set {
+            width: $col;
+            padding-left: $gutter;
+            display: inline-block;
+            vertical-align: top;
+            
+            ul.tracks {         
+               
+                li.track {
+                    width: 100%;
+                    text-align: left;
+                    margin-left: -.5em;
+                    margin-bottom: .5em;
+                    @include button;
+                    
+                    author {
+                        @include small-caps(.75em);
+                    }
+                }
+            }
         }
     }
 }

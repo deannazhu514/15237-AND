@@ -114,11 +114,12 @@ $(document).ready(function(){
 })
             
 function makePalette(template) {
-		if (typeof(template.id) == 'string') {
-			template.id = parseFloat(template.id);
-		}
+	
+	if (typeof(template.id) == 'string') {
+		template.id = parseFloat(template.id);
+	}
 		
-		console.log(typeof(template.id));
+	console.log(typeof(template.id));
 					trackList[template.id] = {
 						playing: false,
 						pbr: 1.0,
@@ -135,12 +136,13 @@ function makePalette(template) {
         tid      = template.id;
     $(header).append(title, artist);
     console.log('tid: ' + tid);
-    for (var i = 0; i < template.ui.length; i++) {
+    for (var i = 0; i < template.ui.length; i++) {	
         var element;
         if (template.ui[i].type === "turntable") {
+		
 			if (nonstream) {
 				element = makeTurntable2(template.ui[i].art,
-                          template.ui[i].duration, tid);
+                          template.ui[0].duration, tid);
 			} else {
                 element = makeTurntable(template.ui[i].art,
                           template.ui[i].duration, tid);
@@ -150,7 +152,7 @@ function makePalette(template) {
             element = makeControl(template.ui[i].type,
 								  template.ui[i].name,
                                   template.ui[i].orientation,
-                                  template.ui[i].showValue, tid, template.ui[i].duration);
+                                  template.ui[i].showValue, tid, template.ui[0].duration);
             controls.append(element);
         }
         track.append(controls);
@@ -289,6 +291,7 @@ function makeTurntable(artSrc, duration, tid) {
 
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
+					  
     var palette = $("<li>").addClass("palette"),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({

@@ -1,4 +1,4 @@
-4/23/13 User Studies Feedback
+﻿4/23/13 User Studies Feedback
 
 Deanna:
 
@@ -34,3 +34,15 @@ Antonio:
 - Scratches
 - BPM
 - BPM display
+
+Norbert: 
+
+	*picture align with turntable thing when you pause/play again
+	*have playback seek working
+	*font too large
+	*more clear instructions on how to add a device
+	*settings not really "settings", just track list, misleading
+	*more controls
+	*background of turntable should be distinguished or not have the border
+	*sliders should work better if you scroll off the side of the bar
+	*global controls should be more obvious in what it does (although it wasn't working back then anyway)

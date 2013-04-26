@@ -55,11 +55,13 @@ socket.on("update", function(audio) {
 function client_socket_init() {
 socket = io.connect("http://localhost:8111");
 
-socket.on("update_time", function(value) {
+socket.on("update_time", function(value, id) {
 	value = Math.floor(value);
 	for (key in sounds) {
 		var tt = sounds[key];
-		tt.source.mediaElement.currentTime = value;
+		if (id == key) {
+			tt.source.mediaElement.currentTime = value;
+		}
 	}
 });
 

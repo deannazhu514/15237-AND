@@ -5,14 +5,18 @@
 }
 
 @mixin button {
+    $padding: .5em;
     background: none;
     cursor: pointer;
-    padding: .5em;
+    padding: $padding;
     border: 1pt solid $default;
     color: $default;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size: 1em;
     font-weight: bold;
+    
+    position: relative;
+    left: -$padding;
     
     &:hover {
         background: $active;

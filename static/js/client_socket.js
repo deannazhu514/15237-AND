@@ -138,11 +138,11 @@ function nupdate(a){
 			trackList[key].volume = audio.volume;
 			trackList[key].pbr = audio.speed;
 			if (!changingVol) {
-			var tempobj = ctrls[key]['vol'];
-			var tempfnc = tempobj.data('changeSlider');
-			var val = tempobj.data('val');
-			var val2 = tempobj.data('val2');
-			tempfnc(val, val2, audio.volume);
+				var tempobj = ctrls[key]['vol'];
+				var tempfnc = tempobj.data('changeSlider');
+				var val = tempobj.data('val');
+				var val2 = tempobj.data('val2');
+				tempfnc(val, val2, audio.volume);
 			}
 		}
 	}
@@ -206,18 +206,13 @@ function supdate(a) {
 	//socket.emit('tracklist', $.map(trackList, function (value, key) { return key; }));
 }
 
-
 function sups (){
 	$(".track").remove();
 }
 
-
-
 function togglePlayback() {
 	playback_device = !playback_device;
 }
-
-
 
 function send_tracks() {
 	socket.emit('tracklist', tracks);
@@ -225,8 +220,7 @@ function send_tracks() {
 }
 
 function change_volume(id, value) {
-	
-  socket.emit("volume", id, value);
+	socket.emit("volume", id, value);
 	console.log('change volume');
 	console.log(typeof(id));
 	console.log(typeof(value));

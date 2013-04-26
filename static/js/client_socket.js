@@ -170,7 +170,7 @@ function supdate(a) {
 			var val = tempobj.data('val');
 			var val2 = tempobj.data('val2');
 			if (tempfnc != undefined) {
-				tempfnc(val, val2, audio.volume*100);
+				//tempfnc(val, val2, audio.volume*100);
 			}
 		}
 		if (!changingPBR) {

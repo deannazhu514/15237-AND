@@ -333,10 +333,12 @@ function makeControl (type, name, orientation,
         console.log("CONTROLCHANGING " + controlChanging);
         var val = $(control).val(),
         	id  = $(control).parent().attr("id");
+				console.log("NAME IS " + name);
         if (name === "volume") {
         	//s.volume = val/100;
         	change_volume(id,val/100);
         	$(value).html("volume:"+val);
+					console.log("changing vol: " + val);
         	changingVol = true;
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
@@ -344,6 +346,7 @@ function makeControl (type, name, orientation,
         	change_speed(id,val/50);
         	changingPBR = true;
         	//s.playbackRate = val/50;
+					console.log("changing pbr: " + val);
         } else if (name === "playback") {
         	//s.currentTime = (ss.duration*val/100);					
         	change_time(id, duration*val/100);
@@ -351,7 +354,7 @@ function makeControl (type, name, orientation,
         	$(value).html("position:"+duration*val/100);
         }
 	}
-	
+	/*
 <<<<<<< HEAD
    $(control).mousemove(function(){
 		var val = $(control).val(),
@@ -378,24 +381,24 @@ function makeControl (type, name, orientation,
 			}
 		}
 		
-=======
-    $(document).mousemove(function() {
+=======*/
+    $(control).mousemove(function() {
         if (controlChanging) {
             updateControls();
         }
-    })
+    });
 	
     $(control).mousedown(function() {
         controlChanging = true;
         console.log("MOUSEDOWN " + controlChanging);
->>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
+//>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
     });
-    
+    /*
     $(control).click(function(){
         if (controlChanging) {
             updateControls();
         }
-    })
+    });*/
     
     $(document).mouseup(function(event) {
         controlChanging = false;

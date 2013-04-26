@@ -83,14 +83,16 @@ body {
 input[type=button] {
   background: none;
   cursor: pointer;
-  padding: .5em;
+  padding: 0.5em;
   border: 1pt solid rgba(255, 255, 255, 0.75);
   color: rgba(255, 255, 255, 0.75);
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 1em;
   font-weight: bold;
+  position: relative;
+  left: -0.5em;
 }
-/* line 17, ../sass/lib/_mixins.scss */
+/* line 21, ../sass/lib/_mixins.scss */
 input[type=button]:hover {
   background: white;
   border-color: white;
@@ -134,34 +136,35 @@ body > header section#settings.open .picker .set:nth-child(1) {
 body > header section#settings.open .picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
-  margin-left: -.5em;
   margin-bottom: .5em;
   background: none;
   cursor: pointer;
-  padding: .5em;
+  padding: 0.5em;
   border: 1pt solid rgba(255, 255, 255, 0.75);
   color: rgba(255, 255, 255, 0.75);
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 1em;
   font-weight: bold;
+  position: relative;
+  left: -0.5em;
 }
-/* line 17, ../sass/lib/_mixins.scss */
+/* line 21, ../sass/lib/_mixins.scss */
 body > header section#settings.open .picker .set ul.tracks li.track:hover {
   background: white;
   border-color: white;
   color: #333;
 }
-/* line 30, ../sass/_header.scss */
+/* line 29, ../sass/_header.scss */
 body > header section#settings.open .picker .set ul.tracks li.track h1 {
   font-size: 2em;
 }
-/* line 34, ../sass/_header.scss */
+/* line 33, ../sass/_header.scss */
 body > header section#settings.open .picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
 }
-/* line 44, ../sass/_header.scss */
+/* line 43, ../sass/_header.scss */
 body > header #loginmsg {
   line-height: 1.5em;
   float: right;
@@ -172,19 +175,15 @@ body > header #loginmsg {
   font-size: 2em;
 }
 /* line 4, ../sass/_guest.scss */
-.guest #controls {
+.guest #controls, .guest header, .guest .tracks {
   display: none;
 }
 /* line 8, ../sass/_guest.scss */
-.guest header {
+.guest form {
   width: 100%;
   text-align: center;
   position: relative;
   top: 40%;
-}
-/* line 14, ../sass/_guest.scss */
-.guest header #settings, .guest header #add-device, .guest header .picker {
-  display: none;
 }
 
 @-webkit-keyframes play-spin {

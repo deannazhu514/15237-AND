@@ -54,11 +54,12 @@ socket.on("update", function(audio) {
 
 function client_socket_init() {
 socket = io.connect("http://localhost:8111");
+
 socket.on("update_time", function(value) {
+	value = Math.floor(value);
 	for (key in sounds) {
-				var tt = sounds[key];
-		var s = tt.source.mediaElement;
-		s.currentTime = value;
+		var tt = sounds[key];
+		tt.source.mediaElement.currentTime = value;
 	}
 });
 
@@ -137,11 +138,11 @@ function nupdate(a){
 			trackList[key].volume = audio.volume;
 			trackList[key].pbr = audio.speed;
 			if (!changingVol) {
-			var tempobj = ctrls[key]['vol'];
-			var tempfnc = tempobj.data('changeSlider');
-			var val = tempobj.data('val');
-			var val2 = tempobj.data('val2');
-			tempfnc(val, val2, audio.volume);
+				var tempobj = ctrls[key]['vol'];
+				var tempfnc = tempobj.data('changeSlider');
+				var val = tempobj.data('val');
+				var val2 = tempobj.data('val2');
+				tempfnc(val, val2, audio.volume);
 			}
 		}
 	}
@@ -205,18 +206,13 @@ function supdate(a) {
 	//socket.emit('tracklist', $.map(trackList, function (value, key) { return key; }));
 }
 
-
 function sups (){
 	$(".track").remove();
 }
 
-
-
 function togglePlayback() {
 	playback_device = !playback_device;
 }
-
-
 
 function send_tracks() {
 	socket.emit('tracklist', tracks);
@@ -224,8 +220,7 @@ function send_tracks() {
 }
 
 function change_volume(id, value) {
-	
-  socket.emit("volume", id, value);
+	socket.emit("volume", id, value);
 	console.log('change volume');
 	console.log(typeof(id));
 	console.log(typeof(value));
@@ -235,6 +230,6 @@ function change_speed(id, value) {
   socket.emit("speed", id, value);
 }
 
-function change_time(value) {
-	socket.emit("change_time", value);
+function change_time(id, value) {
+	socket.emit("change_time", id, value);
 }

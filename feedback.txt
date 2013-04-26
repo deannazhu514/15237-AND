@@ -8,12 +8,25 @@ Deanna:
 	* Limit the title  size in settings track buttons
 	* Better layout of songs in settings (have buttons be a set width?)
 	* Overflow ellipse (CSS property )
-	* Having the song title scroll (rather than just cutoff) only for the song playing or on mouseover
+	* Having the song title scroll maybe (rather than just cutoff) only for the song playing or on mouseover
 	* Clearer visual breaks between Settings button and text below
 	* Give it a name
 	* Hammer.js  swipe gestures?
 	* Functionality lol
 	* Have a random generated number to add new device because typing in userID etc. is too long
+
+Norbert: 
+
+	*picture align with turntable thing when you pause/play again
+	*have playback seek working
+	*font too large
+	*more clear instructions on how to add a device
+	*settings not really "settings", just track list, misleading
+	*more controls
+	*background of turntable should be distinguished or not have the border
+	*sliders should work better if you scroll off the side of the bar
+	*global controls should be more obvious in what it does (although it wasn't working back then anyway)
+
 
 Antonio:
 
@@ -35,14 +48,18 @@ Antonio:
 - BPM
 - BPM display
 
-Norbert: 
+Changes:
 
-	*picture align with turntable thing when you pause/play again
-	*have playback seek working
-	*font too large
-	*more clear instructions on how to add a device
-	*settings not really "settings", just track list, misleading
-	*more controls
-	*background of turntable should be distinguished or not have the border
-	*sliders should work better if you scroll off the side of the bar
-	*global controls should be more obvious in what it does (although it wasn't working back then anyway)
+	UI:
+		-more neutral color scheme
+		-less boxy track views, easier to look at
+		-less crowded text 
+	Functionality
+		-better multi-screen
+		
+		
+	*in general, trying to move towards making this more DJ realistic while maintaining autoplay ability
+		to address different user needs
+	
+	
+

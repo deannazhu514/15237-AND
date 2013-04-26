@@ -1,18 +1,14 @@
 .guest {
     font-size: 2em;
 
-    #controls {
+    #controls, header, .tracks {
         display: none;
     }
     
-    header {
+    form {
         width: 100%;
         text-align: center;
         position: relative;
         top: 40%;
-        
-        #settings, #add-device, .picker {
-            display: none;
-        }
     }
 }

@@ -201,6 +201,7 @@ function getPlaylists(SCuser){
 					var artwork = (track.artwork_url) ? track.artwork_url
 					                                  : "http://placekitten.com/250"
 
+					var duration = Math.floor(track.duration/1000);								  
 					var track2 = {
 						"id": track.id,
 						"artist": track.user.username,
@@ -209,12 +210,11 @@ function getPlaylists(SCuser){
 						"ui": [{
 								"type": "turntable",
 								"art": artwork,
-								"duration": track.duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
+								"duration": duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
 																					 //OTHERWISE WE SHOULD USE ESTIMATEDDURATION
 																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
 								}, volslider, pbslider, playbackslider]
 					};
-					console.log('duration ' + track.duration);
 					
 					//console.log(socket.id);
 					socket.emit("newtrack", track.id);

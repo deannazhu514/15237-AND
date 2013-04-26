@@ -491,7 +491,7 @@ function init_socket(socket,room) {
     io.sockets.in(room).volatile.emit("update", audio);
   });
   socket.on("change_time", function(id, value) {
-    audio[id].time = value;
+	audio[id].time = value;
     io.sockets.in(room).volatile.emit("update_time", value);
   });
 	socket.on("sendModule", function (trackz, num) {

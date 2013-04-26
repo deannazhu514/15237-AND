@@ -186,7 +186,6 @@ function makeTurntable2(artSrc, duration, tid) {
     	var tempid = tid;
     	var ttable = this;
     	
-    	
     	//cursound.togglePause();
     	//trackList[tempid].playing = !trackList[tempid].playing;
 		
@@ -351,7 +350,7 @@ function makeControl (type, name, orientation,
 		}*/
 	});
 	
-   $(control).click(function(){
+   $(control).mousemove(function(){
 		var val = $(control).val(),
 		    id  = $(control).parent().attr("id");
 		//var sound = sounds[id];

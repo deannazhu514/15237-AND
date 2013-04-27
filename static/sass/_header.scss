@@ -17,40 +17,41 @@ body > header {
         
         &.open {
             display: block;
+        }
+    }
+    
+    .picker {
+    
+        .set {
+            width: $col;
+            padding-left: $gutter;
+            display: inline-block;
+            vertical-align: top;
             
-            .picker {
+            &:nth-child(1) {
+                padding-left: 0;
+            }
             
-                .set {
-                    width: $col;
-                    padding-left: $gutter;
-                    display: inline-block;
-                    vertical-align: top;
+            ul.tracks {         
+               
+                li.track {
+                    width: 100%;
+                    text-align: left;
+                    margin-bottom: .5em;
+                    @include button;
                     
-                    &:nth-child(1) {
-                        padding-left: 0;
+                    h1 {
+                        font-size: 2em;
                     }
                     
-                    ul.tracks {         
-                       
-                        li.track {
-                            width: 100%;
-                            text-align: left;
-                            margin-bottom: .5em;
-                            @include button;
-                            
-                            h1 {
-                                font-size: 2em;
-                            }
-                            
-                            author {
-                                @include small-caps(.75em);
-                            }
-                        }
+                    author {
+                        @include small-caps(.75em);
                     }
                 }
             }
         }
     }
+
 
     #username {
         line-height: 1.5em;

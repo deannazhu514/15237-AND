@@ -95,7 +95,7 @@ socket.on("getmod", function(track, num) {
 	} */
 });
 socket.on("remove_track", function() {
-	$(".track").remove();
+	$("body > ul#tracks .track").remove();
 });
 
 socket.on('add_track', function(track) {

@@ -11,3 +11,7 @@ $columns: 4;
 $gutter: (100% / $columns) / 8;
 $gutters: $columns - 1;
 $col: (100% / $columns) - $gutter;
+
+// MISC
+
+$border-width: 2pt;

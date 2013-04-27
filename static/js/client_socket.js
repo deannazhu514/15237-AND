@@ -74,6 +74,7 @@ socket.on("update", function(a) {
 
 });
 socket.on("getmod", function(track, num) {
+	console.log("REC MODULE");
 	//if (deviceNum == num) {
 	if (true) {
 		//nonstream = true;
@@ -217,6 +218,7 @@ function sups (){
 }
 
 function togglePlayback() {
+	console.log("playbacktoggle");
 	playback_device = !playback_device;
 }
 
@@ -239,3 +241,4 @@ function change_speed(id, value) {
 function change_time(id, value) {
 	socket.emit("change_time", id, value);
 }
+

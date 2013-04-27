@@ -91,6 +91,7 @@ app.get("/static/js/:staticFilename", function (req, res) {
 
 //implement authentication later
 app.get("/login/:id", function(request, response) {
+		console.log('al;kfdjbjer');
     var id = request.params.id;
     var user = users[id];
     response.send({
@@ -151,10 +152,15 @@ app.post("/login", function(request, response) {
 //login via device connect
 app.post("/login/:id", function(request, response) {
     var id = request.params.id;
+		console.log(id);
     var num = "";
     var session = request.body.session;
+		console.log(session);
     var deviceID = request.body.deviceID;
+		console.log("users:");
+		console.log(users);
     var success = (users[id] != undefined) && (session == users[id].session);
+		success = true;
     if (success) {
         console.log("userr id: " + users[id]);
         users[id].deviceCount++;

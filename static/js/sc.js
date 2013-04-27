@@ -76,15 +76,17 @@ function connect(){
 }
 
 function connectDevice(){	
-	var username = $("#username").val();
-	var session = $("#session").val();
+	//var username = $("#username").val();
+	var session = $("input#username").val();
+	var un = session;
+	username = session;
 	var deviceID = new Date(); //CHANGE TO SOMETHING ELSE THAT MAKES SENSE HEHE
-	if (username == "" || session == "") {
+	if (un == "" || session == "") {
 		alert("Please enter username and session code");
 	} else {
-		sendDevice(username, session, deviceID);
-		localStorage["user"] = username;
-		currentID = username;
+		sendDevice(un, session, deviceID);
+		localStorage["user"] = un;
+		currentID = un;
 		loggedin = true;
 	}
 }
@@ -120,6 +122,8 @@ function sendDevice(userID, session, deviceID){
 				$("#loginbut").remove();
 				$('form').remove(); 
 				deviceNum = data.deviceNum;
+				client_socket_init();
+				
 			}
 		}
 	});
@@ -160,6 +164,7 @@ function getModules(){
 			var blah = function() { bleh(x); };
 			trackbut.mousedown( function(event) {
 				console.log(this);
+				console.log('sending module');
 				sendModule2(2, 'track', parseFloat(this.value.substring(0, 8)));
 			});
 				//console.log(tracks[track].song);

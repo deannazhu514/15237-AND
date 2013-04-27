@@ -27,7 +27,7 @@
         <h1>Spectrum</h1>
         <section class="menu">
             <input type="button" value="Picker" class="picker">
-            <input type="button" value="Audio On/Off" class="audio-toggle">            
+            <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">            
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <p id="username"></p>
@@ -45,7 +45,7 @@
         <ul>
             <li>
                 <label>Session Key</label>
-                <input id="username" name="Username" type="tel" placeholder="Session Key" class="text">
+                <input id="username" name="Username" type="text" placeholder="Session Key" class="text">
             </li>
             <!-- <li>
                 <label>Session ID:</label>
@@ -69,6 +69,7 @@
 				getModules();
 			});
         });
+				document.getElementById("audiotoggle").onclick = togglePlayback;
     </script>
     <section id="controls"></section>
     <ul id="tracks"></ul>

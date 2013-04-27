@@ -464,9 +464,6 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("<section>").addClass("picker");
     for (var i = 0; i < sets.length; i++) {
-        var set = sets[i].tracks,
-            ul  = $("<ul>").addClass("set"),
-            h1  = $("<h1>").html(sets[i].name)
         var set     = sets[i].tracks,
             section = $("<section>").addClass("set"),
             ul      = $("<ul>").addClass("tracks"),
@@ -476,12 +473,7 @@ function makePicker(sets) {
         for (var j = 0; j < set.length; j++) {
             var track = set[j],
                 li    = $("<li>").addClass("track"),
-                input = $("<input>").attr({
-                    type: "button",
-                    value: set[j].song
-                });
-            li.append(input);
-            var title = $("<h1>").html(set[j].song).addClass("title"),
+                title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
             li.append(title, author);
             ul.append(li);

@@ -522,6 +522,20 @@ function init_socket(socket,room) {
 		}
 		readjust_devices(room, socket);
 	});
+	socket.on("playlists", function(playlists) {
+		console.log("RECPLAY");
+		if (socketRoomList[room].playlists == undefined) {
+			socketRoomList[room].playlists = playlists;
+		} else {
+			for (key in tracks) {
+				socketRoomList[room].playlists[key] = playlists[key];
+			}
+		}
+	});
+	socket.on("addToPlaying", function(pid,tid) {
+		socketRoomList[room].tracks[tid] = socketRoomList[room].playlists[pid][tid];
+		console.log("adding song to playing");
+	});
 	/*socket.on("sendModule", function (device, module, modulename, length) {
 		
 		io.sockets.in(room).emit("getmod", device, module, modulename, length);

@@ -363,6 +363,7 @@ function makeControl (type, name, orientation,
 	
     $(control).mousedown(function() {
         controlChanging = true;
+				updateControls();
         //console.log("MOUSEDOWN " + controlChanging);
 //>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
     });
@@ -372,12 +373,16 @@ function makeControl (type, name, orientation,
             updateControls();
         }
     });*/
-    
+    $(control).mouseup(function() {
+			controlChanging = false;
+			updateControls();
+		});
     $(document).mouseup(function(event) {
         controlChanging = false;
         //console.log("MOUSEUP " + controlChanging);
         changingVol = changingPBR = false;
-    })
+				
+    });
 		
 		/*
 		var fff = function(id,v) {

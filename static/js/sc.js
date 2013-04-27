@@ -250,8 +250,8 @@ function getPlaylists(SCuser){
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-
 		 });
+			socket.emit('playlists', playlists);
 	 });
 	 loggedin = true;
 	 $("body").removeClass("guest");

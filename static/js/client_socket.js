@@ -150,6 +150,10 @@ function nupdate(a){
 	}
 }
 
+function addToCurrPlaying(pid,tid) {
+	socket.emit("addToPlaying", pid, tid);
+}
+
 function supdate(a) {
 	for (key in sounds) {
 		audio = a[key];

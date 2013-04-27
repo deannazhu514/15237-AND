@@ -291,12 +291,18 @@ io.sockets.on('connection', function (socket) {
 function readjust_disconnect(room) {
 		io.sockets.in(room).emit('remove_track');
 		console.log('doing this');
-		console.log(socketRoomList[room]);
+		//console.log(socketRoomList[room]);
 			//var min = socket.id;
 			//var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
 			var min;
 			var size;
 			for (id in socketRoomList[room]) {
+				if (id == 'tracks') {
+					continue;
+				}
+				if (id == 'size') {
+					continue;
+				}
 				console.log("HEREHER");	
 				var s = socketRoomList[room][id];
 				var tempsize = s.h * s.w;
@@ -315,6 +321,9 @@ function readjust_disconnect(room) {
 			var templist = {};
 			for (id in socketRoomList[room].tracks) {
 				templist[id] = socketRoomList[room].tracks[id];
+			}
+			for (key in socketRoomList[room]) {
+				console.log(key);
 			}
 			var len = Object.keys(templist).length
 			console.log('len is: ' + len);
@@ -351,11 +360,14 @@ function readjust_disconnect(room) {
 						temptrack = templist[key];
 						delete templist[key];
 						len--;
+						console.log('breakin');
 						break;
 					}
+				console.log(min);
 				socketRoomList[room][min].s.emit("add_track", temptrack);
 				//i++;
 			}
+			console.log('1ust');
 }
 
 function readjust_devices(room,socket) {
@@ -523,7 +535,6 @@ function rec_message(socket) {
 }*/
 
 function audio_init(id) {
-	console.log("SUPPPPPPPPPPP");
 	if (audio[id] == undefined) {
 		audio[id] = {
 			volume:  1,

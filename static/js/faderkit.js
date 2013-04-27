@@ -229,21 +229,7 @@ function makeTurntable(artSrc, duration, tid) {
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
-	var ss = {};
-	var aud = new Audio(); 
-	aud.src = tracks[tid].url+stream_add;
-	aud.addEventListener('ended', function() {
-				console.log("finished playing");
-				$(ttable).toggleClass("playing");
-				ss.stop();
-			});
-			var source = context.createMediaElementSource(aud);	
-			console.log(source);
-			ss.source = source;
-			ss.play = play;
-			ss.togglePause = togglePause;
-			ss.stop = stop;	
-			sounds[tid] = ss;
+
 	$(turntable).click(function(){
     	// default glow when playing starts
     	volumeGlow(50, turntable);

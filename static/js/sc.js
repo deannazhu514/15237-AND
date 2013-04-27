@@ -213,9 +213,24 @@ function getPlaylists(SCuser){
 								"duration": duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
 																					 //OTHERWISE WE SHOULD USE ESTIMATEDDURATION
 																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
-								}, volslider, pbslider, playbackslider]
+								}, volslider, pbslider, playbackslider],
+						"i": i
 					};
-					
+						var ss = {};
+	var aud = new Audio(); 
+	aud.src = track2.url+stream_add;
+	aud.addEventListener('ended', function() {
+				console.log("finished playing");
+				$(ttable).toggleClass("playing");
+				ss.stop();
+			});
+			var source = context.createMediaElementSource(aud);	
+			console.log(source);
+			ss.source = source;
+			ss.play = play;
+			ss.togglePause = togglePause;
+			ss.stop = stop;	
+			sounds[track2.id] = ss;
 					//console.log(socket.id);
 					socket.emit("newtrack", track.id);
 					//console.log(track2);

@@ -355,34 +355,6 @@ function makeControl (type, name, orientation,
         	$(value).html("position:"+duration*val/100);
         }
 	}
-	/*
-<<<<<<< HEAD
-   $(control).mousemove(function(){
-		var val = $(control).val(),
-		    id  = $(control).parent().attr("id");
-		//var sound = sounds[id];
-		if (true) {
-			//var s = sound.source.mediaElement;
-			if (name == "volume") {
-				//s.volume = val/100;
-				change_volume(id,val/100);
-				$(value).html("volume:"+val);
-				// Set visual glow of volume
-				volumeGlow(val,
-    			$(this).parent().siblings(".turntable"));
-			} else if (name == "pbr") {
-				change_speed(id,val/50);
-				
-				//s.playbackRate = val/50;
-			} else if (name == "playback") {
-				//s.currentTime = (s.duration*val/100);					
-				change_time(id, duration*val/100);
-				console.log("DURATION IS: " + duration);
-				$(value).html("position:"+duration*val/100);
-			}
-		}
-		
-=======*/
     $(control).mousemove(function() {
         if (controlChanging) {
             updateControls();
@@ -391,7 +363,7 @@ function makeControl (type, name, orientation,
 	
     $(control).mousedown(function() {
         controlChanging = true;
-        console.log("MOUSEDOWN " + controlChanging);
+        //console.log("MOUSEDOWN " + controlChanging);
 //>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
     });
     /*
@@ -403,7 +375,7 @@ function makeControl (type, name, orientation,
     
     $(document).mouseup(function(event) {
         controlChanging = false;
-        console.log("MOUSEUP " + controlChanging);
+        //console.log("MOUSEUP " + controlChanging);
         changingVol = changingPBR = false;
     })
 		
@@ -494,7 +466,7 @@ function makePicker(sets) {
             h1      = $("<h1>").html(sets[i].name);
             section.append(h1, ul);
             
-        for (var j = 0; j < set.length; j++) {
+        for (var j = 0; j < set.length; j++) {	
             var track = set[j],
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),

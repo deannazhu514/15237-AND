@@ -72,6 +72,11 @@ app.get("/static/css/:staticFilename", function (req, res) {
 });
 
 
+app.get("/static/images/:staticFilename", function (req, res) {
+  res.sendfile("static/images/" + req.params.staticFilename);
+});
+
+
 app.get("/static/js/lib/:staticFilename", function (req, res) {
   res.sendfile("static/js/lib/" + req.params.staticFilename);
 });
@@ -289,87 +294,6 @@ io.sockets.on('connection', function (socket) {
 });
 
 function readjust_disconnect(room) {
-<<<<<<< HEAD
-		io.sockets.in(room).emit('remove_track');
-		console.log('doing this');
-		//console.log(socketRoomList[room]);
-			//var min = socket.id;
-			//var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
-			var min;
-			var size;
-			for (id in socketRoomList[room]) {
-				if (id == 'tracks') {
-					continue;
-				}
-				if (id == 'size') {
-					continue;
-				}
-				console.log("HEREHER");	
-				var s = socketRoomList[room][id];
-				var tempsize = s.h * s.w;
-				if (size == undefined) {
-					size = tempsize;
-					min = id;
-				}
-				else if (tempsize < size) {
-					min = id;
-					size = tempsize;
-				}
-			}
-			
-			var i = 0;
-			//making temp hardcopy of tracklist
-			var templist = {};
-			for (id in socketRoomList[room].tracks) {
-				templist[id] = socketRoomList[room].tracks[id];
-			}
-			for (key in socketRoomList[room]) {
-				console.log(key);
-			}
-			var len = Object.keys(templist).length
-			console.log('len is: ' + len);
-			console.log('hey' + io.sockets.clients(room).length);
-			// below doesnt work because i have to get jquery to work with node
-			//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
-			for (id in socketRoomList[room]) {
-				if (id == 'tracks') {
-					continue;
-				} 
-				if (id == 'size') {
-					continue;
-				}
-				if (i >= len) {
-					break;
-				}
-				if (id != min) {
-					var temptrack;
-					for (key in templist) {
-						temptrack = templist[key];
-						delete templist[key];
-						len--;
-						break;
-					}
-					socketRoomList[room][id].s.emit("add_track", temptrack);
-					//i++;
-				}
-				console.log('id: ' + id);
-			}
-			console.log(i);
-			while (i < len) {
-				var temptrack;
-					for (key in templist) {
-						temptrack = templist[key];
-						delete templist[key];
-						len--;
-						console.log('breakin');
-						break;
-					}
-				console.log(min);
-				socketRoomList[room][min].s.emit("add_track", temptrack);
-				//i++;
-			}
-			console.log('1ust');
-=======
         io.sockets.in(room).emit('remove_track');
         console.log('doing this');
         //console.log(socketRoomList[room]);
@@ -449,7 +373,6 @@ function readjust_disconnect(room) {
                 //i++;
             }
             console.log('1ust');
->>>>>>> changes to type, random css improvements, added menu and audio buttons
 }
 
 function readjust_devices(room,socket) {
@@ -617,21 +540,6 @@ function rec_message(socket) {
 }*/
 
 function audio_init(id) {
-<<<<<<< HEAD
-	if (audio[id] == undefined) {
-		audio[id] = {
-			volume:  1,
-			mute:  false,
-			auto: true,
-			speed: 1,
-			play: false,
-			loop: false,
-			time: 0,
-			start: new Date().getTime(),
-			id: id
-		}
-	}
-=======
     if (audio[id] == undefined) {
         audio[id] = {
             volume:  1,
@@ -645,7 +553,6 @@ function audio_init(id) {
             id: id
         }
     }
->>>>>>> changes to type, random css improvements, added menu and audio buttons
   /*
     audio[id].name = name;
 

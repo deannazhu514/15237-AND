@@ -1,8 +1,44 @@
+// font-family:'DINNextLTW01-UltraLight 706122';
+// font-family:'DINNextLTW01-UltraLight 706125';
+// font-family:'DIN Next W01 Light';
+// font-family:'DINNextW01-LightItalic';
+// font-family:'DIN Next W01 Regular';
+// font-family:'DIN Next W01 Italic';
+// font-family:'DIN Next W01 Medium';
+// font-family:'DINNextW01-MediumItalic';
+// font-family:'DIN Next W01 Bold';
+// font-family:'DINNextW01-BoldItalic';
+// font-family:'DIN Next W01 Heavy';
+// font-family:'DINNextW01-HeavyItalic';
+// font-family:'DIN Next W01 Black';
+// font-family:'DINNextW01-BlackItalic';
+// font-family:'DINNextW01-CondensedUlt';
+// font-family:'DINNextW01-CondensedLig';
+// font-family:'DINNextW01-CondensedReg';
+// font-family:'DINNextW01-CondensedMed';
+// font-family:'DINNextW01-CondensedBol';
+// font-family:'DINNextW01-CondensedHea';
+// font-family:'DINNextW01-CondensedBla';
+// font-family:'DINNextRoundedLTW01-Lig';
+// font-family:'DINNextRoundedLTW01-Reg';
+// font-family:'DINNextRoundedLTW01-Med';
+// font-family:'DINNextRoundedLTW01-Bol';
+
+
+$regular:    'DIN Next W01 Regular';
+$medium:     'DIN Next W01 Medium';
+$bold:       'DIN Next W01 Bold';
+$light:      'DIN Next W01 Light';
+$cond-ult:   'DINNextW01-CondensedUlt';
+$cond-lig:   'DINNextW01-CondensedLig';
+$cond-reg:   'DINNextW01-CondensedReg';
+$cond-light: 'DINNextW01-CondensedLig';
+
 body {
     color: $default;
-    font-family: helvetica;
-    font-weight: bold;
+    font-family: $regular;
     font-size: 10pt;
+    text-rendering: optimizeLegibility;
 }
 
 @mixin small-caps($size: 1em) {

@@ -518,5 +518,5 @@ function makePicker(sets) {
         }
         picker.append(section);
     }
-    $("header #settings").append(picker);
+    $("header").append(picker);
 }

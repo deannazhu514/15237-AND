@@ -1,5 +1,17 @@
 body > header {
 
+    section.menu {
+        .picker {
+            text-indent: -9999em;
+            background-image: url('../images/menu-icon.png') !important;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            @include square-button;
+            @include plain-button;
+        }
+    }
+
     section#settings {
         display: none;
         
@@ -7,41 +19,43 @@ body > header {
             display: block;
             
             .picker {
-                
-                    .set {
-                        width: $col;
-                        padding-left: $gutter;
-                        display: inline-block;
-                        vertical-align: top;
-                        
-                        &:nth-child(1) {
-                            padding-left: 0;
-                        }
-                        
-                        ul.tracks {         
-                           
-                            li.track {
-                                width: 100%;
-                                text-align: left;
-                                margin-bottom: .5em;
-                                @include button;
-                                
-                                h1 {
-                                    font-size: 2em;
-                                }
-                                
-                                author {
-                                    @include small-caps(.75em);
-                                }
+            
+                .set {
+                    width: $col;
+                    padding-left: $gutter;
+                    display: inline-block;
+                    vertical-align: top;
+                    
+                    &:nth-child(1) {
+                        padding-left: 0;
+                    }
+                    
+                    ul.tracks {         
+                       
+                        li.track {
+                            width: 100%;
+                            text-align: left;
+                            margin-bottom: .5em;
+                            @include button;
+                            
+                            h1 {
+                                font-size: 2em;
+                            }
+                            
+                            author {
+                                @include small-caps(.75em);
                             }
                         }
                     }
                 }
             }
         }
+    }
 
-    #loginmsg{
+    #username {
         line-height: 1.5em;
         float: right;
+        @include small-caps(.75em);
+        font-family: $medium;
     }
 }

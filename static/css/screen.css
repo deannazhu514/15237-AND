@@ -63,12 +63,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 1, ../sass/lib/_type.scss */
+/* line 37, ../sass/lib/_type.scss */
 body {
   color: rgba(255, 255, 255, 0.75);
-  font-family: helvetica;
-  font-weight: bold;
+  font-family: "DIN Next W01 Regular";
   font-size: 10pt;
+  text-rendering: optimizeLegibility;
 }
 
 /* line 7, ../sass/_main.scss */
@@ -79,27 +79,50 @@ body {
   margin: 3.125%;
 }
 
-/* line 15, ../sass/_main.scss */
-input[type=button] {
+/* line 16, ../sass/_main.scss */
+input {
+  border-radius: 0;
+}
+/* line 19, ../sass/_main.scss */
+input[type=button], input[type=submit] {
   background: none;
   cursor: pointer;
   padding: 0.5em;
-  border: 1pt solid rgba(255, 255, 255, 0.75);
+  border: 2pt solid rgba(255, 255, 255, 0.75);
   color: rgba(255, 255, 255, 0.75);
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "DIN Next W01 Light";
   font-size: 1em;
   font-weight: bold;
   position: relative;
   left: -0.5em;
 }
 /* line 21, ../sass/lib/_mixins.scss */
-input[type=button]:hover {
+input[type=button]:hover, input[type=submit]:hover {
   background: white;
   border-color: white;
   color: #333;
 }
+/* line 23, ../sass/_main.scss */
+input.text {
+  outline: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.75);
+  border: none;
+  border-bottom: rgba(255, 255, 255, 0.75) 2pt solid;
+  font-size: 1em;
+  font-style: italic;
+}
+/* line 32, ../sass/_main.scss */
+input.text:focus, input.text:hover, input.text:active {
+  background: rgba(255, 255, 255, 0.125);
+  border-color: white;
+}
+/* line 37, ../sass/_main.scss */
+input.text:focus {
+  box-shadow: 0 0 1em white;
+}
 
-/* line 20, ../sass/_main.scss */
+/* line 44, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -108,31 +131,41 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 28, ../sass/_main.scss */
+/* line 52, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
 
-/* line 3, ../sass/_header.scss */
+/* line 4, ../sass/_header.scss */
+body > header section.menu .picker {
+  text-indent: -9999em;
+  background-image: url("../images/menu-icon.png") !important;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2.5em;
+  border: none;
+}
+/* line 15, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 6, ../sass/_header.scss */
+/* line 18, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 11, ../sass/_header.scss */
+/* line 23, ../sass/_header.scss */
 body > header section#settings.open .picker .set {
   width: 21.875%;
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 17, ../sass/_header.scss */
+/* line 29, ../sass/_header.scss */
 body > header section#settings.open .picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 23, ../sass/_header.scss */
+/* line 35, ../sass/_header.scss */
 body > header section#settings.open .picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -140,9 +173,9 @@ body > header section#settings.open .picker .set ul.tracks li.track {
   background: none;
   cursor: pointer;
   padding: 0.5em;
-  border: 1pt solid rgba(255, 255, 255, 0.75);
+  border: 2pt solid rgba(255, 255, 255, 0.75);
   color: rgba(255, 255, 255, 0.75);
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "DIN Next W01 Light";
   font-size: 1em;
   font-weight: bold;
   position: relative;
@@ -154,31 +187,31 @@ body > header section#settings.open .picker .set ul.tracks li.track:hover {
   border-color: white;
   color: #333;
 }
-/* line 29, ../sass/_header.scss */
+/* line 41, ../sass/_header.scss */
 body > header section#settings.open .picker .set ul.tracks li.track h1 {
   font-size: 2em;
 }
-/* line 33, ../sass/_header.scss */
+/* line 45, ../sass/_header.scss */
 body > header section#settings.open .picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
 }
-/* line 43, ../sass/_header.scss */
-body > header #loginmsg {
+/* line 55, ../sass/_header.scss */
+body > header #username {
   line-height: 1.5em;
   float: right;
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 0.75em;
+  font-family: "DIN Next W01 Medium";
 }
 
-/* line 1, ../sass/_guest.scss */
-.guest {
-  font-size: 2em;
-}
-/* line 4, ../sass/_guest.scss */
+/* line 3, ../sass/_guest.scss */
 .guest #controls, .guest header, .guest .tracks {
   display: none;
 }
-/* line 8, ../sass/_guest.scss */
+/* line 7, ../sass/_guest.scss */
 .guest form {
   width: 100%;
   text-align: center;
@@ -372,26 +405,27 @@ body > #tracks .track header {
 }
 /* line 62, ../sass/_track.scss */
 body > #tracks .track header h1 {
-  font-size: 2em;
+  font-size: 4em;
+  font-family: "DINNextW01-CondensedUlt";
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.5em;
   height: 1.5em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* line 71, ../sass/_track.scss */
+/* line 72, ../sass/_track.scss */
 body > #tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 81, ../sass/_track.scss */
+/* line 82, ../sass/_track.scss */
 body > #tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
-/* line 86, ../sass/_track.scss */
+/* line 87, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move {
   background: none;
   border: none;
@@ -404,11 +438,11 @@ body > #tracks ul.controls li.palette .move {
   border-bottom: 2pt solid rgba(255, 255, 255, 0.75);
   padding: 0;
 }
-/* line 98, ../sass/_track.scss */
+/* line 99, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move:active, body > #tracks ul.controls li.palette .move:hover {
   background: none;
 }
-/* line 103, ../sass/_track.scss */
+/* line 104, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
@@ -416,7 +450,7 @@ body > #tracks ul.controls li.palette .value {
   width: 100%;
   text-align: center;
 }
-/* line 111, ../sass/_track.scss */
+/* line 112, ../sass/_track.scss */
 body > #tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -424,7 +458,7 @@ body > #tracks ul.controls li.palette label {
   display: block;
   padding-top: 1em;
 }
-/* line 117, ../sass/_track.scss */
+/* line 118, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid rgba(255, 255, 255, 0.75);
@@ -433,16 +467,16 @@ body > #tracks ul.controls li.palette .slider {
   width: 100%;
   margin: 2em 0;
 }
-/* line 125, ../sass/_track.scss */
+/* line 126, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 129, ../sass/_track.scss */
+/* line 130, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 134, ../sass/_track.scss */
+/* line 135, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
@@ -451,11 +485,11 @@ body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   cursor: pointer;
   opacity: .75;
 }
-/* line 142, ../sass/_track.scss */
+/* line 143, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 147, ../sass/_track.scss */
+/* line 148, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

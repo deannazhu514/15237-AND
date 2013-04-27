@@ -12,8 +12,32 @@ body {
    margin: $gutter;
 }
 
-input[type=button] {
-    @include button;
+
+input{
+    border-radius: 0;
+
+    &[type=button], &[type=submit]{
+        @include button;
+    }
+    
+    &.text {
+        outline: 0;
+        background: none;
+        color: $default;
+        border: none;
+        border-bottom: $default $border-width solid;
+        font-size: 1em;
+        font-style: italic;
+        
+        &:focus, &:hover, &:active {
+            background: $inactive;
+            border-color: $active;
+        }
+        
+        &:focus {
+            @include glow;
+        }
+    }
 }
 
 header {

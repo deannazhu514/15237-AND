@@ -61,12 +61,13 @@ body > #tracks {
         header {
             h1 {
                 font-size: 4em;
-                font-family: $cond-ult;
+                font-family: $cond-lig;
                 color: $default;
                 line-height: 1.5em;
                 height: 1.5em;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                letter-spacing: -.03125em;
             }
     
             author {

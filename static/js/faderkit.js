@@ -463,15 +463,14 @@ function makeControl (type, name, orientation,
 
 function makePicker(sets) {
     var picker = $("<section>").addClass("picker");
-    console.log("MAKE PICKER")
     for (var i = 0; i < sets.length; i++) {
         var set     = sets[i].tracks,
             section = $("<section>").addClass("set"),
             ul      = $("<ul>").addClass("tracks"),
             h1      = $("<h1>").html(sets[i].name);
             section.append(h1, ul);
-            
-        for (var j = 0; j < set.length; j++) {	
+           
+        for (var j = 0; j < set.length; j++) {
             var track = set[j],
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),
@@ -479,7 +478,8 @@ function makePicker(sets) {
             li.append(title, author);
             ul.append(li);
         }
+        section.append(h1, ul);
         picker.append(section);
     }
-    $("header").append(picker);
+    $("body > header").append(picker);
 }

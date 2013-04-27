@@ -2,6 +2,7 @@ var current; //currentSound id
 var currentSound;
 var currentID;
 var loggedin = false;
+var playlists = {};
 var tracks = {};
 var sounds = {};
 var context, analyser, compressor;
@@ -144,7 +145,7 @@ function getModules(){
 	console.log("getModules");
 	for (track in tracks) {
 		if (tracks[track]['appended'] == undefined) {
-			console.log(track);
+			//console.log(track);
 			
 			tracks[track]['appended'] = true;
 			var trackbut = $('<input type=button>')
@@ -155,7 +156,7 @@ function getModules(){
 				sendModule2(2, "track", t);
 			};
 			var x = track;
-			console.log('x: ' + x);
+			//console.log('x: ' + x);
 			var blah = function() { bleh(x); };
 			trackbut.mousedown( function(event) {
 				console.log(this);
@@ -192,9 +193,10 @@ function sendModule(device, module, modulename) {
 
 function getPlaylists(SCuser){
 	username = SCuser;
-	 SC.get('/users/'+SCuser+'/playlists', function(playlists){	 
-		playlists.forEach(function(playlist){
-			//var tracks = {};
+	 SC.get('/users/'+SCuser+'/playlists', function(lists){	 
+		
+		lists.forEach(function(playlist){
+			tracks = {};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
@@ -215,25 +217,26 @@ function getPlaylists(SCuser){
 																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
 								}, volslider, pbslider, playbackslider]
 					};
-					
-					//console.log(socket.id);
+
 					socket.emit("newtrack", track.id);
-					//console.log(track2);
-					console.log('track2: ');
 					tracks[track.id] = track2;
-					console.log(tracks);
-					addTrack(SCuser, track2);
-					//makePalette(track2);					
+					addTrack(SCuser, track2);				
 				}
 			}
-		});
-	 console.log("HELLO?");
-	 socket.emit('tracklist', tracks);
-	 for (key in tracks) {
-		console.log('key is ' + tracks[key].id);
-		socket.emit("newtrack", tracks[key].id);
-	 }
-	 //console.log(tracks);
+				
+			socket.emit('tracklist', tracks);
+			for (key in tracks) {
+				console.log('key is ' + tracks[key].id);
+				socket.emit("newtrack", tracks[key].id);
+			 }
+
+			var temp = {};
+			temp.name = playlist.title;
+			temp.length = playlist.tracks.length;
+			temp.tracks = tracks;
+			playlists[playlist.id] = temp;
+
+		 });
 	 });
 	 loggedin = true;
 	 $("body").removeClass("guest");

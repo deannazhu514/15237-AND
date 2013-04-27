@@ -390,7 +390,7 @@ function makeControl (type, name, orientation,
 	
     $(control).mousedown(function() {
         controlChanging = true;
-        console.log("MOUSEDOWN " + controlChanging);
+        //console.log("MOUSEDOWN " + controlChanging);
 //>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
     });
     /*
@@ -402,7 +402,7 @@ function makeControl (type, name, orientation,
     
     $(document).mouseup(function(event) {
         controlChanging = false;
-        console.log("MOUSEUP " + controlChanging);
+        //console.log("MOUSEUP " + controlChanging);
         changingVol = changingPBR = false;
     })
 		

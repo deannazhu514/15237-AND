@@ -300,148 +300,147 @@ io.sockets.on('connection', function (socket) {
 });
 
 function readjust_disconnect(room) {
-        io.sockets.in(room).emit('remove_track');
-        console.log('doing this');
-        //console.log(socketRoomList[room]);
-            //var min = socket.id;
-            //var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
-            var min;
-            var size;
-            for (id in socketRoomList[room]) {
-                if (id == 'tracks') {
-                    continue;
-                }
-                if (id == 'size') {
-                    continue;
-                }
-                console.log("HEREHER");	
-                var s = socketRoomList[room][id];
-                var tempsize = s.h * s.w;
-                if (size == undefined) {
-                    size = tempsize;
-                    min = id;
-                }
-                else if (tempsize < size) {
-                    min = id;
-                    size = tempsize;
-                }
-            }
+	io.sockets.in(room).emit('remove_track');
+    console.log('doing this');
+	//console.log(socketRoomList[room]);
+	//var min = socket.id;
+	//var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
+	var min;
+	var size;
+	for (id in socketRoomList[room]) {
+		if (id == 'tracks') {
+			continue;
+		}
+		if (id == 'size') {
+			continue;
+		}
+		console.log("HEREHER");	
+		var s = socketRoomList[room][id];
+		var tempsize = s.h * s.w;
+		if (size == undefined) {
+			size = tempsize;
+			min = id;
+		} else if (tempsize < size) {
+			min = id;
+			size = tempsize;
+		}
+	}
 
-            var i = 0;
-            //making temp hardcopy of tracklist
-            var templist = {};
-            for (id in socketRoomList[room].tracks) {
-                templist[id] = socketRoomList[room].tracks[id];
-            }
-            for (key in socketRoomList[room]) {
-                console.log(key);
-            }
-            var len = Object.keys(templist).length
-            console.log('len is: ' + len);
-            console.log('hey' + io.sockets.clients(room).length);
-            // below doesnt work because i have to get jquery to work with node
-            //var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
-            for (id in socketRoomList[room]) {
-                if (id == 'tracks') {
-                    continue;
-                } 
-                if (id == 'size') {
-                    continue;
-                }
-                if (i >= len) {
-                    break;
-                }
-                if (id != min) {
-                    var temptrack;
-                    for (key in templist) {
-                        temptrack = templist[key];
-                        delete templist[key];
-                        len--;
-                        break;
-                    }
-                    socketRoomList[room][id].s.emit("add_track", temptrack);
-                    //i++;
-                }
-                console.log('id: ' + id);
-            }
-            console.log(i);
-            while (i < len) {
-                var temptrack;
-                    for (key in templist) {
-                        temptrack = templist[key];
-                        delete templist[key];
-                        len--;
-                        console.log('breakin');
-                        break;
-                    }
-                console.log(min);
-                socketRoomList[room][min].s.emit("add_track", temptrack);
-                //i++;
-            }
-            console.log('1ust');
+	var i = 0;
+	//making temp hardcopy of tracklist
+	var templist = {};
+	for (id in socketRoomList[room].tracks) {
+		templist[id] = socketRoomList[room].tracks[id];
+	}
+	for (key in socketRoomList[room]) {
+		console.log(key);
+	}
+	var len = Object.keys(templist).length
+	console.log('len is: ' + len);
+	console.log('hey' + io.sockets.clients(room).length);
+	// below doesnt work because i have to get jquery to work with node
+	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
+	for (id in socketRoomList[room]) {
+		if (id == 'tracks') {
+			continue;
+		} 
+		if (id == 'size') {
+			continue;
+		}
+		if (i >= len) {
+			break;
+		}
+		if (id != min) {
+			var temptrack;
+			for (key in templist) {
+				temptrack = templist[key];
+				delete templist[key];
+				len--;
+				break;
+			}
+			socketRoomList[room][id].s.emit("add_track", temptrack);
+			//i++;
+		}
+		console.log('id: ' + id);
+	}
+	console.log(i);
+	while (i < len) {
+	var temptrack;
+	for (key in templist) {
+		temptrack = templist[key];
+		delete templist[key];
+		len--;
+		console.log('breakin');
+		break;
+		}
+	console.log(min);
+	socketRoomList[room][min].s.emit("add_track", temptrack);
+	//i++;
+	}
+	console.log('1ust');
 }
 
 function readjust_devices(room,socket) {
-            io.sockets.in(room).emit('remove_track');
-            var min = socket.id;
-            var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
-            console.log("size: "  + size);
-            for (id in socketRoomList[room]) {
-                var s = socketRoomList[room][id];
-                var tempsize = s.h * s.w;
-                if (tempsize < size) {
-                    min = id;
-                    size = tempsize;
-                }
-            }
+	io.sockets.in(room).emit('remove_track');
+	var min = socket.id;
+	var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
+	console.log("size: "  + size);
+	for (id in socketRoomList[room]) {
+		var s = socketRoomList[room][id];
+		var tempsize = s.h * s.w;
+		if (tempsize < size) {
+			min = id;
+			size = tempsize;
+		}
+	}
 
-            var i = 0;
-            //making temp hardcopy of tracklist
-            var templist = {};
-            for (id in socketRoomList[room].tracks) {
-                templist[id] = socketRoomList[room].tracks[id];
-            }
-            var len = Object.keys(templist).length
-            console.log('len is: ' + len);
-            console.log('hey' + io.sockets.clients(room).length);
-            // below doesnt work because i have to get jquery to work with node
-            //var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
-            for (id in socketRoomList[room]) {
-                if (id == 'tracks') {
-                    continue;
-                } 
-                if (id == 'size') {
-                    continue;
-                }
-                if (i >= len) {
-                    break;
-                }
-                if (id != min) {
-                    var temptrack;
-                    for (key in templist) {
-                        temptrack = templist[key];
-                        delete templist[key];
-                        len--;
-                        break;
-                    }
-                    socketRoomList[room][id].s.emit("add_track", temptrack);
-                    //i++;
-                }
-                console.log('id: ' + id);
-            }
-            console.log(i);
-            while (i < len) {
-                var temptrack;
-                    for (key in templist) {
-                        temptrack = templist[key];
-                        delete templist[key];
-                        len--;
-                        break;
-                    }
-                socketRoomList[room][min].s.emit("add_track", temptrack);
-                //i++;
-            }
-        }
+	var i = 0;
+	//making temp hardcopy of tracklist
+	var templist = {};
+	for (id in socketRoomList[room].tracks) {
+		templist[id] = socketRoomList[room].tracks[id];
+	}
+	var len = Object.keys(templist).length
+	console.log('len is: ' + len);
+	console.log('hey' + io.sockets.clients(room).length);
+	// below doesnt work because i have to get jquery to work with node
+	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
+	for (id in socketRoomList[room]) {
+		if (id == 'tracks') {
+			continue;
+		} 
+		if (id == 'size') {
+			continue;
+		}
+		if (i >= len) {
+			break;
+		}
+		if (id != min) {
+			var temptrack;
+			for (key in templist) {
+				temptrack = templist[key];
+				delete templist[key];
+				len--;
+				break;
+			}
+			socketRoomList[room][id].s.emit("add_track", temptrack);
+			//i++;
+		}
+		console.log('id: ' + id);
+	}
+	console.log(i);
+	while (i < len) {
+		var temptrack;
+		for (key in templist) {
+			temptrack = templist[key];
+			delete templist[key];
+			len--;
+			break;
+		}
+		socketRoomList[room][min].s.emit("add_track", temptrack);
+		//i++;
+	}
+}
 
 
 
@@ -527,6 +526,7 @@ function init_socket(socket,room) {
 			socketRoomList[room].tracks = tracks;
 			console.log('sup');
 		} else {
+			console.log('sup1');
 			for (key in tracks) {
 				socketRoomList[room].tracks[key] = tracks[key];
 			}

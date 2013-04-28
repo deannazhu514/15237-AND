@@ -223,41 +223,43 @@ function getPlaylists(SCuser){
 								}, volslider, pbslider, playbackslider],
 						"i": i
 					};
-						var ss = {};
-	var aud = new Audio(); 
-	aud.src = track2.url+stream_add;
-	aud.addEventListener('ended', function() {
-				console.log("finished playing");
-				$(ttable).toggleClass("playing");
-				ss.stop();
-			});
-			var source = context.createMediaElementSource(aud);	
-			console.log(source);
-			ss.source = source;
-			ss.play = play;
-			ss.togglePause = togglePause;
-			ss.stop = stop;	
-			sounds[track2.id] = ss;
+					var ss = {};
+					var aud = new Audio(); 
+					aud.src = track2.url+stream_add;
+					aud.addEventListener('ended', function() {
+								console.log("finished playing");
+								$(ttable).toggleClass("playing");
+								ss.stop();
+							});
+					
+					var source = context.createMediaElementSource(aud);	
+					console.log(source);
+					ss.source = source;
+					ss.play = play;
+					ss.togglePause = togglePause;
+					ss.stop = stop;	
+					sounds[track2.id] = ss;
 					socket.emit("newtrack", track.id);
 					tracks[track.id] = track2;
 					addTrack(SCuser, track2);				
 				}
 			}
-				
+								
 			socket.emit('tracklist', tracks);
 			for (key in tracks) {
 				console.log('key is ' + tracks[key].id);
 				socket.emit("newtrack", tracks[key].id);
-			 }
+			}
 
 			var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-		 });
-			socket.emit('playlists', playlists);
+		});
+		socket.emit('playlists', playlists);
 	 });
+	 
 	 loggedin = true;
 	 $("body").removeClass("guest");
 }

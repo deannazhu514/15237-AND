@@ -60,6 +60,7 @@ socket.on("update_time", function(value, id) {
 	for (key in sounds) {
 		var tt = sounds[key];
 		if (id == key) {
+			console.log(value);
 			tt.source.mediaElement.currentTime = value;
 		}
 	}
@@ -158,57 +159,59 @@ function addToCurrPlaying(pid,tid) {
 function supdate(a) {
 	for (key in sounds) {
 		audio = a[key];
-		var tt = sounds[key];
-		var s = tt.source.mediaElement;
-		actual_vol = audio.volume;
-		if (playback_device) {
-			if (audio.volume > 1) {
-				console.log(audio.volume);
-			}
-			s.volume = audio.volume;
-		} else {
-			s.volume = 0;
-		}
 		
-		s.playbackRate = audio.speed;
-		if (!changingVol) {
-			var tempobj = ctrls[key]['vol'];
-			var tempfnc = tempobj.data('changeSlider');
-			var val = tempobj.data('val');
-			var val2 = tempobj.data('val2');
-			if (tempfnc != undefined) {
-				//tempfnc(val, val2, audio.volume*100);
+		if (audio !== undefined) {
+			var tt = sounds[key];
+			var s = tt.source.mediaElement;
+			actual_vol = audio.volume;
+			if (playback_device) {
+				if (audio.volume > 1) {
+					console.log(audio.volume);
+				}
+				s.volume = audio.volume;
+			} else {
+				s.volume = 0;
 			}
-		}
-		if (!changingPBR) {
-			var tempobj = ctrls[key]['pbr'];
-			var tempfnc = tempobj.data('changeSlider');
-			var val = tempobj.data('val');
-			var val2 = tempobj.data('val2');
-			if (typeof(tempfnc) != 'undefined');
-			 {
-			 //tempfnc(val, val2, audio.speed*50);
-			 }
-		} /*if (!changingPB) {
-			var tempobj = ctrls[key]['pb'];
-			var tempfnc = tempobj.data('changeSlider');
-			var val = tempobj.data('val');
-			var val2 = tempobj.data('val2');
-			tempfnc(val, val2, audio.speed);
-		}*/
-		trackList[key].playing = audio.play;
-		trackList[key].volume = audio.volume;
-		trackList[key].pbr = audio.speed;
-		if (trackList[key].playing && s.paused) {
-			tt.togglePause();
-			console.log('playing');
-		} else if (!trackList[key].playing && !s.paused){
-			tt.togglePause();
-			console.log('paused');
-		} else {
 			
+			s.playbackRate = audio.speed;
+			if (!changingVol) {
+				var tempobj = ctrls[key]['vol'];
+				var tempfnc = tempobj.data('changeSlider');
+				var val = tempobj.data('val');
+				var val2 = tempobj.data('val2');
+				if (tempfnc != undefined) {
+					//tempfnc(val, val2, audio.volume*100);
+				}
+			}
+			if (!changingPBR) {
+				var tempobj = ctrls[key]['pbr'];
+				var tempfnc = tempobj.data('changeSlider');
+				var val = tempobj.data('val');
+				var val2 = tempobj.data('val2');
+				if (typeof(tempfnc) != 'undefined')
+				 {
+				 //tempfnc(val, val2, audio.speed*50);
+				 }
+			} /*if (!changingPB) {
+				var tempobj = ctrls[key]['pb'];
+				var tempfnc = tempobj.data('changeSlider');
+				var val = tempobj.data('val');
+				var val2 = tempobj.data('val2');
+				tempfnc(val, val2, audio.speed);
+			}*/
+			trackList[key].playing = audio.play;
+			trackList[key].volume = audio.volume;
+			trackList[key].pbr = audio.speed;
+			if (trackList[key].playing && s.paused) {
+				tt.togglePause();
+				console.log('playing');
+			} else if (!trackList[key].playing && !s.paused){
+				tt.togglePause();
+				console.log('paused');
+			} 
+		} else {
+			//console.log("can't find in sound", key);
 		}
-		
 	}
 	//socket.emit('tracklist', $.map(trackList, function (value, key) { return key; }));
 }

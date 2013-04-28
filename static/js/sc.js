@@ -288,8 +288,6 @@ function togglePause(){
 	this.playing ? this.stop() : this.play();
 };
 
-
-
 function addTrack(userID, track){
 	$.ajax({
 		type: "post",

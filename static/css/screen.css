@@ -73,17 +73,19 @@ body {
 
 /* line 7, ../sass/_main.scss */
 body {
-  background: #333;
+  background: black;
   -webkit-user-select: none;
   -moz-user-select: none;
   margin: 3.125%;
 }
 
-/* line 16, ../sass/_main.scss */
+/* line 15, ../sass/_main.scss */
 input {
   border-radius: 0;
+  position: relative;
+  z-index: 100;
 }
-/* line 19, ../sass/_main.scss */
+/* line 20, ../sass/_main.scss */
 input[type=button], input[type=submit] {
   background: none;
   cursor: pointer;
@@ -96,13 +98,14 @@ input[type=button], input[type=submit] {
   position: relative;
   left: -0.5em;
 }
-/* line 21, ../sass/lib/_mixins.scss */
+/* line 22, ../sass/lib/_mixins.scss */
 input[type=button]:hover, input[type=submit]:hover {
   background: white;
-  border-color: white;
+  border-color: transparent;
   color: #333;
+  box-shadow: 0 0 0.75em 0.125em rgba(255, 255, 255, 0.75);
 }
-/* line 23, ../sass/_main.scss */
+/* line 24, ../sass/_main.scss */
 input.text {
   outline: 0;
   background: none;
@@ -112,17 +115,17 @@ input.text {
   font-size: 1em;
   font-style: italic;
 }
-/* line 32, ../sass/_main.scss */
+/* line 33, ../sass/_main.scss */
 input.text:focus, input.text:hover, input.text:active {
   background: rgba(255, 255, 255, 0.125);
   border-color: white;
 }
-/* line 37, ../sass/_main.scss */
+/* line 38, ../sass/_main.scss */
 input.text:focus {
-  box-shadow: 0 0 1em white;
+  box-shadow: 0 0 0.75em 0.125em rgba(255, 255, 255, 0.75);
 }
 
-/* line 44, ../sass/_main.scss */
+/* line 45, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -131,42 +134,130 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 52, ../sass/_main.scss */
+/* line 53, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
 
-/* line 4, ../sass/_header.scss */
+/* line 1, ../sass/_header.scss */
+body > header {
+  position: relative;
+  z-index: 300;
+}
+/* line 5, ../sass/_header.scss */
+body > header h1 {
+  display: none;
+}
+/* line 11, ../sass/_header.scss */
+body > header section.menu input {
+  margin-left: 1em;
+}
+/* line 14, ../sass/_header.scss */
+body > header section.menu input:nth-of-type(1) {
+  margin-left: .5em;
+}
+/* line 19, ../sass/_header.scss */
 body > header section.menu .picker {
-  text-indent: -9999em;
   background-image: url("../images/menu-icon.png") !important;
-  background-size: 100%;
+  text-indent: -9999em;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center center;
   width: 2.5em;
   border: none;
+  padding-left: .5em;
 }
-/* line 15, ../sass/_header.scss */
+/* line 38, ../sass/lib/_mixins.scss */
+body > header section.menu .picker:hover {
+  background: none;
+  box-shadow: none;
+}
+/* line 25, ../sass/_header.scss */
+body > header section.menu .audio-toggle {
+  background-image: url("../images/audio-off.png") !important;
+  text-indent: -9999em;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2.5em;
+  border: none;
+  float: right;
+}
+/* line 38, ../sass/lib/_mixins.scss */
+body > header section.menu .audio-toggle:hover {
+  background: none;
+  box-shadow: none;
+}
+/* line 30, ../sass/_header.scss */
+body > header section.menu .audio-toggle.on {
+  background-image: url("../images/audio-on.png") !important;
+}
+/* line 36, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 18, ../sass/_header.scss */
+/* line 39, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 25, ../sass/_header.scss */
-body > header .picker .set {
+/* line 44, ../sass/_header.scss */
+body > header #username {
+  line-height: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 0.75em;
+  font-family: "DIN Next W01 Medium";
+}
+
+/* line 53, ../sass/_header.scss */
+section.picker {
+  background: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  padding: 3.125%;
+  visibility: hidden;
+  position: fixed;
+  opacity: 0;
+  top: -2.5%;
+  padding-top: 8em;
+  z-index: 200;
+  -webkit-transition-property: top, opacity, background, visibility;
+  -moz-transition-property: top, opacity, background, visibility;
+  -o-transition-property: top, opacity, background, visibility;
+  transition-property: top, opacity, background, visibility;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  -o-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+/* line 71, ../sass/_header.scss */
+section.picker.open {
+  visibility: visible;
+  top: 0;
+  opacity: 1;
+}
+/* line 78, ../sass/_header.scss */
+section.picker .set {
   width: 21.875%;
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 31, ../sass/_header.scss */
-body > header .picker .set:nth-child(1) {
+/* line 84, ../sass/_header.scss */
+section.picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 37, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track {
+/* line 88, ../sass/_header.scss */
+section.picker .set h1 {
+  font-size: 2em;
+}
+/* line 94, ../sass/_header.scss */
+section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
   margin-bottom: .5em;
@@ -181,37 +272,33 @@ body > header .picker .set ul.tracks li.track {
   position: relative;
   left: -0.5em;
 }
-/* line 21, ../sass/lib/_mixins.scss */
-body > header .picker .set ul.tracks li.track:hover {
+/* line 22, ../sass/lib/_mixins.scss */
+section.picker .set ul.tracks li.track:hover {
   background: white;
-  border-color: white;
+  border-color: transparent;
   color: #333;
+  box-shadow: 0 0 0.75em 0.125em rgba(255, 255, 255, 0.75);
 }
-/* line 43, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track h1 {
+/* line 100, ../sass/_header.scss */
+section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
 }
-/* line 47, ../sass/_header.scss */
-body > header .picker .set ul.tracks li.track author {
+/* line 104, ../sass/_header.scss */
+section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
-}
-/* line 56, ../sass/_header.scss */
-body > header #username {
-  line-height: 1.5em;
-  float: right;
-  text-transform: uppercase;
-  letter-spacing: .125em;
-  font-size: 0.75em;
-  font-family: "DIN Next W01 Medium";
 }
 
 /* line 3, ../sass/_guest.scss */
+.guest header h1 {
+  display: block;
+}
+/* line 8, ../sass/_guest.scss */
 .guest #controls, .guest header, .guest .tracks {
   display: none;
 }
-/* line 7, ../sass/_guest.scss */
+/* line 12, ../sass/_guest.scss */
 .guest form {
   width: 100%;
   text-align: center;
@@ -267,7 +354,7 @@ body > header #username {
 }
 /* line 62, ../sass/_turntable.scss */
 .turntable .scrubber {
-  background: #333333;
+  background: black;
   height: 100%;
   width: 100%;
   border-radius: 100em;
@@ -313,7 +400,7 @@ body > header #username {
 }
 /* line 90, ../sass/_turntable.scss */
 .turntable .scrubber .semi.mask {
-  background: #333333;
+  background: black;
   -webkit-transition: visibility 10s 0s;
   -webkit-transition-delay: linear;
   -moz-transition: visibility 10s 0s linear;

@@ -1,4 +1,9 @@
 .guest {
+    header {
+        h1 {
+            display: block;
+        }
+    }
 
     #controls, header, .tracks {
         display: none;

@@ -18,10 +18,26 @@
     position: relative;
     left: -$padding;
     
+    
     &:hover {
         background: $active;
-        border-color: $active;
+        border-color: transparent;
         color: #333;
+        @include glow;
+    }
+}
+
+@mixin icon-button {
+    text-indent: -9999em;
+    background-size: 100% 100%; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    @include square-button;
+    @include plain-button;
+    
+    &:hover {
+        background: none;
+        box-shadow: none;
     }
 }
 
@@ -34,5 +50,5 @@
 }
 
 @mixin glow {
-    box-shadow: 0 0 1em $active;
+    box-shadow: 0 0 .75em .125em rgba(255,255,255,.75);
 }

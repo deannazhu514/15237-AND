@@ -5,16 +5,17 @@
 @import "./lib/_mixins.scss";
 
 body {
-    background: #333;
+    background: $background;
     -webkit-user-select: none;
        -moz-user-select: none;
        
    margin: $gutter;
 }
 
-
 input{
     border-radius: 0;
+    position: relative;
+    z-index: 100;
 
     &[type=button], &[type=submit]{
         @include button;

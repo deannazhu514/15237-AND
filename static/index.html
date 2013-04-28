@@ -25,12 +25,12 @@
 <body class="guest">
     <header>
         <h1>Spectrum</h1>
+        <p id="username"></p>
         <section class="menu">
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">            
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
-        <p id="username"></p>
         <section id="add-device">
             <div id="usertext" ></div>
 			<div id="sessiontext" ></div>
@@ -41,10 +41,14 @@
         	<!-- <input type="button" class="panel-button" value="Track1" id ="testbut"> -->
         </section>
     </header>
+    <section class="picker"></section>
     <form name="myform" action="javascript:connectDevice()" class="login-form">
         <ul>
             <li>
+<<<<<<< HEAD
                 <label>Session Key</label>
+=======
+>>>>>>> redesigned track/set picker; general visual improvements
                 <input id="username" name="Username" type="text" placeholder="Session Key" class="text">
             </li>
             <!-- <li>
@@ -65,8 +69,8 @@
                 connect();
             });
 			$('input.picker').click(function(){
-				$("section#picker").addClass("open");
-				getModules();
+                getModules();
+				$("section.picker").toggleClass("open");
 			});
         });
 				document.getElementById("audiotoggle").onclick = togglePlayback;

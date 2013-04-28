@@ -136,6 +136,7 @@ function makePalette(template) {
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
     $(header).append(title, artist);
+    $(track).append(header);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {	
         var element;
@@ -158,7 +159,6 @@ function makePalette(template) {
         }
         track.append(controls);
     }
-    $(track).append(header);
     $("ul#tracks").append(track);
 }
 
@@ -462,7 +462,7 @@ function makeControl (type, name, orientation,
 // SET & TRACK PICKING UI
 
 function makePicker(sets) {
-    var picker = $("<section>").addClass("picker");
+    var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
         var set     = sets[i].tracks,
             section = $("<section>").addClass("set"),
@@ -481,5 +481,4 @@ function makePicker(sets) {
         section.append(h1, ul);
         picker.append(section);
     }
-    $("body > header").append(picker);
 }

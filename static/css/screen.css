@@ -135,18 +135,21 @@ input.text {
   font-size: 1em;
   font-style: italic;
   font-family: "DIN Next W01 Regular";
+  position: relative;
+  left: -.5em;
+  text-indent: .4em;
 }
-/* line 35, ../sass/_main.scss */
+/* line 39, ../sass/_main.scss */
 input.text:focus, input.text:hover, input.text:active {
   border-color: white;
   color: white;
 }
-/* line 40, ../sass/_main.scss */
+/* line 44, ../sass/_main.scss */
 input.text:focus {
   text-shadow: 0 0 0.5em white;
 }
 
-/* line 47, ../sass/_main.scss */
+/* line 51, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -155,7 +158,7 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 55, ../sass/_main.scss */
+/* line 59, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
@@ -172,16 +175,17 @@ body > header h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Bold";
   display: none;
+  margin-bottom: 2rem;
 }
-/* line 13, ../sass/_header.scss */
+/* line 14, ../sass/_header.scss */
 body > header section.menu input {
   margin-left: 1em;
 }
-/* line 16, ../sass/_header.scss */
+/* line 17, ../sass/_header.scss */
 body > header section.menu input:nth-of-type(1) {
   margin-left: .5em;
 }
-/* line 21, ../sass/_header.scss */
+/* line 22, ../sass/_header.scss */
 body > header section.menu .picker {
   background-image: url("../images/menu-icon.png") !important;
   text-indent: -9999em;
@@ -211,7 +215,7 @@ body > header section.menu .picker:hover, body > header section.menu .picker:act
   box-shadow: none;
   opacity: 1;
 }
-/* line 27, ../sass/_header.scss */
+/* line 28, ../sass/_header.scss */
 body > header section.menu .audio-toggle {
   background-image: url("../images/audio-off.png") !important;
   text-indent: -9999em;
@@ -241,19 +245,19 @@ body > header section.menu .audio-toggle:hover, body > header section.menu .audi
   box-shadow: none;
   opacity: 1;
 }
-/* line 32, ../sass/_header.scss */
+/* line 33, ../sass/_header.scss */
 body > header section.menu .audio-toggle.on {
   background-image: url("../images/audio-on.png") !important;
 }
-/* line 38, ../sass/_header.scss */
+/* line 39, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 41, ../sass/_header.scss */
+/* line 42, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 46, ../sass/_header.scss */
+/* line 47, ../sass/_header.scss */
 body > header #username {
   line-height: 1.5em;
   position: relative;
@@ -264,7 +268,7 @@ body > header #username {
   font-family: "DIN Next W01 Medium";
 }
 
-/* line 55, ../sass/_header.scss */
+/* line 56, ../sass/_header.scss */
 section.picker {
   background: rgba(0, 0, 0, 0.75);
   width: 100%;
@@ -291,32 +295,32 @@ section.picker {
   -o-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-/* line 74, ../sass/_header.scss */
+/* line 75, ../sass/_header.scss */
 section.picker.open {
   visibility: visible;
   top: 0;
   opacity: 1;
 }
-/* line 81, ../sass/_header.scss */
+/* line 82, ../sass/_header.scss */
 section.picker .set {
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 105, ../sass/_header.scss */
+/* line 106, ../sass/_header.scss */
 section.picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 109, ../sass/_header.scss */
+/* line 110, ../sass/_header.scss */
 section.picker .set h1 {
   font-size: 2em;
 }
-/* line 113, ../sass/_header.scss */
+/* line 114, ../sass/_header.scss */
 section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium";
 }
-/* line 120, ../sass/_header.scss */
+/* line 121, ../sass/_header.scss */
 section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -348,13 +352,13 @@ section.picker .set ul.tracks li.track:hover, section.picker .set ul.tracks li.t
   border-color: white;
   text-shadow: 0 0 0.5em white;
 }
-/* line 126, ../sass/_header.scss */
+/* line 127, ../sass/_header.scss */
 section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
   margin-top: .25em;
 }
-/* line 132, ../sass/_header.scss */
+/* line 133, ../sass/_header.scss */
 section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -380,55 +384,72 @@ body.guest {
     margin-left: 6.25%;
   }
 }
+@media screen and (max-width: 32em) {
+  /* line 1, ../sass/_guest.scss */
+  body.guest {
+    font-size: 1.5em;
+  }
+}
+@media screen and (max-width: 24em) {
+  /* line 1, ../sass/_guest.scss */
+  body.guest {
+    font-size: 1em;
+  }
+}
 @media screen and (min-width: 48em) {
-  /* line 14, ../sass/_guest.scss */
+  /* line 22, ../sass/_guest.scss */
   body.guest > header {
     float: left;
     text-align: right;
     width: 43.75%;
   }
 }
-/* line 21, ../sass/_guest.scss */
+/* line 29, ../sass/_guest.scss */
 body.guest > header h1 {
   display: block;
 }
-/* line 26, ../sass/_guest.scss */
+/* line 34, ../sass/_guest.scss */
 body.guest #controls, body.guest .menu, body.guest .tracks {
   display: none;
 }
-/* line 30, ../sass/_guest.scss */
+/* line 38, ../sass/_guest.scss */
 body.guest form {
   width: 100%;
   position: relative;
 }
 @media screen and (min-width: 48em) {
-  /* line 30, ../sass/_guest.scss */
+  /* line 38, ../sass/_guest.scss */
   body.guest form {
     float: right;
     width: 43.75%;
     right: 9.375%;
   }
 }
-/* line 40, ../sass/_guest.scss */
+/* line 48, ../sass/_guest.scss */
 body.guest form fieldset {
-  margin-bottom: 2em;
+  margin-bottom: 4em;
 }
-/* line 43, ../sass/_guest.scss */
+/* line 51, ../sass/_guest.scss */
 body.guest form fieldset input {
   display: block;
   margin-bottom: 1em;
 }
-/* line 48, ../sass/_guest.scss */
+/* line 56, ../sass/_guest.scss */
 body.guest form fieldset aside {
+  margin-bottom: 2em;
   font-size: .75rem;
   line-height: 1rem;
   font-style: italic;
   font-family: "DIN Next W01 Light";
-  margin-bottom: 2em;
-  width: 87.5%;
-  position: absolute;
-  right: 109.375%;
-  text-align: right;
+}
+@media screen and (min-width: 48em) {
+  /* line 56, ../sass/_guest.scss */
+  body.guest form fieldset aside {
+    width: 87.5%;
+    position: absolute;
+    right: 109.375%;
+    text-align: right;
+  }
 }
 
 @-webkit-keyframes play-spin {

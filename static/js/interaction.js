@@ -1,7 +1,14 @@
 $(document).ready(function(){
     turntable();
     openPanel();
+    $("input, .picker .track").on("touchstart", function(e) {  
+        $(this).trigger("active");
+    });
+    $("input, .picker .track").on("touchend", function(e) {  
+        $(this).trigger("blur");
+    });
 });
+
 
 function turntable() {
     var drag, turntable, height;
@@ -41,7 +48,7 @@ function openPanel() {
     var buttons = $(".panel-button");
     
     buttons.click(function(){
-        var id = $(this).attr('id');
+        var id = $(this).attr("id");
         $("section#" + id).toggleClass("open");
     })
 }

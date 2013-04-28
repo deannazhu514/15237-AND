@@ -1,14 +1,36 @@
 body > header {
+    position: relative;
+    z-index: 300;
+    
+    h1 {
+        @include small-caps(2em);
+        font-family: $bold;
+    }
 
     section.menu {
+        
+        input {
+            margin-left: 1em;
+            
+            &:nth-of-type(1) {
+                margin-left: .5em;
+            }
+        }
+        
         .picker {
-            text-indent: -9999em;
             background-image: url('../images/menu-icon.png') !important;
-            background-size: 100%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            @include square-button;
-            @include plain-button;
+            @include icon-button;
+            padding-left: .5em;
+        }
+        
+        .audio-toggle {
+            background-image: url('../images/audio-off.png') !important;
+            @include icon-button;
+            float: right;
+            
+            &.on {
+                background-image: url('../images/audio-on.png') !important;
+            }
         }
     }
 
@@ -19,44 +41,98 @@ body > header {
             display: block;
         }
     }
-    
-    .picker {
-    
-        .set {
-            width: $col;
-            padding-left: $gutter;
-            display: inline-block;
-            vertical-align: top;
-            
-            &:nth-child(1) {
-                padding-left: 0;
-            }
-            
-            ul.tracks {         
-               
-                li.track {
-                    width: 100%;
-                    text-align: left;
-                    margin-bottom: .5em;
-                    @include button;
-                    
-                    h1 {
-                        font-size: 2em;
-                    }
-                    
-                    author {
-                        @include small-caps(.75em);
-                    }
-                }
-            }
-        }
-    }
-
 
     #username {
         line-height: 1.5em;
-        float: right;
+        position: relative;
+        top: -1em;
         @include small-caps(.75em);
         font-family: $medium;
+    }
+}
+
+section.picker {
+    background: rgba(0,0,0,.75);
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    left: 0;
+    padding: $gutter;
+    visibility: hidden;
+    position: fixed;
+    // @include transform(translateY(-25em) perspective(50em) rotateX(-90deg) translateY(4em));
+    opacity: 0;
+    top: -2.5%;
+    padding-top: 8em;
+    z-index: 200;
+
+    @include transition-property(top, opacity, background, visibility);
+    @include transition-duration(.25s);
+    @include transition-timing-function(ease-out);
+    
+    &.open {
+        visibility: visible;
+        top: 0;
+        // @include transform(translateY(-4em) perspective(36em) rotateX(0deg) translateY(4em));
+        opacity: 1;
+    }
+
+    .set {
+        $vertical-padding: .75em;
+        // width: $col;
+        padding-left: $gutter;
+        display: inline-block;
+        vertical-align: top;
+        
+        @media screen and (max-width: 40em) {
+            // width: $col * 4;
+        }
+        
+        @media screen and (max-width: 50em) {
+            // width: $col * 2;
+        }
+        
+        @media screen and (min-width: 54em) {
+        }
+        
+        @media screen and (min-width: 54em) and (max-width: 84em) {
+        }
+        
+        @media screen and (min-width: 84em) {
+        }
+        
+        &:nth-child(1) {
+            padding-left: 0;
+        }
+        
+        h1 {
+            font-size: 2em;
+        }
+        
+        > h1 {
+            margin-bottom: $vertical-padding;
+            font-family: $medium;
+        }
+        
+        ul.tracks {         
+           
+            li.track {
+                width: 100%;
+                text-align: left;
+                margin-bottom: $vertical-padding * 2;
+                @include naked-button;
+                
+                h1 {
+                    font-size: 2em;
+                    font-family: $light;
+                    margin-top: .25em;
+                }
+                
+                author {
+                    @include small-caps(.75em);
+                    font-family: $medium;
+                }
+            }
+        }
     }
 }

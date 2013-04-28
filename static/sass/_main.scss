@@ -5,16 +5,18 @@
 @import "./lib/_mixins.scss";
 
 body {
-    background: #333;
+    background: $background;
     -webkit-user-select: none;
        -moz-user-select: none;
        
    margin: $gutter;
 }
 
-
 input{
     border-radius: 0;
+    position: relative;
+    z-index: 100;
+    -webkit-appearance: none;
 
     &[type=button], &[type=submit]{
         @include button;
@@ -28,14 +30,15 @@ input{
         border-bottom: $default $border-width solid;
         font-size: 1em;
         font-style: italic;
+        font-family: $regular;
         
         &:focus, &:hover, &:active {
-            background: $inactive;
             border-color: $active;
+            color: $active;
         }
         
         &:focus {
-            @include glow;
+            @include text-glow;
         }
     }
 }

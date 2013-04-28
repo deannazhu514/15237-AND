@@ -108,6 +108,57 @@ $(document).ready(function(){
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my fifth set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
         }]
     }];
     
@@ -120,7 +171,6 @@ function makePalette(template) {
 		template.id = parseFloat(template.id);
 	}
 	
-	console.log(typeof(template.id));
 					trackList[template.id] = {
 						playing: false,
 						pbr: 1.0,
@@ -136,6 +186,7 @@ function makePalette(template) {
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
     $(header).append(title, artist);
+    $(track).append(header);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {	
         var element;
@@ -158,12 +209,10 @@ function makePalette(template) {
         }
         track.append(controls);
     }
-    $(track).append(header);
     $("ul#tracks").append(track);
 }
 
 function makeTurntable2(artSrc, duration, tid) {
-		console.log(typeof(tid));
     var turntable = $("<div>").addClass("turntable"),
         scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
@@ -236,10 +285,9 @@ function makeTurntable(artSrc, duration, tid) {
 		var tempid = tid;
 		var ttable = this;
 		var cursound = sounds[tempid];	
-		console.log(tempid);
-		console.log(typeof(tempid));
-		if (cursound === undefined && (!nonstream)) {
-
+		
+		/*if (cursound === undefined && (!nonstream)) {
+			console.log("hehehe");
 			var sound = {};
 			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;
@@ -248,9 +296,16 @@ function makeTurntable(artSrc, duration, tid) {
 				console.log("finished playing");
 				$(ttable).toggleClass("playing");
 				sound.stop();
+				if (autoplay) {
+					console.log("playing next track");
+					
+				} else {
+					console.log("stopped");
+				}
 			});
+			
 			var source = context.createMediaElementSource(audio);	
-			console.log(source);
+			//console.log(source);
 			sound.source = source;
 			sound.play = play;
 			sound.togglePause = togglePause;
@@ -264,29 +319,27 @@ function makeTurntable(artSrc, duration, tid) {
 			}
 			console.log(trackList[tempid].playing);
 			$(ttable).toggleClass("playing");			
-			// remove glow
-
 			
+			// remove glow
 			if (cursound) {
 				 var id = $(control).parent().attr("id");
 				 var s = sounds[id].source.mediaElement;
-				setInterval(function () {
+					setInterval(function () {
 					if (name === "playback") {
 					    $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
 					}
 				}, 1000);
 
 			}		
-		} else {			
+		} else {	*/
     		volumeGlow(0, turntable);
-			if(trackList[tempid].playing) {
+			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
 			} else {
 				socket.emit('play',tid);
 			}
-			console.log(cursound.source.mediaElement.paused);
 			$(this).toggleClass("playing");	
-		}
+		//}
 	});
 	return $(turntable);
 }
@@ -312,14 +365,14 @@ function makeControl (type, name, orientation,
         elt.val(pos);
     };
 
-	// if (name === 'volume') {
-	// 	$(control).mouseover(function(){
-	// 		changingVol = true;
-	// 	});
-	// 	$(control).mouseout(function() {
-	// 		changingVol = false;
-	// 	});
-	// }
+	/*if (name === 'volume') {
+		$(control).mouseover(function(){
+			changingVol = true;
+		});
+		$(control).mouseout(function() {
+			changingVol = false;
+		});
+	}*/
 	
 	if (name === 'pbr') {
 		$(control).mouseover(function(){
@@ -331,10 +384,8 @@ function makeControl (type, name, orientation,
 	}
 	
 	function updateControls() {
-        console.log("CONTROLCHANGING " + controlChanging);
         var val = $(control).val(),
         	id  = $(control).parent().attr("id");
-				console.log("NAME IS " + name);
         if (name === "volume") {
         	//s.volume = val/100;
         	change_volume(id,val/100);
@@ -347,11 +398,9 @@ function makeControl (type, name, orientation,
         	change_speed(id,val/50);
         	changingPBR = true;
         	//s.playbackRate = val/50;
-					console.log("changing pbr: " + val);
         } else if (name === "playback") {
         	//s.currentTime = (ss.duration*val/100);					
         	change_time(id, duration*val/100);
-        	console.log("DURATION IS: " + duration);
         	$(value).html("position:"+duration*val/100);
         }
 	}
@@ -364,45 +413,18 @@ function makeControl (type, name, orientation,
     $(control).mousedown(function() {
         controlChanging = true;
 				updateControls();
-        //console.log("MOUSEDOWN " + controlChanging);
-//>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
+
     });
-    /*
-    $(control).click(function(){
-        if (controlChanging) {
-            updateControls();
-        }
-    });*/
     $(control).mouseup(function() {
 			controlChanging = false;
 			updateControls();
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        //console.log("MOUSEUP " + controlChanging);
         changingVol = changingPBR = false;
 				
     });
 		
-		/*
-		var fff = function(id,v) {
-			id.clearInterval();
-			
-		};
-		var iid = setInterval(fff(tid, $(value)), 1000);
-		
-		if (name === 'playback') {
-					
-				var func = function(song, v) {
-					v.html(Math.floor(song.currentTime/60)+":"+Math.floor(song.currentTime%60));
-					console.log('awk');
-				};
-				if (trackList[tid] != undefined && !trackList[tid].setTime) {
-					console.log('yo');
-					window.setInterval(func(sounds[tid],$(value)), 100);
-					trackList[tid].setTime = true;
-				}
-		} */
 	if (ctrls[tid] === undefined) {
 			ctrls[tid] = {};
 		}
@@ -425,24 +447,6 @@ function makeControl (type, name, orientation,
 		ctrls[tid]['pb'] = $(control);
 	}
 	
-    // var drag = null;
-    // $(handle).mousedown(function(event){
-    //     drag = $(this).parents(".palette");
-    // });
-    // 
-    // $(document).mousemove(function(event) {
-    //     if (drag) {
-    //         drag.offset({
-    //             top:  Math.floor(event.pageY / 100) * 100,
-    //             left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
-    //         });
-    //     } 
-    // });    
-    // 
-    // $(document).mouseup(function(event){
-    //     drag = null;
-    // });
-		
     if (name === 'playback') {
         $(value).html("0:00");
         $(control).val(0);
@@ -462,7 +466,7 @@ function makeControl (type, name, orientation,
 // SET & TRACK PICKING UI
 
 function makePicker(sets) {
-    var picker = $("<section>").addClass("picker");
+    var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
         var set     = sets[i].tracks,
             section = $("<section>").addClass("set"),
@@ -481,5 +485,7 @@ function makePicker(sets) {
         section.append(h1, ul);
         picker.append(section);
     }
-    $("body > header").append(picker);
+    // picker.css({
+    //     width: sets.length * 25 + "%"
+    // });
 }

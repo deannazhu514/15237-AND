@@ -1,13 +1,49 @@
-.guest {
+body.guest {
+    font-size: 1.5em;
+    margin-top: 25%;
+    
+    @media screen and (min-width: 60em) {
+        font-size: 2em;
+    }
+    
+    @media screen and (max-width: 48em) {
+        font-size: 2em;
+        margin-left: $gutter * 2;
+    }
+    
+    > header {
+        @media screen and (min-width: 48em) {
+            float: left;
+            text-align: right;
+            width: $col * 2;
+        }
+        
+        h1 {
+            display: block;
+        }
+    }
 
-    #controls, header, .tracks {
+    #controls, .menu, .tracks {
         display: none;
     }
     
     form {
         width: 100%;
-        text-align: center;
         position: relative;
-        top: 40%;
+        
+        @media screen and (min-width: 48em) {
+            float: right;
+            width: $col * 2;
+            right: $gutter * 3;
+        }
+        
+        fieldset {
+            margin-bottom: 2em;
+            
+            input {
+                display: block;
+                margin-bottom: 1em;
+            }
+        }
     }
 }

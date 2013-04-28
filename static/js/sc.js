@@ -8,6 +8,9 @@ var sounds = {};
 var context, analyser, compressor;
 var deviceNum;
 
+//when true, will cause all tracks in playlist to play automatically
+var autoPlay  = true; 
+
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
 var redirect_uri = 'http://localhost:8999/static/callback.html';
@@ -201,7 +204,7 @@ function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
-			tracks = {};
+			//tracks = {};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
@@ -223,54 +226,59 @@ function getPlaylists(SCuser){
 								}, volslider, pbslider, playbackslider],
 						"i": i
 					};
-						var ss = {};
-	var aud = new Audio(); 
-	aud.src = track2.url+stream_add;
-	aud.addEventListener('ended', function() {
-				console.log("finished playing");
-				$(ttable).toggleClass("playing");
-				ss.stop();
-			});
-		aud.addEventListener('play', function() {
-			alert("playing");
-		});
-			var source = context.createMediaElementSource(aud);	
-			console.log(source);
-			ss.source = source;
-			ss.play = play;
-			ss.togglePause = togglePause;
-			ss.stop = stop;	
-			sounds[track2.id] = ss;
-			console.log(track2.id);
-					//socket.emit("newtrack", track.id);
+					var ss = {};
+					var aud = new Audio(); 
+					aud.src = track2.url+stream_add;
+					aud.loop = false;
+					aud.onended = function(e) {
+						console.log("finished playing");
+						$(ttable).removeClass("playing");
+						ss.stop();
+					}
+					
+					aud.onpause = function(e) {
+						console.log("pause");
+					}
+					var foo = function() {
+						window.console.log("gr");
+					}
+					aud.addEventListener('play',foo);
+					console.log('hi');
+					aud.addEventListener('ended', foo);
+				aud.addEventListener('volumechange', function() {
+					window.console.log("afdk;lsjlhewa");
+				});
+				aud.addEventListener("canplay", function() {
+					alert("z");
+				});
+					var source = context.createMediaElementSource(aud);	
+					//console.log(source);
+					ss.source = source;
+					ss.play = play;
+					ss.togglePause = togglePause;
+					ss.stop = stop;	
+					sounds[track2.id] = ss;
 					tracks[track.id] = track2;
 					addTrack(SCuser, track2);		
-					console.log(track.id);
 				}
 			}
-				
+								
 			socket.emit('tracklist', tracks);
-			for (key in tracks) {
-				console.log('key is ' + tracks[key].id);
-				socket.emit("newtrack", tracks[key].id);
-			 }
-			 socket.emit("newtrack", 27502830);
-			 socket.emit("newtrack", 50542164);
-			 console.log('DKSHFT:ES');
 			var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-		 });
-			
+
+		});
+		socket.emit('playlists', playlists);
 	 });
+	 
 	 loggedin = true;
 	 $("body").removeClass("guest");
 }
 
 function play(){
-	
 	this.source.loop = true;
 	this.source.mediaElement.play();
 	this.playing = true;
@@ -284,6 +292,7 @@ function stop(){
 function togglePause(){
 	this.playing ? this.stop() : this.play();
 };
+
 
 
 function addTrack(userID, track){

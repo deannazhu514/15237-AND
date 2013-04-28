@@ -18,12 +18,32 @@
     position: relative;
     left: -$padding;
     
+    @include button-active;
     
-    &:hover {
+    &:hover, &:active {
         background: $active;
         border-color: transparent;
         color: #333;
         @include glow;
+    }
+}
+
+@mixin naked-button {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    padding-left: .5em;
+    margin-left: -.5em;
+    border-left: 1px solid $default;
+    
+    @include button-active;
+    
+    &:hover, &:active {
+        text-shadow: 0 0 .5em $active;
+        border-left: 1px solid $active;
+        color: $active;
+        border-color: $active;
     }
 }
 
@@ -34,8 +54,9 @@
     background-position: center center;
     @include square-button;
     @include plain-button;
+    @include button-active;
     
-    &:hover {
+    &:hover, &:active {
         background: none;
         box-shadow: none;
     }
@@ -51,4 +72,12 @@
 
 @mixin glow {
     box-shadow: 0 0 .75em .125em rgba(255,255,255,.75);
+}
+
+@mixin button-active {
+    @include transition(all .125s linear);
+
+    &:active, &.touch {
+        @include transform(scale(.95));
+    }
 }

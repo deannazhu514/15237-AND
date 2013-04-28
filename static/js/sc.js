@@ -8,6 +8,9 @@ var sounds = {};
 var context, analyser, compressor;
 var deviceNum;
 
+//when true, will cause all tracks in playlist to play automatically
+var autoPlay  = true; 
+
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
 var redirect_uri = 'http://localhost:8999/static/callback.html';
@@ -226,18 +229,24 @@ function getPlaylists(SCuser){
 					var ss = {};
 					var aud = new Audio(); 
 					aud.src = track2.url+stream_add;
-					aud.addEventListener('ended', function() {
-								console.log("finished playing");
-								$(ttable).toggleClass("playing");
-								ss.stop();
-							});
+					aud.loop = false;
+					aud.onended = function(e) {
+						console.log("finished playing");
+						$(ttable).removeClass("playing");
+						ss.stop();
+					}
+					
+					aud.onpause = function(e) {
+						console.log("pause");
+					}
 					
 					var source = context.createMediaElementSource(aud);	
-					console.log(source);
+					//console.log(source);
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
 					ss.stop = stop;	
+					
 					sounds[track2.id] = ss;
 					socket.emit("newtrack", track.id);
 					tracks[track.id] = track2;
@@ -265,7 +274,6 @@ function getPlaylists(SCuser){
 }
 
 function play(){
-	
 	this.source.loop = true;
 	this.source.mediaElement.play();
 	this.playing = true;
@@ -279,6 +287,7 @@ function stop(){
 function togglePause(){
 	this.playing ? this.stop() : this.play();
 };
+
 
 
 function addTrack(userID, track){

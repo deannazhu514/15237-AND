@@ -6,10 +6,10 @@
     <title>Spectrum</title>
     <link type="text/css" rel="stylesheet" href="http://fast.fonts.com/cssapi/8231897c-dd38-4b21-ac8c-cc0e94b7e948.css">
     <link href="./css/screen.css" rel="stylesheet" type="text/css">
-    <script src="./js/lib/jquery.js"></script>
-    <script src="./js/faderkit.js"></script>
-    <script src="./js/sc.js"></script>
-    <script src="./js/interaction.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/faderkit.js"></script>
+    <script src="js/sc.js"></script>
+    <script src="js/interaction.js"></script>
     <script src="//connect.soundcloud.com/sdk.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/client_socket.js"></script>
@@ -28,7 +28,9 @@
         <p id="username"></p>
         <section class="menu">
             <input type="button" value="Picker" class="picker">
-            <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">            
+            <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
+            <input type="button" value="Autoplay On/Off" class="audio-toggle" id="autoplay">
+            <!-- <input type="button" value="Next Track" class="audio-toggle" id="next"> -->	
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <section id="add-device">
@@ -70,7 +72,12 @@
 				$("section.picker").toggleClass("open");
 			});
         });
-				document.getElementById("audiotoggle").onclick = togglePlayback;
+			document.getElementById("audiotoggle").onclick = togglePlayback;
+
+			document.getElementById("autoplay").onclick = function(){
+				autoplay = !autoplay;
+				console.log(autoplay);
+			};
     </script>
     <section id="controls"></section>
     <ul id="tracks"></ul>

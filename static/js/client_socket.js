@@ -53,79 +53,79 @@ socket.on("update", function(audio) {
 }); */
 
 function client_socket_init() {
-socket = io.connect("http://localhost:8111");
+	socket = io.connect("http://localhost:8111");
 
-socket.on("update_time", function(value, id) {
-	value = Math.floor(value);
-	for (key in sounds) {
-		var tt = sounds[key];
-		if (id == key) {
-			console.log(value);
-			tt.source.mediaElement.currentTime = value;
+	socket.on("update_time", function(value, id) {
+		value = Math.floor(value);
+		for (key in sounds) {
+			var tt = sounds[key];
+			if (id == key) {
+				console.log(value);
+				tt.source.mediaElement.currentTime = value;
+			}
 		}
-	}
-});
+	});
 
-socket.on("update", function(a) {
-	if (!nonstream) {
-		supdate(a);
-	} else {
-		nupdate(a);
-	}
+	socket.on("update", function(a) {
+		if (!nonstream) {
+			supdate(a);
+		} else {
+			nupdate(a);
+		}
 
-});
-socket.on("getmod", function(track, num) {
-	console.log("REC MODULE");
-	//if (deviceNum == num) {
-	if (true) {
-		//nonstream = true;
-		track.id = parseFloat(track.id);
-		console.log(track.id);
+	});
+	socket.on("getmod", function(track, num) {
+		console.log("REC MODULE");
+		//if (deviceNum == num) {
+		if (true) {
+			//nonstream = true;
+			track.id = parseFloat(track.id);
+			console.log(track.id);
+			makePalette(track);
+			trackList[track] = {
+							playing: false,
+							pbr: 1.0,
+							volume: 1.0,
+							time: 0,
+							setTime: false
+						};
+		}
+		/*if (device === deviceNum) {
+			if (module == 'track') {
+				
+			}
+		} */
+	});
+	socket.on("remove_track", function() {
+		$("body > ul#tracks .track").remove();
+	});
+
+	socket.on('add_track', function(track) {
+		//console.log('adding track ' + track);
 		makePalette(track);
-		trackList[track] = {
-						playing: false,
-						pbr: 1.0,
-						volume: 1.0,
-						time: 0,
-						setTime: false
-					};
-	}
-	/*if (device === deviceNum) {
-		if (module == 'track') {
-			
+	});
+	socket.on("requestInit", function() {
+		var h = window.innerHeight;
+		var w = window.innerWidth;
+		socket.emit("subscribe", username, h, w);
+		for (key in tracks) {
+			socket.emit("newtrack", tracks[key].id);
 		}
-	} */
-});
-socket.on("remove_track", function() {
-	$("body > ul#tracks .track").remove();
-});
+		console.log(username, h,w);
+		
+	});
 
-socket.on('add_track', function(track) {
-	console.log('adding track ' + track);
-	makePalette(track);
-});
-socket.on("requestInit", function() {
-	var h = window.innerHeight;
-	var w = window.innerWidth;
-	socket.emit("subscribe", username, h, w);
-	for (key in tracks) {
-		socket.emit("newtrack", tracks[key].id);
-	}
-	console.log(username, h,w);
+	socket.on("playback", function() {
+		if (!nonstream) {
+			playback_device = true;
+			console.log('playback true');
+		}
+	});	
+
+	socket.on("send_tracks", function() {
+		send_tracks();
+	});
 	
-});
-
-socket.on("playback", function() {
-	if (!nonstream) {
-		playback_device = true;
-		console.log('playback true');
-	}
-});	
-
-socket.on("send_tracks", function() {
-	send_tracks();
-
-});
 	console.log(tracks);
 	 for (key in tracks) {
 		console.log("SOCKET");
@@ -159,10 +159,13 @@ function addToCurrPlaying(pid,tid) {
 function supdate(a) {
 	for (key in sounds) {
 		audio = a[key];
+		var ctrl = ctrls[key];
+		var track = trackList[key];
 		
-		if (audio !== undefined) {
+		if (audio !== undefined && ctrl != undefined && track != undefined) {
 			var tt = sounds[key];
 			var s = tt.source.mediaElement;
+			//console.log(tt.source);
 			actual_vol = audio.volume;
 			if (playback_device) {
 				if (audio.volume > 1) {
@@ -174,6 +177,7 @@ function supdate(a) {
 			}
 			
 			s.playbackRate = audio.speed;
+			
 			if (!changingVol) {
 				var tempobj = ctrls[key]['vol'];
 				var tempfnc = tempobj.data('changeSlider');
@@ -199,15 +203,23 @@ function supdate(a) {
 				var val2 = tempobj.data('val2');
 				tempfnc(val, val2, audio.speed);
 			}*/
-			trackList[key].playing = audio.play;
-			trackList[key].volume = audio.volume;
-			trackList[key].pbr = audio.speed;
-			if (trackList[key].playing && s.paused) {
+	
+			track.playing = audio.play;
+			track.volume = audio.volume;
+			track.pbr = audio.speed;
+			if (s.ended) {
+				s.currentTime = 0;
+				s.pause();
+				track.playing = false;
+				if (autoPlay) {
+					
+				} else {
+					console.log("stopped");
+				}
+			} else if (track.playing && s.paused) {
 				tt.togglePause();
-				console.log('playing');
-			} else if (!trackList[key].playing && !s.paused){
+			} else if (!track.playing && !s.paused){
 				tt.togglePause();
-				console.log('paused');
 			} 
 		} else {
 			//console.log("can't find in sound", key);
@@ -224,6 +236,7 @@ function togglePlayback() {
 	console.log("playbacktoggle");
 	playback_device = !playback_device;
 }
+
 
 function send_tracks() {
 	socket.emit('tracklist', tracks);

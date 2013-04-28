@@ -163,7 +163,7 @@ function makePalette(template) {
 }
 
 function makeTurntable2(artSrc, duration, tid) {
-		console.log(typeof(tid));
+	console.log(typeof(tid));
     var turntable = $("<div>").addClass("turntable"),
         scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
@@ -238,8 +238,8 @@ function makeTurntable(artSrc, duration, tid) {
 		var cursound = sounds[tempid];	
 		console.log(tempid);
 		console.log(typeof(tempid));
-		if (cursound === undefined && (!nonstream)) {
-
+		/*if (cursound === undefined && (!nonstream)) {
+			console.log("hehehe");
 			var sound = {};
 			var audio = new Audio();
 			audio.src = tracks[tempid].url+stream_add;
@@ -248,9 +248,16 @@ function makeTurntable(artSrc, duration, tid) {
 				console.log("finished playing");
 				$(ttable).toggleClass("playing");
 				sound.stop();
+				if (autoplay) {
+					console.log("playing next track");
+					
+				} else {
+					console.log("stopped");
+				}
 			});
+			
 			var source = context.createMediaElementSource(audio);	
-			console.log(source);
+			//console.log(source);
 			sound.source = source;
 			sound.play = play;
 			sound.togglePause = togglePause;
@@ -264,29 +271,28 @@ function makeTurntable(artSrc, duration, tid) {
 			}
 			console.log(trackList[tempid].playing);
 			$(ttable).toggleClass("playing");			
-			// remove glow
-
 			
+			// remove glow
 			if (cursound) {
 				 var id = $(control).parent().attr("id");
 				 var s = sounds[id].source.mediaElement;
-				setInterval(function () {
+					setInterval(function () {
 					if (name === "playback") {
 					    $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));	
 					}
 				}, 1000);
 
 			}		
-		} else {			
+		} else {	*/
     		volumeGlow(0, turntable);
-			if(trackList[tempid].playing) {
+			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
 			} else {
 				socket.emit('play',tid);
 			}
 			console.log(cursound.source.mediaElement.paused);
 			$(this).toggleClass("playing");	
-		}
+		//}
 	});
 	return $(turntable);
 }
@@ -312,14 +318,14 @@ function makeControl (type, name, orientation,
         elt.val(pos);
     };
 
-	// if (name === 'volume') {
-	// 	$(control).mouseover(function(){
-	// 		changingVol = true;
-	// 	});
-	// 	$(control).mouseout(function() {
-	// 		changingVol = false;
-	// 	});
-	// }
+	/*if (name === 'volume') {
+		$(control).mouseover(function(){
+			changingVol = true;
+		});
+		$(control).mouseout(function() {
+			changingVol = false;
+		});
+	}*/
 	
 	if (name === 'pbr') {
 		$(control).mouseover(function(){
@@ -347,7 +353,7 @@ function makeControl (type, name, orientation,
         	change_speed(id,val/50);
         	changingPBR = true;
         	//s.playbackRate = val/50;
-					console.log("changing pbr: " + val);
+			console.log("changing pbr: " + val);
         } else if (name === "playback") {
         	//s.currentTime = (ss.duration*val/100);					
         	change_time(id, duration*val/100);
@@ -364,8 +370,7 @@ function makeControl (type, name, orientation,
     $(control).mousedown(function() {
         controlChanging = true;
 				updateControls();
-        //console.log("MOUSEDOWN " + controlChanging);
-//>>>>>>> 1d370cd67f69cba302cb24595cccd29987c7b95a
+
     });
     /*
     $(control).click(function(){
@@ -402,7 +407,9 @@ function makeControl (type, name, orientation,
 					window.setInterval(func(sounds[tid],$(value)), 100);
 					trackList[tid].setTime = true;
 				}
-		} */
+		} 
+		*/
+		
 	if (ctrls[tid] === undefined) {
 			ctrls[tid] = {};
 		}
@@ -425,24 +432,26 @@ function makeControl (type, name, orientation,
 		ctrls[tid]['pb'] = $(control);
 	}
 	
-    // var drag = null;
-    // $(handle).mousedown(function(event){
-    //     drag = $(this).parents(".palette");
-    // });
-    // 
-    // $(document).mousemove(function(event) {
-    //     if (drag) {
-    //         drag.offset({
-    //             top:  Math.floor(event.pageY / 100) * 100,
-    //             left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
-    //         });
-    //     } 
-    // });    
-    // 
-    // $(document).mouseup(function(event){
-    //     drag = null;
-    // });
-		
+	/*	
+    var drag = null;
+    $(handle).mousedown(function(event){
+        drag = $(this).parents(".palette");
+    });
+    
+    $(document).mousemove(function(event) {
+        if (drag) {
+            drag.offset({
+                top:  Math.floor(event.pageY / 100) * 100,
+                left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
+            });
+        } 
+    });    
+    
+    $(document).mouseup(function(event){
+        drag = null;
+    });
+	*/	
+	
     if (name === 'playback') {
         $(value).html("0:00");
         $(control).val(0);

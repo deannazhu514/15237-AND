@@ -243,10 +243,13 @@ function getPlaylists(SCuser){
 								}, volslider, pbslider, playbackslider],
 						"i": i
 					};
+					
 					var ss = {};
 					var aud = new Audio(); 
 					aud.src = track2.url+stream_add;
 					aud.loop = false;
+					aud.autoPlay = false;
+
 					aud.onended = function(e) {
 						console.log("finished playing");
 						$(ttable).removeClass("playing");
@@ -271,6 +274,9 @@ function getPlaylists(SCuser){
 				});*/
 					var source = context.createMediaElementSource(aud);	
 					console.log(source);
+
+					var source = context.createMediaElementSource(aud);	
+				
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;

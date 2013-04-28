@@ -9,6 +9,7 @@ var actual_vol = 0;
 var trackList = {};
 var username;
 
+
 //rather than the server just sending a single
 //attribute to change, we send the
 //entire audio object with its attributes.
@@ -60,7 +61,7 @@ function client_socket_init() {
 		for (key in sounds) {
 			var tt = sounds[key];
 			if (id == key) {
-				console.log(value);
+				//console.log(value);
 				tt.source.mediaElement.currentTime = value;
 			}
 		}
@@ -138,7 +139,7 @@ function client_socket_init() {
 	
 
 }
-function nupdate(a){
+function nupdate(a){	
 	for (key in a) {
 		audio = a[key];
 		if (trackList[key] != undefined) {
@@ -216,13 +217,12 @@ function supdate(a) {
 			track.volume = audio.volume;
 			track.pbr = audio.speed;
 			if (s.ended) {
-				s.currentTime = 0;
-				s.pause();
-				track.playing = false;
+				console.log("finished");
 				if (autoPlay) {
 					
 				} else {
-					console.log("stopped");
+					s.currentTime = 0;
+					tt.togglePause();
 				}
 			} else if (track.playing && s.paused) {
 				tt.togglePause();
@@ -255,7 +255,6 @@ function togglePlayback() {
 
 function send_tracks() {
 	socket.emit('tracklist', tracks);
-	
 }
 
 function change_volume(id, value) {

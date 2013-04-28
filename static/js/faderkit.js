@@ -170,14 +170,17 @@ function makePalette(template) {
 	if (typeof(template.id) === 'string') {
 		template.id = parseFloat(template.id);
 	}
-	
-					trackList[template.id] = {
-						playing: false,
-						pbr: 1.0,
-						volume: 1.0,
-						time: 0,
-						setTime: false
-					};
+
+	console.log(typeof(template.id));
+	trackList[template.id] = {
+			playing: false,
+			ended: false,
+			pbr: 1.0,
+			volume: 1.0,
+			time: 0,
+			setTime: false
+	};
+
     // Container for all controls and information for a single track
     var track    = $("<li>").addClass("track"),
         header   = $("<header>"),
@@ -199,7 +202,7 @@ function makePalette(template) {
                 element = makeTurntable(template.ui[i].art,
                           template.ui[0].duration, tid);
 			}
-		track.append(element);
+			track.append(element);
         } else {
             element = makeControl(template.ui[i].type,
 								  template.ui[i].name,
@@ -290,6 +293,9 @@ function makeTurntable(artSrc, duration, tid) {
 		var tempid = tid;
 		var ttable = this;
 		var cursound = sounds[tempid];	
+		console.log(tempid);
+		//console.log(typeof(tempid));
+
 		
 		/*if (cursound === undefined && (!nonstream)) {
 			console.log("hehehe");

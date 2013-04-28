@@ -32,6 +32,10 @@ input{
         font-style: italic;
         font-family: $regular;
         
+        position: relative;
+        left: -.5em;
+        text-indent: .4em;        
+        
         &:focus, &:hover, &:active {
             border-color: $active;
             color: $active;

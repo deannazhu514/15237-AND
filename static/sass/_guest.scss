@@ -11,6 +11,14 @@ body.guest {
         margin-left: $gutter * 2;
     }
     
+    @media screen and (max-width: 32em) {
+        font-size: 1.5em;
+    }
+    
+    @media screen and (max-width: 24em) {
+        font-size: 1em;
+    }
+    
     > header {
         @media screen and (min-width: 48em) {
             float: left;
@@ -38,11 +46,28 @@ body.guest {
         }
         
         fieldset {
-            margin-bottom: 2em;
+            margin-bottom: 4em;
             
             input {
                 display: block;
                 margin-bottom: 1em;
+            }
+            
+            aside {
+            
+                @media screen and (min-width: 48em) {
+                    width: $col * 4;
+                    position: absolute;
+                    right: $col * 4 + $gutter * 7;
+                    text-align: right;
+                }
+                
+                margin-bottom: 2em;
+                font-size: .75rem;
+                line-height: 1rem;
+                font-style: italic;
+                font-family: $light;
+
             }
         }
     }

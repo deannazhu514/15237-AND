@@ -170,8 +170,7 @@ function makePalette(template) {
 	if (typeof(template.id) === 'string') {
 		template.id = parseFloat(template.id);
 	}
-	
-<<<<<<< HEAD
+
 	console.log(typeof(template.id));
 	trackList[template.id] = {
 			playing: false,
@@ -181,15 +180,7 @@ function makePalette(template) {
 			time: 0,
 			setTime: false
 	};
-=======
-					trackList[template.id] = {
-						playing: false,
-						pbr: 1.0,
-						volume: 1.0,
-						time: 0,
-						setTime: false
-					};
->>>>>>> aca67639e36c97ea45bb43bb911be9f278207e6e
+
     // Container for all controls and information for a single track
     var track    = $("<li>").addClass("track"),
         header   = $("<header>"),

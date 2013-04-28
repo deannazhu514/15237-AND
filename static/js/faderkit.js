@@ -108,6 +108,57 @@ $(document).ready(function(){
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my fifth set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
         }]
     }];
     
@@ -490,4 +541,7 @@ function makePicker(sets) {
         section.append(h1, ul);
         picker.append(section);
     }
+    // picker.css({
+    //     width: sets.length * 25 + "%"
+    // });
 }

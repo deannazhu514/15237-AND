@@ -56,9 +56,12 @@
     @include plain-button;
     @include button-active;
     
+    opacity: .75;
+    
     &:hover, &:active {
         background: none;
         box-shadow: none;
+        opacity: 1;
     }
 }
 

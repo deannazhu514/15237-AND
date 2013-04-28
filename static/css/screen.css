@@ -103,7 +103,7 @@ input[type=button], input[type=submit] {
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
 }
-/* line 80, ../sass/lib/_mixins.scss */
+/* line 83, ../sass/lib/_mixins.scss */
 input[type=button]:active, input[type=button].touch, input[type=submit]:active, input[type=submit].touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -182,9 +182,10 @@ body > header section.menu .picker {
   -moz-transition: all 0.125s linear;
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
+  opacity: .75;
   padding-left: .5em;
 }
-/* line 80, ../sass/lib/_mixins.scss */
+/* line 83, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:active, body > header section.menu .picker.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -192,10 +193,11 @@ body > header section.menu .picker:active, body > header section.menu .picker.to
   -o-transform: scale(0.95);
   transform: scale(0.95);
 }
-/* line 59, ../sass/lib/_mixins.scss */
+/* line 61, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:hover, body > header section.menu .picker:active {
   background: none;
   box-shadow: none;
+  opacity: 1;
 }
 /* line 25, ../sass/_header.scss */
 body > header section.menu .audio-toggle {
@@ -210,9 +212,10 @@ body > header section.menu .audio-toggle {
   -moz-transition: all 0.125s linear;
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
+  opacity: .75;
   float: right;
 }
-/* line 80, ../sass/lib/_mixins.scss */
+/* line 83, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:active, body > header section.menu .audio-toggle.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -220,10 +223,11 @@ body > header section.menu .audio-toggle:active, body > header section.menu .aud
   -o-transform: scale(0.95);
   transform: scale(0.95);
 }
-/* line 59, ../sass/lib/_mixins.scss */
+/* line 61, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:hover, body > header section.menu .audio-toggle:active {
   background: none;
   box-shadow: none;
+  opacity: 1;
 }
 /* line 30, ../sass/_header.scss */
 body > header section.menu .audio-toggle.on {
@@ -251,6 +255,7 @@ section.picker {
   background: rgba(0, 0, 0, 0.75);
   width: 100%;
   height: 100%;
+  overflow: scroll;
   left: 0;
   padding: 3.125%;
   visibility: hidden;
@@ -272,45 +277,32 @@ section.picker {
   -o-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-/* line 71, ../sass/_header.scss */
+/* line 72, ../sass/_header.scss */
 section.picker.open {
   visibility: visible;
   top: 0;
   opacity: 1;
 }
-/* line 78, ../sass/_header.scss */
+/* line 79, ../sass/_header.scss */
 section.picker .set {
-  width: 21.875%;
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-@media screen and (max-width: 40em) {
-  /* line 78, ../sass/_header.scss */
-  section.picker .set {
-    width: 87.5%;
-  }
-}
-@media screen and (max-width: 50em) {
-  /* line 78, ../sass/_header.scss */
-  section.picker .set {
-    width: 43.75%;
-  }
-}
-/* line 102, ../sass/_header.scss */
+/* line 103, ../sass/_header.scss */
 section.picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 106, ../sass/_header.scss */
+/* line 107, ../sass/_header.scss */
 section.picker .set h1 {
   font-size: 2em;
 }
-/* line 110, ../sass/_header.scss */
+/* line 111, ../sass/_header.scss */
 section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium";
 }
-/* line 117, ../sass/_header.scss */
+/* line 118, ../sass/_header.scss */
 section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -327,7 +319,7 @@ section.picker .set ul.tracks li.track {
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
 }
-/* line 80, ../sass/lib/_mixins.scss */
+/* line 83, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:active, section.picker .set ul.tracks li.track.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -342,13 +334,13 @@ section.picker .set ul.tracks li.track:hover, section.picker .set ul.tracks li.t
   color: white;
   border-color: white;
 }
-/* line 123, ../sass/_header.scss */
+/* line 124, ../sass/_header.scss */
 section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
   margin-top: .25em;
 }
-/* line 129, ../sass/_header.scss */
+/* line 130, ../sass/_header.scss */
 section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;

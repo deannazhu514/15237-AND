@@ -54,6 +54,7 @@ section.picker {
     background: rgba(0,0,0,.75);
     width: 100%;
     height: 100%;
+    overflow: scroll;
     left: 0;
     padding: $gutter;
     visibility: hidden;
@@ -77,17 +78,17 @@ section.picker {
 
     .set {
         $vertical-padding: .75em;
-        width: $col;
+        // width: $col;
         padding-left: $gutter;
         display: inline-block;
         vertical-align: top;
         
         @media screen and (max-width: 40em) {
-            width: $col * 4;
+            // width: $col * 4;
         }
         
         @media screen and (max-width: 50em) {
-            width: $col * 2;
+            // width: $col * 2;
         }
         
         @media screen and (min-width: 54em) {

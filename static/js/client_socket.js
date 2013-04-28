@@ -157,9 +157,14 @@ function addToCurrPlaying(pid,tid) {
 
 function supdate(a) {
 	for (key in sounds) {
+		if (a[key] == undefined) {
+			
+			continue;
+		}
 		audio = a[key];
 		var tt = sounds[key];
 		var s = tt.source.mediaElement;
+		//console.log(a);
 		actual_vol = audio.volume;
 		if (playback_device) {
 			if (audio.volume > 1) {

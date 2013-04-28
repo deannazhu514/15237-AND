@@ -152,13 +152,10 @@ app.post("/login", function(request, response) {
 //login via device connect
 app.post("/login/:id", function(request, response) {
     var id = request.params.id;
-		console.log(id);
     var num = "";
     var session = request.body.session;
-		console.log(session);
     var deviceID = request.body.deviceID;
 		console.log("users:");
-		console.log(users);
     var success = (users[id] != undefined) && (session == users[id].session);
 		success = true;
     if (success) {
@@ -238,7 +235,6 @@ app.get("newRoom/:accountName", function(request, response) {
 });
 
 app.get("/socket.io/:fileName", function (req, res) {
-    console.log('hi');
     res.sendfile("node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js");
 });
 
@@ -447,6 +443,7 @@ function readjust_devices(room,socket) {
 
 function init_socket(socket,room) {
     socket.on("newtrack", function(id) {
+			console.log("id is " + id);
         audio_init(id);
         //console.log("audio is: ");
         //console.log(audio);
@@ -526,10 +523,23 @@ function init_socket(socket,room) {
 		if (socketRoomList[room].tracks == undefined) {
 			socketRoomList[room].tracks = tracks;
 			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
+			console.log('sup');
 		} else {
 			for (key in tracks) {
 				socketRoomList[room].tracks[key] = tracks[key];
 			}
+		}
+		for (key in socketRoomList[room].tracks) {
+			console.log("key is " + key);
 		}
 		readjust_devices(room, socket);
 	});
@@ -538,10 +548,11 @@ function init_socket(socket,room) {
 		if (socketRoomList[room].playlists == undefined) {
 			socketRoomList[room].playlists = playlists;
 		} else {
-			for (key in tracks) {
+			for (key in playlists) {
 				socketRoomList[room].playlists[key] = playlists[key];
 			}
 		}
+
 	});
 	socket.on("addToPlaying", function(pid,tid) {
 		socketRoomList[room].tracks[tid] = socketRoomList[room].playlists[pid][tid];

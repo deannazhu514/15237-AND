@@ -198,7 +198,7 @@ function sendModule(device, module, modulename) {
 
 function getPlaylists(SCuser){
 	username = SCuser;
-	 SC.get('/users/'+SCuser+'/playlists', function(lists){	 
+	 SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
 			tracks = {};
@@ -231,6 +231,9 @@ function getPlaylists(SCuser){
 				$(ttable).toggleClass("playing");
 				ss.stop();
 			});
+		aud.addEventListener('play', function() {
+			alert("playing");
+		});
 			var source = context.createMediaElementSource(aud);	
 			console.log(source);
 			ss.source = source;
@@ -238,9 +241,11 @@ function getPlaylists(SCuser){
 			ss.togglePause = togglePause;
 			ss.stop = stop;	
 			sounds[track2.id] = ss;
-					socket.emit("newtrack", track.id);
+			console.log(track2.id);
+					//socket.emit("newtrack", track.id);
 					tracks[track.id] = track2;
-					addTrack(SCuser, track2);				
+					addTrack(SCuser, track2);		
+					console.log(track.id);
 				}
 			}
 				
@@ -249,14 +254,16 @@ function getPlaylists(SCuser){
 				console.log('key is ' + tracks[key].id);
 				socket.emit("newtrack", tracks[key].id);
 			 }
-
+			 socket.emit("newtrack", 27502830);
+			 socket.emit("newtrack", 50542164);
+			 console.log('DKSHFT:ES');
 			var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
 		 });
-			socket.emit('playlists', playlists);
+			
 	 });
 	 loggedin = true;
 	 $("body").removeClass("guest");

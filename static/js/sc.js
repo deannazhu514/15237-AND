@@ -201,10 +201,10 @@ function sendModule(device, module, modulename) {
 
 function getPlaylists(SCuser){
 	username = SCuser;
-	 SC.get('/users/'+SCuser+'/playlists', function(lists){	 
+	 SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
-			tracks = {};
+			//tracks = {};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
@@ -232,32 +232,48 @@ function getPlaylists(SCuser){
 					aud.src = track2.url+stream_add;
 					aud.loop = false;
 					aud.autoPlay = false;
+
+					aud.onended = function(e) {
+						console.log("finished playing");
+						$(ttable).removeClass("playing");
+						ss.stop();
+					}
 					
+					aud.onpause = function(e) {
+						console.log("pause");
+					}
+					var foo = function() {
+						window.console.log("gr");
+					}
+					aud.addEventListener('play',foo);
+					console.log('hi');
+					aud.addEventListener('ended', foo);
+					aud.addEventListener('volumechange', function() {
+						window.console.log("afdk;lsjlhewa");
+					});
+					aud.addEventListener("canplay", function() {
+						alert("z");
+					});
+
 					var source = context.createMediaElementSource(aud);	
 				
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
 					ss.stop = stop;	
-					
 					sounds[track2.id] = ss;
-					socket.emit("newtrack", track.id);
 					tracks[track.id] = track2;
-					addTrack(SCuser, track2);				
+					addTrack(SCuser, track2);		
 				}
 			}
 								
 			socket.emit('tracklist', tracks);
-			for (key in tracks) {
-				console.log('key is ' + tracks[key].id);
-				socket.emit("newtrack", tracks[key].id);
-			}
-
 			var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
+
 		});
 		socket.emit('playlists', playlists);
 	 });
@@ -280,8 +296,6 @@ function stop(){
 function togglePause(){
 	this.playing ? this.stop() : this.play();
 };
-
-
 
 function addTrack(userID, track){
 	$.ajax({

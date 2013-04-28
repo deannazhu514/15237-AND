@@ -111,6 +111,7 @@ function client_socket_init() {
 		socket.emit("subscribe", username, h, w);
 		for (key in tracks) {
 			socket.emit("newtrack", tracks[key].id);
+			console.log("KEY IS: " +key);
 		}
 		console.log(username, h,w);
 		
@@ -127,12 +128,6 @@ function client_socket_init() {
 		send_tracks();
 	});
 	
-	console.log(tracks);
-	 for (key in tracks) {
-		console.log("SOCKET");
-		alert(key);
-		socket.emit("newtrack", tracks[key].id);
-	 }
 
 }
 function nupdate(a){	
@@ -159,6 +154,10 @@ function addToCurrPlaying(pid,tid) {
 
 function supdate(a) {
 	for (key in sounds) {
+		if (a[key] == undefined) {
+			
+			continue;
+		}
 		audio = a[key];
 		var ctrl = ctrls[key];
 		var track = trackList[key];
@@ -245,8 +244,6 @@ function send_tracks() {
 function change_volume(id, value) {
 	socket.emit("volume", id, value);
 	console.log('change volume');
-	console.log(typeof(id));
-	console.log(typeof(value));
 }
 
 function change_speed(id, value) {

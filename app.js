@@ -89,7 +89,6 @@ app.get("/static/js/:staticFilename", function (req, res) {
 
 //implement authentication later
 app.get("/login/:id", function(request, response) {
-		console.log('al;kfdjbjer');
     var id = request.params.id;
     var user = users[id];
     response.send({
@@ -120,7 +119,6 @@ app.get("/sessionCode/:id", function(request, response) {
 
 //login via SoundCloud
 app.post("/login", function(request, response) {
-    //console.log(request.body);
     var id = request.body.user;
     var deviceID = request.body.deviceID;
     var num = "";
@@ -150,13 +148,10 @@ app.post("/login", function(request, response) {
 //login via device connect
 app.post("/login/:id", function(request, response) {
     var id = request.params.id;
-		console.log(id);
     var num = "";
     var session = request.body.session;
-		console.log(session);
     var deviceID = request.body.deviceID;
 		console.log("users:");
-		console.log(users);
     var success = (users[id] != undefined) && (session == users[id].session);
 		success = true;
     if (success) {
@@ -201,7 +196,6 @@ app.post("/sendModule", function(request, response) {
 app.post("/tracks", function(request, response) {
     //console.log(request.body);
     var user = request.body.user;
-    console.log(user);
     var track = request.body.track;
     if (users[user] == undefined) {
         users[user] = {};
@@ -236,7 +230,6 @@ app.get("newRoom/:accountName", function(request, response) {
 });
 
 app.get("/socket.io/:fileName", function (req, res) {
-    console.log('hi');
     res.sendfile("node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js");
 });
 
@@ -282,7 +275,6 @@ io.sockets.on('connection', function (socket) {
             socketRoomList[room].size = socketRoomList[room].size + 1;
         }
         socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket };
-        console.log("room: " + room);
         socket.join(room);
         if (io.sockets.clients(room).length === 1) {
             socket.emit("playback");
@@ -331,11 +323,9 @@ function readjust_disconnect(room) {
 		templist[id] = socketRoomList[room].tracks[id];
 	}
 	for (key in socketRoomList[room]) {
-		console.log(key);
+		//console.log(key);
 	}
-	var len = Object.keys(templist).length
-	console.log('len is: ' + len);
-	console.log('hey' + io.sockets.clients(room).length);
+	var len = Object.keys(templist).length;
 	// below doesnt work because i have to get jquery to work with node
 	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
 	for (id in socketRoomList[room]) {
@@ -371,18 +361,15 @@ function readjust_disconnect(room) {
 		console.log('breakin');
 		break;
 		}
-	console.log(min);
 	socketRoomList[room][min].s.emit("add_track", temptrack);
 	//i++;
 	}
-	console.log('1ust');
 }
 
 function readjust_devices(room,socket) {
 	io.sockets.in(room).emit('remove_track');
 	var min = socket.id;
 	var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
-	console.log("size: "  + size);
 	for (id in socketRoomList[room]) {
 		var s = socketRoomList[room][id];
 		var tempsize = s.h * s.w;
@@ -399,8 +386,6 @@ function readjust_devices(room,socket) {
 		templist[id] = socketRoomList[room].tracks[id];
 	}
 	var len = Object.keys(templist).length
-	console.log('len is: ' + len);
-	console.log('hey' + io.sockets.clients(room).length);
 	// below doesnt work because i have to get jquery to work with node
 	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
 	for (id in socketRoomList[room]) {
@@ -424,7 +409,6 @@ function readjust_devices(room,socket) {
 			socketRoomList[room][id].s.emit("add_track", temptrack);
 			//i++;
 		}
-		console.log('id: ' + id);
 	}
 	console.log(i);
 	while (i < len) {
@@ -443,14 +427,15 @@ function readjust_devices(room,socket) {
 
 
 function init_socket(socket,room) {
-	socket.on("newtrack", function(id) {
-		audio_init(id);
-	});
-	socket.on("disconnect", function() {
-		console.log('NEW PLAYBACK');
-		if (io.sockets.clients(room).length >= 1) {
-			io.sockets.clients(room)[0].emit("playback");
-		}
+    socket.on("newtrack", function(id) {
+			console.log("REC NEW TRACK", id);
+        audio_init(id);
+    });
+    socket.on("disconnect", function() {
+        console.log('NEW PLAYBACK');
+        if (io.sockets.clients(room).length >= 1) {
+            io.sockets.clients(room)[0].emit("playback");
+        }
         delete socketRoomList[room][socket.id];
         console.log(socketRoomList[room][socket.id]);
         if (socketRoomList[room].size != undefined)
@@ -517,15 +502,18 @@ function init_socket(socket,room) {
 		io.sockets.in(room).emit("getmod", trackz, num);
 	});
 	socket.on("tracklist", function(tracks) {
-		console.log("RECEIVDTRACKLIST", socketRoomList[room]);
+		console.log("RECEIVDTRACKLIST");//, socketRoomList[room]);
 		if (socketRoomList[room].tracks.length == 0) {
 			socketRoomList[room].tracks = tracks;
-			console.log('sup', socketRoomList[room].tracks);
+			//console.log('sup', socketRoomList[room].tracks);
 		} else {
 			//console.log('sup1', tracks);
 			for (key in tracks) {
 				socketRoomList[room].tracks[key] = tracks[key];
 			}
+		}
+		for (key in socketRoomList[room].tracks) {
+			console.log("key is " + key);
 		}
 		readjust_devices(room, socket);
 	});
@@ -534,10 +522,11 @@ function init_socket(socket,room) {
 		if (socketRoomList[room].playlists == undefined) {
 			socketRoomList[room].playlists = playlists;
 		} else {
-			for (key in tracks) {
+			for (key in playlists) {
 				socketRoomList[room].playlists[key] = playlists[key];
 			}
 		}
+
 	});
 	socket.on("addToPlaying", function(pid,tid) {
 		socketRoomList[room].tracks[tid] = socketRoomList[room].playlists[pid][tid];
@@ -568,7 +557,9 @@ function audio_init(id) {
             start: new Date().getTime(),
             id: id
         }
-    }
+    } else {
+			console.log(id);
+		}
   /*
     audio[id].name = name;
 

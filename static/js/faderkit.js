@@ -108,6 +108,57 @@ $(document).ready(function(){
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        }]
+    },
+    {
+        "name" : "my fifth set",
+        "tracks" : [{
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
         }]
     }];
     
@@ -120,6 +171,7 @@ function makePalette(template) {
 		template.id = parseFloat(template.id);
 	}
 	
+<<<<<<< HEAD
 	console.log(typeof(template.id));
 	trackList[template.id] = {
 			playing: false,
@@ -129,6 +181,15 @@ function makePalette(template) {
 			time: 0,
 			setTime: false
 	};
+=======
+					trackList[template.id] = {
+						playing: false,
+						pbr: 1.0,
+						volume: 1.0,
+						time: 0,
+						setTime: false
+					};
+>>>>>>> aca67639e36c97ea45bb43bb911be9f278207e6e
     // Container for all controls and information for a single track
     var track    = $("<li>").addClass("track"),
         header   = $("<header>"),
@@ -164,7 +225,6 @@ function makePalette(template) {
 }
 
 function makeTurntable2(artSrc, duration, tid) {
-	console.log(typeof(tid));
     var turntable = $("<div>").addClass("turntable"),
         scrubber   = $("<div>").addClass("scrubber"),
         indicator1 = $("<div>").attr({
@@ -239,7 +299,9 @@ function makeTurntable(artSrc, duration, tid) {
 		var cursound = sounds[tempid];	
 		console.log(tempid);
 		//console.log(typeof(tempid));
-		if (cursound === undefined && (!nonstream)) {
+
+		
+		/*if (cursound === undefined && (!nonstream)) {
 			console.log("hehehe");
 			var sound = {};
 			var audio = new Audio();
@@ -284,16 +346,15 @@ function makeTurntable(artSrc, duration, tid) {
 				}, 1000);
 
 			}		
-		} else {	
+		} else {	*/
     		volumeGlow(0, turntable);
 			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
 			} else {
 				socket.emit('play',tid);
 			}
-			console.log(cursound.source.mediaElement.paused);
 			$(this).toggleClass("playing");	
-		}
+		//}
 	});
 	return $(turntable);
 }
@@ -338,10 +399,8 @@ function makeControl (type, name, orientation,
 	}
 	
 	function updateControls() {
-        console.log("CONTROLCHANGING " + controlChanging);
         var val = $(control).val(),
         	id  = $(control).parent().attr("id");
-				console.log("NAME IS " + name);
         if (name === "volume") {
         	//s.volume = val/100;
         	change_volume(id,val/100);
@@ -354,11 +413,9 @@ function makeControl (type, name, orientation,
         	change_speed(id,val/50);
         	changingPBR = true;
         	//s.playbackRate = val/50;
-			console.log("changing pbr: " + val);
         } else if (name === "playback") {
         	//s.currentTime = (ss.duration*val/100);					
         	change_time(id, duration*val/100);
-        	console.log("DURATION IS: " + duration);
         	$(value).html("position:"+duration*val/100);
         }
 	}
@@ -373,43 +430,15 @@ function makeControl (type, name, orientation,
 				updateControls();
 
     });
-    /*
-    $(control).click(function(){
-        if (controlChanging) {
-            updateControls();
-        }
-    });*/
     $(control).mouseup(function() {
 			controlChanging = false;
 			updateControls();
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        //console.log("MOUSEUP " + controlChanging);
         changingVol = changingPBR = false;
 				
     });
-		
-		/*
-		var fff = function(id,v) {
-			id.clearInterval();
-			
-		};
-		var iid = setInterval(fff(tid, $(value)), 1000);
-		
-		if (name === 'playback') {
-					
-				var func = function(song, v) {
-					v.html(Math.floor(song.currentTime/60)+":"+Math.floor(song.currentTime%60));
-					console.log('awk');
-				};
-				if (trackList[tid] != undefined && !trackList[tid].setTime) {
-					console.log('yo');
-					window.setInterval(func(sounds[tid],$(value)), 100);
-					trackList[tid].setTime = true;
-				}
-		} 
-		*/
 		
 	if (ctrls[tid] === undefined) {
 			ctrls[tid] = {};
@@ -432,26 +461,6 @@ function makeControl (type, name, orientation,
 		$(control).data('val2', $(value));
 		ctrls[tid]['pb'] = $(control);
 	}
-	
-	/*	
-    var drag = null;
-    $(handle).mousedown(function(event){
-        drag = $(this).parents(".palette");
-    });
-    
-    $(document).mousemove(function(event) {
-        if (drag) {
-            drag.offset({
-                top:  Math.floor(event.pageY / 100) * 100,
-                left: Math.floor(event.pageX / ($(window).height() / 4)) * ($(window).height() / 4)
-            });
-        } 
-    });    
-    
-    $(document).mouseup(function(event){
-        drag = null;
-    });
-	*/	
 	
     if (name === 'playback') {
         $(value).html("0:00");
@@ -491,4 +500,7 @@ function makePicker(sets) {
         section.append(h1, ul);
         picker.append(section);
     }
+    // picker.css({
+    //     width: sets.length * 25 + "%"
+    // });
 }

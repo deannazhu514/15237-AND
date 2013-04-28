@@ -29,7 +29,7 @@
         <section class="menu">
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
-            <input type="button" value="Autoplay On/Off" class="audio-toggle" id="autoplay">
+            <input type="button" value="Autoplay On/Off" class="autoplay" id="autoplay">
             <!-- <input type="button" value="Next Track" class="audio-toggle" id="next"> -->	
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
@@ -45,22 +45,13 @@
     </header>
     <section class="picker"></section>
     <form name="myform" action="javascript:connectDevice()" class="login-form">
-        <ul>
-            <li>
-                <label>Session Key</label>
+        <fieldset>
+            <input type="button" class="panel-button" value="Connect with SoundCloud" id="loginbut">
+        </fieldset>
+        <fieldset class="login">
                 <input id="username" name="Username" type="tel" placeholder="Session Key" class="text">
-            </li>
-            <!-- <li>
-                <label>Session ID:</label>
-                <input id="session" name="Session" type="text">
-            </li> -->
-            <li>
-                <input type="submit" id="addbut" class="panel-button" value="Add a Device">
-            </li>
-            <li>
-                <input type="button" class="panel-button" value="Connect with SoundCloud" id="loginbut">
-            </li>
-        </ul>
+                <input type="submit" id="addbut" class="panel-button" value="Add this Device">
+        </fieldset>
     </form>
     <script type="text/javascript">
         $(document).ready(function() {

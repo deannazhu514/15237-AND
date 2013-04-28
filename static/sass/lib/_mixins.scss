@@ -40,10 +40,10 @@
     @include button-active;
     
     &:hover, &:active {
-        text-shadow: 0 0 .5em $active;
         border-left: 1px solid $active;
         color: $active;
         border-color: $active;
+        @include text-glow;
     }
 }
 
@@ -59,7 +59,7 @@
     opacity: .75;
     
     &:hover, &:active {
-        background: none;
+        background-color: transparent;
         box-shadow: none;
         opacity: 1;
     }
@@ -75,6 +75,10 @@
 
 @mixin glow {
     box-shadow: 0 0 .75em .125em rgba(255,255,255,.75);
+}
+
+@mixin text-glow {
+    text-shadow: 0 0 .5em $active;
 }
 
 @mixin button-active {

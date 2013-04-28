@@ -63,7 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 37, ../sass/lib/_type.scss */
+/* line 39, ../sass/lib/_type.scss */
 body {
   color: #cccccc;
   font-family: "DIN Next W01 Regular";
@@ -103,7 +103,7 @@ input[type=button], input[type=submit] {
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
 }
-/* line 83, ../sass/lib/_mixins.scss */
+/* line 87, ../sass/lib/_mixins.scss */
 input[type=button]:active, input[type=button].touch, input[type=submit]:active, input[type=submit].touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -127,18 +127,19 @@ input.text {
   border-bottom: #cccccc 2pt solid;
   font-size: 1em;
   font-style: italic;
+  font-family: "DIN Next W01 Regular";
 }
-/* line 34, ../sass/_main.scss */
+/* line 35, ../sass/_main.scss */
 input.text:focus, input.text:hover, input.text:active {
-  background: #888888;
   border-color: white;
+  color: white;
 }
-/* line 39, ../sass/_main.scss */
+/* line 40, ../sass/_main.scss */
 input.text:focus {
-  box-shadow: 0 0 0.75em 0.125em rgba(255, 255, 255, 0.75);
+  text-shadow: 0 0 0.5em white;
 }
 
-/* line 46, ../sass/_main.scss */
+/* line 47, ../sass/_main.scss */
 header section#add-device {
   display: none;
   position: fixed;
@@ -147,7 +148,7 @@ header section#add-device {
   top: 25%;
   left: 25%;
 }
-/* line 54, ../sass/_main.scss */
+/* line 55, ../sass/_main.scss */
 header section#add-device.open {
   display: block;
 }
@@ -159,17 +160,20 @@ body > header {
 }
 /* line 5, ../sass/_header.scss */
 body > header h1 {
-  display: none;
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 2em;
+  font-family: "DIN Next W01 Bold";
 }
-/* line 11, ../sass/_header.scss */
+/* line 12, ../sass/_header.scss */
 body > header section.menu input {
   margin-left: 1em;
 }
-/* line 14, ../sass/_header.scss */
+/* line 15, ../sass/_header.scss */
 body > header section.menu input:nth-of-type(1) {
   margin-left: .5em;
 }
-/* line 19, ../sass/_header.scss */
+/* line 20, ../sass/_header.scss */
 body > header section.menu .picker {
   background-image: url("../images/menu-icon.png") !important;
   text-indent: -9999em;
@@ -185,7 +189,7 @@ body > header section.menu .picker {
   opacity: .75;
   padding-left: .5em;
 }
-/* line 83, ../sass/lib/_mixins.scss */
+/* line 87, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:active, body > header section.menu .picker.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -195,11 +199,11 @@ body > header section.menu .picker:active, body > header section.menu .picker.to
 }
 /* line 61, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:hover, body > header section.menu .picker:active {
-  background: none;
+  background-color: transparent;
   box-shadow: none;
   opacity: 1;
 }
-/* line 25, ../sass/_header.scss */
+/* line 26, ../sass/_header.scss */
 body > header section.menu .audio-toggle {
   background-image: url("../images/audio-off.png") !important;
   text-indent: -9999em;
@@ -215,7 +219,7 @@ body > header section.menu .audio-toggle {
   opacity: .75;
   float: right;
 }
-/* line 83, ../sass/lib/_mixins.scss */
+/* line 87, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:active, body > header section.menu .audio-toggle.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -225,32 +229,34 @@ body > header section.menu .audio-toggle:active, body > header section.menu .aud
 }
 /* line 61, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:hover, body > header section.menu .audio-toggle:active {
-  background: none;
+  background-color: transparent;
   box-shadow: none;
   opacity: 1;
 }
-/* line 30, ../sass/_header.scss */
+/* line 31, ../sass/_header.scss */
 body > header section.menu .audio-toggle.on {
   background-image: url("../images/audio-on.png") !important;
 }
-/* line 36, ../sass/_header.scss */
+/* line 37, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 39, ../sass/_header.scss */
+/* line 40, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 44, ../sass/_header.scss */
+/* line 45, ../sass/_header.scss */
 body > header #username {
   line-height: 1.5em;
+  position: relative;
+  top: -1em;
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
   font-family: "DIN Next W01 Medium";
 }
 
-/* line 53, ../sass/_header.scss */
+/* line 54, ../sass/_header.scss */
 section.picker {
   background: rgba(0, 0, 0, 0.75);
   width: 100%;
@@ -277,32 +283,32 @@ section.picker {
   -o-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-/* line 72, ../sass/_header.scss */
+/* line 73, ../sass/_header.scss */
 section.picker.open {
   visibility: visible;
   top: 0;
   opacity: 1;
 }
-/* line 79, ../sass/_header.scss */
+/* line 80, ../sass/_header.scss */
 section.picker .set {
   padding-left: 3.125%;
   display: inline-block;
   vertical-align: top;
 }
-/* line 103, ../sass/_header.scss */
+/* line 104, ../sass/_header.scss */
 section.picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 107, ../sass/_header.scss */
+/* line 108, ../sass/_header.scss */
 section.picker .set h1 {
   font-size: 2em;
 }
-/* line 111, ../sass/_header.scss */
+/* line 112, ../sass/_header.scss */
 section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium";
 }
-/* line 118, ../sass/_header.scss */
+/* line 119, ../sass/_header.scss */
 section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -319,7 +325,7 @@ section.picker .set ul.tracks li.track {
   -o-transition: all 0.125s linear;
   transition: all 0.125s linear;
 }
-/* line 83, ../sass/lib/_mixins.scss */
+/* line 87, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:active, section.picker .set ul.tracks li.track.touch {
   -webkit-transform: scale(0.95);
   -moz-transform: scale(0.95);
@@ -329,18 +335,18 @@ section.picker .set ul.tracks li.track:active, section.picker .set ul.tracks li.
 }
 /* line 42, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:hover, section.picker .set ul.tracks li.track:active {
-  text-shadow: 0 0 0.5em white;
   border-left: 1px solid white;
   color: white;
   border-color: white;
+  text-shadow: 0 0 0.5em white;
 }
-/* line 124, ../sass/_header.scss */
+/* line 125, ../sass/_header.scss */
 section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
   margin-top: .25em;
 }
-/* line 130, ../sass/_header.scss */
+/* line 131, ../sass/_header.scss */
 section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -348,20 +354,61 @@ section.picker .set ul.tracks li.track author {
   font-family: "DIN Next W01 Medium";
 }
 
-/* line 3, ../sass/_guest.scss */
-.guest header h1 {
+/* line 1, ../sass/_guest.scss */
+body.guest {
+  font-size: 1.5em;
+  margin-top: 25%;
+}
+@media screen and (min-width: 60em) {
+  /* line 1, ../sass/_guest.scss */
+  body.guest {
+    font-size: 2em;
+  }
+}
+@media screen and (max-width: 48em) {
+  /* line 1, ../sass/_guest.scss */
+  body.guest {
+    font-size: 2em;
+    margin-left: 6.25%;
+  }
+}
+@media screen and (min-width: 48em) {
+  /* line 14, ../sass/_guest.scss */
+  body.guest > header {
+    float: left;
+    text-align: right;
+    width: 43.75%;
+  }
+}
+/* line 21, ../sass/_guest.scss */
+body.guest > header h1 {
   display: block;
 }
-/* line 8, ../sass/_guest.scss */
-.guest #controls, .guest header, .guest .tracks {
+/* line 26, ../sass/_guest.scss */
+body.guest #controls, body.guest .menu, body.guest .tracks {
   display: none;
 }
-/* line 12, ../sass/_guest.scss */
-.guest form {
+/* line 30, ../sass/_guest.scss */
+body.guest form {
   width: 100%;
-  text-align: center;
   position: relative;
-  top: 40%;
+}
+@media screen and (min-width: 48em) {
+  /* line 30, ../sass/_guest.scss */
+  body.guest form {
+    float: right;
+    width: 43.75%;
+    right: 9.375%;
+  }
+}
+/* line 40, ../sass/_guest.scss */
+body.guest form fieldset {
+  margin-bottom: 2em;
+}
+/* line 43, ../sass/_guest.scss */
+body.guest form fieldset input {
+  display: block;
+  margin-bottom: 1em;
 }
 
 @-webkit-keyframes play-spin {

@@ -3,7 +3,8 @@ body > header {
     z-index: 300;
     
     h1 {
-        display: none;
+        @include small-caps(2em);
+        font-family: $bold;
     }
 
     section.menu {
@@ -43,8 +44,8 @@ body > header {
 
     #username {
         line-height: 1.5em;
-        // position: relative;
-        // top: -3.75em;
+        position: relative;
+        top: -1em;
         @include small-caps(.75em);
         font-family: $medium;
     }

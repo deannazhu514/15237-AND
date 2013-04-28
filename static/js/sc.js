@@ -67,7 +67,8 @@ function connect(){
 				$("#username").html(me.full_name);
 				getPlaylists(me.id);
 				client_socket_init();
-				console.log('called init');
+				console.log("calling event handlers init");
+				eventHandlersInit();
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
@@ -76,6 +77,22 @@ function connect(){
 			}
 	  });
 	});
+}
+
+function eventHandlersInit() {
+	for (key in sounds) {
+		var foo = function() {
+			window.console.log("gr");
+		}
+		var aud = sounds[key].source.mediaElement;
+		console.log(aud);
+					aud.addEventListener('play',foo);
+					console.log('hi');
+					aud.addEventListener('ended', foo);
+				aud.addEventListener('volumechange', function() {
+					window.console.log("afdk;lsjlhewa");
+				});
+	}
 }
 
 function connectDevice(){	
@@ -242,6 +259,7 @@ function getPlaylists(SCuser){
 					var foo = function() {
 						window.console.log("gr");
 					}
+					/*
 					aud.addEventListener('play',foo);
 					console.log('hi');
 					aud.addEventListener('ended', foo);
@@ -250,9 +268,9 @@ function getPlaylists(SCuser){
 				});
 				aud.addEventListener("canplay", function() {
 					alert("z");
-				});
+				});*/
 					var source = context.createMediaElementSource(aud);	
-					//console.log(source);
+					console.log(source);
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;

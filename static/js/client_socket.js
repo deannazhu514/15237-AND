@@ -102,7 +102,16 @@ function client_socket_init() {
 
 	socket.on('add_track', function(track) {
 		//console.log('adding track ' + track);
-		makePalette(track);
+	if (typeof(track.id) === 'string') {
+		track.id = parseFloat(track.id);
+	}
+		var elt = makePalette(track);
+		console.log(trackList[track.id].playing);
+		if (!sounds[track.id].source.mediaElement.paused) {
+			elt.toggleClass("playing", true);
+			console.log('hidfdfd');
+		}
+		//console.log(elt);
 	});
 	socket.on("requestInit", function() {
 		var h = window.innerHeight;
@@ -224,6 +233,13 @@ function supdate(a) {
 			//console.log("can't find in sound", key);
 		}
 	}
+	$(".turntable").each(function () {
+		if (trackList[$(this).attr('id')].playing) {
+			$(this).toggleClass('playing', true);
+		} else {
+			$(this).toggleClass('playing', false);
+		}
+	});
 	//socket.emit('tracklist', $.map(trackList, function (value, key) { return key; }));
 }
 

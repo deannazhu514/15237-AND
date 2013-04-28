@@ -210,6 +210,7 @@ function makePalette(template) {
         track.append(controls);
     }
     $("ul#tracks").append(track);
+		return element;
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -232,6 +233,7 @@ function makeTurntable2(artSrc, duration, tid) {
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
+	
 	$(turntable).click(function(){
     	var tempid = tid;
     	var ttable = this;
@@ -241,10 +243,13 @@ function makeTurntable2(artSrc, duration, tid) {
 		
 		if (trackList[tempid].playing) {
 			socket.emit('pause',tid);
+			$(this).toggleClass("playing",false);
 		} else {
 			socket.emit('play',tid);
+			$(this).toggleClass("playing",true);
 		}
-		$(this).toggleClass("playing");	
+		
+	 //$(this).toggleClass("playing");	
 	
 	}); 
 	return $(turntable);
@@ -335,10 +340,12 @@ function makeTurntable(artSrc, duration, tid) {
     		volumeGlow(0, turntable);
 			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
+				$(this).toggleClass("playing", false);	
 			} else {
 				socket.emit('play',tid);
+				$(this).toggleClass("playing", true);	
 			}
-			$(this).toggleClass("playing");	
+			//$(this).toggleClass("playing");	
 		//}
 	});
 	return $(turntable);

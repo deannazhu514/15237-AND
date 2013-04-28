@@ -48,7 +48,3 @@ body {
     letter-spacing: .125em;
     font-size: $size;
 }
-
-abbr {
-    @include small-caps(.75em);
-}

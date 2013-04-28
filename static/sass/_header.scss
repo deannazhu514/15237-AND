@@ -5,7 +5,6 @@ body > header {
     h1 {
         @include small-caps(2em);
         font-family: $bold;
-        display: none;
     }
 
     section.menu {

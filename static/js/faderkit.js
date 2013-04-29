@@ -606,6 +606,6 @@ function makePicker(sets) {
         picker.append(section);
     }
     picker.css({
-        width: sets.length * 25 + "%"
+        width: Math.max(sets.length * 25, 100) + "%"
     });
 }

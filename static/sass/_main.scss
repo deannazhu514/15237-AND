@@ -61,3 +61,28 @@ header {
         }
     }
 }
+
+body {
+    ::-webkit-scrollbar {
+        position: relative;
+        width: .5em;
+        
+        &:hover {
+            width: $gutter;
+        }
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-image: url('../images/scrolltrack-bg.png');
+        background-repeat: repeat-y;
+        background-position: center;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: $inactive;
+        
+        &:hover, &:active {
+            background: $active;
+        }
+    }
+}

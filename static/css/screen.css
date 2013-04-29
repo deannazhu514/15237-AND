@@ -170,12 +170,35 @@ header section#add-device.open {
   display: block;
 }
 
-/* line 1, ../sass/_picker.scss */
+/* line 66, ../sass/_main.scss */
+body ::-webkit-scrollbar {
+  position: relative;
+  width: .5em;
+}
+/* line 70, ../sass/_main.scss */
+body ::-webkit-scrollbar:hover {
+  width: 3.125%;
+}
+/* line 75, ../sass/_main.scss */
+body ::-webkit-scrollbar-track {
+  background-image: url("../images/scrolltrack-bg.png");
+  background-repeat: repeat-y;
+  background-position: center;
+}
+/* line 81, ../sass/_main.scss */
+body ::-webkit-scrollbar-thumb {
+  background: #888888;
+}
+/* line 84, ../sass/_main.scss */
+body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
+  background: white;
+}
+
+/* line 17, ../sass/_picker.scss */
 section.picker {
   background: rgba(0, 0, 0, 0.75);
   width: 100%;
   height: 100%;
-  overflow: hidden;
   left: 0;
   padding: 0 3.125%;
   visibility: hidden;
@@ -202,7 +225,7 @@ section.picker {
   -o-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-/* line 20, ../sass/_picker.scss */
+/* line 36, ../sass/_picker.scss */
 section.picker.open {
   visibility: visible;
   -webkit-transform: translateY(-4em) perspective(36em) rotateX(0deg) translateY(4em);
@@ -212,7 +235,7 @@ section.picker.open {
   transform: translateY(-4em) perspective(36em) rotateX(0deg) translateY(4em);
   opacity: 1;
 }
-/* line 26, ../sass/_picker.scss */
+/* line 42, ../sass/_picker.scss */
 section.picker .set {
   width: 21.875%;
   display: inline-block;
@@ -222,38 +245,38 @@ section.picker .set {
   padding: 8em 0 0em 3.125%;
   position: relative;
 }
-/* line 53, ../sass/_picker.scss */
+/* line 69, ../sass/_picker.scss */
 section.picker .set:nth-child(1) {
   padding-left: 0;
 }
-/* line 57, ../sass/_picker.scss */
+/* line 73, ../sass/_picker.scss */
 section.picker .set h1 {
   font-size: 2em;
 }
-/* line 61, ../sass/_picker.scss */
+/* line 77, ../sass/_picker.scss */
 section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium";
-  color: white;
-  opacity: .75;
   background-image: url("../images/play-icon.png");
   background-size: 1.5rem 1.5rem;
   background-repeat: no-repeat;
-  padding-left: 2.5rem;
-  margin-left: -2.5rem;
+  padding-left: 2rem;
+  margin-left: -2rem;
   cursor: pointer;
+  color: white;
+  opacity: .75;
 }
-/* line 74, ../sass/_picker.scss */
+/* line 83, ../sass/_picker.scss */
 section.picker .set > h1:hover {
   opacity: 1;
   text-shadow: 0 0 0.5em white;
 }
-/* line 90, ../sass/_picker.scss */
+/* line 99, ../sass/_picker.scss */
 section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
   padding-top: .5rem;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.875em;
   border: none;
   background: transparent;
   box-shadow: none;
@@ -272,6 +295,15 @@ section.picker .set ul.tracks li.track {
   -moz-transition-timing-function: linear;
   -o-transition-timing-function: linear;
   transition-timing-function: linear;
+  background-image: url("../images/play-icon.png");
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  padding-left: 2rem;
+  margin-left: -2rem;
+  cursor: pointer;
+  color: white;
+  opacity: .75;
+  background-image: none;
 }
 /* line 85, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:active, section.picker .set ul.tracks li.track.touch {
@@ -287,13 +319,19 @@ section.picker .set ul.tracks li.track:hover, section.picker .set ul.tracks li.t
   border-color: white;
   text-shadow: 0 0 0.5em white;
 }
-/* line 97, ../sass/_picker.scss */
+/* line 108, ../sass/_picker.scss */
 section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
-  margin-top: .25rem;
+  margin-top: .5rem;
 }
-/* line 104, ../sass/_picker.scss */
+/* line 114, ../sass/_picker.scss */
+section.picker .set ul.tracks li.track:hover {
+  opacity: 1;
+  background-image: url("../images/play-icon.png");
+  background-position: 0 1.7rem;
+}
+/* line 120, ../sass/_picker.scss */
 section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -301,7 +339,7 @@ section.picker .set ul.tracks li.track author {
   font-family: "DIN Next W01 Medium";
   display: block;
 }
-/* line 110, ../sass/_picker.scss */
+/* line 126, ../sass/_picker.scss */
 section.picker .set ul.tracks li.track:last-child {
   margin-bottom: 16em;
 }

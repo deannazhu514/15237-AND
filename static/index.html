@@ -29,7 +29,7 @@
         <section class="menu">
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
-            <input type="button" value="Autoplay On/Off" class="autoplay" id="autoplay">
+            <input type="button" value="Autoplay On" class="autoplay" id="autoplay">
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <section id="add-device">
@@ -69,6 +69,11 @@
 
 			document.getElementById("autoplay").onclick = function(){
 				autoplay = !autoplay;
+				if (autoplay) {
+					$(this).val("Autoplay On");
+				} else {
+					$(this).val("Autoplay Off");
+				}
 				console.log(autoplay);
 			};
     </script>

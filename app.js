@@ -485,10 +485,12 @@ function init_socket(socket,room) {
 		var next;
 		if (cur != songList.length && cur != -1) {
 			next = songList[cur+1];
-			
 			audio[next].play = true;
-			io.sockets.in(room).volatile.emit("update", audio);
+			console.log(socketRoomList[room].tracks[id]);
+			io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
+			io.sockets.in(room).volatile.emit("update", audio);	
 		}
+		
 	});
 		
 	socket.on("loop_off", function(id) { //unused
@@ -564,14 +566,10 @@ function audio_init(id) {
             id: id
         }
     } else {
-			console.log(id);
+		console.log(id);
 	}
   
-    //audio[id].name = name;
-
 	  songList.push(""+id);
-	  //console.log(songList);
-	//n = songList.length;
 }
 
 

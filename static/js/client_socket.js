@@ -102,17 +102,16 @@ function client_socket_init() {
 	});
 
 	socket.on('add_track', function(track) {
-		//console.log('adding track ' + track);
-	if (typeof(track.id) === 'string') {
-		track.id = parseFloat(track.id);
-	}
+		if (typeof(track.id) === 'string') {
+			track.id = parseFloat(track.id);
+		}
 		var elt = makePalette(track);
-		console.log(trackList[track.id].playing);
+		//console.log(trackList[track.id].playing);
 		if (!sounds[track.id].source.mediaElement.paused) {
 			elt.toggleClass("playing", true);
 			console.log('hidfdfd');
 		}
-		//console.log(elt);
+		console.log(elt);
 	});
 	socket.on("requestInit", function() {
 		var h = window.innerHeight;
@@ -225,7 +224,8 @@ function supdate(a) {
 					s.currentTime = 0;
 				}
 				if (autoPlay) {
-					socket.emit('next', key);		
+					$('#'+key).parent().remove();
+					socket.emit('next', key);			
 				} else {
 				}
 			} else if (track.playing && s.paused) {

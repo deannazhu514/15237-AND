@@ -155,7 +155,6 @@ function addToCurrPlaying(pid,tid) {
 function supdate(a) {
 	for (key in sounds) {
 		if (a[key] == undefined) {
-			
 			continue;
 		}
 		audio = a[key];
@@ -203,23 +202,30 @@ function supdate(a) {
 				var val2 = tempobj.data('val2');
 				tempfnc(val, val2, audio.speed);
 			}*/
-	
 			track.playing = audio.play;
 			track.volume = audio.volume;
 			track.pbr = audio.speed;
 			if (s.ended) {
-				console.log("finished");
-				if (autoPlay) {
-					
+				tt.stop();
+						
+				if (track.playing) {
+					socket.emit('pause',key);
+					$('#'+key).removeClass("playing");
 				} else {
+					console.log("was paused");
 					s.currentTime = 0;
-					tt.togglePause();
+				}
+				if (autoPlay) {
+						
+				} else {
 				}
 			} else if (track.playing && s.paused) {
 				tt.togglePause();
 			} else if (!track.playing && !s.paused){
 				tt.togglePause();
-			} 
+			} else {
+				//console.log(s, tt);
+			}
 		} else {
 			//console.log("can't find in sound", key);
 		}
@@ -232,7 +238,6 @@ function sups (){
 }
 
 function togglePlayback() {
-	console.log("playbacktoggle");
 	playback_device = !playback_device;
 }
 

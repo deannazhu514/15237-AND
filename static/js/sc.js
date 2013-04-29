@@ -233,11 +233,11 @@ function getPlaylists(SCuser){
 					aud.loop = false;
 					aud.autoPlay = false;
 
-					aud.onended = function(e) {
+					/*aud.onended = function(e) {
 						console.log("finished playing");
 						$(ttable).removeClass("playing");
 						ss.stop();
-					}
+					}*/
 					
 					aud.onpause = function(e) {
 						console.log("pause");
@@ -245,9 +245,12 @@ function getPlaylists(SCuser){
 					var foo = function() {
 						window.console.log("gr");
 					}
+					
 					aud.addEventListener('play',foo);
 					console.log('hi');
-					aud.addEventListener('ended', foo);
+					aud.addEventListener('ended', function() {
+											ended(track2.id)
+								}, false);
 					aud.addEventListener('volumechange', function() {
 						window.console.log("afdk;lsjlhewa");
 					});
@@ -256,7 +259,6 @@ function getPlaylists(SCuser){
 					});
 
 					var source = context.createMediaElementSource(aud);	
-				
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
@@ -282,13 +284,21 @@ function getPlaylists(SCuser){
 	 $("body").removeClass("guest");
 }
 
+
+function ended(id) {
+	console.log("ended!", id);
+	$('.turntable #'+id).removeClass("playing");
+}
+
+
 function play(){
-	this.source.loop = true;
+	this.source.loop = false;
 	this.source.mediaElement.play();
 	this.playing = true;
 }
 
 function stop(){
+	//console.log("pause");
 	this.source.mediaElement.pause();
 	this.playing = false;
 };

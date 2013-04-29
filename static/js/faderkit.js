@@ -166,7 +166,6 @@ $(document).ready(function(){
 })
             
 function makePalette(template) {
-	
 	if (typeof(template.id) === 'string') {
 		template.id = parseFloat(template.id);
 	}
@@ -232,6 +231,7 @@ function makeTurntable2(artSrc, duration, tid) {
             class: "art"
         });
         
+		
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
@@ -289,8 +289,6 @@ function makeTurntable(artSrc, duration, tid) {
 		var ttable = this;
 		var cursound = sounds[tempid];	
 		console.log(tempid);
-		//console.log(typeof(tempid));
-
 		
 		/*if (cursound === undefined && (!nonstream)) {
 			console.log("hehehe");
@@ -337,8 +335,11 @@ function makeTurntable(artSrc, duration, tid) {
 				}, 1000);
 
 			}		
-		} else {	*/
-    		volumeGlow(0, turntable);
+		} else {	
+		*/
+		
+    		volumeGlow(5, turntable);
+			console.log(trackList[tempid].playing);
 			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
 			} else {
@@ -349,6 +350,7 @@ function makeTurntable(artSrc, duration, tid) {
 	});
 	return $(turntable);
 }
+
 
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
@@ -396,7 +398,7 @@ function makeControl (type, name, orientation,
         	//s.volume = val/100;
         	change_volume(id,val/100);
         	$(value).html("volume:"+val);
-					console.log("changing vol: " + val);
+			//console.log("changing vol: " + val);
         	changingVol = true;
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
@@ -427,13 +429,12 @@ function makeControl (type, name, orientation,
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        changingVol = changingPBR = false;
-				
+        changingVol = changingPBR = false;	
     });
 		
 	if (ctrls[tid] === undefined) {
-			ctrls[tid] = {};
-		}
+		ctrls[tid] = {};
+	}
 	if (name === 'volume') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));

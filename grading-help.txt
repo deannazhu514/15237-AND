@@ -1,0 +1,21 @@
+15237 term project
+
+Antonio Ono aono
+Deanna Zhu dwz
+Norbert Chu nrchu
+
+Techologies used:
+	-javascript (static/js folder)
+	-HTML (static/index.html)
+	-CSS (static/css folder)
+	-DOM manipulation 
+	-jQuery
+	-AJAX client (sc.js, app.js)
+	-AJAX server (sc.js)
+	-node.js
+	-websockets
+	-client-side caching/localStorage (ishhhh)
+	-HTML5 Media
+	-SoundCloud API
+	
+Design process: design process folder

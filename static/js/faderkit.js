@@ -93,6 +93,42 @@ $(document).ready(function(){
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
         }]
     },
     {
@@ -482,10 +518,14 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
-        var set     = sets[i].tracks,
-            section = $("<section>").addClass("set"),
-            ul      = $("<ul>").addClass("tracks"),
-            h1      = $("<h1>").html(sets[i].name);
+        var set        = sets[i].tracks,
+            section    = $("<section>").addClass("set"),
+            ul         = $("<ul>").addClass("tracks"),
+            h1         = $("<h1>").html(sets[i].name),
+            playButton = $("<input>").attr({
+                type: "button",
+                class: "play-set"
+            })
             section.append(h1, ul);
            
         for (var j = 0; j < set.length; j++) {

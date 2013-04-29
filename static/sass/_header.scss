@@ -36,6 +36,12 @@ body > header {
                 background-image: url('../images/audio-on.png') !important;
             }
         }
+        
+        .autoplay {
+            background-image: url('../images/play-icon.png') !important;
+            @include icon-button;
+            float: right;
+        }
     }
 
     section#settings {

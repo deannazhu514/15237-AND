@@ -408,15 +408,53 @@ body > header section.menu .audio-toggle:hover, body > header section.menu .audi
 body > header section.menu .audio-toggle.on {
   background-image: url("../images/audio-on.png") !important;
 }
-/* line 41, ../sass/_header.scss */
+/* line 40, ../sass/_header.scss */
+body > header section.menu .autoplay {
+  background-image: url("../images/play-icon.png") !important;
+  text-indent: -9999em;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2.5em;
+  border: none;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+  opacity: .75;
+  float: right;
+}
+/* line 85, ../sass/lib/_mixins.scss */
+body > header section.menu .autoplay:active, body > header section.menu .autoplay.touch {
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
+}
+/* line 57, ../sass/lib/_mixins.scss */
+body > header section.menu .autoplay:hover, body > header section.menu .autoplay:active {
+  background-color: transparent;
+  box-shadow: none;
+  opacity: 1;
+}
+/* line 47, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 44, ../sass/_header.scss */
+/* line 50, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 49, ../sass/_header.scss */
+/* line 55, ../sass/_header.scss */
 body > header #username {
   line-height: 1.5em;
   position: relative;

@@ -130,9 +130,8 @@ function client_socket_init() {
 		console.log(username, h,w);
 		//socket.emit('playlists', playlists);
 		eventHandlersInit();
-		constructSetList();
 		$(document).ready(function(){
-			makePicker(setlist);
+			// constructSetList(playlists);
 		});
 	});
 
@@ -291,4 +290,3 @@ function change_speed(id, value) {
 function change_time(id, value) {
 	socket.emit("change_time", id, value);
 }
-

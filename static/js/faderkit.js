@@ -20,21 +20,16 @@ function cloneObject(source) {
     for (i in source) {
         if (typeof source[i] == 'source') {
             this[i] = new cloneObject(source[i]);
-        }
-        else{
+        } else {
             this[i] = source[i];
-	}
+        }
     }
 }
- 
 
-
-function constructSetList() {
+function constructSetList(playlists) {
 	for (key in playlists) {
-		
 		console.log("KEY IS : " +key);
 		var temptracks = $.map(playlists[key].tracks, function (value, key) { return value; });
-		
 		//sort temptracks
 		var i = 0;
 		while (i < playlists[key].length) {
@@ -247,7 +242,7 @@ $(document).ready(function(){
         }]
     }];
     
-    //makePicker(sets);
+    // makePicker(sets);
 })
             
 function makePalette(template) {
@@ -567,7 +562,6 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
-
         var set        = sets[i].tracks,
             section    = $("<section>").addClass("set"),
             ul         = $("<ul>").addClass("tracks"),

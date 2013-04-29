@@ -465,7 +465,29 @@ function init_socket(socket,room) {
         }
 	});
 	socket.on("volume", function(id, value) {
+		audio[id].fade = value; 
 		audio[id].volume = value; //percentage value between 0 and 100 here
+		io.sockets.in(room).volatile.emit("update", audio);
+	});
+	
+	socket.on("fade", function(id, value) {
+		//console.log("fading", value);
+		audio[id].fade = audio[id].volume*value; //percentage value between 0 and 100 here
+		var cur = songList.indexOf(""+id);
+		var next;
+		if (cur != -1) {
+			if (cur == songList.length-1) {
+				if (loop)
+					next = songList[0];
+			} else {
+				next = songList[cur+1];
+			}
+			if (next !== undefined) {
+				audio[next].fade = audio[next].volume*(1-value);
+				audio[next].play = true;
+				//console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
+			}
+		}
 		io.sockets.in(room).volatile.emit("update", audio);
 	});
 	socket.on("mute", function(id) { //unused
@@ -592,7 +614,8 @@ function rec_message(socket) {
 function audio_init(id) {
     if (audio[id] == undefined) {
         audio[id] = {
-            volume:  1,
+            volume:  0.5,
+			fade: 1,
             mute:  false,
             auto: true,
             speed: 1,

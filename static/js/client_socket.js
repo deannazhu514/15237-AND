@@ -184,12 +184,12 @@ function supdate(a) {
 			var tt = sounds[key];
 			var s = tt.source.mediaElement;
 			//console.log(tt.source);
-			actual_vol = audio.volume;
+			actual_vol = (changingVol) ? audio.volume : audio.fade;
 			if (playback_device) {
 				if (audio.volume > 1) {
 					console.log(audio.volume);
 				}
-				s.volume = audio.volume;
+				s.volume = actual_vol;
 			} else {
 				s.volume = 0;
 			}
@@ -222,7 +222,8 @@ function supdate(a) {
 				tempfnc(val, val2, audio.speed);
 			}*/
 			track.playing = audio.play;
-			track.volume = audio.volume;
+			track.volume =  actual_vol;
+			//console.log(fading, track.volume);
 			track.pbr = audio.speed;
 			if (s.ended) {
 				tt.stop();
@@ -235,7 +236,6 @@ function supdate(a) {
 					$('#'+key).parent().remove();
 					socket.emit('next', key);			
 				} else {
-					
 					if (track.playing) {
 						socket.emit('pause',key);
 						$('#'+key).removeClass("playing");
@@ -289,4 +289,9 @@ function change_speed(id, value) {
 
 function change_time(id, value) {
 	socket.emit("change_time", id, value);
+}
+
+function fade_track(id, value) {
+	socket.emit("fade", id, value);
+	//console.log('fade track', id, vol, value);
 }

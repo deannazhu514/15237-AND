@@ -3,6 +3,7 @@ var controlChanging = false;
 var changingVol = false;
 var changingPBR = false;
 var changingPB = false;
+var fading = false;
 var intids = {};
 var setlist = [];
 
@@ -472,9 +473,7 @@ function makeControl (type, name, orientation,
         	id  = $(control).parent().attr("id");
         if (name === "volume") {
         	//s.volume = val/100;
-        	change_volume(id,val/100);
-        	$(value).html("volume:"+val);
-			//console.log("changing vol: " + val);
+        	change_volume(id,val/100);        
         	changingVol = true;
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
@@ -488,10 +487,10 @@ function makeControl (type, name, orientation,
         	change_time(id, x);
 			$(value).html(Math.floor(x/60) + ":" + Math.floor(x%60));
         } else if (name === "fader") {
-			$(value).html("fader:"+val);
-        	//s.currentTime = (ss.duration*val/100);					
-        	//change_time(id, duration*val/100);
-        	//$(value).html("position:"+duration*val/100);
+			fading = true;
+			//fade value is inversed so 1 corresponds to current, 0 corresponds to next track
+			fade_track(id, (100-val)/100);
+      
         }
 	}
     $(control).mousemove(function() {
@@ -511,7 +510,7 @@ function makeControl (type, name, orientation,
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        changingVol = changingPBR = false;	
+        changingVol = changingPBR = fading = false;	
     });
 		
 	if (ctrls[tid] === undefined) {
@@ -535,8 +534,6 @@ function makeControl (type, name, orientation,
 		$(control).data('val2', $(value));
 		ctrls[tid]['pb'] = $(control);
 		timer = setInterval(function(){
-			//tracks[tid].source.mediaElement;
-			//console.log(sounds[tid]);
 			var x = sounds[tid].source.mediaElement.currentTime;  
 			var str = Math.floor(x/60) + ":" + Math.floor(x%60);
 			$(value).html(str);
@@ -546,6 +543,7 @@ function makeControl (type, name, orientation,
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
+		$(control).val(0);
 		ctrls[tid]['fad'] = $(control);
 	}
 	

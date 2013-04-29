@@ -584,14 +584,14 @@ function makePicker(sets) {
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
-            li.append(author, title);
-						li.attr("trackid", set[j].id);
-						console.log("LI ID IS ", li.attr("trackid"));
-						$(li).click(function() {
-							tracks[$(this).attr("trackid")] = alltracks[$(this).attr("trackid")];
-							socket.emit("newtrack", $(this).attr("trackid"));
-							socket.emit("tracklist", tracks);
-						});
+				li.append(author, title);
+				li.attr("trackid", set[j].id);
+				//console.log("LI ID IS ", li.attr("trackid"));
+				$(li).click(function() {
+					tracks[$(this).attr("trackid")] = alltracks[$(this).attr("trackid")];
+					socket.emit("newtrack", $(this).attr("trackid"));
+					socket.emit("tracklist", tracks);
+				});
             ul.append(li);
         }
         section.append(h1, ul);

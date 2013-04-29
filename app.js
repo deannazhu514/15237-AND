@@ -428,7 +428,7 @@ function readjust_devices(room,socket) {
 
 function init_socket(socket,room) {
     socket.on("newtrack", function(id) {
-			console.log("REC NEW TRACK", id);
+		console.log("REC NEW TRACK", id);
         audio_init(id);
     });
     socket.on("disconnect", function() {
@@ -481,12 +481,14 @@ function init_socket(socket,room) {
 	});
 	
 	socket.on("next", function(id) {
+		console.log("play song after ", id);
 		var cur = songList.indexOf(""+id);
 		var next;
-		if (cur != songList.length && cur != -1) {
-			next = songList[cur+1];
+		if (cur != -1) {
+			next = (cur == (songList.length-1)) ? songList[0] : songList[cur+1];
+			console.log("songList", songList, "next ", next);
+			audio[id].play = false;
 			audio[next].play = true;
-			console.log(socketRoomList[room].tracks[id]);
 			io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
 			io.sockets.in(room).volatile.emit("update", audio);	
 		}
@@ -569,7 +571,8 @@ function audio_init(id) {
 		console.log(id);
 	}
   
-	  songList.push(""+id);
+	songList.push(""+id);
+	  //console.log(songList);
 }
 
 

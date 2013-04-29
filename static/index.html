@@ -68,13 +68,12 @@
 			document.getElementById("audiotoggle").onclick = togglePlayback;
 
 			document.getElementById("autoplay").onclick = function(){
-				autoplay = !autoplay;
-				if (autoplay) {
+				autoPlay = !autoPlay;
+				if (autoPlay) {
 					$(this).val("Autoplay On");
 				} else {
 					$(this).val("Autoplay Off");
 				}
-				console.log(autoplay);
 			};
     </script>
     <section id="controls"></section>

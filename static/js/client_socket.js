@@ -105,13 +105,19 @@ function client_socket_init() {
 		if (typeof(track.id) === 'string') {
 			track.id = parseFloat(track.id);
 		}
-		var elt = makePalette(track);
-		//console.log(trackList[track.id].playing);
-		if (!sounds[track.id].source.mediaElement.paused) {
-			elt.toggleClass("playing", true);
-			console.log('hidfdfd');
-		}
-		console.log(elt);
+		//if ($('.turntable #'+track.id) == null) {
+			console.log("hehe");
+			var elt = makePalette(track);
+		
+			//console.log(trackList[track.id].playing);
+			if (!sounds[track.id].source.mediaElement.paused) {
+				elt.toggleClass("playing", true);
+				console.log('hidfdfd');
+			}
+/*} else {
+			console.log($('#'+track.id));
+		}*/
+		//console.log(elt);
 	});
 	socket.on("requestInit", function() {
 		var h = window.innerHeight;
@@ -221,17 +227,23 @@ function supdate(a) {
 			track.pbr = audio.speed;
 			if (s.ended) {
 				tt.stop();
-				if (track.playing) {
-					socket.emit('pause',key);
-					$('#'+key).removeClass("playing");
-				} else {
-					console.log("was paused");
-					s.currentTime = 0;
-				}
 				if (autoPlay) {
+					if (track.playing) {
+					} else {
+						console.log("was paused");
+						s.currentTime = 0;
+					}
 					$('#'+key).parent().remove();
 					socket.emit('next', key);			
 				} else {
+					
+					if (track.playing) {
+						socket.emit('pause',key);
+						$('#'+key).removeClass("playing");
+					} else {
+						console.log("was paused");
+						s.currentTime = 0;
+					}
 				}
 			} else if (track.playing && s.paused) {
 				tt.togglePause();

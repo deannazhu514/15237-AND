@@ -246,7 +246,6 @@ function sendModule(device, module, modulename) {
 function getPlaylists(SCuser){
 	username = SCuser;
 	 SC.get('/users/'+SCuser+'/playlists', function(lists){
-		
 		lists.forEach(function(playlist){
 			tracks = {};
 			var temp = {tracks: {}};

@@ -121,17 +121,17 @@ section.picker {
             li.track {
                 width: 100%;
                 text-align: left;
+                padding-top: .5rem;
                 margin-bottom: $vertical-padding * 2;
                 @include naked-button;
                 
                 h1 {
                     font-size: 2em;
                     font-family: $light;
-                    margin-top: .25em;
                 }
                 
                 author {
-                    @include small-caps(.75em);
+                    @include small-caps(1em);
                     font-family: $medium;
                 }
             }

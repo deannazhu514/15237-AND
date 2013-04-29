@@ -188,7 +188,7 @@ function makePalette(template) {
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
-    $(header).append(title, artist);
+    $(header).append(artist, title);
     $(track).append(header);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {	
@@ -354,6 +354,7 @@ function makeTurntable(artSrc, duration, tid) {
 			//$(this).toggleClass("playing");	
 		//}
 	});
+	turntable();
 	return $(turntable);
 }
 
@@ -472,7 +473,6 @@ function makeControl (type, name, orientation,
         console.log("val")
     }
 	$(palette).attr('id',tid);
-    
     return $(palette);
 }
 
@@ -492,7 +492,7 @@ function makePicker(sets) {
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
-            li.append(title, author);
+            li.append(author, title);
             ul.append(li);
         }
         section.append(h1, ul);

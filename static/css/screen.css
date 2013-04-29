@@ -105,23 +105,30 @@ input[type=button], input[type=submit] {
   font-weight: bold;
   position: relative;
   left: -0.5em;
-  -webkit-transition: all 0.125s linear;
-  -moz-transition: all 0.125s linear;
-  -o-transition: all 0.125s linear;
-  transition: all 0.125s linear;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
 }
-/* line 87, ../sass/lib/_mixins.scss */
+/* line 88, ../sass/lib/_mixins.scss */
 input[type=button]:active, input[type=button].touch, input[type=submit]:active, input[type=submit].touch {
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  transform: scale(0.95);
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
 }
 /* line 23, ../sass/lib/_mixins.scss */
 input[type=button]:hover, input[type=button]:active, input[type=submit]:hover, input[type=submit]:active {
   background: white;
-  border-color: transparent;
   color: #333;
   box-shadow: 0 0 0.75em 0.125em rgba(255, 255, 255, 0.75);
 }
@@ -194,22 +201,30 @@ body > header section.menu .picker {
   background-position: center center;
   width: 2.5em;
   border: none;
-  -webkit-transition: all 0.125s linear;
-  -moz-transition: all 0.125s linear;
-  -o-transition: all 0.125s linear;
-  transition: all 0.125s linear;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
   opacity: .75;
   padding-left: .5em;
 }
-/* line 87, ../sass/lib/_mixins.scss */
+/* line 88, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:active, body > header section.menu .picker.touch {
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  transform: scale(0.95);
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
 }
-/* line 61, ../sass/lib/_mixins.scss */
+/* line 60, ../sass/lib/_mixins.scss */
 body > header section.menu .picker:hover, body > header section.menu .picker:active {
   background-color: transparent;
   box-shadow: none;
@@ -224,22 +239,30 @@ body > header section.menu .audio-toggle {
   background-position: center center;
   width: 2.5em;
   border: none;
-  -webkit-transition: all 0.125s linear;
-  -moz-transition: all 0.125s linear;
-  -o-transition: all 0.125s linear;
-  transition: all 0.125s linear;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
   opacity: .75;
   float: right;
 }
-/* line 87, ../sass/lib/_mixins.scss */
+/* line 88, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:active, body > header section.menu .audio-toggle.touch {
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  transform: scale(0.95);
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
 }
-/* line 61, ../sass/lib/_mixins.scss */
+/* line 60, ../sass/lib/_mixins.scss */
 body > header section.menu .audio-toggle:hover, body > header section.menu .audio-toggle:active {
   background-color: transparent;
   box-shadow: none;
@@ -324,6 +347,7 @@ section.picker .set > h1 {
 section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
+  padding-top: .5rem;
   margin-bottom: 1.5em;
   border: none;
   background: transparent;
@@ -332,37 +356,46 @@ section.picker .set ul.tracks li.track {
   padding-left: .5em;
   margin-left: -.5em;
   border-left: 1px solid #cccccc;
-  -webkit-transition: all 0.125s linear;
-  -moz-transition: all 0.125s linear;
-  -o-transition: all 0.125s linear;
-  transition: all 0.125s linear;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
 }
-/* line 87, ../sass/lib/_mixins.scss */
+/* line 88, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:active, section.picker .set ul.tracks li.track.touch {
-  -webkit-transform: scale(0.95);
-  -moz-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  transform: scale(0.95);
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
 }
-/* line 42, ../sass/lib/_mixins.scss */
+/* line 40, ../sass/lib/_mixins.scss */
 section.picker .set ul.tracks li.track:hover, section.picker .set ul.tracks li.track:active {
   border-left: 1px solid white;
   color: white;
   border-color: white;
+  border-left-width: .25em;
+  padding-left: .375em;
   text-shadow: 0 0 0.5em white;
 }
-/* line 127, ../sass/_header.scss */
+/* line 128, ../sass/_header.scss */
 section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
-  margin-top: .25em;
 }
 /* line 133, ../sass/_header.scss */
 section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
-  font-size: 0.75em;
+  font-size: 1em;
   font-family: "DIN Next W01 Medium";
 }
 
@@ -638,8 +671,8 @@ body > #tracks .track header {
 }
 /* line 62, ../sass/_track.scss */
 body > #tracks .track header h1 {
-  font-size: 4em;
-  font-family: "DINNextW01-CondensedLig";
+  font-size: 2em;
+  font-family: "DIN Next W01 Light";
   color: #cccccc;
   line-height: 1.5em;
   height: 1.5em;

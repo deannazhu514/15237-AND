@@ -245,12 +245,8 @@ function sendModule(device, module, modulename) {
 
 function getPlaylists(SCuser){
 	username = SCuser;
-<<<<<<< HEAD
-	 SC.get('/users/'+SCuser+'/playlists', function(lists){
-=======
 	SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
->>>>>>> fixed setlist data issue with picker
 		lists.forEach(function(playlist){
 			tracks = {};
 			var temp = {tracks: {}};
@@ -281,6 +277,7 @@ function getPlaylists(SCuser){
 					aud.autoPlay = false;
 					
 					var source = context.createMediaElementSource(aud);	
+					console.log(source);
 
 					ss.source = source;
 					ss.play = play;

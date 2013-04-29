@@ -571,11 +571,12 @@ function makePicker(sets) {
         var set        = sets[i].tracks,
             section    = $("<section>").addClass("set"),
             ul         = $("<ul>").addClass("tracks"),
-            h1         = $("<h1>").html(sets[i].name),
-            playButton = $("<input>").attr({
-                type: "button",
-                class: "play-set"
-            })
+            h1         = $("<h1>").html(sets[i].name)
+            // playButton = $("<input>").attr({
+            //     type: "button",
+            //     class: "play-set",
+            //     value: "Play this set"
+            // })
             section.append(h1, ul);
            
         for (var j = 0; j < set.length; j++) {
@@ -596,7 +597,7 @@ function makePicker(sets) {
         section.append(h1, ul);
         picker.append(section);
     }
-    // picker.css({
-    //     width: sets.length * 25 + "%"
-    // });
+    picker.css({
+        width: sets.length * 25 + "%"
+    });
 }

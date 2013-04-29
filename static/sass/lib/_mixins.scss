@@ -34,7 +34,7 @@
     cursor: pointer;
     padding-left: .5em;
     margin-left: -.5em;
-    border-left: $border-width solid $default;
+    // border-left: $border-width solid $default;
     @include button-active;
     
     &:hover, &:active {

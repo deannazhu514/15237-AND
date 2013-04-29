@@ -25,12 +25,13 @@ section.picker {
 
     .set {
         $vertical-padding: .75em;
-        // width: $col;
+        width: $col;
         display: inline-block;
         vertical-align: top;
         max-height: 100%;
         overflow:auto;
         padding: 8em 0 0em $gutter;
+        position: relative;
 
         @media screen and (max-width: 40em) {
             // width: $col * 4;
@@ -60,7 +61,29 @@ section.picker {
         > h1 {
             margin-bottom: $vertical-padding;
             font-family: $medium;
+            color: $active;
+            opacity: .75;
+            
+            background-image: url('../images/play-icon.png');
+            background-size: 1.5rem 1.5rem;
+            background-repeat: no-repeat;
+            padding-left: 2.5rem;
+            margin-left: -2.5rem;
+            cursor: pointer;
+            
+            &:hover {
+                opacity: 1;
+                @include text-glow;
+            }
         }
+        
+        // input.play-set {
+        //     @include icon-button;
+        //     background-image: url('../images/play-icon.png') !important;
+        //     width: 2em;
+        //     height: 2em;
+        //     position: absolute;
+        // }
 
         ul.tracks {
 
@@ -75,6 +98,7 @@ section.picker {
                     font-size: 2em;
                     font-family: $light;
                     margin-top: .25rem;
+                    
                 }
 
                 author {

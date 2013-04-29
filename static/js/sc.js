@@ -4,6 +4,7 @@ var currentID;
 var loggedin = false;
 var playlists = {};
 var tracks = {};
+var alltracks = {};
 var sounds = {};
 var context, analyser, compressor;
 var deviceNum;
@@ -247,7 +248,8 @@ function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
-			//tracks = {};
+			tracks = {};
+			var temp = {tracks: {}};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
@@ -263,9 +265,7 @@ function getPlaylists(SCuser){
 						"ui": [{
 								"type": "turntable",
 								"art": artwork,
-								"duration": duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
-																					 //OTHERWISE WE SHOULD USE ESTIMATEDDURATION
-																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
+								"duration": duration 
 								}, volslider, pbslider, playbackslider],
 						"i": i
 					};
@@ -284,20 +284,21 @@ function getPlaylists(SCuser){
 					ss.stop = stop;	
 					sounds[track2.id] = ss;
 					tracks[track.id] = track2;
+					temp.tracks[track.id] = track2;
+					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);		
 				}
 			}
 								
-			socket.emit('tracklist', tracks);
-			var temp = {};
+			//socket.emit('tracklist', tracks);
+			//var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
-			temp.tracks = tracks;
+			//temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-			
+			tracks = {};
 		});
-		console.log("HERE !!!!");
-		socket.emit('playlists', playlists);
+		
 	 });
 	 
 	 loggedin = true;

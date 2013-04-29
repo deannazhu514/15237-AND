@@ -479,12 +479,18 @@ function init_socket(socket,room) {
 		io.sockets.in(room).volatile.emit("update", audio);
 		console.log("pause song with id: " + id);
 	});
-		/*
-	  socket.on("next_song", function(id, name) {
-		audio_init(name);
-		io.sockets.emit("update", audio); //not volatile
-										  //song change is high priority
-	  });*/
+	
+	socket.on("next", function(id) {
+		var cur = songList.indexOf(""+id);
+		var next;
+		if (cur != songList.length && cur != -1) {
+			next = songList[cur+1];
+			
+			audio[next].play = true;
+			io.sockets.in(room).volatile.emit("update", audio);
+		}
+	});
+		
 	socket.on("loop_off", function(id) { //unused
 		audio[id].loop = false;
 		io.sockets.in(room).volatile.emit("update", audio);
@@ -559,16 +565,13 @@ function audio_init(id) {
         }
     } else {
 			console.log(id);
-		}
-  /*
-    audio[id].name = name;
+	}
+  
+    //audio[id].name = name;
 
-  songList.push( {
-    name: name,
-    start: audio[id].start,
-    actionList: []
-  });
-  n = songList.length;*/
+	  songList.push(""+id);
+	  //console.log(songList);
+	//n = songList.length;
 }
 
 

@@ -4,6 +4,7 @@ var currentID;
 var loggedin = false;
 var playlists = {};
 var tracks = {};
+var alltracks = {};
 var sounds = {};
 var context, analyser, compressor;
 var deviceNum;
@@ -78,22 +79,47 @@ function connect(){
 	});
 }
 
+/*function ended() {
+	tt.stop();					
+	if (track.playing) {
+		socket.emit('pause',key);
+		$('#'+key).removeClass("playing");
+	} else {
+		console.log("was paused");
+		s.currentTime = 0;
+	}
+	if (autoPlay) {
+				
+	} else {
+	}
+}*/
+
 function eventHandlersInit() {
 	$(document).ready( function() {
 		var foo = function() {
 			window.console.log("gr");
-		}
+		};
+		
 		//alert('a');
-			for (key in sounds) {
-				console.log("SOUND KEY IS : ", key);
-				var aud = sounds[key].source.mediaElement;
-					aud.addEventListener('ended', foo);
-					aud.addEventListener('play', foo);
-					aud.addEventListener('pause', foo);
-
-			}
-			window.console.log('aaaa');
-		});
+		for (key in sounds) {
+			console.log("SOUND KEY IS : ", key);
+			var aud = sounds[key].source.mediaElement;
+				/*aud.addEventListener('ended', function () {
+					sounds[key].stop();
+					console.log("pause", sounds[key]);
+					$('#'+key).removeClass("playing");
+					socket.emit('pause', key);
+				}, false);
+				aud.addEventListener('play', function() {
+					console.log("hehe");
+					$('#'+key).addClass("playing");
+				});
+				aud.addEventListener('pause', function() {
+					$('#'+key).removeClass("playing");
+				});*/
+		}
+		window.console.log('aaaa');
+	});
 }
 
 function connectDevice(){	
@@ -222,7 +248,7 @@ function getPlaylists(SCuser){
 	 SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
-			//tracks = {};
+			tracks = {};
 			var temp = {tracks: {}};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
@@ -239,9 +265,7 @@ function getPlaylists(SCuser){
 						"ui": [{
 								"type": "turntable",
 								"art": artwork,
-								"duration": duration //DOES THE SONG COMPLETELY LOAD BEFORE WE ACCESS DURATION?
-																					 //OTHERWISE WE SHOULD USE ESTIMATEDDURATION
-																					 //BECAUSE IT ONLY GIVES LENGTH OF WHAT IS CURRENTLYLOADED
+								"duration": duration 
 								}, volslider, pbslider, playbackslider],
 						"i": i
 					};
@@ -251,34 +275,10 @@ function getPlaylists(SCuser){
 					aud.src = track2.url+stream_add;
 					aud.loop = false;
 					aud.autoPlay = false;
-
-					aud.onended = function(e) {
-						console.log("finished playing");
-						$(ttable).removeClass("playing");
-						ss.stop();
-					}
 					
-					aud.onpause = function(e) {
-						console.log("pause");
-					}
-					var foo = function() {
-						window.console.log("gr");
-					}
-					/*
-					aud.addEventListener('play',foo);
-					console.log('hi');
-					aud.addEventListener('ended', foo);
-				aud.addEventListener('volumechange', function() {
-					window.console.log("afdk;lsjlhewa");
-				});
-				aud.addEventListener("canplay", function() {
-					alert("z");
-				});*/
 					var source = context.createMediaElementSource(aud);	
 					console.log(source);
 
-					//var source = context.createMediaElementSource(aud);	
-				
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
@@ -286,17 +286,18 @@ function getPlaylists(SCuser){
 					sounds[track2.id] = ss;
 					tracks[track.id] = track2;
 					temp.tracks[track.id] = track2;
+					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);		
 				}
 			}
 								
-			socket.emit('tracklist', tracks);
+			//socket.emit('tracklist', tracks);
 			//var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
 			//temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-			
+			tracks = {};
 		});
 		
 	 });
@@ -305,13 +306,21 @@ function getPlaylists(SCuser){
 	 $("body").removeClass("guest");
 }
 
+
+function ended(id) {
+	console.log("ended!", id);
+	$('.turntable #'+id).removeClass("playing");
+}
+
+
 function play(){
-	this.source.loop = true;
+	this.source.loop = false;
 	this.source.mediaElement.play();
 	this.playing = true;
 }
 
 function stop(){
+	//console.log("pause");
 	this.source.mediaElement.pause();
 	this.playing = false;
 };

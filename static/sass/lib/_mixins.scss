@@ -34,15 +34,12 @@
     cursor: pointer;
     padding-left: .5em;
     margin-left: -.5em;
-    border-left: 1px solid $default;
+    border-left: $border-width solid $default;
     @include button-active;
     
     &:hover, &:active {
-        border-left: 1px solid $active;
         color: $active;
         border-color: $active;
-        border-left-width: .25em;
-        padding-left: .375em;
         @include text-glow;
     }
 }

@@ -1,3 +1,5 @@
+@import "_picker.scss";
+
 body > header {
     position: relative;
     z-index: 300;
@@ -50,91 +52,5 @@ body > header {
         top: -1em;
         @include small-caps(.75em);
         font-family: $medium;
-    }
-}
-
-section.picker {
-    background: rgba(0,0,0,.75);
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
-    left: 0;
-    padding: $gutter;
-    visibility: hidden;
-    position: fixed;
-    // @include transform(translateY(-25em) perspective(50em) rotateX(-90deg) translateY(4em));
-    opacity: 0;
-    top: -2.5%;
-    padding-top: 8em;
-    z-index: 200;
-
-    @include transition-property(top, opacity, background, visibility);
-    @include transition-duration(.25s);
-    @include transition-timing-function(ease-out);
-    
-    &.open {
-        visibility: visible;
-        top: 0;
-        // @include transform(translateY(-4em) perspective(36em) rotateX(0deg) translateY(4em));
-        opacity: 1;
-    }
-
-    .set {
-        $vertical-padding: .75em;
-        // width: $col;
-        padding-left: $gutter;
-        display: inline-block;
-        vertical-align: top;
-        
-        @media screen and (max-width: 40em) {
-            // width: $col * 4;
-        }
-        
-        @media screen and (max-width: 50em) {
-            // width: $col * 2;
-        }
-        
-        @media screen and (min-width: 54em) {
-        }
-        
-        @media screen and (min-width: 54em) and (max-width: 84em) {
-        }
-        
-        @media screen and (min-width: 84em) {
-        }
-        
-        &:nth-child(1) {
-            padding-left: 0;
-        }
-        
-        h1 {
-            font-size: 2em;
-        }
-        
-        > h1 {
-            margin-bottom: $vertical-padding;
-            font-family: $medium;
-        }
-        
-        ul.tracks {         
-           
-            li.track {
-                width: 100%;
-                text-align: left;
-                padding-top: .5rem;
-                margin-bottom: $vertical-padding * 2;
-                @include naked-button;
-                
-                h1 {
-                    font-size: 2em;
-                    font-family: $light;
-                }
-                
-                author {
-                    @include small-caps(1em);
-                    font-family: $medium;
-                }
-            }
-        }
     }
 }

@@ -1,0 +1,92 @@
+section.picker {
+    background: rgba(0,0,0,.75);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    left: 0;
+    padding: 0 $gutter;
+    visibility: hidden;
+    position: fixed;
+    @include transform(translateY(-30em) perspective(80em) rotateX(-90deg) translateY(4em));
+    opacity: 0;
+    z-index: 200;
+    max-height: 80%;
+    top: 0;
+
+    @include transition-property(top, opacity, background, visibility, transform);
+    @include transition-duration(.25s);
+    @include transition-timing-function(ease-out);
+
+    &.open {
+        visibility: visible;
+        @include transform(translateY(-4em) perspective(36em) rotateX(0deg) translateY(4em));
+        opacity: 1;
+    }
+
+    .set {
+        $vertical-padding: .75em;
+        // width: $col;
+        display: inline-block;
+        vertical-align: top;
+        max-height: 100%;
+        overflow:auto;
+        padding: 8em 0 0em $gutter;
+
+        @media screen and (max-width: 40em) {
+            // width: $col * 4;
+        }
+
+        @media screen and (max-width: 50em) {
+            // width: $col * 2;
+        }
+
+        @media screen and (min-width: 54em) {
+        }
+
+        @media screen and (min-width: 54em) and (max-width: 84em) {
+        }
+
+        @media screen and (min-width: 84em) {
+        }
+
+        &:nth-child(1) {
+            padding-left: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        > h1 {
+            margin-bottom: $vertical-padding;
+            font-family: $medium;
+        }
+
+        ul.tracks {
+
+            li.track {
+                width: 100%;
+                text-align: left;
+                padding-top: .5rem;
+                margin-bottom: $vertical-padding * 2;
+                @include naked-button;
+
+                h1 {
+                    font-size: 2em;
+                    font-family: $light;
+                    margin-top: .25rem;
+                }
+
+                author {
+                    @include small-caps(1em);
+                    font-family: $medium;
+                    display: block;
+                }
+                
+                &:last-child {
+                    margin-bottom: 16em;
+                }
+            }
+        }
+    }
+}

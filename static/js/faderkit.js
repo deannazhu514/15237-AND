@@ -142,6 +142,42 @@ $(document).ready(function(){
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
+        },
+        {
+            "id": "track.id",
+            "artist": "track.user.username",
+            "song": "track.title",
+            "url" : "track.stream_url"
         }]
     },
     {
@@ -215,7 +251,6 @@ $(document).ready(function(){
 })
             
 function makePalette(template) {
-	
 	if (typeof(template.id) === 'string') {
 		template.id = parseFloat(template.id);
 	}
@@ -282,6 +317,7 @@ function makeTurntable2(artSrc, duration, tid) {
             class: "art"
         });
         
+		
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
@@ -343,8 +379,6 @@ function makeTurntable(artSrc, duration, tid) {
 		var ttable = this;
 		var cursound = sounds[tempid];	
 		console.log(tempid);
-		//console.log(typeof(tempid));
-
 		
 		/*if (cursound === undefined && (!nonstream)) {
 			console.log("hehehe");
@@ -391,8 +425,11 @@ function makeTurntable(artSrc, duration, tid) {
 				}, 1000);
 
 			}		
-		} else {	*/
-    		volumeGlow(0, turntable);
+		} else {	
+		*/
+		
+    		volumeGlow(5, turntable);
+			console.log(trackList[tempid].playing);
 			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
 				$(this).toggleClass("playing", false);	
@@ -406,6 +443,7 @@ function makeTurntable(artSrc, duration, tid) {
 	//turntable();
 	return $(turntable);
 }
+
 
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
@@ -453,7 +491,7 @@ function makeControl (type, name, orientation,
         	//s.volume = val/100;
         	change_volume(id,val/100);
         	$(value).html("volume:"+val);
-					console.log("changing vol: " + val);
+			//console.log("changing vol: " + val);
         	changingVol = true;
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
@@ -484,13 +522,12 @@ function makeControl (type, name, orientation,
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        changingVol = changingPBR = false;
-				
+        changingVol = changingPBR = false;	
     });
 		
 	if (ctrls[tid] === undefined) {
-			ctrls[tid] = {};
-		}
+		ctrls[tid] = {};
+	}
 	if (name === 'volume') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
@@ -530,11 +567,15 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
-			console.log('making picker');
-        var set     = sets[i].tracks,
-            section = $("<section>").addClass("set"),
-            ul      = $("<ul>").addClass("tracks"),
-            h1      = $("<h1>").html(sets[i].name);
+
+        var set        = sets[i].tracks,
+            section    = $("<section>").addClass("set"),
+            ul         = $("<ul>").addClass("tracks"),
+            h1         = $("<h1>").html(sets[i].name),
+            playButton = $("<input>").attr({
+                type: "button",
+                class: "play-set"
+            })
             section.append(h1, ul);
            
         for (var j = 0; j < set.length; j++) {
@@ -543,6 +584,13 @@ function makePicker(sets) {
                 title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
             li.append(author, title);
+						li.attr("trackid", set[j].id);
+						console.log("LI ID IS ", li.attr("trackid"));
+						$(li).click(function() {
+							tracks[$(this).attr("trackid")] = alltracks[$(this).attr("trackid")];
+							socket.emit("newtrack", $(this).attr("trackid"));
+							socket.emit("tracklist", tracks);
+						});
             ul.append(li);
         }
         section.append(h1, ul);

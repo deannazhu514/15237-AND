@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    turntable();
     openPanel();
     $("input, .picker .track").on("touchstart", function(e) {  
         $(this).trigger("active");
@@ -9,22 +8,21 @@ $(document).ready(function(){
     });
 });
 
-
 function turntable() {
-    var drag, turntable, height;
-    
+    var ttDrag, turntable, height;
+
     $(".turntable").mousedown(function() {
-        drag = true;
+        ttDrag = true;
         turntable = $(this);
         height = turntable.height();
-    })
+    });
     
     $(document).mouseup(function() {
-        drag = false;
-    })
+        ttDrag = false;
+    });
     
     $(document).mousemove(function(event) {
-        if (drag) {
+        if (ttDrag) {
             var radians = Math.atan2(event.pageX - height,
                                      event.pageY - height);
             var degree = -(radians * (180 / Math.PI));
@@ -36,7 +34,7 @@ function turntable() {
                 "transform": "rotate(" + degree + "deg)"
             })
         }
-    })
+    });
     
     $(".turntable img").mousedown(function(event) {
         turntable = $(".turntable");

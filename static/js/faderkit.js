@@ -354,7 +354,7 @@ function makeTurntable(artSrc, duration, tid) {
 			//$(this).toggleClass("playing");	
 		//}
 	});
-	turntable();
+	//turntable();
 	return $(turntable);
 }
 

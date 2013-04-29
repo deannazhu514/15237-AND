@@ -444,6 +444,7 @@ function readjust_devices(room,socket) {
 
 
 function init_socket(socket,room) {
+
     socket.on("newtrack", function(id) {
 		console.log("REC NEW TRACK", id);
         audio_init(id);

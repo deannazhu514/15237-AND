@@ -572,9 +572,13 @@ function makePicker(sets) {
 									.click(function(){
 										var id = $(this).attr("playlist");
 										
-										console.log($("#tracks").children());
+										for (track in playlists[id].tracks) {
+											console.log("TRACK", track);
+											socket.emit("newtrack", track);
+										}
 										$("#tracks").children().remove();
 										socket.emit("tracklist", playlists[id].tracks);
+										
 									});
             // playButton = $("<input>").attr({
             //     type: "button",

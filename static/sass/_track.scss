@@ -60,8 +60,8 @@ body > #tracks {
     
         header {
             h1 {
-                font-size: 4em;
-                font-family: $cond-lig;
+                font-size: 2em;
+                font-family: $light;
                 color: $default;
                 line-height: 1.5em;
                 height: 1.5em;
@@ -71,7 +71,7 @@ body > #tracks {
             }
     
             author {
-                @include small-caps;
+                @include small-caps(1em);
             }
     
             margin-bottom: 1em;

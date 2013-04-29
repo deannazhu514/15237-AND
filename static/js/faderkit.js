@@ -187,7 +187,7 @@ function makePalette(template) {
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
-    $(header).append(title, artist);
+    $(header).append(artist, title);
     $(track).append(header);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {	
@@ -212,6 +212,7 @@ function makePalette(template) {
         track.append(controls);
     }
     $("ul#tracks").append(track);
+		return element;
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -235,6 +236,7 @@ function makeTurntable2(artSrc, duration, tid) {
     $(scrubber).append(indicator1, indicator2, mask);
     $(turntable).append(scrubber, art);
 	$(turntable).attr('id',tid);
+	
 	$(turntable).click(function(){
     	var tempid = tid;
     	var ttable = this;
@@ -244,10 +246,13 @@ function makeTurntable2(artSrc, duration, tid) {
 		
 		if (trackList[tempid].playing) {
 			socket.emit('pause',tid);
+			$(this).toggleClass("playing",false);
 		} else {
 			socket.emit('play',tid);
+			$(this).toggleClass("playing",true);
 		}
-		$(this).toggleClass("playing");	
+		
+	 //$(this).toggleClass("playing");	
 	
 	}); 
 	return $(turntable);
@@ -342,12 +347,15 @@ function makeTurntable(artSrc, duration, tid) {
 			console.log(trackList[tempid].playing);
 			if(trackList[tempid].playing) {			
 				socket.emit('pause',tid);
+				$(this).toggleClass("playing", false);	
 			} else {
 				socket.emit('play',tid);
+				$(this).toggleClass("playing", true);	
 			}
-			$(this).toggleClass("playing");	
+			//$(this).toggleClass("playing");	
 		//}
 	});
+	//turntable();
 	return $(turntable);
 }
 
@@ -466,7 +474,6 @@ function makeControl (type, name, orientation,
         console.log("val")
     }
 	$(palette).attr('id',tid);
-    
     return $(palette);
 }
 
@@ -486,7 +493,7 @@ function makePicker(sets) {
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
-            li.append(title, author);
+            li.append(author, title);
             ul.append(li);
         }
         section.append(h1, ul);

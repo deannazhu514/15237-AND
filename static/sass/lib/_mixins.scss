@@ -22,7 +22,6 @@
     
     &:hover, &:active {
         background: $active;
-        border-color: transparent;
         color: #333;
         @include glow;
     }
@@ -36,13 +35,14 @@
     padding-left: .5em;
     margin-left: -.5em;
     border-left: 1px solid $default;
-    
     @include button-active;
     
     &:hover, &:active {
         border-left: 1px solid $active;
         color: $active;
         border-color: $active;
+        border-left-width: .25em;
+        padding-left: .375em;
         @include text-glow;
     }
 }
@@ -55,7 +55,6 @@
     @include square-button;
     @include plain-button;
     @include button-active;
-    
     opacity: .75;
     
     &:hover, &:active {
@@ -82,9 +81,11 @@
 }
 
 @mixin button-active {
-    @include transition(all .125s linear);
+    @include transition-property(color, box-shadow, text-shadow, background-color);
+    @include transition-duration(.125s);
+    @include transition-timing-function(linear);
 
     &:active, &.touch {
-        @include transform(scale(.95));
+        @include transform(scale(.975));
     }
 }

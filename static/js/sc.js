@@ -67,14 +67,57 @@ function connect(){
 				$("#username").html(me.full_name);
 				getPlaylists(me.id);
 				client_socket_init();
-				console.log('called init');
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
+				console.log("calling event handlers init");
 			} else {
 				alert("Couldn't connect to SoundCloud!");
 			}
 	  });
+	});
+}
+
+/*function ended() {
+	tt.stop();					
+	if (track.playing) {
+		socket.emit('pause',key);
+		$('#'+key).removeClass("playing");
+	} else {
+		console.log("was paused");
+		s.currentTime = 0;
+	}
+	if (autoPlay) {
+				
+	} else {
+	}
+}*/
+
+function eventHandlersInit() {
+	$(document).ready( function() {
+		var foo = function() {
+			window.console.log("gr");
+		};
+		
+		//alert('a');
+		for (key in sounds) {
+			console.log("SOUND KEY IS : ", key);
+			var aud = sounds[key].source.mediaElement;
+				/*aud.addEventListener('ended', function () {
+					sounds[key].stop();
+					console.log("pause", sounds[key]);
+					$('#'+key).removeClass("playing");
+					socket.emit('pause', key);
+				}, false);
+				aud.addEventListener('play', function() {
+					console.log("hehe");
+					$('#'+key).addClass("playing");
+				});
+				aud.addEventListener('pause', function() {
+					$('#'+key).removeClass("playing");
+				});*/
+		}
+		window.console.log('aaaa');
 	});
 }
 
@@ -232,33 +275,10 @@ function getPlaylists(SCuser){
 					aud.src = track2.url+stream_add;
 					aud.loop = false;
 					aud.autoPlay = false;
-
-					/*aud.onended = function(e) {
-						console.log("finished playing");
-						$(ttable).removeClass("playing");
-						ss.stop();
-					}*/
 					
-					aud.onpause = function(e) {
-						console.log("pause");
-					}
-					var foo = function() {
-						window.console.log("gr");
-					}
-					
-					aud.addEventListener('play',foo);
-					console.log('hi');
-					aud.addEventListener('ended', function() {
-											ended(track2.id)
-								}, false);
-					aud.addEventListener('volumechange', function() {
-						window.console.log("afdk;lsjlhewa");
-					});
-					aud.addEventListener("canplay", function() {
-						alert("z");
-					});
-
 					var source = context.createMediaElementSource(aud);	
+					console.log(source);
+
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
@@ -275,8 +295,9 @@ function getPlaylists(SCuser){
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-
+			
 		});
+		console.log("HERE !!!!");
 		socket.emit('playlists', playlists);
 	 });
 	 

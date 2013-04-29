@@ -25,6 +25,10 @@ body > header {
             background-image: url('../images/menu-icon.png') !important;
             @include icon-button;
             padding-left: .5em;
+            
+            &.on {
+                opacity: 1;
+            }
         }
         
         .audio-toggle {
@@ -34,6 +38,7 @@ body > header {
             
             &.on {
                 background-image: url('../images/audio-on.png') !important;
+                opacity: 1;
             }
         }
         
@@ -41,6 +46,20 @@ body > header {
             background-image: url('../images/play-icon.png') !important;
             @include icon-button;
             float: right;
+            
+            &.on {
+                opacity: 1;
+            }
+        }
+        
+        .loop {
+            background-image: url('../images/loop-icon.png') !important;
+            @include icon-button;
+            float: right;
+            
+            &.on {
+                opacity: 1;
+            }
         }
     }
 

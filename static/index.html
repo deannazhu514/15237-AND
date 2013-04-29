@@ -63,7 +63,8 @@
                 connect();
             });
 			$('input.picker').click(function(){
-				$("section.picker").toggleClass("open");
+                $("section.picker").toggleClass("open");
+                $(this).toggleClass("on");
 			});
         });
 			document.getElementById("audiotoggle").onclick = togglePlayback;
@@ -79,6 +80,7 @@
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
+				$(this).toggleClass("on");
 				if (loop) {
 					$(this).val("Loop On");
 				} else {

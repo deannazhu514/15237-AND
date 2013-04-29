@@ -440,7 +440,7 @@ function makeTurntable(artSrc, duration, tid) {
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
 					  
-    var palette = $("<li>").addClass("palette"),
+    var palette = $("<li>").addClass("palette " + name),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
                       type:  inputType,
@@ -572,18 +572,17 @@ function makePicker(sets) {
             section    = $("<section>").addClass("set"),
             ul         = $("<ul>").addClass("tracks"),
             h1         = $("<h1>").html(sets[i].name)
-									.attr("playlist", sets[i].id)
-									.click(function(){
-										var id = $(this).attr("playlist");
-										
-										for (track in playlists[id].tracks) {
-											console.log("TRACK", track);
-											socket.emit("newtrack", track);
-										}
-										$("#tracks").children().remove();
-										socket.emit("tracklist", playlists[id].tracks);
-										
-									});
+    						.attr("playlist", sets[i].id)
+    						.click(function(){
+    							var id = $(this).attr("playlist");
+    							
+    							for (track in playlists[id].tracks) {
+    								console.log("TRACK", track);
+    								socket.emit("newtrack", track);
+    							}
+    							$("#tracks").children().remove();
+    							socket.emit("tracklist", playlists[id].tracks);
+    						});
             // playButton = $("<input>").attr({
             //     type: "button",
             //     class: "play-set",

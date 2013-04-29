@@ -41,7 +41,14 @@ var playbackslider = {
 				"name" : "playback",
                 "orientation" : "horizontal",
                 "showValue" : true
-            };			
+            };		
+
+var faderslider = {
+                "type" : "slider",
+				"name" : "fader",
+                "orientation" : "horizontal",
+                "showValue" : false
+            };				
 			
 function init() {
 	context = new webkitAudioContext();
@@ -81,20 +88,6 @@ function connect(){
 	});
 }
 
-/*function ended() {
-	tt.stop();					
-	if (track.playing) {
-		socket.emit('pause',key);
-		$('#'+key).removeClass("playing");
-	} else {
-		console.log("was paused");
-		s.currentTime = 0;
-	}
-	if (autoPlay) {
-				
-	} else {
-	}
-}*/
 
 function eventHandlersInit() {
 	$(document).ready( function() {
@@ -268,7 +261,7 @@ function getPlaylists(SCuser){
 								"type": "turntable",
 								"art": artwork,
 								"duration": duration 
-								}, volslider, pbslider, playbackslider],
+								}, volslider, pbslider, playbackslider, faderslider],
 						"i": i
 					};
 					
@@ -279,9 +272,6 @@ function getPlaylists(SCuser){
 					aud.autoPlay = false;
 					
 					var source = context.createMediaElementSource(aud);	
-					//console.log(source);
-
-					//addAudio(SCuser, audio);
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;

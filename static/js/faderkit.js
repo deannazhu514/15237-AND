@@ -321,10 +321,6 @@ function makeTurntable2(artSrc, duration, tid) {
 	
 	$(turntable).click(function(){
     	var tempid = tid;
-    	var ttable = this;
-    	
-    	//cursound.togglePause();
-    	//trackList[tempid].playing = !trackList[tempid].playing;
 		
 		if (trackList[tempid].playing) {
 			socket.emit('pause',tid);
@@ -333,8 +329,6 @@ function makeTurntable2(artSrc, duration, tid) {
 			socket.emit('play',tid);
 			$(this).toggleClass("playing",true);
 		}
-		
-	 //$(this).toggleClass("playing");	
 	
 	}); 
 	return $(turntable);
@@ -462,15 +456,7 @@ function makeControl (type, name, orientation,
     var changeSlider = function(elt, elt2, pos) {
         elt.val(pos);
     };
-
-	/*if (name === 'volume') {
-		$(control).mouseover(function(){
-			changingVol = true;
-		});
-		$(control).mouseout(function() {
-			changingVol = false;
-		});
-	}*/
+	var timer;
 	
 	if (name === 'pbr') {
 		$(control).mouseover(function(){
@@ -497,9 +483,15 @@ function makeControl (type, name, orientation,
         	changingPBR = true;
         	//s.playbackRate = val/50;
         } else if (name === "playback") {
+			var x = duration*val/100;
         	//s.currentTime = (ss.duration*val/100);					
-        	change_time(id, duration*val/100);
-        	$(value).html("position:"+duration*val/100);
+        	change_time(id, x);
+			$(value).html(Math.floor(x/60) + ":" + Math.floor(x%60));
+        } else if (name === "fader") {
+			$(value).html("fader:"+val);
+        	//s.currentTime = (ss.duration*val/100);					
+        	//change_time(id, duration*val/100);
+        	//$(value).html("position:"+duration*val/100);
         }
 	}
     $(control).mousemove(function() {
@@ -542,14 +534,28 @@ function makeControl (type, name, orientation,
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['pb'] = $(control);
+		timer = setInterval(function(){
+			//tracks[tid].source.mediaElement;
+			//console.log(sounds[tid]);
+			var x = sounds[tid].source.mediaElement.currentTime;  
+			var str = Math.floor(x/60) + ":" + Math.floor(x%60);
+			$(value).html(str);
+		}, 1000);
+	}
+	if (name === 'fader') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		ctrls[tid]['fad'] = $(control);
 	}
 	
     if (name === 'playback') {
-        $(value).html("0:00");
         $(control).val(0);
     }
 
     $(palette).append(control, label);
+	if (showValue)
+		 $(palette).append(value);
     
     if (showValue === 'true') {
         $(palette).append(value);

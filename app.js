@@ -214,6 +214,23 @@ app.post("/tracks", function(request, response) {
 });
 
 
+app.post("/audio", function(request, response) {
+    //console.log(request.body);
+    var user = request.body.user;
+    var audio = request.body.audio;
+    if (users[user] == undefined) {
+        users[user] = {};
+    }
+
+	console.log(audio);
+	
+    response.send({
+        userID : user,
+        success:true
+    });  
+});
+
+
 app.get("/current/:id", function(request, response){
     var id = request.params.id;
     response.send({
@@ -480,6 +497,11 @@ function init_socket(socket,room) {
 		console.log("pause song with id: " + id);
 	});
 	
+	socket.on("audio", function(audio){
+		console.log(audio);
+	
+	});
+	
 	socket.on("next", function(id) {
 		console.log("play song after ", id);
 		var cur = songList.indexOf(""+id);
@@ -518,9 +540,12 @@ function init_socket(socket,room) {
 			//console.log('sup', socketRoomList[room].tracks);
 		} else {
 			//console.log('sup1', tracks);
-			for (key in tracks) {
+			socketRoomList[room].tracks = tracks;
+			
+			/*for (key in tracks) {
+			
 				socketRoomList[room].tracks[key] = tracks[key];
-			}
+			}*/
 		}
 		for (key in socketRoomList[room].tracks) {
 			console.log("key is " + key);

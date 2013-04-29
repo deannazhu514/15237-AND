@@ -256,7 +256,7 @@ function getPlaylists(SCuser){
 					var artwork = (track.artwork_url) ? track.artwork_url
 					                                  : "http://placekitten.com/250"
 
-					var duration = Math.floor(track.duration/1000);								  
+					var duration = track.duration/1000;								  
 					var track2 = {
 						"id": track.id,
 						"artist": track.user.username,
@@ -277,8 +277,9 @@ function getPlaylists(SCuser){
 					aud.autoPlay = false;
 					
 					var source = context.createMediaElementSource(aud);	
-					console.log(source);
+					//console.log(source);
 
+					//addAudio(SCuser, audio);
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
@@ -335,6 +336,17 @@ function addTrack(userID, track){
 		type: "post",
 		data: {"user": userID, "track":track},
 		url: "/tracks",
+		success: function(data) { 
+			console.log(data);
+		}
+	});
+}
+
+function addAudio(userID, audio){
+	$.ajax({
+		type: "post",
+		data: {"user": userID, "audio":audio},
+		url: "/audio",
 		success: function(data) { 
 			console.log(data);
 		}

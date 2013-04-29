@@ -36,25 +36,26 @@ function constructSetList(playlists) {
 			if (temptracks[i].i != i) {
 				var temp = new cloneObject(temptracks[i]);
 				var tempind = 
-				console.log(temp);
+				//console.log(temp);
 				temptracks[i] = new cloneObject(temptracks[temp.i]);
 				temptracks[temp.i] = temp;
 				i = 0;
 				
 			}
 			else {
-			i++;
+				i++;
 			}
 		}
 		for (var j = 0; j < temptracks.length; j++) {
 			console.log("TEMPTRACKS IS: ", temptracks[j]);
 		}
-		console.log(temptracks);
+		//console.log(temptracks);
 		
-		var tempobj = {name: playlists[key].name, 
+		var tempobj = {name: playlists[key].name, id: key,
 									tracks: temptracks};
 		setlist.push(tempobj);
 	}
+	console.log("setlist", setlist);
 }
 
 $(document).ready(function(){
@@ -267,6 +268,7 @@ function makePalette(template) {
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
+		
     $(header).append(artist, title);
     $(track).append(header);
     console.log('tid: ' + tid);
@@ -292,7 +294,7 @@ function makePalette(template) {
         track.append(controls);
     }
     $("ul#tracks").append(track);
-		return element;
+	return element;
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -566,6 +568,14 @@ function makePicker(sets) {
             section    = $("<section>").addClass("set"),
             ul         = $("<ul>").addClass("tracks"),
             h1         = $("<h1>").html(sets[i].name)
+									.attr("playlist", sets[i].id)
+									.click(function(){
+										var id = $(this).attr("playlist");
+										
+										console.log($("#tracks").children());
+										$("#tracks").children().remove();
+										socket.emit("tracklist", playlists[id].tracks);
+									});
             // playButton = $("<input>").attr({
             //     type: "button",
             //     class: "play-set",

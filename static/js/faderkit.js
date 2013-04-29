@@ -4,6 +4,7 @@ var changingVol = false;
 var changingPBR = false;
 var changingPB = false;
 var intids = {};
+var setlist = [];
 
 var colors = ["red","orange","yellow"]
 
@@ -12,6 +13,54 @@ var slider = {
     "orientation" : "horizontal",
     "showValue" : true
 };
+
+//source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
+
+function cloneObject(source) {
+    for (i in source) {
+        if (typeof source[i] == 'source') {
+            this[i] = new cloneObject(source[i]);
+        }
+        else{
+            this[i] = source[i];
+	}
+    }
+}
+ 
+
+
+function constructSetList() {
+	for (key in playlists) {
+		
+		console.log("KEY IS : " +key);
+		var temptracks = $.map(playlists[key].tracks, function (value, key) { return value; });
+		
+		//sort temptracks
+		var i = 0;
+		while (i < playlists[key].length) {
+			if (temptracks[i].i != i) {
+				var temp = new cloneObject(temptracks[i]);
+				var tempind = 
+				console.log(temp);
+				temptracks[i] = new cloneObject(temptracks[temp.i]);
+				temptracks[temp.i] = temp;
+				i = 0;
+				
+			}
+			else {
+			i++;
+			}
+		}
+		for (var j = 0; j < temptracks.length; j++) {
+			console.log("TEMPTRACKS IS: ", temptracks[j]);
+		}
+		console.log(temptracks);
+		
+		var tempobj = {name: playlists[key].name, 
+									tracks: temptracks};
+		setlist.push(tempobj);
+	}
+}
 
 $(document).ready(function(){
     var sets = [{
@@ -162,7 +211,7 @@ $(document).ready(function(){
         }]
     }];
     
-    makePicker(sets);
+    //makePicker(sets);
 })
             
 function makePalette(template) {
@@ -481,6 +530,7 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
+			console.log('making picker');
         var set     = sets[i].tracks,
             section = $("<section>").addClass("set"),
             ul      = $("<ul>").addClass("tracks"),

@@ -13,7 +13,7 @@ var autoPlay  = true;
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
-var redirect_uri = 'http://localhost:8999/static/callback.html';
+var redirect_uri = 'http://localhost:8999/static/index.html';
 //var redirect_uri = 'http://128.237.113.212:8999/static/callback.html';
 
 var stream_add =  '?client_id='+client_id;
@@ -223,6 +223,7 @@ function getPlaylists(SCuser){
 		
 		lists.forEach(function(playlist){
 			//tracks = {};
+			var temp = {tracks: {}};
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
@@ -284,20 +285,20 @@ function getPlaylists(SCuser){
 					ss.stop = stop;	
 					sounds[track2.id] = ss;
 					tracks[track.id] = track2;
+					temp.tracks[track.id] = track2;
 					addTrack(SCuser, track2);		
 				}
 			}
 								
 			socket.emit('tracklist', tracks);
-			var temp = {};
+			//var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
-			temp.tracks = tracks;
+			//temp.tracks = tracks;
 			playlists[playlist.id] = temp;
 			
 		});
-		console.log("HERE !!!!");
-		socket.emit('playlists', playlists);
+		
 	 });
 	 
 	 loggedin = true;

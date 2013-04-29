@@ -123,7 +123,12 @@ function client_socket_init() {
 			
 		}
 		console.log(username, h,w);
+		//socket.emit('playlists', playlists);
 		eventHandlersInit();
+		constructSetList();
+		$(document).ready(function(){
+			makePicker(setlist);
+		});
 	});
 
 	socket.on("playback", function() {

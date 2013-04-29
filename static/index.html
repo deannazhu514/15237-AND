@@ -31,6 +31,7 @@
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
             <input type="button" value="Autoplay On" class="autoplay" id="autoplay">
+			 <input type="button" value="Loop On" class="loop" id="loop">
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <section id="add-device">
@@ -74,6 +75,16 @@
 				} else {
 					$(this).val("Autoplay Off");
 				}
+			};
+			
+			document.getElementById("loop").onclick = function(){
+				loop = !loop;
+				if (loop) {
+					$(this).val("Loop On");
+				} else {
+					$(this).val("Loop Off");
+				}
+				socket.emit("loop_playlist", loop);
 			};
     </script>
     <section id="controls"></section>

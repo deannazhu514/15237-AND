@@ -273,6 +273,7 @@ var audio = {};
 var songList = [];
 var n = 0;
 var testval = 300;
+var loop = true;
 //var trackIDList = {};
 
 /*end server variables */	
@@ -508,14 +509,26 @@ function init_socket(socket,room) {
 		var cur = songList.indexOf(""+id);
 		var next;
 		if (cur != -1) {
-			next = (cur == (songList.length-1)) ? songList[0] : songList[cur+1];
-			console.log("songList", songList, "next ", next);
+			if (cur == songList.length-1) {
+				if (loop)
+					next = songList[0];
+			} else {
+				next = songList[cur+1];
+			}
 			audio[id].play = false;
-			audio[next].play = true;
-			io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
+			if (next !== undefined) {
+				console.log("songList", songList, "next ", next);
+				audio[next].play = true;
+				io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
+			}
 			io.sockets.in(room).volatile.emit("update", audio);	
 		}
 		
+	});
+	
+	socket.on("loop_playlist", function(plloop) { //unused
+		loop = plloop;
+		//io.sockets.in(room).volatile.emit("update", audio);
 	});
 		
 	socket.on("loop_off", function(id) { //unused
@@ -541,16 +554,12 @@ function init_socket(socket,room) {
 			//console.log('sup', socketRoomList[room].tracks);
 		} else {
 			//console.log('sup1', tracks);
+			for (key in socketRoomList[room].tracks) {
+				audio[key].play = false;
+			}
 			socketRoomList[room].tracks = tracks;
-			
-			/*for (key in tracks) {
-			
-				socketRoomList[room].tracks[key] = tracks[key];
-			}*/
 		}
-		for (key in socketRoomList[room].tracks) {
-			console.log("key is " + key);
-		}
+		io.sockets.in(room).volatile.emit("update", audio);
 		readjust_devices(room, socket);
 	});
 	socket.on("playlists", function(playlists) {

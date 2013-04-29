@@ -10,7 +10,9 @@ var context, analyser, compressor;
 var deviceNum;
 
 //when true, will cause all tracks in playlist to play automatically
-var autoPlay  = true; 
+var autoPlay  = true;
+//when true, will cause a playlist to loop around
+var loop = true; 
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 

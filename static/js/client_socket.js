@@ -120,10 +120,10 @@ function client_socket_init() {
 		socket.emit("subscribe", username, h, w);
 		for (key in tracks) {
 			socket.emit("newtrack", tracks[key].id);
-			console.log("KEY IS: " +key);
+			
 		}
 		console.log(username, h,w);
-		
+		eventHandlersInit();
 	});
 
 	socket.on("playback", function() {

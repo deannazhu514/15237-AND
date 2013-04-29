@@ -67,11 +67,10 @@ function connect(){
 				$("#username").html(me.full_name);
 				getPlaylists(me.id);
 				client_socket_init();
-				console.log("calling event handlers init");
-				eventHandlersInit();
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
+				console.log("calling event handlers init");
 			} else {
 				alert("Couldn't connect to SoundCloud!");
 			}
@@ -80,19 +79,21 @@ function connect(){
 }
 
 function eventHandlersInit() {
-	for (key in sounds) {
+	$(document).ready( function() {
 		var foo = function() {
 			window.console.log("gr");
 		}
-		var aud = sounds[key].source.mediaElement;
-		console.log(aud);
-					aud.addEventListener('play',foo);
-					console.log('hi');
+		//alert('a');
+			for (key in sounds) {
+				console.log("SOUND KEY IS : ", key);
+				var aud = sounds[key].source.mediaElement;
 					aud.addEventListener('ended', foo);
-				aud.addEventListener('volumechange', function() {
-					window.console.log("afdk;lsjlhewa");
-				});
-	}
+					aud.addEventListener('play', foo);
+					aud.addEventListener('pause', foo);
+
+			}
+			window.console.log('aaaa');
+		});
 }
 
 function connectDevice(){	
@@ -275,7 +276,7 @@ function getPlaylists(SCuser){
 					var source = context.createMediaElementSource(aud);	
 					console.log(source);
 
-					var source = context.createMediaElementSource(aud);	
+					//var source = context.createMediaElementSource(aud);	
 				
 					ss.source = source;
 					ss.play = play;
@@ -293,8 +294,9 @@ function getPlaylists(SCuser){
 			temp.length = playlist.tracks.length;
 			temp.tracks = tracks;
 			playlists[playlist.id] = temp;
-
+			
 		});
+		console.log("HERE !!!!");
 		socket.emit('playlists', playlists);
 	 });
 	 

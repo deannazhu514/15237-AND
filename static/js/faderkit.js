@@ -470,7 +470,7 @@ function makeGlobalControls() {
     var globalControlsPalette = $("<section>").attr({
         class: "global-controls-palette track",
         id: "tracks"
-    })
+    });
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,

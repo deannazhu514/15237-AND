@@ -24,8 +24,8 @@
         <section class="menu">
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle on" id="audiotoggle">   
-            <input type="button" value="Autoplay On" class="autoplay" id="autoplay">
-			 <input type="button" value="Loop On" class="loop" id="loop">
+            <input type="button" value="Autoplay On" class="autoplay on" id="autoplay">
+			 <input type="button" value="Loop On" class="loop on" id="loop">
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <section id="add-device">
@@ -70,10 +70,12 @@
 
 			document.getElementById("autoplay").onclick = function(){
 				autoPlay = !autoPlay;
+				console.log(autoPlay);
 			};
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
+				console.log(loop);
 				socket.emit("loop_playlist", loop);
 			};
     </script>

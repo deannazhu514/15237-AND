@@ -55,7 +55,7 @@ socket.on("update", function(audio) {
 
 function client_socket_init() {
 	socket = io.connect("http://localhost:8111");
-	//socket = io.connect("http://128.237.200.130:8111");
+	//socket = io.connect("http://128.237.202.131:8111");
 
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);
@@ -103,7 +103,7 @@ function client_socket_init() {
 	});
 
 	socket.on('add_track', function(track) {
-		//console.log('adding track ' + track);
+		console.log('adding track ', track);
 		if (typeof(track.id) === 'string') {
 			track.id = parseFloat(track.id);
 		}
@@ -331,7 +331,7 @@ function change_volume(id, value) {
 function change_speed(id, value) {
 	console.log("SPEED VAL IS: ", value);
   socket.emit("speed", id, value);
-  	console.log('change speed', id, value);
+  	//console.log('change speed', id, value);
 }
 
 function change_time(id, value) {

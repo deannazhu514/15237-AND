@@ -153,12 +153,12 @@ function makeTurntable2(artSrc, duration, tid) {
 	$(turntable).click(function(){
     	var tempid = tid;
 		
+		console.log("HEREEEEEEEEEEEEE");
 		if (sounds[tempid] == undefined) {
 			SC.stream('/tracks/'+tempid, function(sound) {
 				sounds[tempid] = sound;
 			});
-			sounds[tempid].play();
-			
+			sounds[tempid].play();			
 		}
 		
 		if (trackList[tempid].playing) {
@@ -323,8 +323,6 @@ function makeTurntable(artSrc, duration, tid) {
             }        
         } else {    
         */
-        
-            console.log(trackList[tempid].playing);
             // setInterval(function(){
             // }, 1000);
 
@@ -340,15 +338,20 @@ function makeTurntable(artSrc, duration, tid) {
 				});*/
 			}
 			
-			console.log(trackList[tempid].playing);
+			//console.log(trackList[tempid].playing);
 			if(trackList[tempid].playing) {	
 				volumeGlow(5, turntable);
+				//sounds[tempid].togglePause();
+				//console.log("fadersound", sounds[tempid]);
 				socket.emit('pause',tid);
 				$(this).toggleClass("playing", false);	
 			} else {
 				volumeGlow(50, turntable);
+				if (context == undefined)
+					sounds[tempid].togglePause();
+				
 				socket.emit('play',tid);
-				console.log("playing");
+				//console.log("playing");
 				$(this).toggleClass("playing", true);	
 			}
 			//$(this).toggleClass("playing");	
@@ -405,7 +408,10 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             id  = $(control).parent().attr("id");
         if (name === "volume") {
             //s.volume = val/100;
-            change_volume(id,val/100);        
+            change_volume(id,val/100); 
+			//console.log("volume", val, sounds[id]);
+			if (context == undefined)
+				sounds[id].setVolume(parseInt(val));
             changingVol = true;
             // Set visual glow of volume
             volumeGlow(val,$(palette).parent().siblings(".turntable"));
@@ -429,7 +435,6 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             //fade value is inversed so 1 corresponds to current,
             //0 corresponds to next track
             fade_track(id, (100-val)/100);
-      
         }
     }
     

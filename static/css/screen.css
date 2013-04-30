@@ -246,22 +246,20 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   position: relative;
   left: -3.125%;
 }
-@media screen and (max-width: 38em) {
+@media screen and (max-width: 40em) {
   /* line 42, ../sass/_picker.scss */
   .logged-in section.picker .set {
     width: 175%;
   }
-}
-@media screen and (max-width: 40em) {
-  /* line 42, ../sass/_picker.scss */
-  .logged-in section.picker .set {
-    width: 87.5%;
+  /* line 56, ../sass/_picker.scss */
+  .logged-in section.picker .set ul.tracks li.track:last-child {
+    margin-bottom: 0 !important;
   }
 }
 @media screen and (max-width: 50em) {
   /* line 42, ../sass/_picker.scss */
   .logged-in section.picker .set {
-    width: 43.75%;
+    width: 87.5%;
   }
 }
 /* line 77, ../sass/_picker.scss */

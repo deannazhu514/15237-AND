@@ -9,8 +9,6 @@
 body > #tracks {
     .track {
         width: $col * $columns;
-        padding: $gutter 0;
-        margin: $gutter 0 0 0;
         box-sizing: border-box;
         float: left;
     
@@ -68,13 +66,24 @@ body > #tracks {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 letter-spacing: -.03125em;
+                position: relative;
             }
     
             author {
                 @include small-caps(1em);
             }
+            
+            .removeBut {
+                @include icon-button;
+                background-image: url('../images/close-icon.png') !important;
+                background-size: 90% 100% !important;
+                position: relative;
+                left: -2.75em;
+                top: -2.9em;
+                float: left;
+            }
     
-            margin-bottom: 1em;
+            margin-bottom: 1em;            
         }
     }
     

@@ -79,7 +79,7 @@ function makePalette(template) {
     // Container for all controls and information for a single track
     var track     = $("<li>").attr({
                         class: "track",
-                        id:    template.id
+                        id:    "track" + template.id
                     }),
         header    = $("<header>"),
         title     = $("<h1>").html(template.song),
@@ -98,8 +98,8 @@ function makePalette(template) {
 		socket.emit("deltrack", id);
 	});
 		
-    $(header).append(artist, title);
-    $(track).append(header, removeBut);
+    $(header).append(artist, title, removeBut);
+    $(track).append(header);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {    
         var element;
@@ -127,9 +127,9 @@ function makePalette(template) {
 }
 
 function makeWaveform(track) {
-    // console.log(document.getElementById(track.id));
+    console.log(document.getElementById("track" + track.id));
     // var waveform = new Waveform({
-    //     container: document.getElementById(track.id),
+    //     container: document.getElementById("track" + track.id),
     //     innerColor: "#333"
     // });
     // 
@@ -259,124 +259,19 @@ function makeTurntable(artSrc, duration, tid) {
         var ttable = this;
         var cursound = sounds[tempid];    
         console.log(tempid);
-        
-        /*if (cursound === undefined && (!nonstream)) {
-            console.log("hehehe");
-            var sound = {};
-            var audio = new Audio();
-            audio.src = tracks[tempid].url+stream_add;
-            
-            audio.addEventListener('ended', function() {
-                console.log("finished playing");
-                $(ttable).toggleClass("playing");
-                sound.stop();
-                if (autoplay) {
-                    console.log("playing next track");
-                    
-                } else {
-                    console.log("stopped");
-                }
-            });
-            
-            var source = context.createMediaElementSource(audio);    
-            //console.log(source);
-            sound.source = source;
-            sound.play = play;
-            sound.togglePause = togglePause;
-            sound.stop = stop;    
-            sounds[tempid] = sound;
-
-<<<<<<< HEAD
-	$(turntable).click(function(){
-    	// default glow when playing starts
-    	volumeGlow(50, turntable);
-		var tempid = tid;
-		var ttable = this;
-		var cursound = sounds[tempid];	
-		console.log("TID", tempid);
-		
-		/*if (cursound === undefined && (!nonstream)) {
-			console.log("hehehe");
-			var sound = {};
-			var audio = new Audio();
-			audio.src = tracks[tempid].url+stream_add;
+		if(trackList[tempid].playing) {	
+			volumeGlow(5, turntable);
+			socket.emit('pause',tid);
+			$(this).toggleClass("playing", false);	
+		} else {
+			volumeGlow(50, turntable);
+			if (context == undefined)
+				sounds[tempid].togglePause();
 			
-			audio.addEventListener('ended', function() {
-				console.log("finished playing");
-				$(ttable).toggleClass("playing");
-				sound.stop();
-				if (autoplay) {
-					console.log("playing next track");
-					
-				} else {
-					console.log("stopped");
-				}
-			});
-			
-			var source = context.createMediaElementSource(audio);	
-			//console.log(source);
-			sound.source = source;
-			sound.play = play;
-			sound.togglePause = togglePause;
-			sound.stop = stop;	
-			sounds[tempid] = sound;
-=======
-            if(trackList[tempid].playing) {
-                socket.emit('pause',tid);
-            } else {
-                socket.emit('play',tid);
-            }
-            console.log(trackList[tempid].playing);
-            $(ttable).toggleClass("playing");            
-            
-            // remove glow
-            if (cursound) {
-                 var id = $(control).parent().attr("id");
-                 var s = sounds[id].source.mediaElement;
-                    setInterval(function () {
-                    if (name === "playback") {
-                        $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));    
-                    }
-                }, 1000);
-
-            }        
-        } else {    
-        */
-            // setInterval(function(){
-            // }, 1000);
-
-			if (sounds[tempid] == undefined) {
-				/*SC.stream('/tracks/'+tempid, function(sound) {
-					sounds[tempid] = sound;
-					sound.play({
-						onfinish: function() {
-							sound.stop();
-							$(ttable).toggleClass("playing");	
-						}
-					});
-				});*/
-			}
-			
-			//console.log(trackList[tempid].playing);
-			if(trackList[tempid].playing) {	
-				volumeGlow(5, turntable);
-				//sounds[tempid].togglePause();
-				//console.log("fadersound", sounds[tempid]);
-				socket.emit('pause',tid);
-				$(this).toggleClass("playing", false);	
-			} else {
-				volumeGlow(50, turntable);
-				if (context == undefined)
-					sounds[tempid].togglePause();
-				
-				socket.emit('play',tid);
-				//console.log("playing");
-				$(this).toggleClass("playing", true);	
-			}
-			//$(this).toggleClass("playing");	
-		//}
+			socket.emit('play',tid);
+			$(this).toggleClass("playing", true);	
+		}
 	});
-	//turntable();
 	return $(turntable);
 }
 

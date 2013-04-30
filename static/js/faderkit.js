@@ -104,8 +104,8 @@ function makePalette(template) {
 		}
 	});
 		
-    $(header).append(artist, title);
-    $(track).append(header, removeBut);
+    $(header).append(artist, title, removeBut);
+    $(track).append(header);
 
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {    

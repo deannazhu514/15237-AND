@@ -98,7 +98,10 @@ function makePalette(template) {
 		delete tracks[id];
 		console.log(sounds[id]);
 		sounds[id].stop();
-		console.log("DELETING : ", id);
+		if ($('#tracks').children().length == 0) {
+			$("section.picker").toggleClass("open");
+			$("input.picker").removeClass("on");
+		}
 	});
 		
     $(header).append(artist, title, removeBut);
@@ -213,7 +216,7 @@ function makeTurntable2(artSrc, duration, tid) {
 function volumeGlow(vol, item) {
     var glow = vol * 2;
     $(item).css({
-        "box-shadow": "0 0 " + glow + "px " + "white"
+        "box-shadow": "0 0 " + glow + "px " + "red"
     })
 }
 
@@ -464,8 +467,10 @@ function makeGlobalControls() {
         "orientation" : "horizontal",
         "showValue" : false
     }];
-    var globalControlsPalette = $("<section>")
-                                .addClass("global-controls-palette");
+    var globalControlsPalette = $("<section>").attr({
+        class: "global-controls-palette track",
+        id: "tracks"
+    })
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,
@@ -592,8 +597,10 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
                 sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
                 str = min + ":" + sec;
             $(value).html(str);
+            var prog = 1/(duration/x);
             var canvas = (palette).parent().siblings(".turntable").children().children("canvas")[0];
-            drawProgress(canvas, 1/(duration/x));
+            drawProgress(canvas, prog);
+            $(control).val(prog);
         }, 250);
     }
     if (name === 'fader') {

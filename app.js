@@ -184,7 +184,6 @@ app.post("/sendModule", function(request, response) {
     var success = (users[id] != undefined) && (users[id].devices[device] != undefined);
     if (success) {
         console.log("sending "+module+"to "+ device);
-
     }
     response.send({
         userID : id,
@@ -635,20 +634,32 @@ function init_socket(socket,room) {
 			
 			
     socket.on("newtrack", function(id) {
-			var audio = socketRoomList[room][socket.id].audio;
-			console.log("REC NEW TRACK", id);
-			if (socketRoomList[room].trackOrdering == undefined) {
-				socketRoomList[room].trackOrdering = [];
-			}
-			
-			if (socketRoomList[room].tracks[id] == undefined) {
-				//audio_init(id);
-				socketRoomList[room].trackOrdering.push(id);
-			}
-			socketRoomList[room][socket.id].audio[id] = audio_init(id);
+		var audio = socketRoomList[room][socket.id].audio;
+		console.log("REC NEW TRACK", id);
+		if (socketRoomList[room].trackOrdering == undefined) {
+			socketRoomList[room].trackOrdering = [];
+		}
+		
+		if (socketRoomList[room].tracks[id] == undefined) {
+			//audio_init(id);
+			socketRoomList[room].trackOrdering.push(id);
+		}
+		socketRoomList[room][socket.id].audio[id] = audio_init(id);
+    });
+	socket.on("deltrack", function(id) {
+		var audio = socketRoomList[room][socket.id].audio;
+		var track = socketRoomList[room].tracks[id];
+		audio[id].play = false;
+		if (track !== undefined) {
+			delete socketRoomList[room].tracks[id];
+			console.log("deleted ", id, socketRoomList[room].tracks);
+		} else {
+			console.log("huh", id);	
+		}			
+		io.sockets.in(room).volatile.emit("update", audio);
     });
     socket.on("disconnect", function() {
-			masteraud = socketRoomList[room][socket.id].audio;
+		masteraud = socketRoomList[room][socket.id].audio;
         console.log('NEW PLAYBACK');
         if (io.sockets.clients(room).length >= 1) {
             io.sockets.clients(room)[0].emit("playback");
@@ -661,8 +672,8 @@ function init_socket(socket,room) {
         if (socketRoomList[room].size > 0) {
             readjust_disconnect(room);
         } else {
-					socketRoomList[room].trackOrdering = [];
-				}
+			socketRoomList[room].trackOrdering = [];
+		}
 	});
 	socket.on("volume", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;

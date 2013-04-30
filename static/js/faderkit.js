@@ -90,7 +90,8 @@ function makePalette(template) {
 	removeBut.click(function(){
 		var id = this.getAttribute("id");
 		
-		//socket.emit("remove_track", id);
+		$('#'+id).parent().remove();
+		socket.emit("deltrack", id);
 	});
 	
     $(header).append(artist, title);

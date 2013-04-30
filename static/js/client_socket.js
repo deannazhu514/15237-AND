@@ -262,8 +262,8 @@ function supdate(a) {
 							console.log("was paused");
 							s.currentTime = 0;
 						}
-						$('#'+key).parent().remove();
-						socket.emit('next', key);			
+						socket.emit('next', key);	
+						$('#'+key).parent().remove();						
 					} else {
 						if (track.playing) {
 							socket.emit('pause',key);

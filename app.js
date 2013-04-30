@@ -601,11 +601,14 @@ function init_socket(socket,room) {
 
     socket.on("newtrack", function(id) {
 			console.log("REC NEW TRACK", id);
-			audio_init(id);
 			if (socketRoomList[room].trackOrdering == undefined) {
 				socketRoomList[room].trackOrdering = [];
 			}
-			socketRoomList[room].trackOrdering.push(id);
+			
+			if (socketRoomList[room].tracks[id] == undefined) {
+				audio_init(id);
+				socketRoomList[room].trackOrdering.push(id);
+			}
     });
     socket.on("disconnect", function() {
         console.log('NEW PLAYBACK');

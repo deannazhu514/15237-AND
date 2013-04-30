@@ -111,9 +111,6 @@ function client_socket_init() {
 		if (!sounds[track.id].source.mediaElement.paused) {
 			elt.toggleClass("playing", true);
 		}
-		//if ($('.turntable #'+track.id) == null) {
-			console.log("hehe");
-			var elt = makePalette(track);
 		
 			//console.log(trackList[track.id].playing);
 			if (!sounds[track.id].source.mediaElement.paused) {

@@ -287,6 +287,7 @@ function change_volume(id, value) {
 }
 
 function change_speed(id, value) {
+	console.log("SPEED VAL IS: ", value);
   socket.emit("speed", id, value);
 }
 

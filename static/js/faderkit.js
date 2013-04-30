@@ -478,7 +478,8 @@ function makeControl (type, name, orientation,
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
         } else if (name === "pbr") {
-        	change_speed(id,val/50);
+				
+        	change_speed(id,Math.pow(1.01395, val-50));
         	changingPBR = true;
         	//s.playbackRate = val/50;
         } else if (name === "playback") {

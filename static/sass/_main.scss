@@ -92,14 +92,7 @@ body {
 
 
 
-.global-controls-palette {
-input {
-           &.playback {
-               input, input:hover, input:active {
-                   border: none;
-               }
-           }
-       
+.global-controls-palette {       
            .move {
                background: none;
                border: none;
@@ -168,4 +161,4 @@ input {
                    -webkit-transform: rotate(-90deg);
                }
            }
-       }}}
+       }

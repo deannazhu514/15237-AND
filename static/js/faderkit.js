@@ -15,6 +15,8 @@ var slider = {
     "showValue" : true
 };
 
+makeGlobalControls();
+
 //source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
 
 function cloneObject(source) {
@@ -124,17 +126,18 @@ function makePalette(template) {
     return element;
 }
 
-function waveform(track) {
-    var waveform = new Waveform({
-        container: document.getElementById(track.id),
-        innerColor: "#333"
-    });
-    
-    waveform.dataFromSoundCloudTrack(track);
-    var streamOptions = waveform.optionsForSyncedStream();
-    SC.stream(track.uri, streamOptions, function(stream){
-        window.exampleStream = stream;
-    });
+function makeWaveform(track) {
+    // console.log(document.getElementById(track.id));
+    // var waveform = new Waveform({
+    //     container: document.getElementById(track.id),
+    //     innerColor: "#333"
+    // });
+    // 
+    // waveform.dataFromSoundCloudTrack(track);
+    // var streamOptions = waveform.optionsForSyncedStream();
+    // SC.stream(track.uri, streamOptions, function(stream){
+    //     window.exampleStream = stream;
+    // });
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -416,12 +419,12 @@ function makeGlobalControls() {
         "showValue" : false
     }];
     var globalControlsPalette = $("<section>")
-                    .addClass("global-controls-palette");
+                                .addClass("global-controls-palette");
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,
                                   controls[i].orientation,
-                                  controls[i].showValue,);
+                                  controls[i].showValue);
         globalControlsPalette.append(control);
     }
     $("body").append(globalControlsPalette);

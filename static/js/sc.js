@@ -314,7 +314,7 @@ function getPlaylists(SCuser){
 					temp.tracks[track.id] = track2;
 					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);
-					waveform(track);
+					makeWaveform(track);
 				}
 			}					
 			//socket.emit('tracklist', tracks);

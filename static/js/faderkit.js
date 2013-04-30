@@ -406,9 +406,6 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             //s.currentTime = (ss.duration*val/100);                    
             change_time(id, x);
             $(value).html(Math.floor(x/60) + ":" + Math.floor(x%60));
-            console.log("——————————————————————");
-            console.log(val);
-            console.log("——————————————————————");
         } else if (name === "fader") {
             fading = true;
             //fade value is inversed so 1 corresponds to current,
@@ -453,19 +450,21 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['vol'] = $(control);
-		//$(control).val(trackList[tid].volume);
+		$(control).val(trackList[tid].volume);
+		console.log("aslkfher;t");
 	} 
 	if (name === 'pbr') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['pbr'] = $(control);
-		//$(control).val(
+		$(control).val(trackList[tid].pbr);
 	}
 	if (name === 'playback') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
+		//$(control).val(duration
 		ctrls[tid]['pb'] = $(control);
 		timer = setInterval(function(){
 			var x;
@@ -504,6 +503,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         ctrls[tid]['pbr'] = $(control);
     }
     if (name === 'playback') {
+				var s = sounds[tid].source.mediaElement;
+				console.log("S IS ", s);
         $(control).data('changeSlider', changeSlider);
         $(control).data('val', $(control));
         $(control).data('val2', $(value));

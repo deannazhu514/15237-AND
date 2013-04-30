@@ -614,6 +614,7 @@ function makePicker(sets) {
                             
                             for (track in playlists[id].tracks) {
                                 console.log("TRACK", track);
+								tracks[track.id] = alltracks[track.id];
                                 socket.emit("newtrack", track);
                             }
                             $("#tracks").children().remove();

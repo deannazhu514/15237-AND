@@ -94,7 +94,7 @@ function makePalette(template) {
 	removeBut.click(function(){
 		var id = this.getAttribute("id");
 		
-		$('#'+id).parent().remove();
+		$('#'+id).remove();
 		socket.emit("deltrack", id);
 	});
 		

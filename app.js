@@ -751,24 +751,24 @@ function init_socket(socket,room) {
 	socket.on("next", function(id) {
 		var audio = socketRoomList[room][socket.id].audio;
 		console.log("play song after ", id);
-		var cur = songList.indexOf(""+id);
+		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
 		var next;
 		if (cur != -1) {
 			if (cur == songList.length-1) {
 				if (loop)
-					next = songList[0];
+					next = socketRoomList[room].trackOrdering[0];
 			} else {
-				next = songList[cur+1];
+				next = socketRoomList[room].trackOrdering[cur+1];
 			}
 			audio[id].play = false;
 			if (next !== undefined) {
-				console.log("songList", songList, "next ", next);
+				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
 				audio[next].play = true;
 				io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
 			}
 			io.sockets.in(room).volatile.emit("update", audio);	
 		}
-		
+
 	});
 	
 	socket.on("loop_playlist", function(plloop) { //unused

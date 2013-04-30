@@ -245,7 +245,7 @@ function supdate(a) {
 			continue;
 		}
 		
-		console.log(a[key]);
+		//console.log(a[key]);
 		audio = a[key];
 		var ctrl = ctrls[key];
 		var track = trackList[key];
@@ -282,7 +282,11 @@ function supdate(a) {
 						}
 						socket.emit('next', key);	
 
-						$('#'+key).remove();						
+						$('#'+key).remove();		
+						if ($('#tracks').children().length == 0) {
+							$("section.picker").toggleClass("open");
+							$("input.picker").removeClass("on");
+						}						
 					} else {
 						if (track.playing) {
 							socket.emit('pause',key);

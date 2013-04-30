@@ -98,7 +98,10 @@ function makePalette(template) {
 		delete tracks[id];
 		console.log(sounds[id]);
 		sounds[id].stop();
-		console.log("DELETING : ", id);
+		if ($('#tracks').children().length == 0) {
+			$("section.picker").toggleClass("open");
+			$("input.picker").removeClass("on");
+		}
 	});
 		
     $(header).append(artist, title);

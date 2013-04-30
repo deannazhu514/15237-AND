@@ -514,7 +514,6 @@ function readjust_devices(room,socket) {
 
 function add_track(room, socket,id) {
 	console.log("adding track", id);
-	console.log(socketRoomList[room].tracks[id]);
 	socketRoomList[room][socket.id].s.emit("add_track", socketRoomList[room].tracks[id]);
 	socketRoomList[room][socket.id].tracks[id] = socketRoomList[room].tracks[id];
 	if (masteraud[id] == undefined) {
@@ -568,7 +567,6 @@ function init_socket(socket,room) {
             io.sockets.clients(room)[0].emit("playback");
         }
         delete socketRoomList[room][socket.id];
-        console.log(socketRoomList[room][socket.id]);
         if (socketRoomList[room].size != undefined)
         socketRoomList[room].size = socketRoomList[room].size -1;
         //readjust_devices(room, socket);
@@ -597,7 +595,8 @@ function init_socket(socket,room) {
 		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
 		var next;
 		if (cur != -1) {
-			if (cur == songList.length-1) {
+			if (cur == socketRoomList[room].trackOrdering.length-1) {
+				console.log(loop);
 				if (loop)
 					next = socketRoomList[room].trackOrdering[0];
 			} else {
@@ -658,7 +657,8 @@ function init_socket(socket,room) {
 		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
 		var next;
 		if (cur != -1) {
-			if (cur == songList.length-1) {
+			if (cur == socketRoomList[room].trackOrdering.length-1) {
+				console.log(loop);
 				if (loop)
 					next = socketRoomList[room].trackOrdering[0];
 			} else {

@@ -21,6 +21,7 @@ var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
 //var redirect_uri = 'http://localhost:8999/static/index.html';
 var redirect_uri = 'http://128.237.186.94:8999/static/index.html';
 
+
 var stream_add =  '?client_id='+client_id;
 
 
@@ -43,7 +44,7 @@ var playbackslider = {
 				"name" : "playback",
                 "orientation" : "horizontal",
                 "showValue" : true
-            };		
+            };
 
 var faderslider = {
                 "type" : "slider",

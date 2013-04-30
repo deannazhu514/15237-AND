@@ -121,7 +121,6 @@ app.get("/sessionCode/:id", function(request, response) {
 app.post("/login", function(request, response) {
     var id = request.body.user;
     var deviceID = request.body.deviceID;
-		console.log("HEY HERE");
     var num = "";
     if (users[id] == undefined) {
         users[id] = {};
@@ -390,8 +389,6 @@ function readjust_disconnect(room) {
 				break;
 			}
 			add_track(room, socketRoomList[room][id].s, temptrack.id);
-			//socketRoomList[room][id].s.emit("add_track", temptrack.id);
-			//i++;
 		}
 		console.log('id: ' + id);
 	}
@@ -406,8 +403,6 @@ function readjust_disconnect(room) {
 		break;
 		}
 		add_track(room, socketRoomList[room][id].s, temptrack.id);
-		//socketRoomList[room][min].s.emit("add_track", temptrack);
-	//i++;
 	}
 }
 
@@ -479,30 +474,24 @@ function readjust_devices(room,socket) {
 		case 1: 
 			for (var p = 0; p < olist.length; p++) {
 				add_track(room, r[devSizeArray[0].id].s, olist[p]);
-				//r[devSizeArray[0].id].s.emit("add_track", olist[p]);
 			}
 			console.log(olist);
 			break;
 		case 2: 
 			add_track(room, r[devSizeArray[0].id].s, olist[0]);
-			//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
-			//r[devSizeArray[0].id].tracks.push(olist[0]);
 			for (var p = 1; p < olist.length; p++) {
 				console.log(devSizeArray.length);
 				console.log(devSizeArray[1]);
 				add_track(room, r[devSizeArray[1].id].s, olist[p]);
-				//r[devSizeArray[1].id].s.emit("add_track", olist[p]);
 			}
 			break;
 		//1 screen with 1, 2nd screen with 1, then playlist screen
 		case 3:
 			if (olist.length > 0) {
 				add_track(room, r[devSizeArray[0].id].s, olist[0]);
-				//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
 			}
 			if (olist.length > 1) {
 				add_track(room, r[devSizeArray[1].id].s, olist[1]);
-				//r[devSizeArray[1].id].s.emit("add_track", olist[1]);
 			}
 			r[devSizeArray[2].id].s.emit("disp_playlists");
 			break;
@@ -510,12 +499,9 @@ function readjust_devices(room,socket) {
 		case 4:
 			if (olist.length > 0) {
 				add_track(room, r[devSizeArray[0].id].s, olist[0]);
-				//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
 			}
 			if (olist.length > 1) {
 				add_track(room, r[devSizeArray[1].id].s, olist[1]);
-				//r[devSizeArray[1].id].audio[olist[1]] = audio_init(olist[1]);
-				//r[devSizeArray[1].id].s.emit("add_track", olist[1]);
 			}
 			r[devSizeArray[2].id].s.emit("disp_playlists");
 			r[devSizeArray[3].id].s.emit("disp_globals");
@@ -524,106 +510,11 @@ function readjust_devices(room,socket) {
 	masteraud = {};
 	return;
 	
-	//never reach here for now, testing
-	
-	
-	
-	
-	/* END HARDCODED SIZE CONDITIONALS*/
-	
-	var l = r.size-1;
-	var overflow = false;
-	if (l > olist.length) {
-		l = olist.length;
-	}
-	
-	var k = 0;
-	while (k < l){
-		
-		r[devSizeArray[k].id].s.emit("add_track", olist[k++]);
-	}
-	
-	
-	var n = k;
-	while ( k < r.olist.length) {
-		r[devSizeArray[n].id].s.emit("add_track", olist[k++]);
-	}
-
-	
-	
-	/*
-	for (var j = 0; j < socketRoomList[room].trackOrdering.length; j++) {
-		var id = socketRoomList[room].trackOrdering[j];
-		var s = socketRoomlist[room][id];
-		var tempsize = s.h * s.w;
-		if (tempsize < size) {
-			min = id;
-			size = tempsize;
-		}
-	} */
-	var i = 0;
-	//making temp hardcopy of tracklist
-	var templist = {};
-	for (id in socketRoomList[room].tracks) {
-		templist[id] = socketRoomList[room].tracks[id];
-	}
-	var len = Object.keys(templist).length
-	// below doesnt work because i have to get jquery to work with node
-	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
-	/*for (id in socketRoomList[room]) {
-		if (id == 'tracks') {
-			continue;
-		} 
-		if (id == 'size') {
-			continue;
-		}
-		if (i >= len) {
-			break;
-		}
-		if (id != min) {
-			var temptrack;
-			for (key in templist) {
-				temptrack = templist[key];
-				delete templist[key];
-				len--;
-				break;
-			}
-			socketRoomList[room][id].s.emit("add_track", temptrack);
-			//i++;
-		}
-	} */
-	var j =0;
-	
-	//while (j < len) {
-	for (id in socketRoomList[room]) {
-		var id = socketRoomList[room].trackOrdering[j];
-		if (id != min) {
-			socketRoomList[room][id].s.emit("add_track", socketRoomList[room].tracks[id]);
-		}
-		j++;
-	}
-	while (j < socketRoomList[room].trackOrdering.length) {
-		var id = socketRoomList[room].trackOrdering[j];
-		socketRoomList[room][id].s.emit("add_track", socketRoomList[room].tracks[id]);
-		j++;
-	}
-	console.log(i);
-	/*
-	while (i < len) {
-		var temptrack;
-		for (key in templist) {
-			temptrack = templist[key];
-			delete templist[key];
-			len--;
-			break;
-		}
-		socketRoomList[room][min].s.emit("add_track", temptrack);
-		//i++;
-	}*/
 }
 
 function add_track(room, socket,id) {
 	console.log("adding track", id);
+	console.log(socketRoomList[room].tracks[id]);
 	socketRoomList[room][socket.id].s.emit("add_track", socketRoomList[room].tracks[id]);
 	socketRoomList[room][socket.id].tracks[id] = socketRoomList[room].tracks[id];
 	if (masteraud[id] == undefined) {
@@ -643,7 +534,6 @@ function init_socket(socket,room) {
 		if (socketRoomList[room].trackOrdering == undefined) {
 			socketRoomList[room].trackOrdering = [];
 		}
-		
 		if (socketRoomList[room].tracks[id] == undefined) {
 			//audio_init(id);
 			socketRoomList[room].trackOrdering.push(id);
@@ -659,8 +549,17 @@ function init_socket(socket,room) {
 			console.log("deleted ", id, socketRoomList[room].tracks);
 		} else {
 			console.log("huh", id);	
-		}			
-		io.sockets.in(room).volatile.emit("update", audio);
+		}
+		var olist = socketRoomList[room].trackOrdering;
+		for (var i = 0; i < olist.length; i++) {
+			if (olist[i] == id) {
+				olist.splice(i,1);
+				console.log("O LIST", olist);
+				break;
+			}
+		}
+		delete audio[id];
+		//io.sockets.in(room).volatile.emit("update", audio);
     });
     socket.on("disconnect", function() {
 		masteraud = socketRoomList[room][socket.id].audio;
@@ -768,7 +667,7 @@ function init_socket(socket,room) {
 			if (next !== undefined) {
 				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
 				audio[next].play = true;
-				io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
+				add_track(room, socket, id);
 			}
 			io.sockets.in(room).volatile.emit("update", audio);	
 		}
@@ -800,15 +699,16 @@ function init_socket(socket,room) {
 	socket.on("tracklist", function(tracks) {
 		var audio = socketRoomList[room][socket.id].audio;
 		console.log("RECEIVDTRACKLIST");//, socketRoomList[room]);
-		if (socketRoomList[room].tracks.length == 0) {
+		if (socketRoomList[room].tracks == undefined) {
 			socketRoomList[room].tracks = tracks;
 			//console.log('sup', socketRoomList[room].tracks);
 		} else {
 			//console.log('sup1', tracks);
-			for (key in socketRoomList[room].tracks) {
-				//audio[key].play = false;//why do i have this
+			//socketRoomList[room].tracks = tracks;
+			for (key in tracks) {
+				console.log(key);
+				socketRoomList[room].tracks[key] = tracks[key];
 			}
-			socketRoomList[room].tracks = tracks;
 		}
 		io.sockets.in(room).volatile.emit("update", audio);
 		readjust_devices(room, socket);

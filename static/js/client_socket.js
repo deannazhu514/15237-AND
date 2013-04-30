@@ -57,6 +57,7 @@ function client_socket_init() {
 	//socket = io.connect("http://localhost:8111");
 	socket = io.connect("http://128.237.186.94:8111");
 
+
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);
 		for (key in sounds) {
@@ -119,7 +120,7 @@ function client_socket_init() {
 	});
 
 	socket.on('add_track', function(track) {
-		console.log('adding track ' + track);
+		console.log('adding track ', track);
 		if (typeof(track.id) === 'string') {
 			track.id = parseFloat(track.id);
 		}

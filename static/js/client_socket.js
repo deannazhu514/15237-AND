@@ -55,7 +55,7 @@ socket.on("update", function(audio) {
 
 function client_socket_init() {
 	//socket = io.connect("http://localhost:8111");
-	socket = io.connect("http://128.237.186.94:8111");
+	socket = io.connect("http://128.237.125.237:8111");
 
 
 	socket.on("update_time", function(value, id) {
@@ -63,7 +63,7 @@ function client_socket_init() {
 		for (key in sounds) {
 			var tt = sounds[key];
 			if (id == key) {
-				console.log("change time", value);
+				console.log("changing time to", value);
 				if (context !== undefined)
 					tt.source.mediaElement.currentTime = value;
 				else {

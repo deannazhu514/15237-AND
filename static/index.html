@@ -15,13 +15,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/client_socket.js"></script>
 	<script src="js/client.js"></script>
-    <script>
-     /* $(document).ready(function() {
-        SC.initialize({
-            client_id: '8c81dbd8c3ad36c29dfc54d06b566fe6',			
-        });
-    });*/
-    </script>
+
 </head>
 <body class="guest">
     <header>
@@ -29,7 +23,7 @@
         <p id="username"></p>
         <section class="menu">
             <input type="button" value="Picker" class="picker">
-            <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
+            <input type="button" value="Audio On/Off" class="audio-toggle on" id="audiotoggle">   
             <input type="button" value="Autoplay On" class="autoplay" id="autoplay">
 			 <input type="button" value="Loop On" class="loop" id="loop">
         </section>
@@ -76,20 +70,10 @@
 
 			document.getElementById("autoplay").onclick = function(){
 				autoPlay = !autoPlay;
-				if (autoPlay) {
-					$(this).val("Autoplay On");
-				} else {
-					$(this).val("Autoplay Off");
-				}
 			};
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
-				if (loop) {
-					$(this).val("Loop On");
-				} else {
-					$(this).val("Loop Off");
-				}
 				socket.emit("loop_playlist", loop);
 			};
     </script>

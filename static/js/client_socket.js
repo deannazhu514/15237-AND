@@ -97,11 +97,6 @@ function client_socket_init() {
 							setTime: false
 						};
 		}
-		/*if (device === deviceNum) {
-			if (module == 'track') {
-				
-			}
-		} */
 	});
 	socket.on("remove_track", function() {
 		$("body > ul#tracks .track").remove();
@@ -109,9 +104,9 @@ function client_socket_init() {
 
 	socket.on('add_track', function(track) {
 		//console.log('adding track ' + track);
-	if (typeof(track.id) === 'string') {
-		track.id = parseFloat(track.id);
-	}
+		if (typeof(track.id) === 'string') {
+			track.id = parseFloat(track.id);
+		}
 		var elt = makePalette(track);
 		console.log(trackList[track.id].playing);
 		if (!sounds[track.id].source.mediaElement.paused) {
@@ -135,7 +130,6 @@ function client_socket_init() {
 							elt.toggleClass("playing", true);
 						}
 					});
-					//sound.pause();
 				});
 			
 				/*if (sounds[track.id].paused){
@@ -268,8 +262,8 @@ function supdate(a) {
 							console.log("was paused");
 							s.currentTime = 0;
 						}
-						$('#'+key).parent().remove();
-						socket.emit('next', key);			
+						socket.emit('next', key);	
+						$('#'+key).parent().remove();						
 					} else {
 						if (track.playing) {
 							socket.emit('pause',key);

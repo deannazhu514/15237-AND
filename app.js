@@ -215,6 +215,23 @@ app.post("/tracks", function(request, response) {
 });
 
 
+app.post("/audio", function(request, response) {
+    //console.log(request.body);
+    var user = request.body.user;
+    var audio = request.body.audio;
+    if (users[user] == undefined) {
+        users[user] = {};
+    }
+
+	console.log(audio);
+	
+    response.send({
+        userID : user,
+        success:true
+    });  
+});
+
+
 app.get("/current/:id", function(request, response){
     var id = request.params.id;
     response.send({
@@ -257,6 +274,7 @@ var audio = {};
 var songList = [];
 var n = 0;
 var testval = 300;
+var loop = true;
 //var trackIDList = {};
 
 /*end server variables */	
@@ -580,6 +598,7 @@ function add_track(room, socket,id) {
 
 
 function init_socket(socket,room) {
+
     socket.on("newtrack", function(id) {
 			console.log("REC NEW TRACK", id);
 			audio_init(id);
@@ -603,7 +622,29 @@ function init_socket(socket,room) {
         }
 	});
 	socket.on("volume", function(id, value) {
+		audio[id].fade = value; 
 		audio[id].volume = value; //percentage value between 0 and 100 here
+		io.sockets.in(room).volatile.emit("update", audio);
+	});
+	
+	socket.on("fade", function(id, value) {
+		//console.log("fading", value);
+		audio[id].fade = audio[id].volume*value; //percentage value between 0 and 100 here
+		var cur = songList.indexOf(""+id);
+		var next;
+		if (cur != -1) {
+			if (cur == songList.length-1) {
+				if (loop)
+					next = songList[0];
+			} else {
+				next = songList[cur+1];
+			}
+			if (next !== undefined) {
+				audio[next].fade = audio[next].volume*(1-value);
+				audio[next].play = true;
+				//console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
+			}
+		}
 		io.sockets.in(room).volatile.emit("update", audio);
 	});
 	socket.on("mute", function(id) { //unused
@@ -637,15 +678,36 @@ function init_socket(socket,room) {
 		console.log("pause song with id: " + id);
 	});
 	
+	socket.on("audio", function(audio){
+		console.log(audio);
+	
+	});
+	
 	socket.on("next", function(id) {
+		console.log("play song after ", id);
 		var cur = songList.indexOf(""+id);
 		var next;
-		if (cur != songList.length && cur != -1) {
-			next = songList[cur+1];
-			
-			audio[next].play = true;
-			io.sockets.in(room).volatile.emit("update", audio);
+		if (cur != -1) {
+			if (cur == songList.length-1) {
+				if (loop)
+					next = songList[0];
+			} else {
+				next = songList[cur+1];
+			}
+			audio[id].play = false;
+			if (next !== undefined) {
+				console.log("songList", songList, "next ", next);
+				audio[next].play = true;
+				io.sockets.in(room).volatile.emit("add_track", socketRoomList[room].tracks[id]);
+			}
+			io.sockets.in(room).volatile.emit("update", audio);	
 		}
+		
+	});
+	
+	socket.on("loop_playlist", function(plloop) { //unused
+		loop = plloop;
+		//io.sockets.in(room).volatile.emit("update", audio);
 	});
 		
 	socket.on("loop_off", function(id) { //unused
@@ -671,13 +733,12 @@ function init_socket(socket,room) {
 			//console.log('sup', socketRoomList[room].tracks);
 		} else {
 			//console.log('sup1', tracks);
-			for (key in tracks) {
-				socketRoomList[room].tracks[key] = tracks[key];
+			for (key in socketRoomList[room].tracks) {
+				audio[key].play = false;
 			}
+			socketRoomList[room].tracks = tracks;
 		}
-		for (key in socketRoomList[room].tracks) {
-			console.log("key is " + key);
-		}
+		io.sockets.in(room).volatile.emit("update", audio);
 		readjust_devices(room, socket);
 	});
 	socket.on("playlists", function(playlists) {
@@ -710,7 +771,8 @@ function rec_message(socket) {
 function audio_init(id) {
     if (audio[id] == undefined) {
         audio[id] = {
-            volume:  1,
+            volume:  0.5,
+			fade: 1,
             mute:  false,
             auto: true,
             speed: 1,
@@ -721,14 +783,11 @@ function audio_init(id) {
             id: id
         }
     } else {
-			console.log(id);
+		console.log(id);
 	}
   
-    //audio[id].name = name;
-
-	  songList.push(""+id);
+	songList.push(""+id);
 	  //console.log(songList);
-	//n = songList.length;
 }
 
 

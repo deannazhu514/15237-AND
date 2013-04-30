@@ -8,8 +8,8 @@
     <link type="text/css" rel="stylesheet" href="http://fast.fonts.com/cssapi/8231897c-dd38-4b21-ac8c-cc0e94b7e948.css">
     <link href="./css/screen.css" rel="stylesheet" type="text/css">
     <script src="js/lib/jquery.js"></script>
-    <script src="js/faderkit.js"></script>
     <script src="js/sc.js"></script>
+    <script src="js/faderkit.js"></script>
     <script src="js/interaction.js"></script>
     <script src="//connect.soundcloud.com/sdk.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
@@ -30,7 +30,8 @@
         <section class="menu">
             <input type="button" value="Picker" class="picker">
             <input type="button" value="Audio On/Off" class="audio-toggle" id="audiotoggle">   
-            <input type="button" value="Autoplay On/Off" class="autoplay" id="autoplay">
+            <input type="button" value="Autoplay On" class="autoplay" id="autoplay">
+			 <input type="button" value="Loop On" class="loop" id="loop">
         </section>
         <!-- <input type="button" value="Add a Device" class="add-device">  -->
         <section id="add-device">
@@ -62,14 +63,30 @@
                 connect();
             });
 			$('input.picker').click(function(){
-				$("section.picker").toggleClass("open");
+                $("section.picker").toggleClass("open");
+                $(this).toggleClass("on");
 			});
         });
 			document.getElementById("audiotoggle").onclick = togglePlayback;
 
 			document.getElementById("autoplay").onclick = function(){
-				autoplay = !autoplay;
-				console.log(autoplay);
+				autoPlay = !autoPlay;
+				if (autoPlay) {
+					$(this).val("Autoplay On");
+				} else {
+					$(this).val("Autoplay Off");
+				}
+			};
+			
+			document.getElementById("loop").onclick = function(){
+				loop = !loop;
+				$(this).toggleClass("on");
+				if (loop) {
+					$(this).val("Loop On");
+				} else {
+					$(this).val("Loop Off");
+				}
+				socket.emit("loop_playlist", loop);
 			};
     </script>
     <section id="controls"></section>

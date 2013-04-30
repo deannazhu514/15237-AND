@@ -3,6 +3,7 @@ var controlChanging = false;
 var changingVol = false;
 var changingPBR = false;
 var changingPB = false;
+var fading = false;
 var intids = {};
 var setlist = [];
 
@@ -20,46 +21,42 @@ function cloneObject(source) {
     for (i in source) {
         if (typeof source[i] == 'source') {
             this[i] = new cloneObject(source[i]);
-        }
-        else{
+        } else {
             this[i] = source[i];
-	}
+        }
     }
 }
- 
 
-
-function constructSetList() {
+function constructSetList(playlists) {
 	for (key in playlists) {
-		
 		console.log("KEY IS : " +key);
 		var temptracks = $.map(playlists[key].tracks, function (value, key) { return value; });
-		
 		//sort temptracks
 		var i = 0;
 		while (i < playlists[key].length) {
 			if (temptracks[i].i != i) {
 				var temp = new cloneObject(temptracks[i]);
 				var tempind = 
-				console.log(temp);
+				//console.log(temp);
 				temptracks[i] = new cloneObject(temptracks[temp.i]);
 				temptracks[temp.i] = temp;
 				i = 0;
 				
 			}
 			else {
-			i++;
+				i++;
 			}
 		}
 		for (var j = 0; j < temptracks.length; j++) {
 			console.log("TEMPTRACKS IS: ", temptracks[j]);
 		}
-		console.log(temptracks);
+		//console.log(temptracks);
 		
-		var tempobj = {name: playlists[key].name, 
+		var tempobj = {name: playlists[key].name, id: key,
 									tracks: temptracks};
 		setlist.push(tempobj);
 	}
+	console.log("setlist", setlist);
 }
 
 $(document).ready(function(){
@@ -247,7 +244,7 @@ $(document).ready(function(){
         }]
     }];
     
-    //makePicker(sets);
+    // makePicker(sets);
 })
             
 function makePalette(template) {
@@ -272,6 +269,7 @@ function makePalette(template) {
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
         tid      = template.id;
+		
     $(header).append(artist, title);
     $(track).append(header);
     console.log('tid: ' + tid);
@@ -297,7 +295,7 @@ function makePalette(template) {
         track.append(controls);
     }
     $("ul#tracks").append(track);
-		return element;
+	return element;
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -324,10 +322,6 @@ function makeTurntable2(artSrc, duration, tid) {
 	
 	$(turntable).click(function(){
     	var tempid = tid;
-    	var ttable = this;
-    	
-    	//cursound.togglePause();
-    	//trackList[tempid].playing = !trackList[tempid].playing;
 		
 		if (trackList[tempid].playing) {
 			socket.emit('pause',tid);
@@ -336,8 +330,6 @@ function makeTurntable2(artSrc, duration, tid) {
 			socket.emit('play',tid);
 			$(this).toggleClass("playing",true);
 		}
-		
-	 //$(this).toggleClass("playing");	
 	
 	}); 
 	return $(turntable);
@@ -448,7 +440,7 @@ function makeTurntable(artSrc, duration, tid) {
 function makeControl (type, name, orientation,
                       showValue, tid, duration) {
 					  
-    var palette = $("<li>").addClass("palette"),
+    var palette = $("<li>").addClass("palette " + name),
         inputType = (type === "slider") ? "range" : "button",
         control = $("<input>").attr({
                       type:  inputType,
@@ -465,15 +457,7 @@ function makeControl (type, name, orientation,
     var changeSlider = function(elt, elt2, pos) {
         elt.val(pos);
     };
-
-	/*if (name === 'volume') {
-		$(control).mouseover(function(){
-			changingVol = true;
-		});
-		$(control).mouseout(function() {
-			changingVol = false;
-		});
-	}*/
+	var timer;
 	
 	if (name === 'pbr') {
 		$(control).mouseover(function(){
@@ -489,9 +473,7 @@ function makeControl (type, name, orientation,
         	id  = $(control).parent().attr("id");
         if (name === "volume") {
         	//s.volume = val/100;
-        	change_volume(id,val/100);
-        	$(value).html("volume:"+val);
-			//console.log("changing vol: " + val);
+        	change_volume(id,val/100);        
         	changingVol = true;
         	// Set visual glow of volume
         	volumeGlow(val,$(this).parent().siblings(".turntable"));
@@ -500,9 +482,15 @@ function makeControl (type, name, orientation,
         	changingPBR = true;
         	//s.playbackRate = val/50;
         } else if (name === "playback") {
+			var x = duration*val/100;
         	//s.currentTime = (ss.duration*val/100);					
-        	change_time(id, duration*val/100);
-        	$(value).html("position:"+duration*val/100);
+        	change_time(id, x);
+			$(value).html(Math.floor(x/60) + ":" + Math.floor(x%60));
+        } else if (name === "fader") {
+			fading = true;
+			//fade value is inversed so 1 corresponds to current, 0 corresponds to next track
+			fade_track(id, (100-val)/100);
+      
         }
 	}
     $(control).mousemove(function() {
@@ -522,7 +510,7 @@ function makeControl (type, name, orientation,
 		});
     $(document).mouseup(function(event) {
         controlChanging = false;
-        changingVol = changingPBR = false;	
+        changingVol = changingPBR = fading = false;	
     });
 		
 	if (ctrls[tid] === undefined) {
@@ -545,14 +533,27 @@ function makeControl (type, name, orientation,
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['pb'] = $(control);
+		timer = setInterval(function(){
+			var x = sounds[tid].source.mediaElement.currentTime;  
+			var str = Math.floor(x/60) + ":" + Math.floor(x%60);
+			$(value).html(str);
+		}, 1000);
+	}
+	if (name === 'fader') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		$(control).val(0);
+		ctrls[tid]['fad'] = $(control);
 	}
 	
     if (name === 'playback') {
-        $(value).html("0:00");
         $(control).val(0);
     }
 
     $(palette).append(control, label);
+	if (showValue)
+		 $(palette).append(value);
     
     if (showValue === 'true') {
         $(palette).append(value);
@@ -567,11 +568,21 @@ function makeControl (type, name, orientation,
 function makePicker(sets) {
     var picker = $("section.picker");
     for (var i = 0; i < sets.length; i++) {
-
         var set        = sets[i].tracks,
             section    = $("<section>").addClass("set"),
             ul         = $("<ul>").addClass("tracks"),
             h1         = $("<h1>").html(sets[i].name)
+    						.attr("playlist", sets[i].id)
+    						.click(function(){
+    							var id = $(this).attr("playlist");
+    							
+    							for (track in playlists[id].tracks) {
+    								console.log("TRACK", track);
+    								socket.emit("newtrack", track);
+    							}
+    							$("#tracks").children().remove();
+    							socket.emit("tracklist", playlists[id].tracks);
+    						});
             // playButton = $("<input>").attr({
             //     type: "button",
             //     class: "play-set",
@@ -584,20 +595,20 @@ function makePicker(sets) {
                 li    = $("<li>").addClass("track"),
                 title = $("<h1>").html(set[j].song).addClass("title"),
                 author = $("<author>").html(set[j].artist).addClass("author");
-            li.append(author, title);
-						li.attr("trackid", set[j].id);
-						console.log("LI ID IS ", li.attr("trackid"));
-						$(li).click(function() {
-							tracks[$(this).attr("trackid")] = alltracks[$(this).attr("trackid")];
-							socket.emit("newtrack", $(this).attr("trackid"));
-							socket.emit("tracklist", tracks);
-						});
+				li.append(author, title);
+				li.attr("trackid", set[j].id);
+				//console.log("LI ID IS ", li.attr("trackid"));
+				$(li).click(function() {
+					tracks[$(this).attr("trackid")] = alltracks[$(this).attr("trackid")];
+					socket.emit("newtrack", $(this).attr("trackid"));
+					socket.emit("tracklist", tracks);
+				});
             ul.append(li);
         }
         section.append(h1, ul);
         picker.append(section);
     }
     picker.css({
-        width: sets.length * 25 + "%"
+        width: Math.max(sets.length * 25, 100) + "%"
     });
 }

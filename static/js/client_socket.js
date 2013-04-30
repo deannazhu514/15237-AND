@@ -111,6 +111,18 @@ function client_socket_init() {
 		if (!sounds[track.id].source.mediaElement.paused) {
 			elt.toggleClass("playing", true);
 		}
+		//if ($('.turntable #'+track.id) == null) {
+			console.log("hehe");
+			var elt = makePalette(track);
+		
+			//console.log(trackList[track.id].playing);
+			if (!sounds[track.id].source.mediaElement.paused) {
+				elt.toggleClass("playing", true);
+				console.log('hidfdfd');
+			}
+/*} else {
+			console.log($('#'+track.id));
+		}*/
 		//console.log(elt);
 	});
 	socket.on("requestInit", function() {
@@ -124,9 +136,8 @@ function client_socket_init() {
 		console.log(username, h,w);
 		//socket.emit('playlists', playlists);
 		eventHandlersInit();
-		
 		$(document).ready(function(){
-			makePicker(setlist);
+			// constructSetList(playlists);
 		});
 	});
 
@@ -179,12 +190,12 @@ function supdate(a) {
 			var tt = sounds[key];
 			var s = tt.source.mediaElement;
 			//console.log(tt.source);
-			actual_vol = audio.volume;
+			actual_vol = (changingVol) ? audio.volume : audio.fade;
 			if (playback_device) {
 				if (audio.volume > 1) {
 					console.log(audio.volume);
 				}
-				s.volume = audio.volume;
+				s.volume = actual_vol;
 			} else {
 				s.volume = 0;
 			}
@@ -217,20 +228,27 @@ function supdate(a) {
 				tempfnc(val, val2, audio.speed);
 			}*/
 			track.playing = audio.play;
-			track.volume = audio.volume;
+			track.volume =  actual_vol;
+			//console.log(fading, track.volume);
 			track.pbr = audio.speed;
 			if (s.ended) {
 				tt.stop();
-				if (track.playing) {
-					socket.emit('pause',key);
-					$('#'+key).removeClass("playing");
-				} else {
-					console.log("was paused");
-					s.currentTime = 0;
-				}
 				if (autoPlay) {
-					socket.emit('next', key);		
+					if (track.playing) {
+					} else {
+						console.log("was paused");
+						s.currentTime = 0;
+					}
+					$('#'+key).parent().remove();
+					socket.emit('next', key);			
 				} else {
+					if (track.playing) {
+						socket.emit('pause',key);
+						$('#'+key).removeClass("playing");
+					} else {
+						console.log("was paused");
+						s.currentTime = 0;
+					}
 				}
 			} else if (track.playing && s.paused) {
 				tt.togglePause();
@@ -279,3 +297,7 @@ function change_time(id, value) {
 	socket.emit("change_time", id, value);
 }
 
+function fade_track(id, value) {
+	socket.emit("fade", id, value);
+	//console.log('fade track', id, vol, value);
+}

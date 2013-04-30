@@ -10,7 +10,9 @@ var context, analyser, compressor;
 var deviceNum;
 
 //when true, will cause all tracks in playlist to play automatically
-var autoPlay  = true; 
+var autoPlay  = true;
+//when true, will cause a playlist to loop around
+var loop = true; 
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
 
@@ -39,7 +41,14 @@ var playbackslider = {
 				"name" : "playback",
                 "orientation" : "horizontal",
                 "showValue" : true
-            };			
+            };		
+
+var faderslider = {
+                "type" : "slider",
+				"name" : "fader",
+                "orientation" : "horizontal",
+                "showValue" : false
+            };				
 			
 function init() {
 	context = new webkitAudioContext();
@@ -79,20 +88,6 @@ function connect(){
 	});
 }
 
-/*function ended() {
-	tt.stop();					
-	if (track.playing) {
-		socket.emit('pause',key);
-		$('#'+key).removeClass("playing");
-	} else {
-		console.log("was paused");
-		s.currentTime = 0;
-	}
-	if (autoPlay) {
-				
-	} else {
-	}
-}*/
 
 function eventHandlersInit() {
 	$(document).ready( function() {
@@ -245,7 +240,7 @@ function sendModule(device, module, modulename) {
 
 function getPlaylists(SCuser){
 	username = SCuser;
-	 SC.get('/users/'+SCuser+'/playlists', function(lists){
+	SC.get('/users/'+SCuser+'/playlists', function(lists){
 		
 		lists.forEach(function(playlist){
 			tracks = {};
@@ -256,7 +251,7 @@ function getPlaylists(SCuser){
 					var artwork = (track.artwork_url) ? track.artwork_url
 					                                  : "http://placekitten.com/250"
 
-					var duration = Math.floor(track.duration/1000);								  
+					var duration = track.duration/1000;								  
 					var track2 = {
 						"id": track.id,
 						"artist": track.user.username,
@@ -266,7 +261,7 @@ function getPlaylists(SCuser){
 								"type": "turntable",
 								"art": artwork,
 								"duration": duration 
-								}, volslider, pbslider, playbackslider],
+								}, volslider, pbslider, playbackslider, faderslider],
 						"i": i
 					};
 					
@@ -277,8 +272,6 @@ function getPlaylists(SCuser){
 					aud.autoPlay = false;
 					
 					var source = context.createMediaElementSource(aud);	
-					console.log(source);
-
 					ss.source = source;
 					ss.play = play;
 					ss.togglePause = togglePause;
@@ -299,7 +292,8 @@ function getPlaylists(SCuser){
 			playlists[playlist.id] = temp;
 			tracks = {};
 		});
-		constructSetList();
+		constructSetList(playlists);
+		makePicker(setlist);
 	 });
 	 
 	 loggedin = true;
@@ -334,6 +328,17 @@ function addTrack(userID, track){
 		type: "post",
 		data: {"user": userID, "track":track},
 		url: "/tracks",
+		success: function(data) { 
+			console.log(data);
+		}
+	});
+}
+
+function addAudio(userID, audio){
+	$.ajax({
+		type: "post",
+		data: {"user": userID, "audio":audio},
+		url: "/audio",
 		success: function(data) { 
 			console.log(data);
 		}

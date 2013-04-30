@@ -47,9 +47,10 @@ function constructSetList(playlists) {
 				i++;
 			}
 		}
+		/*
 		for (var j = 0; j < temptracks.length; j++) {
 			console.log("TEMPTRACKS IS: ", temptracks[j]);
-		}
+		} */
 		//console.log(temptracks);
 		
 		var tempobj = {name: playlists[key].name, id: key,
@@ -118,6 +119,7 @@ $(document).ready(function(){
         },
         {
             "id": "track.id",
+            "artist": "track.user.username",
             "artist": "track.user.username",
             "song": "track.title",
             "url" : "track.stream_url"
@@ -323,6 +325,14 @@ function makeTurntable2(artSrc, duration, tid) {
 	$(turntable).click(function(){
     	var tempid = tid;
 		
+		if (sounds[tempid] == undefined) {
+			SC.stream('/tracks/'+tempid, function(sound) {
+				sounds[tempid] = sound;
+			});
+			sounds[tempid].play();
+			
+		}
+		
 		if (trackList[tempid].playing) {
 			socket.emit('pause',tid);
 			$(this).toggleClass("playing",false);
@@ -370,7 +380,7 @@ function makeTurntable(artSrc, duration, tid) {
 		var tempid = tid;
 		var ttable = this;
 		var cursound = sounds[tempid];	
-		console.log(tempid);
+		console.log("TID", tempid);
 		
 		/*if (cursound === undefined && (!nonstream)) {
 			console.log("hehehe");
@@ -419,7 +429,19 @@ function makeTurntable(artSrc, duration, tid) {
 			}		
 		} else {	
 		*/
-		
+			
+			if (sounds[tempid] == undefined) {
+				/*SC.stream('/tracks/'+tempid, function(sound) {
+					sounds[tempid] = sound;
+					sound.play({
+						onfinish: function() {
+							sound.stop();
+							$(ttable).toggleClass("playing");	
+						}
+					});
+				});*/
+			}
+			
     		volumeGlow(5, turntable);
 			console.log(trackList[tempid].playing);
 			if(trackList[tempid].playing) {			
@@ -427,6 +449,7 @@ function makeTurntable(artSrc, duration, tid) {
 				$(this).toggleClass("playing", false);	
 			} else {
 				socket.emit('play',tid);
+				console.log("playing");
 				$(this).toggleClass("playing", true);	
 			}
 			//$(this).toggleClass("playing");	
@@ -501,7 +524,7 @@ function makeControl (type, name, orientation,
 	
     $(control).mousedown(function() {
         controlChanging = true;
-				updateControls();
+		updateControls();
 
     });
     $(control).mouseup(function() {
@@ -534,7 +557,14 @@ function makeControl (type, name, orientation,
 		$(control).data('val2', $(value));
 		ctrls[tid]['pb'] = $(control);
 		timer = setInterval(function(){
-			var x = sounds[tid].source.mediaElement.currentTime;  
+			var x;
+			if (context !== undefined)
+				x = sounds[tid].source.mediaElement.currentTime;  
+			else {
+				//console.log("doing time thing", sounds);
+				if (sounds[tid] != undefined)
+					x = sounds[tid].position/1000;
+			}
 			var str = Math.floor(x/60) + ":" + Math.floor(x%60);
 			$(value).html(str);
 		}, 1000);

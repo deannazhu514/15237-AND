@@ -55,6 +55,7 @@ socket.on("update", function(audio) {
 
 function client_socket_init() {
 	socket = io.connect("http://localhost:8111");
+	//socket = io.connect("http://128.237.200.130:8111");
 
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);
@@ -62,7 +63,12 @@ function client_socket_init() {
 			var tt = sounds[key];
 			if (id == key) {
 				//console.log(value);
-				tt.source.mediaElement.currentTime = value;
+				if (context !== undefined)
+					tt.source.mediaElement.currentTime = value;
+				else {
+					//console.log(tt.position);
+					tt.setPosition(value*1000);
+				}
 			}
 		}
 	});
@@ -110,9 +116,29 @@ function client_socket_init() {
 			var elt = makePalette(track);
 		
 			//console.log(trackList[track.id].playing);
-			if (!sounds[track.id].source.mediaElement.paused) {
-				elt.toggleClass("playing", true);
-				console.log('hidfdfd');
+			if (context !== undefined) {
+				if (!sounds[track.id].source.mediaElement.paused) {
+					elt.toggleClass("playing", true);
+					console.log('hidfdfd');
+				}
+			} else {				
+				SC.stream('/tracks/'+track.id, function(sound) {
+					console.log("streaming", track.id);
+					sounds[track.id] = sound;
+					sound.play({
+						onfinish: function() {
+							console.log("done");
+							sound.stop();
+							elt.toggleClass("playing", true);
+						}
+					});
+					//sound.pause();
+				});
+			
+				/*if (sounds[track.id].paused){
+					elt.toggleClass("playing", true);
+					console.log('hidfdfd');
+				}*/
 			}
 /*} else {
 			console.log($('#'+track.id));
@@ -129,7 +155,7 @@ function client_socket_init() {
 		}
 		console.log(username, h,w);
 		//socket.emit('playlists', playlists);
-		eventHandlersInit();
+		//eventHandlersInit();
 		$(document).ready(function(){
 			// constructSetList(playlists);
 		});
@@ -148,7 +174,8 @@ function client_socket_init() {
 	
 
 }
-function nupdate(a){	
+function nupdate(a){
+	console.log("nupdate");
 	for (key in a) {
 		audio = a[key];
 		if (trackList[key] != undefined) {
@@ -172,89 +199,110 @@ function addToCurrPlaying(pid,tid) {
 }
 
 function supdate(a) {
+	//console.log("supdate");
 	for (key in sounds) {
 		if (a[key] == undefined) {
+			//console.log("no key for", key);
 			continue;
 		}
 		audio = a[key];
 		var ctrl = ctrls[key];
 		var track = trackList[key];
-		
+		var tt = sounds[key];
 		if (audio !== undefined && ctrl != undefined && track != undefined) {
-			var tt = sounds[key];
-			var s = tt.source.mediaElement;
-			//console.log(tt.source);
-			actual_vol = (changingVol) ? audio.volume : audio.fade;
-			if (playback_device) {
-				if (audio.volume > 1) {
-					console.log(audio.volume);
-				}
-				s.volume = actual_vol;
-			} else {
-				s.volume = 0;
-			}
-			
-			s.playbackRate = audio.speed;
-			
-			if (!changingVol) {
-				var tempobj = ctrls[key]['vol'];
-				var tempfnc = tempobj.data('changeSlider');
-				var val = tempobj.data('val');
-				var val2 = tempobj.data('val2');
-				if (tempfnc != undefined) {
-					//tempfnc(val, val2, audio.volume*100);
-				}
-			}
-			if (!changingPBR) {
-				var tempobj = ctrls[key]['pbr'];
-				var tempfnc = tempobj.data('changeSlider');
-				var val = tempobj.data('val');
-				var val2 = tempobj.data('val2');
-				if (typeof(tempfnc) != 'undefined')
-				 {
-				 //tempfnc(val, val2, audio.speed*50);
-				 }
-			} /*if (!changingPB) {
-				var tempobj = ctrls[key]['pb'];
-				var tempfnc = tempobj.data('changeSlider');
-				var val = tempobj.data('val');
-				var val2 = tempobj.data('val2');
-				tempfnc(val, val2, audio.speed);
-			}*/
-			track.playing = audio.play;
-			track.volume =  actual_vol;
-			//console.log(fading, track.volume);
-			track.pbr = audio.speed;
-			if (s.ended) {
-				tt.stop();
-				if (autoPlay) {
-					if (track.playing) {
-					} else {
-						console.log("was paused");
-						s.currentTime = 0;
+			if (context !== undefined) {
+				var s = tt.source.mediaElement;
+				//console.log(tt.source);
+				actual_vol = (changingVol & !audio.fading) ? audio.volume : audio.fade;
+		
+				if (playback_device) {
+					if (audio.volume > 1) {
+						console.log(audio.volume);
 					}
-					$('#'+key).parent().remove();
-					socket.emit('next', key);			
+					s.volume = actual_vol;
 				} else {
-					if (track.playing) {
-						socket.emit('pause',key);
-						$('#'+key).removeClass("playing");
-					} else {
-						console.log("was paused");
-						s.currentTime = 0;
+					s.volume = 0;
+				}
+				
+				s.playbackRate = audio.speed;
+				
+				/*
+				if (!changingVol) {
+					var tempobj = ctrls[key]['vol'];
+					var tempfnc = tempobj.data('changeSlider');
+					var val = tempobj.data('val');
+					var val2 = tempobj.data('val2');
+					if (tempfnc != undefined) {
+						//tempfnc(val, val2, audio.volume*100);
 					}
 				}
-			} else if (track.playing && s.paused) {
-				tt.togglePause();
-			} else if (!track.playing && !s.paused){
-				tt.togglePause();
+				if (!changingPBR) {
+					var tempobj = ctrls[key]['pbr'];
+					var tempfnc = tempobj.data('changeSlider');
+					var val = tempobj.data('val');
+					var val2 = tempobj.data('val2');
+					if (typeof(tempfnc) != 'undefined')
+					 {
+					 //tempfnc(val, val2, audio.speed*50);
+					 }
+				}
+				if (!changingPB) {
+					var tempobj = ctrls[key]['pb'];
+					var tempfnc = tempobj.data('changeSlider');
+					var val = tempobj.data('val');
+					var val2 = tempobj.data('val2');
+					tempfnc(val, val2, audio.speed);
+				}*/
+				track.playing = audio.play;
+				track.volume =  actual_vol;
+				//console.log(fading, track.volume);
+				track.pbr = audio.speed;
+				if (s.ended) {
+					tt.stop();
+					if (autoPlay) {
+						if (track.playing) {
+						} else {
+							console.log("was paused");
+							s.currentTime = 0;
+						}
+						$('#'+key).parent().remove();
+						socket.emit('next', key);			
+					} else {
+						if (track.playing) {
+							socket.emit('pause',key);
+							$('#'+key).removeClass("playing");
+						} else {
+							console.log("was paused");
+							s.currentTime = 0;
+						}
+					}
+				} else if (track.playing && s.paused) {
+					tt.togglePause();
+				} else if (!track.playing && !s.paused){
+					tt.togglePause();
+				} else {
+				}
 			} else {
-				//console.log(s, tt);
+				actual_vol = (changingVol) ? audio.volume : audio.fade;
+				//if (changingVol)
+					//console.log(track, tt);
+				track.playing = audio.play;
+				track.volume = actual_vol;
+				track.pbr = audio.speed;
+				tt.playbackRate = audio.speed;
+				tt.setVolume(actual_vol*100); //soundcloud sound object is out of 100, not 1
+				if (track.playing && tt.paused) {
+					tt.togglePause();
+				} else if (!track.playing && !tt.paused){
+					tt.togglePause();
+				}
+				//console.log("stuff", actual_vol, track.playing, tt);
 			}
 		} else {
-			//console.log("can't find in sound", key);
+			//console.log(ctrl, track, tt);
 		}
 	}
+	
 	$(".turntable").each(function () {
 		if (trackList[$(this).attr('id')].playing) {
 			$(this).toggleClass('playing', true);
@@ -280,18 +328,21 @@ function send_tracks() {
 
 function change_volume(id, value) {
 	socket.emit("volume", id, value);
-	console.log('change volume');
+	//console.log('change volume', id, value);
 }
 
 function change_speed(id, value) {
   socket.emit("speed", id, value);
+  	console.log('change speed', id, value);
 }
 
 function change_time(id, value) {
 	socket.emit("change_time", id, value);
+	
+  	//console.log('change time', id, value);
 }
 
 function fade_track(id, value) {
 	socket.emit("fade", id, value);
-	//console.log('fade track', id, vol, value);
+	//console.log('fade track', id, value);
 }

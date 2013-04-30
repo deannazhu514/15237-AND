@@ -582,6 +582,7 @@ function init_socket(socket,room) {
 		//io.sockets.in(room).volatile.emit("update_volume", value, id);
 		//console.log("volume change", id, value, audio[id].volume, audio[id].fade);
 		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	
 	socket.on("fade", function(id, value) {
@@ -604,40 +605,40 @@ function init_socket(socket,room) {
 				console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
 			}
 		}
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("mute", function(id) { //unused
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].mute = true; //boolean here
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	  });
 	socket.on("unmute", function(id) { //unused 
 		audio[id].mute = false;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("auto_off", function(id) { //unused 
 		audio[id].auto = false;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("auto_on", function(id) { //unused
 		audio[id].auto = true;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("speed", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].speed = value;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("play", function(id) {
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].play = true;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 		console.log("play song with id: " + id);
 	});
 	socket.on("pause", function(id) {
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].play = false;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 		console.log("pause song with id: " + id);
 	});
 	
@@ -665,23 +666,23 @@ function init_socket(socket,room) {
 				audio[next].play = true;
 				add_track(room, socket, id);
 			}
-			io.sockets.in(room).volatile.emit("update", audio);	
+			socketRoomList[room][socket.id].s.emit("update", audio);	
 		}
 
 	});
 	
 	socket.on("loop_playlist", function(plloop) { //unused
 		loop = plloop;
-		//io.sockets.in(room).volatile.emit("update", audio);
+		//socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 		
 	socket.on("loop_off", function(id) { //unused
 		audio[id].loop = false;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("loop_on", function(id) { //unused
 		audio[id].loop = true;
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 	});
 	socket.on("change_time", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;
@@ -706,7 +707,7 @@ function init_socket(socket,room) {
 				socketRoomList[room].tracks[key] = tracks[key];
 			}
 		}
-		io.sockets.in(room).volatile.emit("update", audio);
+		socketRoomList[room][socket.id].s.emit("update", audio);
 		readjust_devices(room, socket);
 	});
 	socket.on("playlists", function(playlists) {

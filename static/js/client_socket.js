@@ -237,6 +237,8 @@ function supdate(a) {
 			//console.log("no key for", key);
 			continue;
 		}
+		
+		console.log(a[key]);
 		audio = a[key];
 		var ctrl = ctrls[key];
 		var track = trackList[key];

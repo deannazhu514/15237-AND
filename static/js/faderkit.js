@@ -216,7 +216,7 @@ function makeTurntable2(artSrc, duration, tid) {
 function volumeGlow(vol, item) {
     var glow = vol * 2;
     $(item).css({
-        "box-shadow": "0 0 " + glow + "px " + "white"
+        "box-shadow": "0 0 " + glow + "px " + "red"
     })
 }
 
@@ -467,8 +467,10 @@ function makeGlobalControls() {
         "orientation" : "horizontal",
         "showValue" : false
     }];
-    var globalControlsPalette = $("<section>")
-                                .addClass("global-controls-palette track");
+    var globalControlsPalette = $("<section>").attr({
+        class: "global-controls-palette track",
+        id: "tracks"
+    })
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,

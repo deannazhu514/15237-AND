@@ -110,7 +110,6 @@ function client_socket_init() {
 		console.log(trackList[track.id].playing);
 		if (!sounds[track.id].source.mediaElement.paused) {
 			elt.toggleClass("playing", true);
-			console.log('hidfdfd');
 		}
 		//console.log(elt);
 	});
@@ -125,7 +124,7 @@ function client_socket_init() {
 		console.log(username, h,w);
 		//socket.emit('playlists', playlists);
 		eventHandlersInit();
-		constructSetList();
+		
 		$(document).ready(function(){
 			makePicker(setlist);
 		});

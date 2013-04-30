@@ -121,6 +121,7 @@ app.get("/sessionCode/:id", function(request, response) {
 app.post("/login", function(request, response) {
     var id = request.body.user;
     var deviceID = request.body.deviceID;
+		console.log("HEY HERE");
     var num = "";
     if (users[id] == undefined) {
         users[id] = {};
@@ -268,20 +269,21 @@ io.sockets.on('connection', function (socket) {
         init_socket(socket,room);
 
         if (socketRoomList[room] == undefined ) {
-            socketRoomList[room] = {tracks: [], size: 0};
+            socketRoomList[room] = {tracks: {}, size: 0};
         }
         //socketRoomList[room] = socketRoomList[room] + 1;
         if (socketRoomList[room].size != undefined) {
             socketRoomList[room].size = socketRoomList[room].size + 1;
+						console.log(socketRoomList[room].size);
         }
-        socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket };
+        socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket, tracks : {} };
         socket.join(room);
         if (io.sockets.clients(room).length === 1) {
             socket.emit("playback");
             socket.emit("send_tracks");
         } else {
             readjust_devices(room, socket);
-            }
+				}
 
 
     });
@@ -346,7 +348,8 @@ function readjust_disconnect(room) {
 				len--;
 				break;
 			}
-			socketRoomList[room][id].s.emit("add_track", temptrack);
+			add_track(room, socketRoomList[room][id].s, temptrack.id);
+			//socketRoomList[room][id].s.emit("add_track", temptrack.id);
 			//i++;
 		}
 		console.log('id: ' + id);
@@ -361,24 +364,154 @@ function readjust_disconnect(room) {
 		console.log('breakin');
 		break;
 		}
-	socketRoomList[room][min].s.emit("add_track", temptrack);
+		add_track(room, socketRoomList[room][id].s, temptrack.id);
+		//socketRoomList[room][min].s.emit("add_track", temptrack);
 	//i++;
 	}
 }
 
+//source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
+
+function cloneObject(source) {
+    for (i in source) {
+        if (typeof source[i] == 'source') {
+            this[i] = new cloneObject(source[i]);
+        }
+        else{
+            this[i] = source[i];
+	}
+    }
+}
+
 function readjust_devices(room,socket) {
+	var r = socketRoomList[room];
+	var olist = r.trackOrdering;
+	if (olist == undefined) {
+		console.log('sup');
+		return;
+	}
 	io.sockets.in(room).emit('remove_track');
 	var min = socket.id;
-	var size = socketRoomList[room][socket.id].w * socketRoomList[room][socket.id].h;
-	for (id in socketRoomList[room]) {
-		var s = socketRoomList[room][id];
+	var size = r[socket.id].w * r[socket.id].h;
+	var devSizeArray = [];
+	for (id in r) {
+		if (id == 'tracks') {
+			continue;
+		} 
+		if (id == 'size') {
+			continue;
+		}
+		if (id == 'trackOrdering') {
+			continue;
+		}
+		var s = r[id];
 		var tempsize = s.h * s.w;
 		if (tempsize < size) {
 			min = id;
 			size = tempsize;
 		}
+		devSizeArray.push({size: s.h*s.w, id: id});
+	}
+	
+	//sort devSizeArray. BUBBLE SORT LOL
+	
+	for (var k = 0; k < r.size - 1; k++) {
+		if (devSizeArray[k].size > devSizeArray[k+1].size) {
+			
+			var temp = new cloneObject(devSizeArray[k]);
+			var temp2 = new cloneObject(devSizeArray[k+1]);
+			devSizeArray[k] = temp2;
+			devSizeArray[k+1] = temp;
+			k = 0;
+		}
+	}
+	
+	
+	/* BEGIN HARDCODED SIZE CONDITIONALS*/
+	
+	switch (r.size) {
+		case 1: 
+			for (var p = 0; p < olist.length; p++) {
+				add_track(room, r[devSizeArray[0].id].s, olist[p]);
+				//r[devSizeArray[0].id].s.emit("add_track", olist[p]);
+			}
+			break;
+		case 2: 
+			add_track(room, r[devSizeArray[0].id].s, olist[0]);
+			//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
+			//r[devSizeArray[0].id].tracks.push(olist[0]);
+			for (var p = 1; p < olist.length; p++) {
+				console.log(devSizeArray.length);
+				console.log(devSizeArray[1]);
+				add_track(room, r[devSizeArray[1].id].s, olist[p]);
+				//r[devSizeArray[1].id].s.emit("add_track", olist[p]);
+			}
+			break;
+		//1 screen with 1, 2nd screen with 1, then playlist screen
+		case 3:
+			if (olist.length > 0) {
+				add_track(room, r[devSizeArray[0].id].s, olist[0]);
+				//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
+			}
+			if (olist.length > 1) {
+				add_track(room, r[devSizeArray[1].id].s, olist[1]);
+				//r[devSizeArray[1].id].s.emit("add_track", olist[1]);
+			}
+			r[devSizeArray[2].id].s.emit("disp_playlists");
+			break;
+		//4th screen has controls
+		case 4:
+			if (olist.length > 0) {
+				add_track(room, r[devSizeArray[0].id].s, olist[0]);
+				//r[devSizeArray[0].id].s.emit("add_track", olist[0]);
+			}
+			if (olist.length > 1) {
+				add_track(room, r[devSizeArray[1].id].s, olist[1]);
+				//r[devSizeArray[1].id].s.emit("add_track", olist[1]);
+			}
+			r[devSizeArray[2].id].s.emit("disp_playlists");
+			r[devSizeArray[3].id].s.emit("disp_globals");
+			break;
+	}
+	return;
+	
+	//never reach here for now, testing
+	
+	
+	
+	
+	/* END HARDCODED SIZE CONDITIONALS*/
+	
+	var l = r.size-1;
+	var overflow = false;
+	if (l > olist.length) {
+		l = olist.length;
+	}
+	
+	var k = 0;
+	while (k < l){
+		
+		r[devSizeArray[k].id].s.emit("add_track", olist[k++]);
+	}
+	
+	
+	var n = k;
+	while ( k < r.olist.length) {
+		r[devSizeArray[n].id].s.emit("add_track", olist[k++]);
 	}
 
+	
+	
+	/*
+	for (var j = 0; j < socketRoomList[room].trackOrdering.length; j++) {
+		var id = socketRoomList[room].trackOrdering[j];
+		var s = socketRoomlist[room][id];
+		var tempsize = s.h * s.w;
+		if (tempsize < size) {
+			min = id;
+			size = tempsize;
+		}
+	} */
 	var i = 0;
 	//making temp hardcopy of tracklist
 	var templist = {};
@@ -388,7 +521,7 @@ function readjust_devices(room,socket) {
 	var len = Object.keys(templist).length
 	// below doesnt work because i have to get jquery to work with node
 	//var tarray = $.map(socketRoomList[room].track, function (value, key) { return value; });
-	for (id in socketRoomList[room]) {
+	/*for (id in socketRoomList[room]) {
 		if (id == 'tracks') {
 			continue;
 		} 
@@ -409,8 +542,24 @@ function readjust_devices(room,socket) {
 			socketRoomList[room][id].s.emit("add_track", temptrack);
 			//i++;
 		}
+	} */
+	var j =0;
+	
+	//while (j < len) {
+	for (id in socketRoomList[room]) {
+		var id = socketRoomList[room].trackOrdering[j];
+		if (id != min) {
+			socketRoomList[room][id].s.emit("add_track", socketRoomList[room].tracks[id]);
+		}
+		j++;
+	}
+	while (j < socketRoomList[room].trackOrdering.length) {
+		var id = socketRoomList[room].trackOrdering[j];
+		socketRoomList[room][id].s.emit("add_track", socketRoomList[room].tracks[id]);
+		j++;
 	}
 	console.log(i);
+	/*
 	while (i < len) {
 		var temptrack;
 		for (key in templist) {
@@ -421,15 +570,23 @@ function readjust_devices(room,socket) {
 		}
 		socketRoomList[room][min].s.emit("add_track", temptrack);
 		//i++;
-	}
+	}*/
 }
 
+function add_track(room, socket,id) {
+	socketRoomList[room][socket.id].s.emit("add_track", socketRoomList[room].tracks[id]);
+	socketRoomList[room][socket.id].tracks[id] = socketRoomList[room].tracks[id];
+}
 
 
 function init_socket(socket,room) {
     socket.on("newtrack", function(id) {
 			console.log("REC NEW TRACK", id);
-        audio_init(id);
+			audio_init(id);
+			if (socketRoomList[room].trackOrdering == undefined) {
+				socketRoomList[room].trackOrdering = [];
+			}
+			socketRoomList[room].trackOrdering.push(id);
     });
     socket.on("disconnect", function() {
         console.log('NEW PLAYBACK');

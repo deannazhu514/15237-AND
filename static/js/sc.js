@@ -299,7 +299,7 @@ function getPlaylists(SCuser){
 			playlists[playlist.id] = temp;
 			tracks = {};
 		});
-		
+		constructSetList();
 	 });
 	 
 	 loggedin = true;

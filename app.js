@@ -614,10 +614,12 @@ function init_socket(socket,room) {
 			} else {
 				next = socketRoomList[room].trackOrdering[cur+1];
 			}
+			
 			if (next !== undefined) {
+				console.log("play next ", next);
 				audio[next].fade = audio[next].volume*(1-value);
 				audio[next].play = true;
-				console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
+				//console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
 			}
 		}
 		socketRoomList[room][socket.id].s.emit("update", audio);

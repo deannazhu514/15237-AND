@@ -48,6 +48,7 @@
         overflow:auto;
         padding: 8em 0 0em $gutter;
         position: relative;
+        left: -$gutter;
 
         @media screen and (max-width: 40em) {
             // width: $col * 4;
@@ -67,7 +68,6 @@
         }
 
         &:nth-child(1) {
-            padding-left: 0;
         }
 
         h1 {

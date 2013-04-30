@@ -244,10 +244,7 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   overflow: auto;
   padding: 8em 0 0em 3.125%;
   position: relative;
-}
-/* line 69, ../sass/_picker.scss */
-.logged-in section.picker .set:nth-child(1) {
-  padding-left: 0;
+  left: -3.125%;
 }
 /* line 73, ../sass/_picker.scss */
 .logged-in section.picker .set h1 {

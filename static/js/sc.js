@@ -327,7 +327,7 @@ function getPlaylists(SCuser){
 	 });
 	 
 	 loggedin = true;
-	 $("body").removeClass("guest");
+	 $("body").removeClass("guest").addClass("logged-in");
 }
 
 function addSound(id, sound) {

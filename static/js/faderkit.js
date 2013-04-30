@@ -641,6 +641,9 @@ function makePicker(sets) {
                     socket.emit("tracklist", tracks);
                     $(this).parents("section.picker").removeClass("open");
                 });
+                $(h1).click(function() {
+                    $(this).parents("section.picker").removeClass("open");
+                });
             ul.append(li);
         }
         section.append(h1, ul);

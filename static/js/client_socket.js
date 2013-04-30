@@ -154,7 +154,12 @@ function client_socket_init() {
 								
 								if (autoPlay) {
 									socket.emit('next', track.id);	
-									$('#'+track.id).remove();							
+									
+									$('#'+track.id).remove();
+									/*if (('#tracks').children().length == 0) {
+										$("section.picker").toggleClass("open");
+										$("input.picker").removeClass("on");
+									}*/
 								} else {
 									if (track.playing) {
 										socket.emit('pause',track.id);

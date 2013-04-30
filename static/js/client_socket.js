@@ -108,12 +108,15 @@ function client_socket_init() {
 	});
 
 	socket.on('add_track', function(track) {
-		if (typeof(track.id) === 'string') {
-			track.id = parseFloat(track.id);
+		//console.log('adding track ' + track);
+	if (typeof(track.id) === 'string') {
+		track.id = parseFloat(track.id);
+	}
+		var elt = makePalette(track);
+		console.log(trackList[track.id].playing);
+		if (!sounds[track.id].source.mediaElement.paused) {
+			elt.toggleClass("playing", true);
 		}
-		//if ($('.turntable #'+track.id) == null) {
-			console.log("hehe");
-			var elt = makePalette(track);
 		
 			//console.log(trackList[track.id].playing);
 			if (context !== undefined) {

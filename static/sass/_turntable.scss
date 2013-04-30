@@ -47,6 +47,13 @@
     margin-top: 2em;
     margin-bottom: 2em;
     
+    @media screen and (max-width: 48em) {
+        $d: 18em;
+        height: $d;
+        width:  $d;
+        margin-left: -$d / 2;
+    }
+    
     @include transition(box-shadow .5s 0s ease-in);
     
     img.art {

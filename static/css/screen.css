@@ -691,7 +691,15 @@ body.guest form fieldset aside {
   -o-transition: box-shadow 0.5s 0s ease-in;
   transition: box-shadow 0.5s 0s ease-in;
 }
-/* line 52, ../sass/_turntable.scss */
+@media screen and (max-width: 48em) {
+  /* line 39, ../sass/_turntable.scss */
+  .turntable {
+    height: 18em;
+    width: 18em;
+    margin-left: -9em;
+  }
+}
+/* line 59, ../sass/_turntable.scss */
 .turntable img.art {
   height: 75%;
   width: 75%;
@@ -701,7 +709,7 @@ body.guest form fieldset aside {
   left: 12.5%;
   position: absolute;
 }
-/* line 62, ../sass/_turntable.scss */
+/* line 69, ../sass/_turntable.scss */
 .turntable .scrubber {
   background: black;
   height: 100%;
@@ -710,7 +718,7 @@ body.guest form fieldset aside {
   border: #cccccc solid 1px;
   position: absolute;
 }
-/* line 70, ../sass/_turntable.scss */
+/* line 77, ../sass/_turntable.scss */
 .turntable .scrubber canvas {
   position: relative;
   height: 100%;
@@ -722,11 +730,11 @@ body.guest form fieldset aside {
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-/* line 110, ../sass/_turntable.scss */
+/* line 117, ../sass/_turntable.scss */
 .turntable.playing img.art {
   -webkit-animation: play-spin 4s infinite linear;
 }
-/* line 117, ../sass/_turntable.scss */
+/* line 124, ../sass/_turntable.scss */
 .turntable.playing .semi.indicator#indicator1 {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -734,7 +742,7 @@ body.guest form fieldset aside {
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 122, ../sass/_turntable.scss */
+/* line 129, ../sass/_turntable.scss */
 .turntable.playing .semi.indicator#indicator2 {
   -webkit-transform: rotate(360deg);
   -moz-transform: rotate(360deg);
@@ -742,7 +750,7 @@ body.guest form fieldset aside {
   -o-transform: rotate(360deg);
   transform: rotate(360deg);
 }
-/* line 128, ../sass/_turntable.scss */
+/* line 135, ../sass/_turntable.scss */
 .turntable.playing .semi.mask {
   visibility: hidden;
 }

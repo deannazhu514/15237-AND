@@ -8,6 +8,7 @@ var nonstream = false;
 var actual_vol = 0;
 var trackList = {};
 var username;
+var noadd = false;
 
 
 //rather than the server just sending a single
@@ -54,9 +55,8 @@ socket.on("update", function(audio) {
 }); */
 
 function client_socket_init() {
-	//socket = io.connect("http://localhost:8111");
-	socket = io.connect("http://128.237.125.237:8111");
-
+	//socket = io.connect("http://128.237.125.237:8111");
+	socket = io.connect("http://localhost:8111");
 
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);
@@ -114,6 +114,17 @@ function client_socket_init() {
 							setTime: false
 						};
 		}
+	});
+	/*
+	socket.on("disp_playlists", function() {
+		noadd = true;
+		$("section.picker").addClass("open");
+	});*/
+	socket.on("disp_globals", function() {
+		noadd = true;
+		makeGlobalControls();
+		$("section.picker").removeClass("open");
+		console.log("making global controls!");
 	});
 	socket.on("remove_track", function() {
 		$("body > ul#tracks .track").remove();

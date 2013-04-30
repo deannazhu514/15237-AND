@@ -14,7 +14,7 @@ app.use(express.bodyParser());
 
 /*BEGIN MONGO CODE*/
 /*
-var client = new mongo.Db("users", new mongo.Server('localhost', mongoPort, { w: 1}));
+var client = new mongo.Db("users", new mongo.Server('	host', mongoPort, { w: 1}));
 
 function openDb(onOpen){
     client.open(onDbReady);
@@ -478,13 +478,24 @@ function readjust_devices(room,socket) {
 			console.log(olist);
 			break;
 		case 2: 
-			add_track(room, r[devSizeArray[0].id].s, olist[0]);
+			if (olist.length > 0) {
+				add_track(room, r[devSizeArray[0].id].s, olist[0]);
+			}
 			for (var p = 1; p < olist.length; p++) {
 				console.log(devSizeArray.length);
 				console.log(devSizeArray[1]);
 				add_track(room, r[devSizeArray[1].id].s, olist[p]);
 			}
 			break;
+			case 3: 
+				add_track(room, r[devSizeArray[0].id].s, olist[0]);
+				for (var p = 1; p < olist.length; p++) {
+					console.log(devSizeArray.length);
+					console.log(devSizeArray[1]);
+					add_track(room, r[devSizeArray[1].id].s, olist[p]);
+				}
+				r[devSizeArray[2].id].s.emit("disp_globals");
+			/*
 		//1 screen with 1, 2nd screen with 1, then playlist screen
 		case 3:
 			if (olist.length > 0) {
@@ -506,6 +517,7 @@ function readjust_devices(room,socket) {
 			r[devSizeArray[2].id].s.emit("disp_playlists");
 			r[devSizeArray[3].id].s.emit("disp_globals");
 			break;
+			*/
 	}
 	masteraud = {};
 	return;

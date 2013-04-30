@@ -15,7 +15,7 @@ var slider = {
     "showValue" : true
 };
 
-makeGlobalControls();
+//makeGlobalControls();
 
 //source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
 
@@ -216,7 +216,7 @@ function makeTurntable2(artSrc, duration, tid) {
 function volumeGlow(vol, item) {
     var glow = vol * 2;
     $(item).css({
-        "box-shadow": "0 0 " + glow + "px " + "white"
+        "box-shadow": "0 0 " + glow + "px " + "red"
     })
 }
 
@@ -467,8 +467,10 @@ function makeGlobalControls() {
         "orientation" : "horizontal",
         "showValue" : false
     }];
-    var globalControlsPalette = $("<section>")
-                                .addClass("global-controls-palette");
+    var globalControlsPalette = $("<section>").attr({
+        class: "global-controls-palette track",
+        id: "tracks"
+    });
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,
@@ -477,6 +479,7 @@ function makeGlobalControls() {
         globalControlsPalette.append(control);
     }
     $("body").append(globalControlsPalette);
+		console.log("finished making global controls!");
 }
 
 function makeControl(type, name, orientation, showValue, tid, duration) {
@@ -594,8 +597,10 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
                 sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
                 str = min + ":" + sec;
             $(value).html(str);
+            var prog = 1/(duration/x);
             var canvas = (palette).parent().siblings(".turntable").children().children("canvas")[0];
-            drawProgress(canvas, 1/(duration/x));
+            drawProgress(canvas, prog);
+            $(control).val(prog);
         }, 250);
     }
     if (name === 'fader') {
@@ -657,6 +662,7 @@ function makePicker(sets) {
                        alltracks[$(this).attr("trackid")];
                     socket.emit("newtrack", $(this).attr("trackid"));
                     socket.emit("tracklist", tracks);
+										
                     $(this).parents("section.picker").removeClass("open");
                 });
             ul.append(li);

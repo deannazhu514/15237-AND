@@ -579,7 +579,7 @@ function init_socket(socket,room) {
 		audio[id].fading = false;
 		audio[id].fade = value; 
 		audio[id].volume = value; //percentage value between 0 and 100 here
-		
+		//io.sockets.in(room).volatile.emit("update_volume", value, id);
 		//console.log("volume change", id, value, audio[id].volume, audio[id].fade);
 		io.sockets.in(room).volatile.emit("update", audio);
 	});
@@ -589,19 +589,19 @@ function init_socket(socket,room) {
 		//console.log("fading", value);
 		audio[id].fade = audio[id].volume*value; //percentage value between 0 and 100 here
 		audio[id].fading = true;
-		var cur = songList.indexOf(""+id);
+		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
 		var next;
 		if (cur != -1) {
 			if (cur == songList.length-1) {
 				if (loop)
-					next = songList[0];
+					next = socketRoomList[room].trackOrdering[0];
 			} else {
-				next = songList[cur+1];
+				next = socketRoomList[room].trackOrdering[cur+1];
 			}
 			if (next !== undefined) {
 				audio[next].fade = audio[next].volume*(1-value);
 				audio[next].play = true;
-				//console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
+				console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
 			}
 		}
 		io.sockets.in(room).volatile.emit("update", audio);
@@ -650,24 +650,24 @@ function init_socket(socket,room) {
 	socket.on("next", function(id) {
 		var audio = socketRoomList[room][socket.id].audio;
 		console.log("play song after ", id);
-		var cur = songList.indexOf(""+id);
+		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
 		var next;
 		if (cur != -1) {
 			if (cur == songList.length-1) {
 				if (loop)
-					next = songList[0];
+					next = socketRoomList[room].trackOrdering[0];
 			} else {
-				next = songList[cur+1];
+				next = socketRoomList[room].trackOrdering[cur+1];
 			}
 			audio[id].play = false;
 			if (next !== undefined) {
-				console.log("songList", songList, "next ", next);
+				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
 				audio[next].play = true;
 				add_track(room, socket, id);
 			}
 			io.sockets.in(room).volatile.emit("update", audio);	
 		}
-		
+
 	});
 	
 	socket.on("loop_playlist", function(plloop) { //unused
@@ -740,6 +740,7 @@ function audio_init(id) {
 		var aud =  {
             volume:  0.5,
 			fade: 1,
+			fading: false,
             mute:  false,
             auto: true,
             speed: 1,

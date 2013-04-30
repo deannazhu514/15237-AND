@@ -274,6 +274,9 @@ function getPlaylists(SCuser){
 			if (playlist.tracks != null) {
 				for (var i = 0; i < playlist.tracks.length; i++) {
 					var track = playlist.tracks[i];
+					console.log("----------------");
+					console.log(track);
+					console.log("----------------");
 					var artwork = (track.artwork_url) ? track.artwork_url
 					                                  : "http://placekitten.com/250"
 
@@ -293,8 +296,7 @@ function getPlaylists(SCuser){
 					
 					var ss = {};
 					console.log("TRACKKK", track);
-					
-					
+						
 					if (context !== undefined) {
 						var aud = new Audio(); 
 						aud.src = track2.url+stream_add;
@@ -313,7 +315,8 @@ function getPlaylists(SCuser){
 					tracks[track.id] = track2;
 					temp.tracks[track.id] = track2;
 					alltracks[track.id] = track2;
-					addTrack(SCuser, track2);		
+					addTrack(SCuser, track2);
+					makeWaveform(track);
 				}
 			}					
 			//socket.emit('tracklist', tracks);

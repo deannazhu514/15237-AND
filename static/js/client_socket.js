@@ -62,12 +62,28 @@ function client_socket_init() {
 		for (key in sounds) {
 			var tt = sounds[key];
 			if (id == key) {
-				//console.log(value);
+				console.log("change time", value);
 				if (context !== undefined)
 					tt.source.mediaElement.currentTime = value;
 				else {
-					//console.log(tt.position);
+					console.log(tt.position);
 					tt.setPosition(value*1000);
+				}
+			}
+		}
+	});
+	
+	socket.on("update_volume", function(value, id) {
+		value = Math.floor(value*100);
+		for (key in sounds) {
+			var tt = sounds[key];
+			if (id == key) {
+				console.log("change volume", value);
+				if (context !== undefined)
+					tt.source.mediaElement.volume = value;
+				else {
+					console.log(tt.volume);
+					tt = tt.setVolume(value);
 				}
 			}
 		}
@@ -109,10 +125,13 @@ function client_socket_init() {
 		}
 		var elt = makePalette(track);
 		console.log(trackList[track.id].playing);
-		if (!sounds[track.id].source.mediaElement.paused) {
-			elt.toggleClass("playing", true);
+		if (sounds[track.id] !== undefined) {
+			if (context !== undefined && !sounds[track.id].source.mediaElement.paused) {
+				elt.toggleClass("playing", true);
+			} else if (!sounds[track.id].paused) {
+				elt.toggleClass("playing", true);
+			}
 		}
-		
 			//console.log(trackList[track.id].playing);
 			if (context !== undefined) {
 				if (!sounds[track.id].source.mediaElement.paused) {
@@ -120,17 +139,33 @@ function client_socket_init() {
 					console.log('hidfdfd');
 				}
 			} else {				
-				SC.stream('/tracks/'+track.id, function(sound) {
-					console.log("streaming", track.id);
-					sounds[track.id] = sound;
-					sound.play({
-						onfinish: function() {
-							console.log("done");
-							sound.stop();
-							elt.toggleClass("playing", true);
-						}
+				SC.stream('/tracks/'+track.id, 
+					{autoLoad: true}, 
+					function(sound) {
+						console.log("streaming", track.id, sound);
+						sounds[track.id] = sound;
+						sound.setVolume(2);
+						sound.play({
+							onfinish: function() {
+								console.log("done");
+								sound.stop();
+								elt.toggleClass("playing", true);
+								
+								if (autoPlay) {
+									socket.emit('next', track.id);	
+									$('#'+track.id).remove();							
+								} else {
+									if (track.playing) {
+										socket.emit('pause',track.id);
+										$('#'+track.id).removeClass("playing");
+									} else {
+										console.log("was paused");
+										//s.currentTime = 0;
+									}
+								}
+							}
+						});
 					});
-				});
 			
 				/*if (sounds[track.id].paused){
 					elt.toggleClass("playing", true);
@@ -223,33 +258,6 @@ function supdate(a) {
 				
 				s.playbackRate = audio.speed;
 				
-				/*
-				if (!changingVol) {
-					var tempobj = ctrls[key]['vol'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					if (tempfnc != undefined) {
-						//tempfnc(val, val2, audio.volume*100);
-					}
-				}
-				if (!changingPBR) {
-					var tempobj = ctrls[key]['pbr'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					if (typeof(tempfnc) != 'undefined')
-					 {
-					 //tempfnc(val, val2, audio.speed*50);
-					 }
-				}
-				if (!changingPB) {
-					var tempobj = ctrls[key]['pb'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					tempfnc(val, val2, audio.speed);
-				}*/
 				track.playing = audio.play;
 				track.volume =  actual_vol;
 				//console.log(fading, track.volume);
@@ -258,12 +266,14 @@ function supdate(a) {
 					tt.stop();
 					if (autoPlay) {
 						if (track.playing) {
+							console.log("hmm");
 						} else {
 							console.log("was paused");
 							s.currentTime = 0;
 						}
 						socket.emit('next', key);	
-						$('#'+key).parent().remove();						
+
+						$('#'+key).remove();						
 					} else {
 						if (track.playing) {
 							socket.emit('pause',key);
@@ -283,15 +293,20 @@ function supdate(a) {
 				actual_vol = (changingVol) ? audio.volume : audio.fade;
 				//if (changingVol)
 					//console.log(track, tt);
-				track.playing = audio.play;
+				//console.log(audio, tt);
+				track.playing = audio.play; //true when play, false when pause
 				track.volume = actual_vol;
 				track.pbr = audio.speed;
 				tt.playbackRate = audio.speed;
-				tt.setVolume(actual_vol*100); //soundcloud sound object is out of 100, not 1
+				tt.setVolume(Math.floor(audio.volume*100)); //soundcloud sound object is out of 100, not 1
+				//console.log("clientsound", tt.paused, track.playing);
+				//sounds[key].play();
 				if (track.playing && tt.paused) {
 					tt.togglePause();
+					//console.log("toggle!", tt);
 				} else if (!track.playing && !tt.paused){
 					tt.togglePause();
+					//console.log("toggle2!", tt);
 				}
 				//console.log("stuff", actual_vol, track.playing, tt);
 			}
@@ -330,7 +345,7 @@ function change_volume(id, value) {
 
 function change_speed(id, value) {
 	console.log("SPEED VAL IS: ", value);
-  socket.emit("speed", id, value);
+	socket.emit("speed", id, value);
   	//console.log('change speed', id, value);
 }
 
@@ -342,5 +357,5 @@ function change_time(id, value) {
 
 function fade_track(id, value) {
 	socket.emit("fade", id, value);
-	//console.log('fade track', id, value);
+	console.log('fade track', id, value);
 }

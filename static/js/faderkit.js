@@ -453,13 +453,14 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['vol'] = $(control);
-		$(control).val(trackList[tid].volume);
+		//$(control).val(trackList[tid].volume);
 	} 
 	if (name === 'pbr') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
 		$(control).data('val2', $(value));
 		ctrls[tid]['pbr'] = $(control);
+		//$(control).val(
 	}
 	if (name === 'playback') {
 		$(control).data('changeSlider', changeSlider);

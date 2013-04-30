@@ -468,7 +468,7 @@ function makeGlobalControls() {
         "showValue" : false
     }];
     var globalControlsPalette = $("<section>")
-                                .addClass("global-controls-palette");
+                                .addClass("global-controls-palette track");
     for (var i = 0; i < controls.length; i++) {
         var control = makeControl(controls[i].type,
                                   controls[i].name,
@@ -594,8 +594,10 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
                 sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
                 str = min + ":" + sec;
             $(value).html(str);
+            var prog = 1/(duration/x);
             var canvas = (palette).parent().siblings(".turntable").children().children("canvas")[0];
-            drawProgress(canvas, 1/(duration/x));
+            drawProgress(canvas, prog);
+            $(control).val(prog);
         }, 250);
     }
     if (name === 'fader') {

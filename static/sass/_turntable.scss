@@ -67,32 +67,40 @@
         border: $default solid 1px;
         position: absolute;
         
-        .semi {
-            position: absolute;
-            border-radius: 100em 0 0 100em;
-            height: 100%;
-            width: 50%;
-            @include rotateZ(0deg);
-            @include transform-origin(100%);
-            
-            &.indicator {
-                background: $active;
-                
-                &#indicator1 {
-                    @include transition(all 10s 0s linear);
-                }
-                
-                &#indicator2 {
-                    @include transition(all 20s 0s linear);
-                }
-            }
-            
-            &.mask {
-                background: $background;
-                @include transition(visibility 10s 0s linear);
-                visibility: visible;
-            }
+        canvas {
+	        position: relative;
+	        height: 100%;
+	        width: 100%;
+	        border-radius: 100%;
+	        @include transform(rotate(-90deg));
         }
+        
+        // .semi {
+        //     position: absolute;
+        //     border-radius: 100em 0 0 100em;
+        //     height: 100%;
+        //     width: 50%;
+        //     @include rotateZ(0deg);
+        //     @include transform-origin(100%);
+        //     
+        //     &.indicator {
+        //         background: $active;
+        //         
+        //         &#indicator1 {
+        //             @include transition(all 10s 0s linear);
+        //         }
+        //         
+        //         &#indicator2 {
+        //             @include transition(all 20s 0s linear);
+        //         }
+        //     }
+        //     
+        //     &.mask {
+        //         background: $background;
+        //         @include transition(visibility 10s 0s linear);
+        //         visibility: visible;
+        //     }
+        // }
     }
     
     // spin while playing

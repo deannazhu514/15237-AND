@@ -28,7 +28,6 @@ function cloneObject(source) {
 }
 
 function constructSetList(playlists) {
-<<<<<<< HEAD
 	for (key in playlists) {
 		console.log("KEY IS : " +key);
 		var temptracks = $.map(playlists[key].tracks, function (value, key) { return value; });
@@ -250,7 +249,6 @@ $(document).ready(function(){
     // makePicker(sets);
 })
             
-=======
     for (key in playlists) {
         console.log("KEY IS : " +key);
         var temptracks = $.map(playlists[key].tracks, function (value, key) { return value; });
@@ -360,7 +358,6 @@ function makeTurntable2(artSrc, duration, tid) {
     // $(scrubber).append(indicator1, indicator2, mask);
     $(scrubber).append(canvas);
     $(turntable).append(scrubber, art);
-<<<<<<< HEAD
 	$(turntable).attr('id',tid);
 	
 	$(turntable).click(function(){
@@ -384,7 +381,7 @@ function makeTurntable2(artSrc, duration, tid) {
 	
 	}); 
 	return $(turntable);
-=======
+
     $(turntable).attr('id',tid);
     drawProgress(canvas[0], 0);
     
@@ -405,7 +402,7 @@ function makeTurntable2(artSrc, duration, tid) {
     
     }); 
     return $(turntable);
->>>>>>> canvas-based progress indicator; time indicator
+
 }
 
 // Called after volume change
@@ -532,7 +529,6 @@ function makeTurntable(artSrc, duration, tid) {
                         $(value).html(Math.floor(s.currentTime/60)+":"+Math.floor(s.currentTime%60));    
                     }
                 }, 1000);
->>>>>>> canvas-based progress indicator; time indicator
 
             }        
         } else {    
@@ -542,7 +538,6 @@ function makeTurntable(artSrc, duration, tid) {
             // setInterval(function(){
             // }, 1000);
 
-<<<<<<< HEAD
 			}		
 		} else {	
 		*/
@@ -574,7 +569,6 @@ function makeTurntable(artSrc, duration, tid) {
 	});
 	//turntable();
 	return $(turntable);
-=======
             if(trackList[tempid].playing) {            
                 socket.emit('pause',tid);
                 $(this).toggleClass("playing", false);
@@ -593,7 +587,6 @@ function makeTurntable(artSrc, duration, tid) {
     });
 
     return $(turntable);
->>>>>>> canvas-based progress indicator; time indicator
 }
 
 function drawProgress(canvas, position) {
@@ -682,11 +675,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
     
     $(control).mousedown(function() {
         controlChanging = true;
-<<<<<<< HEAD
-		updateControls();
-=======
-                updateControls();
->>>>>>> canvas-based progress indicator; time indicator
+
+        updateControls();
 
     });
     $(control).mouseup(function() {
@@ -697,7 +687,6 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         controlChanging = false;
         changingVol = changingPBR = fading = false;    
     });
-<<<<<<< HEAD
 		
 	if (ctrls[tid] === undefined) {
 		ctrls[tid] = {};
@@ -739,8 +728,6 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 		$(control).val(0);
 		ctrls[tid]['fad'] = $(control);
 	}
-	
-=======
         
     if (ctrls[tid] === undefined) {
         ctrls[tid] = {};
@@ -780,7 +767,6 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         ctrls[tid]['fad'] = $(control);
     }
     
->>>>>>> canvas-based progress indicator; time indicator
     if (name === 'playback') {
         $(control).val(0);
     }

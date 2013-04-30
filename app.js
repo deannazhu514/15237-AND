@@ -666,8 +666,11 @@ function init_socket(socket,room) {
 	});
 	socket.on("volume", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;
+		audio[id].fading = false;
 		audio[id].fade = value; 
 		audio[id].volume = value; //percentage value between 0 and 100 here
+		
+		console.log("volume change", id, value, audio[id].volume, audio[id].fade);
 		io.sockets.in(room).volatile.emit("update", audio);
 	});
 	
@@ -675,6 +678,7 @@ function init_socket(socket,room) {
 		var audio = socketRoomList[room][socket.id].audio;
 		//console.log("fading", value);
 		audio[id].fade = audio[id].volume*value; //percentage value between 0 and 100 here
+		audio[id].fading = true;
 		var cur = songList.indexOf(""+id);
 		var next;
 		if (cur != -1) {
@@ -840,6 +844,7 @@ function audio_init(id) {
         audio[id] = {
             volume:  0.5,
 			fade: 1,
+			fading: false,
             mute:  false,
             auto: true,
             speed: 1,

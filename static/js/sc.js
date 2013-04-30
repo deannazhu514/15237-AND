@@ -15,9 +15,10 @@ var autoPlay  = true;
 var loop = true; 
 
 var client_id = '3d503a64aaf395aac54de428f7808b82';
+//var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
 
 var redirect_uri = 'http://localhost:8999/static/index.html';
-//var redirect_uri = 'http://128.237.113.212:8999/static/callback.html';
+//var redirect_uri = 'http://128.237.200.130:8999/static/index.html';
 
 var stream_add =  '?client_id='+client_id;
 
@@ -48,13 +49,36 @@ var faderslider = {
 				"name" : "fader",
                 "orientation" : "horizontal",
                 "showValue" : false
-            };				
+            };		
+
+		
 			
 function init() {
-	context = new webkitAudioContext();
-	analyser = context.createAnalyser();
-	compressor = context.createDynamicsCompressor();
-
+	if (typeof AudioContext == "function") {
+		context = new AudioContext();
+	} else if (typeof webkitAudioContext == "function") {
+		context = new webkitAudioContext();
+	} else {
+			var platform;
+			if (navigator.userAgent.indexOf("Android") !== -1)
+				platform = "Android";
+			else if (!!(navigator.userAgent.match(/iPhone/i) ||
+				navigator.userAgent.match(/iPod/i) ||
+				navigator.userAgent.match(/iPad/i)))
+				   platform = "iOS";
+			else if (navigator.userAgent.indexOf("Chrome") != -1)
+				platform = "Chrome";	
+			else if (navigator.platform == "Linux x86_64")
+				platform = "Linux";				
+			else 
+				platform = "something else";
+	}
+	
+	//context = undefined;
+	if (context !== undefined) {
+		analyser = context.createAnalyser();
+		compressor = context.createDynamicsCompressor();	
+	}
 }	
 			
 function connect(){
@@ -80,7 +104,7 @@ function connect(){
 				$("#loginbut").remove();
 				$('form').remove();
 				init();
-				console.log("calling event handlers init");
+				//console.log("calling event handlers init");
 			} else {
 				alert("Couldn't connect to SoundCloud!");
 			}
@@ -98,7 +122,7 @@ function eventHandlersInit() {
 		//alert('a');
 		for (key in sounds) {
 			console.log("SOUND KEY IS : ", key);
-			var aud = sounds[key].source.mediaElement;
+			//var aud = sounds[key].source.mediaElement;
 				/*aud.addEventListener('ended', function () {
 					sounds[key].stop();
 					console.log("pause", sounds[key]);
@@ -266,24 +290,30 @@ function getPlaylists(SCuser){
 					};
 					
 					var ss = {};
-					var aud = new Audio(); 
-					aud.src = track2.url+stream_add;
-					aud.loop = false;
-					aud.autoPlay = false;
+					console.log("TRACKKK", track);
 					
-					var source = context.createMediaElementSource(aud);	
-					ss.source = source;
-					ss.play = play;
-					ss.togglePause = togglePause;
-					ss.stop = stop;	
-					sounds[track2.id] = ss;
+					
+					if (context !== undefined) {
+						var aud = new Audio(); 
+						aud.src = track2.url+stream_add;
+						aud.loop = false;
+						aud.autoPlay = false;
+						
+						var source = context.createMediaElementSource(aud);	
+						ss.source = source;
+						ss.play = play;
+						ss.togglePause = togglePause;
+						ss.stop = stop;	
+						sounds[track2.id] = ss;
+					} else {
+						console.log("stream track" , track.id);
+					}		
 					tracks[track.id] = track2;
 					temp.tracks[track.id] = track2;
 					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);		
 				}
-			}
-								
+			}					
 			//socket.emit('tracklist', tracks);
 			//var temp = {};
 			temp.name = playlist.title;
@@ -297,7 +327,12 @@ function getPlaylists(SCuser){
 	 });
 	 
 	 loggedin = true;
-	 $("body").removeClass("guest");
+	 $("body").removeClass("guest").addClass("logged-in");
+}
+
+function addSound(id, sound) {
+	sounds[id] = sound;
+	console.log("sounds", sounds);
 }
 
 
@@ -329,7 +364,6 @@ function addTrack(userID, track){
 		data: {"user": userID, "track":track},
 		url: "/tracks",
 		success: function(data) { 
-			console.log(data);
 		}
 	});
 }

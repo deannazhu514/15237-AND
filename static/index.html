@@ -16,11 +16,11 @@
 	<script src="js/client_socket.js"></script>
 	<script src="js/client.js"></script>
     <script>
-      $(document).ready(function() {
+     /* $(document).ready(function() {
         SC.initialize({
             client_id: '8c81dbd8c3ad36c29dfc54d06b566fe6',			
         });
-    });
+    });*/
     </script>
 </head>
 <body class="guest">
@@ -44,7 +44,7 @@
         	<!-- <input type="button" class="panel-button" value="Track1" id ="testbut"> -->
         </section>
     </header>
-    <section class="picker"></section>
+    <section class="picker open"></section>
     <form name="myform" action="javascript:connectDevice()" class="login-form">
         <fieldset>
             <input type="button" class="panel-button" value="Connect with SoundCloud" id="loginbut">
@@ -58,16 +58,21 @@
         </fieldset>
     </form>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#loginbut').click(function(){
-                connect();
+            $(document).ready(function() {
+                $('#loginbut').click(function(){
+                    connect();
+                });
+    			$('input.picker').click(function(){
+                    $("section.picker").toggleClass("open");
+                    $(this).toggleClass("on");
+    			});
             });
-			$('input.picker').click(function(){
-                $("section.picker").toggleClass("open");
-                $(this).toggleClass("on");
-			});
-        });
+            
 			document.getElementById("audiotoggle").onclick = togglePlayback;
+			
+			$(".menu input").click(function(){
+    			$(this).toggleClass("on");
+			})
 
 			document.getElementById("autoplay").onclick = function(){
 				autoPlay = !autoPlay;
@@ -80,7 +85,6 @@
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
-				$(this).toggleClass("on");
 				if (loop) {
 					$(this).val("Loop On");
 				} else {

@@ -54,8 +54,8 @@ socket.on("update", function(audio) {
 }); */
 
 function client_socket_init() {
-	//socket = io.connect("http://localhost:8111");
-	socket = io.connect("http://128.237.200.130:8111");
+	socket = io.connect("http://localhost:8111");
+	//socket = io.connect("http://128.237.200.130:8111");
 
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);

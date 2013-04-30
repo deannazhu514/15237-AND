@@ -92,6 +92,9 @@ function makePalette(template) {
 		
 		$('#'+id).parent().remove();
 		socket.emit("deltrack", id);
+		delete trackList[id];
+		delete tracks[id];
+		console.log("DELETING : ", id);
 	});
 	
     $(header).append(artist, title);

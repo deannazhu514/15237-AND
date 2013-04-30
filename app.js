@@ -655,8 +655,16 @@ function init_socket(socket,room) {
 			console.log("deleted ", id, socketRoomList[room].tracks);
 		} else {
 			console.log("huh", id);	
-		}			
-		io.sockets.in(room).volatile.emit("update", audio);
+		}
+		var olist = socketRoomList[room].trackOrdering;
+		for (var i = 0; i < olist.length; i++) {
+			if (olist[i] == id) {
+				olist.splice(i,1);
+				console.log("O LIST", olist);
+				break;
+			}
+		}
+		//io.sockets.in(room).volatile.emit("update", audio);
     });
     socket.on("disconnect", function() {
 		masteraud = socketRoomList[room][socket.id].audio;
@@ -802,6 +810,7 @@ function init_socket(socket,room) {
 		} else {
 			//console.log('sup1', tracks);
 			for (key in socketRoomList[room].tracks) {
+				console.log(key);
 				//audio[key].play = false;//why do i have this
 			}
 			socketRoomList[room].tracks = tracks;

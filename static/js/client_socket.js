@@ -153,7 +153,7 @@ function client_socket_init() {
 								
 								if (autoPlay) {
 									socket.emit('next', track.id);	
-									$('#'+track.id).parent().remove();						
+									$('#'+track.id).remove();							
 								} else {
 									if (track.playing) {
 										socket.emit('pause',track.id);
@@ -258,33 +258,6 @@ function supdate(a) {
 				
 				s.playbackRate = audio.speed;
 				
-				/*
-				if (!changingVol) {
-					var tempobj = ctrls[key]['vol'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					if (tempfnc != undefined) {
-						//tempfnc(val, val2, audio.volume*100);
-					}
-				}
-				if (!changingPBR) {
-					var tempobj = ctrls[key]['pbr'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					if (typeof(tempfnc) != 'undefined')
-					 {
-					 //tempfnc(val, val2, audio.speed*50);
-					 }
-				}
-				if (!changingPB) {
-					var tempobj = ctrls[key]['pb'];
-					var tempfnc = tempobj.data('changeSlider');
-					var val = tempobj.data('val');
-					var val2 = tempobj.data('val2');
-					tempfnc(val, val2, audio.speed);
-				}*/
 				track.playing = audio.play;
 				track.volume =  actual_vol;
 				//console.log(fading, track.volume);
@@ -293,12 +266,14 @@ function supdate(a) {
 					tt.stop();
 					if (autoPlay) {
 						if (track.playing) {
+							console.log("hmm");
 						} else {
 							console.log("was paused");
 							s.currentTime = 0;
 						}
 						socket.emit('next', key);	
-						$('#'+key).parent().remove();						
+
+						$('#'+key).remove();						
 					} else {
 						if (track.playing) {
 							socket.emit('pause',key);

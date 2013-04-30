@@ -629,7 +629,7 @@ function init_socket(socket,room) {
 		audio[id].fade = value; 
 		audio[id].volume = value; //percentage value between 0 and 100 here
 		
-		console.log("volume change", id, value, audio[id].volume, audio[id].fade);
+		//console.log("volume change", id, value, audio[id].volume, audio[id].fade);
 		io.sockets.in(room).volatile.emit("update", audio);
 	});
 	

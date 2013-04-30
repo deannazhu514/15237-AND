@@ -59,195 +59,6 @@ function constructSetList(playlists) {
 	}
 	console.log("setlist", setlist);
 }
-
-$(document).ready(function(){
-    var sets = [{
-        "name" : "my first set",
-        "tracks" : [{
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        }]
-    },
-    {
-        "name" : "my second set",
-        "tracks" : [{
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        }]
-    },
-    {
-        "name" : "my third set",
-        "tracks" : [{
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        }]
-    },
-    {
-        "name" : "my fourth set",
-        "tracks" : [{
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        }]
-    },
-    {
-        "name" : "my fifth set",
-        "tracks" : [{
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        },
-        {
-            "id": "track.id",
-            "artist": "track.user.username",
-            "song": "track.title",
-            "url" : "track.stream_url"
-        }]
-    }];
-    
-    // makePicker(sets);
-})
             
 function makePalette(template) {
 	if (typeof(template.id) === 'string') {
@@ -270,10 +81,18 @@ function makePalette(template) {
 		title    = $("<h1>").html(template.song),
         artist   = $("<author>").html(template.artist),
         controls = $("<ul>").addClass("controls"),
+		removeBut = $("<input type=button>")
+			.addClass("removeBut")
+			.attr({id: template.id})
+			.val("Remove"),
         tid      = template.id;
 		
+	removeBut.click(function(){
+		console.log("remove ", this.getAttribute("id"));
+	});
+		
     $(header).append(artist, title);
-    $(track).append(header);
+    $(track).append(header, removeBut);
     console.log('tid: ' + tid);
     for (var i = 0; i < template.ui.length; i++) {	
         var element;

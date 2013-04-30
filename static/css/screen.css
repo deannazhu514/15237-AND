@@ -244,16 +244,31 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   overflow: auto;
   padding: 8em 0 0em 3.125%;
   position: relative;
+  left: -3.125%;
 }
-/* line 69, ../sass/_picker.scss */
-.logged-in section.picker .set:nth-child(1) {
-  padding-left: 0;
+@media screen and (max-width: 38em) {
+  /* line 42, ../sass/_picker.scss */
+  .logged-in section.picker .set {
+    width: 175%;
+  }
 }
-/* line 73, ../sass/_picker.scss */
+@media screen and (max-width: 40em) {
+  /* line 42, ../sass/_picker.scss */
+  .logged-in section.picker .set {
+    width: 87.5%;
+  }
+}
+@media screen and (max-width: 50em) {
+  /* line 42, ../sass/_picker.scss */
+  .logged-in section.picker .set {
+    width: 43.75%;
+  }
+}
+/* line 77, ../sass/_picker.scss */
 .logged-in section.picker .set h1 {
   font-size: 2em;
 }
-/* line 77, ../sass/_picker.scss */
+/* line 81, ../sass/_picker.scss */
 .logged-in section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium";
@@ -266,12 +281,12 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   color: white;
   opacity: .75;
 }
-/* line 83, ../sass/_picker.scss */
+/* line 87, ../sass/_picker.scss */
 .logged-in section.picker .set > h1:hover {
   opacity: 1;
   text-shadow: 0 0 0.5em white;
 }
-/* line 99, ../sass/_picker.scss */
+/* line 103, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -319,19 +334,19 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   border-color: white;
   text-shadow: 0 0 0.5em white;
 }
-/* line 108, ../sass/_picker.scss */
+/* line 112, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
   margin-top: .5rem;
 }
-/* line 114, ../sass/_picker.scss */
+/* line 118, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track:hover {
   opacity: 1;
   background-image: url("../images/play-icon.png");
   background-position: 0 1.7rem;
 }
-/* line 120, ../sass/_picker.scss */
+/* line 124, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -339,7 +354,7 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   font-family: "DIN Next W01 Medium";
   display: block;
 }
-/* line 126, ../sass/_picker.scss */
+/* line 130, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track:last-child {
   margin-bottom: 16em;
 }
@@ -735,12 +750,10 @@ body.guest form fieldset aside {
 /* line 10, ../sass/_track.scss */
 body > #tracks .track {
   width: 87.5%;
-  padding: 3.125% 0;
-  margin: 3.125% 0 0 0;
   box-sizing: border-box;
   float: left;
 }
-/* line 17, ../sass/_track.scss */
+/* line 15, ../sass/_track.scss */
 body > #tracks .track:nth-of-type(1) {
   margin-left: 0;
 }
@@ -756,7 +769,7 @@ body > #tracks .track:nth-of-type(1) {
     width: 43.75%;
     margin: 3.125% 0 0 3.125%;
   }
-  /* line 32, ../sass/_track.scss */
+  /* line 30, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(3n) {
     margin-left: 0;
   }
@@ -772,11 +785,11 @@ body > #tracks .track:nth-of-type(1) {
   body > #tracks .track {
     width: 29.16667%;
   }
-  /* line 47, ../sass/_track.scss */
+  /* line 45, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(3n) {
     margin: 3.125% 0 0 3.125%;
   }
-  /* line 51, ../sass/_track.scss */
+  /* line 49, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(4n) {
     margin-left: 0;
   }
@@ -785,11 +798,11 @@ body > #tracks .track:nth-of-type(1) {
     display: none;
   }
 }
-/* line 61, ../sass/_track.scss */
+/* line 59, ../sass/_track.scss */
 body > #tracks .track header {
   margin-bottom: 1em;
 }
-/* line 62, ../sass/_track.scss */
+/* line 60, ../sass/_track.scss */
 body > #tracks .track header h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light";
@@ -799,20 +812,63 @@ body > #tracks .track header h1 {
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: -.03125em;
+  position: relative;
 }
-/* line 73, ../sass/_track.scss */
+/* line 72, ../sass/_track.scss */
 body > #tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 83, ../sass/_track.scss */
+/* line 76, ../sass/_track.scss */
+body > #tracks .track header .removeBut {
+  text-indent: -9999em;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2.5em;
+  border: none;
+  -webkit-transition-property: color, box-shadow, text-shadow, background-color;
+  -moz-transition-property: color, box-shadow, text-shadow, background-color;
+  -o-transition-property: color, box-shadow, text-shadow, background-color;
+  transition-property: color, box-shadow, text-shadow, background-color;
+  -webkit-transition-duration: 0.125s;
+  -moz-transition-duration: 0.125s;
+  -o-transition-duration: 0.125s;
+  transition-duration: 0.125s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+  opacity: .5;
+  background-image: url("../images/close-icon.png") !important;
+  background-size: 90% 100% !important;
+  position: relative;
+  left: -2.75em;
+  top: -2.9em;
+  float: left;
+}
+/* line 85, ../sass/lib/_mixins.scss */
+body > #tracks .track header .removeBut:active, body > #tracks .track header .removeBut.touch {
+  -webkit-transform: scale(0.975);
+  -moz-transform: scale(0.975);
+  -ms-transform: scale(0.975);
+  -o-transform: scale(0.975);
+  transform: scale(0.975);
+}
+/* line 57, ../sass/lib/_mixins.scss */
+body > #tracks .track header .removeBut:hover, body > #tracks .track header .removeBut:active {
+  background-color: transparent;
+  box-shadow: none;
+  opacity: 1;
+}
+/* line 92, ../sass/_track.scss */
 body > #tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
-/* line 88, ../sass/_track.scss */
+/* line 97, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move {
   background: none;
   border: none;
@@ -825,11 +881,11 @@ body > #tracks ul.controls li.palette .move {
   border-bottom: 2pt solid #cccccc;
   padding: 0;
 }
-/* line 100, ../sass/_track.scss */
+/* line 109, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move:active, body > #tracks ul.controls li.palette .move:hover {
   background: none;
 }
-/* line 105, ../sass/_track.scss */
+/* line 114, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
@@ -837,7 +893,7 @@ body > #tracks ul.controls li.palette .value {
   width: 100%;
   text-align: center;
 }
-/* line 113, ../sass/_track.scss */
+/* line 122, ../sass/_track.scss */
 body > #tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -845,7 +901,7 @@ body > #tracks ul.controls li.palette label {
   display: block;
   padding-top: 1em;
 }
-/* line 119, ../sass/_track.scss */
+/* line 128, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid #cccccc;
@@ -854,16 +910,16 @@ body > #tracks ul.controls li.palette .slider {
   width: 100%;
   margin: 2em 0;
 }
-/* line 127, ../sass/_track.scss */
+/* line 136, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 131, ../sass/_track.scss */
+/* line 140, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 136, ../sass/_track.scss */
+/* line 145, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
@@ -872,11 +928,11 @@ body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   cursor: pointer;
   opacity: .75;
 }
-/* line 144, ../sass/_track.scss */
+/* line 153, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 149, ../sass/_track.scss */
+/* line 158, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

@@ -179,20 +179,6 @@ body ::-webkit-scrollbar {
 body ::-webkit-scrollbar:hover {
   width: 3.125%;
 }
-/* line 75, ../sass/_main.scss */
-body ::-webkit-scrollbar-track {
-  background-image: url("../images/scrolltrack-bg.png");
-  background-repeat: repeat-y;
-  background-position: center;
-}
-/* line 81, ../sass/_main.scss */
-body ::-webkit-scrollbar-thumb {
-  background: #888888;
-}
-/* line 84, ../sass/_main.scss */
-body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
-  background: white;
-}
 
 /* line 17, ../sass/_picker.scss */
 .logged-in section.picker {

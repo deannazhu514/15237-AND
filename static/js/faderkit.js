@@ -15,7 +15,7 @@ var slider = {
     "showValue" : true
 };
 
-makeGlobalControls();
+//makeGlobalControls();
 
 //source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
 
@@ -474,6 +474,7 @@ function makeGlobalControls() {
         globalControlsPalette.append(control);
     }
     $("body").append(globalControlsPalette);
+		console.log("finished making global controls!");
 }
 
 function makeControl(type, name, orientation, showValue, tid, duration) {
@@ -654,6 +655,7 @@ function makePicker(sets) {
                        alltracks[$(this).attr("trackid")];
                     socket.emit("newtrack", $(this).attr("trackid"));
                     socket.emit("tracklist", tracks);
+										
                     $(this).parents("section.picker").removeClass("open");
                 });
             ul.append(li);

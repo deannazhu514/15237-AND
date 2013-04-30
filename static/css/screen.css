@@ -862,13 +862,20 @@ body > #tracks .track header .removeBut:hover, body > #tracks .track header .rem
   box-shadow: none;
   opacity: 1;
 }
-/* line 92, ../sass/_track.scss */
+/* line 89, ../sass/_track.scss */
+body > #tracks .track .waveform {
+  width: 100%;
+  height: 4em;
+  background: #cccccc;
+  margin-bottom: 1rem;
+}
+/* line 99, ../sass/_track.scss */
 body > #tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
-/* line 97, ../sass/_track.scss */
+/* line 104, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move {
   background: none;
   border: none;
@@ -881,11 +888,11 @@ body > #tracks ul.controls li.palette .move {
   border-bottom: 2pt solid #cccccc;
   padding: 0;
 }
-/* line 109, ../sass/_track.scss */
+/* line 116, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move:active, body > #tracks ul.controls li.palette .move:hover {
   background: none;
 }
-/* line 114, ../sass/_track.scss */
+/* line 121, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .value {
   font-size: 2em;
   display: block;
@@ -893,7 +900,7 @@ body > #tracks ul.controls li.palette .value {
   width: 100%;
   text-align: center;
 }
-/* line 122, ../sass/_track.scss */
+/* line 129, ../sass/_track.scss */
 body > #tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -901,7 +908,7 @@ body > #tracks ul.controls li.palette label {
   display: block;
   padding-top: 1em;
 }
-/* line 128, ../sass/_track.scss */
+/* line 135, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid #cccccc;
@@ -910,16 +917,16 @@ body > #tracks ul.controls li.palette .slider {
   width: 100%;
   margin: 2em 0;
 }
-/* line 136, ../sass/_track.scss */
+/* line 143, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 140, ../sass/_track.scss */
+/* line 147, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 145, ../sass/_track.scss */
+/* line 152, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
@@ -928,11 +935,11 @@ body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   cursor: pointer;
   opacity: .75;
 }
-/* line 153, ../sass/_track.scss */
+/* line 160, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 158, ../sass/_track.scss */
+/* line 165, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

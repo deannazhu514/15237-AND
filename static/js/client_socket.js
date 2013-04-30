@@ -96,8 +96,8 @@ function client_socket_init() {
 		} else {
 			nupdate(a);
 		}
-
 	});
+	
 	socket.on("getmod", function(track, num) {
 		console.log("REC MODULE");
 		//if (deviceNum == num) {

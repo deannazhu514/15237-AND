@@ -288,7 +288,8 @@ function getPlaylists(SCuser){
 								"art": artwork,
 								"duration": duration 
 								}, volslider, pbslider, playbackslider, faderslider],
-						"i": i
+						"i": i,
+						"waveform_url" : track.waveform_url
 					};
 					
 					var ss = {};
@@ -313,7 +314,6 @@ function getPlaylists(SCuser){
 					temp.tracks[track.id] = track2;
 					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);
-					makeWaveform(track);
 				}
 			}					
 			//socket.emit('tracklist', tracks);

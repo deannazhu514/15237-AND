@@ -75,19 +75,17 @@ function makePalette(template) {
     };
 
     // Container for all controls and information for a single track
-    var track     = $("<li>").attr({
-                        class: "track",
-                        id:    template.id
-                    }),
-        header    = $("<header>"),
-        title     = $("<h1>").html(template.song),
-        artist    = $("<author>").html(template.artist),
-        controls  = $("<ul>").addClass("controls"),
+    var track    = $("<li>").addClass("track"),
+        header   = $("<header>"),
+        title    = $("<h1>").html(template.song),
+        artist   = $("<author>").html(template.artist),
+        controls = $("<ul>").addClass("controls"),
 		removeBut = $("<input type=button>")
-            		.addClass("removeBut")
-            		.attr({id: template.id})
-            		.val("Remove"),
+			.addClass("removeBut")
+			.attr({id: template.id})
+			.val("Remove"),
         tid      = template.id;
+
 		
 	removeBut.click(function(){
 		var id = this.getAttribute("id");
@@ -95,7 +93,7 @@ function makePalette(template) {
 		$('#'+id).parent().remove();
 		socket.emit("deltrack", id);
 	});
-		
+	
     $(header).append(artist, title);
     $(track).append(header, removeBut);
     console.log('tid: ' + tid);
@@ -122,19 +120,6 @@ function makePalette(template) {
     }
     $("ul#tracks").append(track);
     return element;
-}
-
-function waveform(track) {
-    var waveform = new Waveform({
-        container: document.getElementById(track.id),
-        innerColor: "#333"
-    });
-    
-    waveform.dataFromSoundCloudTrack(track);
-    var streamOptions = waveform.optionsForSyncedStream();
-    SC.stream(track.uri, streamOptions, function(stream){
-        window.exampleStream = stream;
-    });
 }
 
 function makeTurntable2(artSrc, duration, tid) {
@@ -239,7 +224,6 @@ function makeTurntable(artSrc, duration, tid) {
             height: "100%",
             width: "100%"
         });
-
     // $(scrubber).append(indicator1, indicator2, mask);
     $(scrubber).append(canvas);
     $(turntable).append(scrubber, art);
@@ -388,43 +372,6 @@ function drawProgress(canvas, position) {
         context.arc(50,50,50,0,multiple*Math.PI,false);
         context.stroke();
     }
-}
-
-function makeGlobalControls() {
-    var controls = [{
-        "type" : "slider",
-        "name" : "Volume",
-        "orientation" : "horizontal",
-        "showValue" : false
-    },
-    {
-        "type" : "slider",
-        "name" : "Left/Right",
-        "orientation" : "horizontal",
-        "showValue" : false
-    },
-    {
-        "type" : "slider",
-        "name" : "Treble",
-        "orientation" : "horizontal",
-        "showValue" : false
-    },
-    {
-        "type" : "slider",
-        "name" : "Bass",
-        "orientation" : "horizontal",
-        "showValue" : false
-    }];
-    var globalControlsPalette = $("<section>")
-                    .addClass("global-controls-palette");
-    for (var i = 0; i < controls.length; i++) {
-        var control = makeControl(controls[i].type,
-                                  controls[i].name,
-                                  controls[i].orientation,
-                                  controls[i].showValue,);
-        globalControlsPalette.append(control);
-    }
-    $("body").append(globalControlsPalette);
 }
 
 function makeControl(type, name, orientation, showValue, tid, duration) {

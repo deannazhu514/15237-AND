@@ -413,15 +413,17 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 				
         	change_speed(id,Math.pow(1.01395, val-50));
         	changingPBR = true;
-        	//s.playbackRate = val/50;
         } else if (name === "playback") {
             var x = duration*val/100;
+                min = Math.floor(x/60),
+                sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
+                str = min + ":" + sec;
+            $(value).html(str);
             //s.currentTime = (ss.duration*val/100);                    
             change_time(id, x);
-            $(value).html(Math.floor(x/60) + ":" + Math.floor(x%60));
-            console.log("——————————————————————");
-            console.log(val);
-            console.log("——————————————————————");
+            // console.log("——————————————————————");
+            // console.log(val);
+            // console.log("——————————————————————");
         } else if (name === "fader") {
             fading = true;
             //fade value is inversed so 1 corresponds to current,
@@ -457,24 +459,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         controlChanging = false;
         changingVol = changingPBR = fading = false;    
     });
-		
-	if (ctrls[tid] === undefined) {
-		ctrls[tid] = {};
-	}
-	if (name === 'volume') {
-		$(control).data('changeSlider', changeSlider);
-		$(control).data('val', $(control));
-		$(control).data('val2', $(value));
-		ctrls[tid]['vol'] = $(control);
-		//$(control).val(trackList[tid].volume);
-	} 
-	if (name === 'pbr') {
-		$(control).data('changeSlider', changeSlider);
-		$(control).data('val', $(control));
-		$(control).data('val2', $(value));
-		ctrls[tid]['pbr'] = $(control);
-		//$(control).val(
-	}
+
+	/*
 	if (name === 'playback') {
 		$(control).data('changeSlider', changeSlider);
 		$(control).data('val', $(control));
@@ -492,14 +478,7 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 			var str = Math.floor(x/60) + ":" + Math.floor(x%60);
 			$(value).html(str);
 		}, 1000);
-	}
-	if (name === 'fader') {
-		$(control).data('changeSlider', changeSlider);
-		$(control).data('val', $(control));
-		$(control).data('val2', $(value));
-		$(control).val(0);
-		ctrls[tid]['fad'] = $(control);
-	}
+	}*/
         
     if (ctrls[tid] === undefined) {
         ctrls[tid] = {};
@@ -517,31 +496,35 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         ctrls[tid]['pbr'] = $(control);
     }
     if (name === 'playback') {
+	    $(control).val(0);
         $(control).data('changeSlider', changeSlider);
         $(control).data('val', $(control));
         $(control).data('val2', $(value));
         ctrls[tid]['pb'] = $(control);
         timer = setInterval(function(){
-            var x   = sounds[tid].source.mediaElement.currentTime,
+			var x;
+			if (context !== undefined)
+				x = sounds[tid].source.mediaElement.currentTime;  
+			else {
+				//console.log("doing time thing", sounds);
+				if (sounds[tid] != undefined)
+					x = sounds[tid].position/1000;
+			}
                 min = Math.floor(x/60),
-                sec = (x < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
+                sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
                 str = min + ":" + sec;
             $(value).html(str);
             var canvas = (palette).parent().siblings(".turntable").children().children("canvas")[0];
             drawProgress(canvas, 1/(duration/x));
         }, 250);
     }
-    if (name === 'fader') {
-        $(control).data('changeSlider', changeSlider);
-        $(control).data('val', $(control));
-        $(control).data('val2', $(value));
-        $(control).val(0);
-        ctrls[tid]['fad'] = $(control);
-    }
-    
-    if (name === 'playback') {
-        $(control).val(0);
-    }
+	if (name === 'fader') {
+		$(control).data('changeSlider', changeSlider);
+		$(control).data('val', $(control));
+		$(control).data('val2', $(value));
+		$(control).val(0);
+		ctrls[tid]['fad'] = $(control);
+	}
 
     $(palette).append(control, label);
     if (showValue)

@@ -103,7 +103,7 @@ function client_socket_init() {
 	});
 
 	socket.on('add_track', function(track) {
-		//console.log('adding track ' + track);
+		console.log('adding track ' + track);
 		if (typeof(track.id) === 'string') {
 			track.id = parseFloat(track.id);
 		}

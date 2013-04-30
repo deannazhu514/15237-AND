@@ -287,7 +287,7 @@ function getPlaylists(SCuser){
 								"type": "turntable",
 								"art": artwork,
 								"duration": duration 
-								}, volslider, pbslider, playbackslider, faderslider],
+								}, playbackslider, volslider, pbslider, faderslider],
 						"i": i,
 						"waveform_url" : track.waveform_url
 					};

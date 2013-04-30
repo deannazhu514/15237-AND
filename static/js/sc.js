@@ -8,19 +8,19 @@ var alltracks = {};
 var sounds = {};
 var context, analyser, compressor;
 var deviceNum;
+var platform;
 
 //when true, will cause all tracks in playlist to play automatically
 var autoPlay  = true;
 //when true, will cause a playlist to loop around
 var loop = true; 
 
+//var client_id = '3d503a64aaf395aac54de428f7808b82';
+var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
 
-//var client_id = '055ab70e0475ef3d42bee016eb3108c2';
-var client_id = '3d503a64aaf395aac54de428f7808b82';
-//var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
+//var redirect_uri = 'http://localhost:8999/static/index.html';
+var redirect_uri = 'http://128.237.186.94:8999/static/index.html';
 
-var redirect_uri = 'http://localhost:8999/static/index.html';
-//var redirect_uri = 'http://128.237.202.131:8999/static/index.html';
 
 var stream_add =  '?client_id='+client_id;
 
@@ -60,21 +60,18 @@ function init() {
 		context = new AudioContext();
 	} else if (typeof webkitAudioContext == "function") {
 		context = new webkitAudioContext();
-	} else {
-			var platform;
-			if (navigator.userAgent.indexOf("Android") !== -1)
-				platform = "Android";
-			else if (!!(navigator.userAgent.match(/iPhone/i) ||
-				navigator.userAgent.match(/iPod/i) ||
-				navigator.userAgent.match(/iPad/i)))
-				   platform = "iOS";
-			else if (navigator.userAgent.indexOf("Chrome") != -1)
-				platform = "Chrome";	
-			else if (navigator.platform == "Linux x86_64")
-				platform = "Linux";				
-			else 
-				platform = "something else";
-	}
+	} 
+		
+	if (navigator.userAgent.indexOf("Android") !== -1)
+		platform = "Android";
+	else if (!!(navigator.userAgent.match(/iPhone/i) ||
+		navigator.userAgent.match(/iPod/i) ||
+		navigator.userAgent.match(/iPad/i)))
+		   platform = "iOS";
+	else if (navigator.userAgent.indexOf("Chrome") != -1)
+		platform = "Chrome";	
+	else if (navigator.platform == "Linux x86_64")
+		platform = "Linux";				
 	
 	//context = undefined;
 	if (context !== undefined) {
@@ -291,7 +288,8 @@ function getPlaylists(SCuser){
 								"art": artwork,
 								"duration": duration 
 								}, volslider, pbslider, playbackslider, faderslider],
-						"i": i
+						"i": i,
+						"waveform_url" : track.waveform_url
 					};
 					
 					var ss = {};
@@ -316,7 +314,6 @@ function getPlaylists(SCuser){
 					temp.tracks[track.id] = track2;
 					alltracks[track.id] = track2;
 					addTrack(SCuser, track2);
-					makeWaveform(track);
 				}
 			}					
 			//socket.emit('tracklist', tracks);

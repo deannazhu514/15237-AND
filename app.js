@@ -281,8 +281,7 @@ var masteraud = {};
 io.sockets.on('connection', function (socket) {
     socket.room = "";
     socketList[socket.id] = socket;
-    socket.on("subscribe", function(room, h, w) {
-
+    socket.on("subscribe", function(room, h, w, platform) {
         //init_socket(socket,room);
 
         if (socketRoomList[room] == undefined ) {
@@ -291,9 +290,17 @@ io.sockets.on('connection', function (socket) {
         //socketRoomList[room] = socketRoomList[room] + 1;
         if (socketRoomList[room].size != undefined) {
             socketRoomList[room].size = socketRoomList[room].size + 1;
-						console.log(socketRoomList[room].size);
+			console.log(socketRoomList[room].size);
         }
-        socketRoomList[room][socket.id] = {room: room, w: w, h: h, s: socket, tracks : {}, audio: {} };
+        socketRoomList[room][socket.id] = {room: room, 
+										w: w, 
+										h: h, 
+										s: socket, 
+										tracks : {}, 
+										audio: {},
+										platform: platform
+		};
+		console.log("platform", platform);
         socket.join(room);
 				init_socket(socket,room);
         if (io.sockets.clients(room).length === 1) {
@@ -301,12 +308,9 @@ io.sockets.on('connection', function (socket) {
             socket.emit("send_tracks");
         } else {
             readjust_devices(room, socket);
-				}
-
-
+		}
     });
     socket.emit("requestInit");
-
 });
 
 function readjust_disconnect(room) {

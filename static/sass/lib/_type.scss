@@ -25,16 +25,16 @@
 // font-family:'DINNextRoundedLTW01-Bol';
 
 
-$regular:    'DIN Next W01 Regular';
-$medium:     'DIN Next W01 Medium';
-$bold:       'DIN Next W01 Bold';
-$light:      'DIN Next W01 Light';
-$cond-ult:   'DINNextW01-CondensedUlt';
-$cond-lig:   'DINNextW01-CondensedLig';
-$cond-reg:   'DINNextW01-CondensedReg';
-$cond-med:   'DINNextW01-CondensedMed';
-$cond-bol:   'DINNextW01-CondensedBol';
-$cond-hea:   'DINNextW01-CondensedHea';
+$regular:    'DIN Next W01 Regular'   , helvetica, sans-serif;
+$medium:     'DIN Next W01 Medium'    , helvetica, sans-serif;
+$bold:       'DIN Next W01 Bold'      , helvetica, sans-serif;
+$light:      'DIN Next W01 Light'     , helvetica, sans-serif;
+$cond-ult:   'DINNextW01-CondensedUlt', helvetica, sans-serif;
+$cond-lig:   'DINNextW01-CondensedLig', helvetica, sans-serif;
+$cond-reg:   'DINNextW01-CondensedReg', helvetica, sans-serif;
+$cond-med:   'DINNextW01-CondensedMed', helvetica, sans-serif;
+$cond-bol:   'DINNextW01-CondensedBol', helvetica, sans-serif;
+$cond-hea:   'DINNextW01-CondensedHea', helvetica, sans-serif;
 
 body {
     color: $default;

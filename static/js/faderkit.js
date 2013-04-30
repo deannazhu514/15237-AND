@@ -115,7 +115,7 @@ function makePalette(template) {
                 element = makeTurntable(template.ui[i].art,
                           template.ui[0].duration, tid);
             }
-            track.append(element);
+            track.append(element, makeWaveform(alltracks[template.id]));
         } else {
             element = makeControl(template.ui[i].type,
                                   template.ui[i].name,
@@ -130,17 +130,10 @@ function makePalette(template) {
 }
 
 function makeWaveform(track) {
-    // console.log(document.getElementById(track.id));
-    // var waveform = new Waveform({
-    //     container: document.getElementById(track.id),
-    //     innerColor: "#333"
-    // });
-    // 
-    // waveform.dataFromSoundCloudTrack(track);
-    // var streamOptions = waveform.optionsForSyncedStream();
-    // SC.stream(track.uri, streamOptions, function(stream){
-    //     window.exampleStream = stream;
-    // });
+    var waveform = $("<div>").addClass("waveform").css({
+        "-webkit-mask-box-image": "url("+track.waveform_url+")"
+    });
+    return waveform;
 }
 
 function makeTurntable2(artSrc, duration, tid) {

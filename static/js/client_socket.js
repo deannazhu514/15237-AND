@@ -54,8 +54,9 @@ socket.on("update", function(audio) {
 }); */
 
 function client_socket_init() {
-	socket = io.connect("http://localhost:8111");
-	//socket = io.connect("http://128.237.202.131:8111");
+	//socket = io.connect("http://localhost:8111");
+	socket = io.connect("http://128.237.186.94:8111");
+
 
 	socket.on("update_time", function(value, id) {
 		value = Math.floor(value);
@@ -95,8 +96,8 @@ function client_socket_init() {
 		} else {
 			nupdate(a);
 		}
-
 	});
+	
 	socket.on("getmod", function(track, num) {
 		console.log("REC MODULE");
 		//if (deviceNum == num) {
@@ -180,7 +181,8 @@ function client_socket_init() {
 	socket.on("requestInit", function() {
 		var h = window.innerHeight;
 		var w = window.innerWidth;
-		socket.emit("subscribe", username, h, w);
+		console.log("platforrrm", platform);
+		socket.emit("subscribe", username, h, w, platform);
 		for (key in tracks) {
 			socket.emit("newtrack", tracks[key].id);
 			

@@ -85,6 +85,13 @@ body > #tracks {
     
             margin-bottom: 1em;            
         }
+        
+        .waveform {
+            width: 100%;
+            height: 4em;
+            background: $default;
+            margin-bottom: 1rem;
+        }
     }
     
     ul.controls {

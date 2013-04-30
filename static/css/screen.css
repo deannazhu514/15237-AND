@@ -66,7 +66,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* line 39, ../sass/lib/_type.scss */
 body {
   color: #cccccc;
-  font-family: "DIN Next W01 Regular";
+  font-family: "DIN Next W01 Regular", helvetica, sans-serif;
   font-size: 10pt;
   text-rendering: optimizeLegibility;
 }
@@ -100,7 +100,7 @@ input[type=button], input[type=submit] {
   padding: 0.5em;
   border: 1pt solid #cccccc;
   color: #cccccc;
-  font-family: "DIN Next W01 Light";
+  font-family: "DIN Next W01 Light", helvetica, sans-serif;
   font-size: 1em;
   font-weight: bold;
   position: relative;
@@ -141,7 +141,7 @@ input.text {
   border-bottom: #cccccc 1pt solid;
   font-size: 1em;
   font-style: italic;
-  font-family: "DIN Next W01 Regular";
+  font-family: "DIN Next W01 Regular", helvetica, sans-serif;
   position: relative;
   left: -.5em;
   text-indent: .4em;
@@ -271,7 +271,7 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
 /* line 81, ../sass/_picker.scss */
 .logged-in section.picker .set > h1 {
   margin-bottom: 0.75em;
-  font-family: "DIN Next W01 Medium";
+  font-family: "DIN Next W01 Medium", helvetica, sans-serif;
   background-image: url("../images/play-icon.png");
   background-size: 1.5rem 1.5rem;
   background-repeat: no-repeat;
@@ -337,7 +337,7 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
 /* line 112, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
-  font-family: "DIN Next W01 Light";
+  font-family: "DIN Next W01 Light", helvetica, sans-serif;
   margin-top: .5rem;
 }
 /* line 118, ../sass/_picker.scss */
@@ -351,7 +351,7 @@ body ::-webkit-scrollbar-thumb:hover, body ::-webkit-scrollbar-thumb:active {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
-  font-family: "DIN Next W01 Medium";
+  font-family: "DIN Next W01 Medium", helvetica, sans-serif;
   display: block;
 }
 /* line 130, ../sass/_picker.scss */
@@ -369,7 +369,7 @@ body > header h1 {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 2em;
-  font-family: "DIN Next W01 Bold";
+  font-family: "DIN Next W01 Bold", helvetica, sans-serif;
   display: none;
   margin-bottom: 2rem;
 }
@@ -566,7 +566,7 @@ body > header #username {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 0.75em;
-  font-family: "DIN Next W01 Medium";
+  font-family: "DIN Next W01 Medium", helvetica, sans-serif;
 }
 
 /* line 1, ../sass/_guest.scss */
@@ -643,7 +643,7 @@ body.guest form fieldset aside {
   font-size: .75rem;
   line-height: 1rem;
   font-style: italic;
-  font-family: "DIN Next W01 Light";
+  font-family: "DIN Next W01 Light", helvetica, sans-serif;
 }
 @media screen and (min-width: 48em) {
   /* line 56, ../sass/_guest.scss */
@@ -805,7 +805,7 @@ body > #tracks .track header {
 /* line 60, ../sass/_track.scss */
 body > #tracks .track header h1 {
   font-size: 2em;
-  font-family: "DIN Next W01 Light";
+  font-family: "DIN Next W01 Light", helvetica, sans-serif;
   color: #cccccc;
   line-height: 1.5em;
   height: 1.5em;

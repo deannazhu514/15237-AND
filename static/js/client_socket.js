@@ -237,6 +237,7 @@ function supdate(a) {
 	for (key in sounds) {
 		if (a[key] == undefined) {
 			//console.log("no key for", key);
+			sounds[key].stop();
 			continue;
 		}
 		

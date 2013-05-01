@@ -422,7 +422,9 @@ function cloneObject(source) {
 function readjust_devices(room,socket) {
 	var r = socketRoomList[room];
 	//masteraud = {};
+	console.log('readjusting');
 	var olist = r.trackOrdering;
+	console.log("adfk;j", olist);
 	if (olist == undefined) {
 		console.log('sup');
 		return;
@@ -616,10 +618,12 @@ function init_socket(socket,room) {
 			} else {
 				next = socketRoomList[room].trackOrdering[cur+1];
 			}
+			
 			if (next !== undefined) {
+				console.log("play next ", next);
 				audio[next].fade = audio[next].volume*(1-value);
 				audio[next].play = true;
-				console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
+				//console.log(audio[id].volume, audio[id].fade, audio[next].volume, audio[next].fade);
 			}
 		}
 		socketRoomList[room][socket.id].s.emit("update", audio);
@@ -657,6 +661,7 @@ function init_socket(socket,room) {
 		audio[id].play = false;
 		socketRoomList[room][socket.id].s.emit("update", audio);
 		console.log("pause song with id: " + id);
+		console.log(audio);
 	});
 	
 	socket.on("audio", function(audio){
@@ -668,25 +673,63 @@ function init_socket(socket,room) {
 	socket.on("next", function(id) {
 		var audio = socketRoomList[room][socket.id].audio;
 		console.log("play song after ", id);
-		var cur = socketRoomList[room].trackOrdering.indexOf(""+id);
+		var olist = socketRoomList[room].trackOrdering;
+		var cur = olist.indexOf(""+id);
 		var next;
 		if (cur != -1) {
-			if (cur == socketRoomList[room].trackOrdering.length-1) {
-				console.log(loop);
-				if (loop)
-					next = socketRoomList[room].trackOrdering[0];
-			} else {
-				next = socketRoomList[room].trackOrdering[cur+1];
-			}
-			audio[id].play = false;
-			if (next !== undefined) {
-				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
-				audio[next].play = true;
 				if (loop) {
-					add_track(room, socket, id);
+					var temparray = olist.slice(0,cur+1);
+					olist.splice(0, cur+1);
+					olist = olist.concat(temparray);
+					console.log(olist);
+					audio[id].play = false;
+				} else {
+					var track = socketRoomList[room].tracks[id];
+					if (track !== undefined) {
+						delete socketRoomList[room].tracks[id];
+						console.log("deleted ", id, socketRoomList[room].tracks);
+					}
+					for (var i = 0; i < olist.length; i++) {
+						if (olist[i] == id) {
+							olist.splice(i,1);
+							console.log("O LIST", olist);
+							break;
+						}
+					}
+					delete audio[id];
 				}
+			if (olist.length == 0) {
+				return;
 			}
-			socketRoomList[room][socket.id].s.emit("update", audio);	
+			next = olist[0];
+			console.log(next);
+			if (next !== undefined) {
+				console.log("songList", olist, "next ", next);
+				socketRoomList[room].trackOrdering = olist;
+				readjust_devices(room, socket);
+				
+				for (key in socketRoomList[room]) {
+					if (key == 'tracks') {
+						continue;
+					} if (key == 'size' ) {
+						continue;
+					} if (key == 'trackOrdering') {
+						continue;
+					} if (socketRoomList[room][key].audio.hasOwnProperty(next)){ 
+						socketRoomList[room][key].audio[next].play = true;
+						console.log(socketRoomList[room][key].audio);
+						socketRoomList[room][key].s.emit("play", next);
+						console.log('hiiii');
+						break;
+					} if (next in socketRoomList[room][key].audio) {
+						console.log('fuck');
+					}
+				}
+				
+			}
+			
+			
+			//socketRoomList[room][socket.id].s.emit("update", audio);	
 		}
 
 	});
@@ -709,6 +752,7 @@ function init_socket(socket,room) {
 		audio[id].time = value;
 		//io.sockets.in(room).volatile.emit("update_time", value, id);
 		socketRoomList[room][socket.id].s.emit("update_time", value, id);
+		audio[id].play = true;
 	});
 	socket.on("sendModule", function (trackz, num) {
 		console.log("trackz are: " + trackz);

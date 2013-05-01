@@ -14,6 +14,19 @@ $gutter: (100% / $columns) / 8;
 $gutters: $columns - 1;
 $col: (100% / $columns) - $gutter;
 
+@mixin col4 {
+    width: $col * $columns + $gutter * $columns;
+}
+
+@mixin col2 {
+    width: $col * ($columns / 2) + $gutter * ($columns / 3);
+}
+
+@mixin col3 {
+    width: $col * ($columns / 3) + $gutter * ($columns / 6);
+}
+
+
 // MISC
 
 $border-width: 1pt;

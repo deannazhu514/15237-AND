@@ -5,17 +5,48 @@ Deanna Zhu dwz
 Norbert Chu nrchu
 
 Techologies used:
-	-javascript (static/js folder)
-	-HTML (static/index.html)
-	-CSS (static/css folder)
-	-DOM manipulation 
-	-jQuery
+	-Javascript (static/js folder)
+	
+	-Canvas (faderkit.js makeTurnTable, makeTurnTable2)
+		turntable circular progress indicator
+		
+	-HTML (static/index.html, faderkit.js)
+		all turntables and controls are HTML elements
+		
+	-CSS (static/css, faderkit.js)
+		used for our responsive layout, animations/transitions in the turntable
+		
+	-DOM manipulation (faderkit.js, client_socket.js)
+		used to dynamically append/remove tracks, buttons, text
+	
+	-jQuery (static/js/faderkit.js, sc.js, client_socket.js)
+	
 	-AJAX client (sc.js, app.js)
-	-AJAX server (sc.js)
-	-node.js
-	-websockets
-	-client-side caching/localStorage (ishhhh)
-	-HTML5 Media
-	-SoundCloud API
+		SoundCloud requests are AJAX, also used to send track info to server
+	
+	-AJAX server (app.js)
+		serves files and store tracks
+	
+	-node.js (app.js)
+		used to run app, express, and socket.io
+	
+	-websockets (static/js/client_socket.js, app.js)
+		communication between client and server when playing/updating controls, adding/removing tracks, or adding/removing devices
+	
+	-HTML5 Media (client_socket.js, sc.js, faderkit.js)
+		for streaming audio in HTML5 enabled browsers, used to change stuff with playback and playback rate
+		
+	-SoundManager (client_socket.js, sc.js, faderkit.js)	
+		SoundCloud streams are SoundManager sounds; we used and changed properties to change position and duration of tracks
+	
+	-SoundCloud API (sc.js, faderkit.js)
+		used to connect and get user/playlist/track information, also for streaming sounds
+	
+	-Compass
+		Scss to generate css
 	
 Design process: design process folder
+	Competitive Analaysis (multiscreen + DJ apps) + Proposal 
+	-> sketches + wireframes 
+	-> feedback
+	-> screenshots

@@ -1,9 +1,6 @@
 var express = require("express");
 
-
-
 var app = express();
-var mongo = require('mongodb');
 
 var staticPort = 8999;
 var mongoPort = 9000;
@@ -11,35 +8,6 @@ var mongoPort = 9000;
 var users = {};
 
 app.use(express.bodyParser());
-
-/*BEGIN MONGO CODE*/
-/*
-var client = new mongo.Db("users", new mongo.Server('	host', mongoPort, { w: 1}));
-
-function openDb(onOpen){
-    client.open(onDbReady);
-
-    function onDbReady(error){
-        if (error)
-            throw error;
-        client.collection('users', onTestCollectionReady);
-    }
-
-    function onTestCollectionReady(error, collection){
-        if (error)
-            throw error;
-
-        onOpen(collection);
-    }
-}
-
-function closeDb(){
-    client.close();
-}
-
-openDb(onDbOpen);
-*/
-/*END MONGO CODE*/
 
 String.prototype.hashCode = function(){
     var hash = 0, i, char;

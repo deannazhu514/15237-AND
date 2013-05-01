@@ -23,7 +23,7 @@
         <h1>Spectrum</h1>
         <p id="username"></p>
         <section class="menu">
-            <input type="button" value="Picker" class="picker">
+            <input type="button" value="Picker" class="picker on">
             <input type="button" value="Audio On/Off" class="audio-toggle on" id="audiotoggle">   
             <input type="button" value="Autoplay On" class="autoplay on" id="autoplay">
 			 <input type="button" value="Loop On" class="loop on" id="loop">
@@ -59,7 +59,12 @@
                 });
     			$('input.picker').click(function(){
                     $("section.picker").toggleClass("open");
-                    $(this).toggleClass("on");
+    			});
+                $('input.picker off').click(function(){
+    			    $(this).addClass("on").removeClass("off");
+    			});
+                $('input.picker on').click(function(){
+    			    $(this).addClass("off").removeClass("on");
     			});
             });
             
@@ -72,12 +77,22 @@
 			document.getElementById("autoplay").onclick = function(){
 				autoPlay = !autoPlay;
 				console.log(autoPlay);
+				if ($(this).hasClass("on")) {
+    				displayMessage("Autoplay enabled.");
+				} else {
+                    displayMessage("Autoplay disabled.");
+				}
 			};
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
 				console.log(loop);
 				socket.emit("loop_playlist", loop);
+                if ($(this).hasClass("on")) {
+				    displayMessage("Autoplay enabled.");
+				} else {
+				    displayMessage("Autoplay disabled.");
+				}
 			};
     </script>
     <section id="controls"></section>

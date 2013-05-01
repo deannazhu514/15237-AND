@@ -15,11 +15,11 @@ var autoPlay  = true;
 //when true, will cause a playlist to loop around
 var loop = true; 
 
-var client_id = '055ab70e0475ef3d42bee016eb3108c2';
-//var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
+//var client_id = '055ab70e0475ef3d42bee016eb3108c2';
+var client_id = '8c81dbd8c3ad36c29dfc54d06b566fe6';
 
-var redirect_uri = 'http://localhost:8999/static/index.html';
-//var redirect_uri = 'http://128.237.125.237:8999/static/index.html';
+//var redirect_uri = 'http://localhost:8999/static/index.html';
+var redirect_uri = 'http://128.237.183.0:8999/static/callback.html';
 
 var stream_add =  '?client_id='+client_id;
 

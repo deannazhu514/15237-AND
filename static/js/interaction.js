@@ -50,3 +50,9 @@ function openPanel() {
         $("section#" + id).toggleClass("open");
     })
 }
+
+function displayMessage(message) {
+    if ($(".alert-message")) $(".alert-message").remove();
+    $("body").append($("<p>").addClass("alert-message").html(message));
+    setTimeout(function(){$(".alert-message").remove();}, 5000);
+}

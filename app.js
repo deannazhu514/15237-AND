@@ -422,6 +422,7 @@ function cloneObject(source) {
 function readjust_devices(room,socket) {
 	var r = socketRoomList[room];
 	//masteraud = {};
+	console.log('readjusting');
 	var olist = r.trackOrdering;
 	if (olist == undefined) {
 		console.log('sup');
@@ -678,12 +679,33 @@ function init_socket(socket,room) {
 			} else {
 				next = socketRoomList[room].trackOrdering[cur+1];
 			}
-			audio[id].play = false;
+
 			if (next !== undefined) {
 				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
 				audio[next].play = true;
 				add_track(room, socket, id);
 			}
+			
+			audio[id].play = false;
+			if (!loop) {
+				var track = socketRoomList[room].tracks[id];
+				if (track !== undefined) {
+					delete socketRoomList[room].tracks[id];
+					console.log("deleted ", id, socketRoomList[room].tracks);
+				} else {
+					console.log("huh", id);	
+				}
+				var olist = socketRoomList[room].trackOrdering;
+				for (var i = 0; i < olist.length; i++) {
+					if (olist[i] == id) {
+						olist.splice(i,1);
+						console.log("O LIST", olist);
+						break;
+					}
+				}
+				delete audio[id];
+			}
+			
 			socketRoomList[room][socket.id].s.emit("update", audio);	
 		}
 
@@ -705,6 +727,7 @@ function init_socket(socket,room) {
 	socket.on("change_time", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].time = value;
+		audio[id].play = true;
 		io.sockets.in(room).volatile.emit("update_time", value, id);
 	});
 	socket.on("sendModule", function (trackz, num) {

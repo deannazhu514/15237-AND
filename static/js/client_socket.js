@@ -64,8 +64,10 @@ function client_socket_init() {
 			var tt = sounds[key];
 			if (id == key) {
 				console.log("changing time to", value);
-				if (context !== undefined)
+				if (context !== undefined) {
 					tt.source.mediaElement.currentTime = value;
+					tt.play();
+				}
 				else {
 					console.log(tt.position);
 					tt.setPosition(value*1000);
@@ -200,8 +202,7 @@ function client_socket_init() {
 		console.log("platforrrm", platform);
 		socket.emit("subscribe", username, h, w, platform);
 		for (key in tracks) {
-			socket.emit("newtrack", tracks[key].id);
-			
+			socket.emit("newtrack", tracks[key].id);			
 		}
 		console.log(username, h,w);
 		//socket.emit('playlists', playlists);
@@ -289,7 +290,7 @@ function supdate(a) {
 						if (track.playing) {
 							console.log("hmm");
 						} else {
-							console.log("was paused");
+							console.log("autoplay was paused");
 							s.currentTime = 0;
 						}
 						socket.emit('next', key);	
@@ -313,6 +314,7 @@ function supdate(a) {
 				} else if (!track.playing && !s.paused){
 					tt.togglePause();
 				} else {
+					console.log(key, track.playing, s.paused);
 				}
 			} else {
 				actual_vol = (changingVol) ? audio.volume : audio.fade;

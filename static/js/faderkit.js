@@ -413,6 +413,7 @@ function makeTurntable(artSrc, duration, tid) {
                 //console.log("fadersound", sounds[tempid]);
                 socket.emit('pause',tid);
                 $(this).toggleClass("playing", false);	
+								console.log("try to pause");
             } else {
                 volumeGlow(50, turntable);
                 if (context == undefined)
@@ -421,6 +422,7 @@ function makeTurntable(artSrc, duration, tid) {
                 socket.emit('play',tid);
                 //console.log("playing");
                 $(this).toggleClass("playing", true);	
+								console.log("try to play");
             }
             //$(this).toggleClass("playing");	
         //}
@@ -524,7 +526,7 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
 
             change_speed(id,Math.pow(1.01395, val-50));
             changingPBR = true;
-        } else if (name === "playback") {
+        } 	/*else if (name === "playback") {
             var x = duration*val/100;
                 min = Math.floor(x/60),
                 sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
@@ -534,8 +536,8 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             change_time(id, x);
             // console.log("——————————————————————");
             // console.log(val);
-            // console.log("——————————————————————");
-        } else if (name === "fader") {
+            // console.log("——————————————————————");*/
+         else if (name === "fader") {
             fading = true;
             //fade value is inversed so 1 corresponds to current,
             //0 corresponds to next track
@@ -551,11 +553,40 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
         controlChanging = true;
 
         updateControls();
+				
+				var val = $(this).val(),
+            id  = $(this).parent().attr("id");
+						if (name === "playback") {
+            var x = duration*val/100;
+                min = Math.floor(x/60),
+                sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
+                str = min + ":" + sec;
+            $(value).html(str);
+            //s.currentTime = (ss.duration*val/100);                    
+            change_time(id, x);
+            // console.log("——————————————————————");
+            // console.log(val);
+            // console.log("——————————————————————");
+        }
 
     });
     $(control).mouseup(function() {
             controlChanging = false;
             updateControls();
+						var val = $(this).val(),
+            id  = $(this).parent().attr("id");
+						if (name === "playback") {
+            var x = duration*val/100;
+                min = Math.floor(x/60),
+                sec = (Math.floor(x%60) < 10) ? "0" + Math.floor(x%60) : Math.floor(x%60),
+                str = min + ":" + sec;
+            $(value).html(str);
+            //s.currentTime = (ss.duration*val/100);                    
+            change_time(id, x);
+            // console.log("——————————————————————");
+            // console.log(val);
+            // console.log("——————————————————————");
+        }
         });
     $(document).mouseup(function(event) {
         controlChanging = false;

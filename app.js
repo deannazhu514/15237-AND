@@ -586,6 +586,8 @@ function init_socket(socket,room) {
             readjust_disconnect(room);
         } else {
 			socketRoomList[room].trackOrdering = [];
+			socketRoomList[room].tracks = {};
+			console.log('all devices for room', room, 'disconnected');
 		}
 	});
 	socket.on("volume", function(id, value) {
@@ -680,7 +682,9 @@ function init_socket(socket,room) {
 			if (next !== undefined) {
 				console.log("songList", socketRoomList[room].trackOrdering, "next ", next);
 				audio[next].play = true;
-				add_track(room, socket, id);
+				if (loop) {
+					add_track(room, socket, id);
+				}
 			}
 			socketRoomList[room][socket.id].s.emit("update", audio);	
 		}
@@ -703,7 +707,8 @@ function init_socket(socket,room) {
 	socket.on("change_time", function(id, value) {
 		var audio = socketRoomList[room][socket.id].audio;
 		audio[id].time = value;
-		io.sockets.in(room).volatile.emit("update_time", value, id);
+		//io.sockets.in(room).volatile.emit("update_time", value, id);
+		socketRoomList[room][socket.id].s.emit("update_time", value, id);
 	});
 	socket.on("sendModule", function (trackz, num) {
 		console.log("trackz are: " + trackz);

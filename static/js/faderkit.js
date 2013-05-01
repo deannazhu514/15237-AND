@@ -688,4 +688,4 @@ function makePicker(sets) {
     picker.css({
         width: Math.max(sets.length * 25, 100) + "%"
     });
-}
+}git

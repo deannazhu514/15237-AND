@@ -21,9 +21,9 @@ var slider = {
 
 function checkSingle() {
     if ($("ul#tracks").children().length === 1) {
-        $("li.track").addClass("single");
+        $("ul#tracks li.track").addClass("single");
     } else {
-        $("li.track").removeClass("single");
+        $("ul#tracks li.track").removeClass("single");
     }
 }
 
@@ -657,6 +657,7 @@ function makePicker(sets) {
                             }
                             $("#tracks").children().remove();
                             socket.emit("tracklist", playlists[id].tracks);
+                            $(this).parents("section.picker").removeClass("open");
                         });
             // playButton = $("<input>").attr({
             //     type: "button",

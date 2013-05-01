@@ -501,10 +501,14 @@ body > header section.menu .picker:hover, body > header section.menu .picker:act
   opacity: 1;
 }
 /* line 29, ../sass/_header.scss */
+body > header section.menu .picker.off {
+  opacity: .5;
+}
+/* line 33, ../sass/_header.scss */
 body > header section.menu .picker.on {
   opacity: 1;
 }
-/* line 34, ../sass/_header.scss */
+/* line 38, ../sass/_header.scss */
 body > header section.menu .audio-toggle {
   background-image: url("../images/audio-off.png") !important;
   text-indent: -9999em;
@@ -542,12 +546,12 @@ body > header section.menu .audio-toggle:hover, body > header section.menu .audi
   box-shadow: none;
   opacity: 1;
 }
-/* line 39, ../sass/_header.scss */
+/* line 43, ../sass/_header.scss */
 body > header section.menu .audio-toggle.on {
   background-image: url("../images/audio-on.png") !important;
   opacity: 1;
 }
-/* line 45, ../sass/_header.scss */
+/* line 49, ../sass/_header.scss */
 body > header section.menu .autoplay {
   background-image: url("../images/play-icon.png") !important;
   text-indent: -9999em;
@@ -585,11 +589,11 @@ body > header section.menu .autoplay:hover, body > header section.menu .autoplay
   box-shadow: none;
   opacity: 1;
 }
-/* line 50, ../sass/_header.scss */
+/* line 54, ../sass/_header.scss */
 body > header section.menu .autoplay.on {
   opacity: 1;
 }
-/* line 55, ../sass/_header.scss */
+/* line 59, ../sass/_header.scss */
 body > header section.menu .loop {
   background-image: url("../images/loop-icon.png") !important;
   text-indent: -9999em;
@@ -627,19 +631,19 @@ body > header section.menu .loop:hover, body > header section.menu .loop:active 
   box-shadow: none;
   opacity: 1;
 }
-/* line 60, ../sass/_header.scss */
+/* line 64, ../sass/_header.scss */
 body > header section.menu .loop.on {
   opacity: 1;
 }
-/* line 66, ../sass/_header.scss */
+/* line 70, ../sass/_header.scss */
 body > header section#settings {
   display: none;
 }
-/* line 69, ../sass/_header.scss */
+/* line 73, ../sass/_header.scss */
 body > header section#settings.open {
   display: block;
 }
-/* line 74, ../sass/_header.scss */
+/* line 78, ../sass/_header.scss */
 body > header #username {
   line-height: 1.5em;
   position: relative;
@@ -836,7 +840,7 @@ body.guest form fieldset aside {
   visibility: hidden;
 }
 
-/* line 10, ../sass/_track.scss */
+/* line 11, ../sass/_track.scss */
 body > #tracks .track {
   width: 100%;
   box-sizing: border-box;
@@ -844,57 +848,61 @@ body > #tracks .track {
   position: relative;
   margin-top: 1rem;
 }
-/* line 18, ../sass/_track.scss */
+/* line 19, ../sass/_track.scss */
 body > #tracks .track:nth-of-type(1) {
   margin-left: 0;
 }
 @media screen and (min-width: 54em) {
-  /* line 10, ../sass/_track.scss */
+  /* line 11, ../sass/_track.scss */
   body > #tracks .track {
     width: 47.91667%;
     margin-right: 3.125%;
   }
-  /* line 26, ../sass/_track.scss */
+}
+@media screen and (min-width: 54em) and (max-width: 84em) {
+  /* line 31, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(2n) {
     margin-right: 0;
   }
-}
-@media screen and (min-width: 54em) and (max-width: 84em) {
-  /* line 4, ../sass/_track.scss */
+  /* line 35, ../sass/_track.scss */
+  body > #tracks .track:nth-of-type(n+3) {
+    display: none;
+  }
+  /* line 5, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(n+3) .turntable, body > #tracks .track:nth-of-type(n+3) .palette {
     display: none;
   }
 }
 @media screen and (min-width: 84em) {
-  /* line 10, ../sass/_track.scss */
+  /* line 11, ../sass/_track.scss */
   body > #tracks .track {
-    width: 29.16667%;
+    width: 31.25%;
   }
-  /* line 41, ../sass/_track.scss */
+  /* line 43, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(3n) {
-    margin: 3.125% 0 0 3.125%;
+    margin-right: 0;
   }
-  /* line 45, ../sass/_track.scss */
-  body > #tracks .track:nth-of-type(4n) {
-    margin-left: 0;
+  /* line 48, ../sass/_track.scss */
+  body > #tracks .track:nth-of-type(n+4) {
+    display: none;
   }
-  /* line 4, ../sass/_track.scss */
+  /* line 5, ../sass/_track.scss */
   body > #tracks .track:nth-of-type(n+4) .turntable, body > #tracks .track:nth-of-type(n+4) .palette {
     display: none;
   }
 }
-/* line 55, ../sass/_track.scss */
+/* line 53, ../sass/_track.scss */
 body > #tracks .track.single {
   width: 100%;
 }
-/* line 57, ../sass/_track.scss */
+/* line 55, ../sass/_track.scss */
 body > #tracks .track.single .turntable {
   height: 32em;
   width: 32em;
   margin-left: -16em;
 }
 @media screen and (max-width: 40em) {
-  /* line 57, ../sass/_track.scss */
+  /* line 55, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     height: 24em;
     width: 24em;
@@ -902,7 +910,7 @@ body > #tracks .track.single .turntable {
   }
 }
 @media screen and (max-width: 28em) {
-  /* line 57, ../sass/_track.scss */
+  /* line 55, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     height: 18em;
     width: 18em;
@@ -910,13 +918,13 @@ body > #tracks .track.single .turntable {
   }
 }
 @media screen and (min-width: 48em) {
-  /* line 81, ../sass/_track.scss */
+  /* line 79, ../sass/_track.scss */
   body > #tracks .track.single ul.controls {
     width: 47.91667%;
     float: right;
     padding-top: 4em;
   }
-  /* line 99, ../sass/_track.scss */
+  /* line 97, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     left: 25%;
     float: left;
@@ -927,25 +935,25 @@ body > #tracks .track.single .turntable {
   }
 }
 @media screen and (min-width: 48em) and (min-width: 60em) {
-  /* line 81, ../sass/_track.scss */
+  /* line 79, ../sass/_track.scss */
   body > #tracks .track.single ul.controls {
     padding-top: 6em;
   }
 }
 @media screen and (min-width: 48em) and (min-width: 84em) {
-  /* line 81, ../sass/_track.scss */
+  /* line 79, ../sass/_track.scss */
   body > #tracks .track.single ul.controls {
     padding-top: 8em;
   }
 }
 @media screen and (min-width: 48em) and (min-width: 96em) {
-  /* line 81, ../sass/_track.scss */
+  /* line 79, ../sass/_track.scss */
   body > #tracks .track.single ul.controls {
     padding-top: 10em;
   }
 }
 @media screen and (min-width: 48em) and (min-width: 60em) {
-  /* line 99, ../sass/_track.scss */
+  /* line 97, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     height: 32em;
     width: 32em;
@@ -953,7 +961,7 @@ body > #tracks .track.single .turntable {
   }
 }
 @media screen and (min-width: 48em) and (min-width: 84em) {
-  /* line 99, ../sass/_track.scss */
+  /* line 97, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     height: 36em;
     width: 36em;
@@ -961,18 +969,18 @@ body > #tracks .track.single .turntable {
   }
 }
 @media screen and (min-width: 48em) and (min-width: 96em) {
-  /* line 99, ../sass/_track.scss */
+  /* line 97, ../sass/_track.scss */
   body > #tracks .track.single .turntable {
     height: 40em;
     width: 40em;
     margin-left: -20em;
   }
 }
-/* line 133, ../sass/_track.scss */
+/* line 131, ../sass/_track.scss */
 body > #tracks .track header {
   margin-bottom: 1em;
 }
-/* line 134, ../sass/_track.scss */
+/* line 132, ../sass/_track.scss */
 body > #tracks .track header h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light", helvetica, sans-serif;
@@ -984,13 +992,13 @@ body > #tracks .track header h1 {
   letter-spacing: -.03125em;
   position: relative;
 }
-/* line 146, ../sass/_track.scss */
+/* line 144, ../sass/_track.scss */
 body > #tracks .track header author {
   text-transform: uppercase;
   letter-spacing: .125em;
   font-size: 1em;
 }
-/* line 150, ../sass/_track.scss */
+/* line 148, ../sass/_track.scss */
 body > #tracks .track header .removeBut {
   text-indent: -9999em;
   background-size: 100% 100%;
@@ -1034,7 +1042,7 @@ body > #tracks .track header .removeBut:hover, body > #tracks .track header .rem
   opacity: 1;
 }
 @media screen and (max-width: 64em) {
-  /* line 150, ../sass/_track.scss */
+  /* line 148, ../sass/_track.scss */
   body > #tracks .track header .removeBut {
     left: -.25rem;
     top: 0;
@@ -1043,7 +1051,7 @@ body > #tracks .track header .removeBut:hover, body > #tracks .track header .rem
     margin-bottom: 1rem;
   }
 }
-/* line 172, ../sass/_track.scss */
+/* line 170, ../sass/_track.scss */
 body > #tracks .track .waveform {
   width: 100%;
   height: 50%;
@@ -1051,17 +1059,17 @@ body > #tracks .track .waveform {
   margin-bottom: 1rem;
   position: absolute;
 }
-/* line 183, ../sass/_track.scss */
+/* line 181, ../sass/_track.scss */
 body > #tracks ul.controls li.palette {
   position: relative;
   width: 100%;
   padding-bottom: 2em;
 }
-/* line 189, ../sass/_track.scss */
+/* line 187, ../sass/_track.scss */
 body > #tracks ul.controls li.palette.playback input, body > #tracks ul.controls li.palette.playback input:hover, body > #tracks ul.controls li.palette.playback input:active {
   border: none;
 }
-/* line 194, ../sass/_track.scss */
+/* line 192, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move {
   background: none;
   border: none;
@@ -1074,11 +1082,11 @@ body > #tracks ul.controls li.palette .move {
   border-bottom: 2pt solid #cccccc;
   padding: 0;
 }
-/* line 206, ../sass/_track.scss */
+/* line 204, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .move:active, body > #tracks ul.controls li.palette .move:hover {
   background: none;
 }
-/* line 211, ../sass/_track.scss */
+/* line 209, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .value {
   font-size: 1em;
   display: block;
@@ -1089,7 +1097,7 @@ body > #tracks ul.controls li.palette .value {
   float: left;
   top: -1.25em;
 }
-/* line 222, ../sass/_track.scss */
+/* line 220, ../sass/_track.scss */
 body > #tracks ul.controls li.palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -1097,7 +1105,7 @@ body > #tracks ul.controls li.palette label {
   display: block;
   padding-top: 1em;
 }
-/* line 228, ../sass/_track.scss */
+/* line 226, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider {
   -webkit-appearance: none;
   border: 1pt solid #cccccc;
@@ -1106,16 +1114,16 @@ body > #tracks ul.controls li.palette .slider {
   width: 100%;
   margin: 2em 0;
 }
-/* line 236, ../sass/_track.scss */
+/* line 234, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 240, ../sass/_track.scss */
+/* line 238, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 245, ../sass/_track.scss */
+/* line 243, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
@@ -1124,11 +1132,11 @@ body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb {
   cursor: pointer;
   opacity: .75;
 }
-/* line 253, ../sass/_track.scss */
+/* line 251, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 258, ../sass/_track.scss */
+/* line 256, ../sass/_track.scss */
 body > #tracks ul.controls li.palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

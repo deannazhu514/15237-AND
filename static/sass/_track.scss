@@ -1,6 +1,7 @@
 @import "_turntable.scss";
 
 @mixin collapse {
+    display: none;
     .turntable, .palette {
         display: none;
     }
@@ -22,28 +23,25 @@ body > #tracks {
         @media screen and (min-width: 54em) {
             @include col2;
             margin-right: $gutter;
-    
-            &:nth-of-type(2n) {
-                margin-right: 0;
-            }
         }
     
         @media screen and (min-width: 54em) and (max-width: 84em) {
             // collapse > 2
+
+            &:nth-of-type(2n) {
+                margin-right: 0;
+            }
+            
             &:nth-of-type(n+3) {
                 @include collapse;
             }
         }
     
         @media screen and (min-width: 84em) {
-            width: $col * ($columns / 3);
-    
+            @include col3;
+            
             &:nth-of-type(3n) {
-                margin: $gutter 0 0 $gutter;
-            }
-    
-            &:nth-of-type(4n) {
-                margin-left: 0;
+                margin-right: 0;
             }
     
             // collapse > 3

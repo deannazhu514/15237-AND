@@ -5,17 +5,18 @@ Deanna Zhu dwz
 Norbert Chu nrchu
 
 Techologies used:
-	-javascript (static/js folder)
-	-HTML (static/index.html)
-	-CSS (static/css folder)
-	-DOM manipulation 
-	-jQuery
+	-Javascript (static/js folder)
+	-Canvas (faderkit.js; used for turntable circular progress indicator)
+	-HTML (static/index.html, faderkit.js; all turntables and controls are HTML elements)
+	-CSS (static/css, faderkit.js; used for fluid layout, animations/transitions in the turntable)
+	-DOM manipulation (faderkit.js, client_socket.js; used to dynamically append turntables and buttons)
+	-jQuery (statis/js
 	-AJAX client (sc.js, app.js)
 	-AJAX server (sc.js)
-	-node.js
-	-websockets
-	-client-side caching/localStorage (ishhhh)
+	-node.js: used to run app and socket.io
+	-websockets: used to communicate with server and client (static/js/client_socket.js, app.js)
 	-HTML5 Media
 	-SoundCloud API
+	-Compass
 	
 Design process: design process folder

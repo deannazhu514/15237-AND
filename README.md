@@ -3,13 +3,30 @@ Antonio Ono aono
 Deanna Zhu dwz
 Norbert Chu nrchu
 
-[PROJECT DESCRIPTION]
+Spectrum
+
+Our goal is to make a DJing app that can be used simultaneously across multiple devices. Our app is SoundCloud based, and uses both HTML5 Audio and SoundManager to stream songs. We modularize components of a traditional digital or analog DJ setup to be track specific, so we can distribute the interface across a variety of available devices — from handsets to desktops — allowing for both flexibility in controls and a tactile and intuitive user experience.
 
 
-**FIX THIS**
-Our goal is to make a DJing app that can be used simultaneously across multiple devices. In general, there are very currently very few apps that utilize multiple screens to function.  However, DJ apps would greatly benefit from being shared across multiple screens.  Desktop DJ apps are feature-rich but offer a less intuitive and tactile experience for users. Tablet apps are more ergonomically appropriate for their context but, given constraints in screen space, typically offer a limited subset of features. By modularizing components of a traditional digital or analog DJ setup, we can distribute the interface across a variety of available devices — from handsets to desktops — allowing for both a large number of controls and a tactile and intuitive user experience. Our goal is for the app to be accessible to both novice and experienced users, on multiple devices or only one.
+How to Use
+
+To run the app, run "node app". On a desktop, go to "http://localhost:8999/static/index.html" in your browser. 
+On mobile, *********.
+
+This app can be run on multiple devices of varying screen sizes in one session. 
+When you first open the app, you should login through SoundCloud.
+If your account doesn't have any sets, you should add some sounds because otherwise your setlist is empty.
+When you have sets, they should be displayed in the setlist menu and you can choose to add sounds to your session's "setlist" by adding a whole setlist or individual sounds. When you remove a sound from the screen, you remove it from the setlist. You can add it back in by going back to the setlist menu.
+
+We have two modes for playing your setlist. 
+In "Autoplay" mode, the next song should begin playing automatically after the current song finishes. 
+When also in "Loop" mode, the current setlist should loop around when the last song finishes. 
+When Autoplay is off, the user manually determines which song to play next and when.
 
 
-[HOW TO USE]
-	
+To play or pause a sound, you just click/press the turntable. For each playing sound, you can adjust the volume, the playback position, the playback rate, and also fade into the next song if there is one. On mobile, besides play/pause, you can only adjust the playback position.
+
+
+A typical use case in DJing would be to stream audio from one device while pre-listening to the next track through headphones. 
+With multiple devices, one device will be the main 
 

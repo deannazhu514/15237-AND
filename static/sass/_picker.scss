@@ -83,6 +83,10 @@
             font-family: $medium;
             
             @include play-icon;
+            
+            @media screen and (max-width: 64em) {
+                background-image: none !important;
+            }
                         
             &:hover {
                 opacity: 1;
@@ -109,6 +113,7 @@
                 @include play-icon;
                 background-image: none;
                 
+                
                 h1 {
                     font-size: 2em;
                     font-family: $light;
@@ -119,6 +124,10 @@
                     opacity: 1;
                     @include play-icon-uri;
                     background-position: 0 1.7rem;
+                    
+                    @media screen and (max-width: 64em) {
+                        background-image: none !important;
+                    }
                 }
                 
                 author {

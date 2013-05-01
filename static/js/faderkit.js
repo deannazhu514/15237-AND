@@ -19,6 +19,14 @@ var slider = {
 
 //source code: http://www.hardcode.nl/subcategory_1/article_414-copy-or-clone-javascript-array-object
 
+function checkSingle() {
+    if ($("ul#tracks").children().length === 1) {
+        $("li.track").addClass("single");
+    } else {
+        $("li.track").removeClass("single");
+    }
+}
+
 function cloneObject(source) {
     for (i in source) {
         if (typeof source[i] == 'source') {
@@ -98,13 +106,14 @@ function makePalette(template) {
 		delete tracks[id];
 		console.log(sounds[id]);
 		sounds[id].stop();
-		if ($('#tracks').children().length == 0) {
+		if ($('#tracks').children().length === 0) {
 			$("section.picker").toggleClass("open");
 			$("input.picker").removeClass("on");
 		}
+		checkSingle();
 	});
 		
-    $(header).append(artist, title, removeBut);
+    $(header).append(removeBut, artist, title);
     $(track).append(header);
 
     console.log('tid: ' + tid);
@@ -118,7 +127,7 @@ function makePalette(template) {
                 element = makeTurntable(template.ui[i].art,
                           template.ui[0].duration, tid);
             }
-            track.append(element, makeWaveform(alltracks[template.id]));
+            track.append(element);
         } else {
             element = makeControl(template.ui[i].type,
                                   template.ui[i].name,
@@ -129,6 +138,7 @@ function makePalette(template) {
         track.append(controls);
     }
     $("ul#tracks").append(track);
+    checkSingle();
     return element;
 }
 
@@ -508,6 +518,11 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             changingPBR = false;
         });
     }
+    
+    if (name === "playback") {
+        $(palette).append(makeWaveform(alltracks[tid]));
+    }
+    
     function updateControls() {
         var val = $(control).val(),
             id  = $(control).parent().attr("id");
@@ -600,7 +615,7 @@ function makeControl(type, name, orientation, showValue, tid, duration) {
             var prog = 1/(duration/x);
             var canvas = (palette).parent().siblings(".turntable").children().children("canvas")[0];
             drawProgress(canvas, prog);
-            $(control).val(prog);
+            $(control).val(prog * 100);
         }, 250);
     }
     if (name === 'fader') {

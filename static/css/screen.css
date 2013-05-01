@@ -309,27 +309,33 @@ body ::-webkit-scrollbar:hover {
   position: relative;
   left: -3.125%;
 }
-@media screen and (max-width: 40em) {
+@media screen and (min-width: 40em) {
   /* line 42, ../sass/_picker.scss */
   .logged-in section.picker .set {
-    width: 175%;
-  }
-  /* line 56, ../sass/_picker.scss */
-  .logged-in section.picker .set ul.tracks li.track:last-child {
-    margin-bottom: 0 !important;
+    width: 43.75%;
   }
 }
-@media screen and (max-width: 50em) {
+@media screen and (min-width: 60em) {
+  /* line 42, ../sass/_picker.scss */
+  .logged-in section.picker .set {
+    width: 21.875%;
+  }
+}
+@media screen and (max-width: 40em) {
   /* line 42, ../sass/_picker.scss */
   .logged-in section.picker .set {
     width: 87.5%;
   }
+  /* line 65, ../sass/_picker.scss */
+  .logged-in section.picker .set li.track:last-child {
+    margin-bottom: 0 !important;
+  }
 }
-/* line 77, ../sass/_picker.scss */
+/* line 70, ../sass/_picker.scss */
 .logged-in section.picker .set h1 {
   font-size: 2em;
 }
-/* line 81, ../sass/_picker.scss */
+/* line 74, ../sass/_picker.scss */
 .logged-in section.picker .set > h1 {
   margin-bottom: 0.75em;
   font-family: "DIN Next W01 Medium", helvetica, sans-serif;
@@ -343,17 +349,17 @@ body ::-webkit-scrollbar:hover {
   opacity: .75;
 }
 @media screen and (max-width: 64em) {
-  /* line 81, ../sass/_picker.scss */
+  /* line 74, ../sass/_picker.scss */
   .logged-in section.picker .set > h1 {
     background-image: none !important;
   }
 }
-/* line 91, ../sass/_picker.scss */
+/* line 84, ../sass/_picker.scss */
 .logged-in section.picker .set > h1:hover {
   opacity: 1;
   text-shadow: 0 0 0.5em white;
 }
-/* line 107, ../sass/_picker.scss */
+/* line 100, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track {
   width: 100%;
   text-align: left;
@@ -401,25 +407,25 @@ body ::-webkit-scrollbar:hover {
   border-color: white;
   text-shadow: 0 0 0.5em white;
 }
-/* line 117, ../sass/_picker.scss */
+/* line 110, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track h1 {
   font-size: 2em;
   font-family: "DIN Next W01 Light", helvetica, sans-serif;
   margin-top: .5rem;
 }
-/* line 123, ../sass/_picker.scss */
+/* line 116, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track:hover {
   opacity: 1;
   background-image: url("../images/play-icon.png");
   background-position: 0 1.7rem;
 }
 @media screen and (max-width: 64em) {
-  /* line 123, ../sass/_picker.scss */
+  /* line 116, ../sass/_picker.scss */
   .logged-in section.picker .set ul.tracks li.track:hover {
     background-image: none !important;
   }
 }
-/* line 133, ../sass/_picker.scss */
+/* line 126, ../sass/_picker.scss */
 .logged-in section.picker .set ul.tracks li.track author {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -427,9 +433,11 @@ body ::-webkit-scrollbar:hover {
   font-family: "DIN Next W01 Medium", helvetica, sans-serif;
   display: block;
 }
-/* line 139, ../sass/_picker.scss */
-.logged-in section.picker .set ul.tracks li.track:last-child {
-  margin-bottom: 16em;
+@media screen and (min-width: 40em) {
+  /* line 133, ../sass/_picker.scss */
+  .logged-in section.picker .set ul.tracks li.track:last-child {
+    margin-bottom: 16em;
+  }
 }
 
 /* line 3, ../sass/_header.scss */

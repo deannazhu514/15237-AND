@@ -185,7 +185,20 @@ body ::-webkit-scrollbar:hover {
   width: 3.125%;
 }
 
-/* line 100, ../sass/_main.scss */
+/* line 94, ../sass/_main.scss */
+.alert-message {
+  text-transform: uppercase;
+  letter-spacing: .125em;
+  font-size: 1em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 999999;
+  margin-top: 1rem;
+}
+
+/* line 110, ../sass/_main.scss */
 .global-controls-palette .move {
   background: none;
   border: none;
@@ -198,11 +211,11 @@ body ::-webkit-scrollbar:hover {
   border-bottom: 2pt solid #cccccc;
   padding: 0;
 }
-/* line 112, ../sass/_main.scss */
+/* line 122, ../sass/_main.scss */
 .global-controls-palette .move:active, .global-controls-palette .move:hover {
   background: none;
 }
-/* line 117, ../sass/_main.scss */
+/* line 127, ../sass/_main.scss */
 .global-controls-palette .value {
   font-size: 1em;
   display: block;
@@ -213,7 +226,7 @@ body ::-webkit-scrollbar:hover {
   float: left;
   top: -1.25em;
 }
-/* line 128, ../sass/_main.scss */
+/* line 138, ../sass/_main.scss */
 .global-controls-palette label {
   text-transform: uppercase;
   letter-spacing: .125em;
@@ -221,7 +234,7 @@ body ::-webkit-scrollbar:hover {
   display: block;
   padding-top: 1em;
 }
-/* line 134, ../sass/_main.scss */
+/* line 144, ../sass/_main.scss */
 .global-controls-palette .slider {
   -webkit-appearance: none;
   border: 1pt solid #cccccc;
@@ -230,16 +243,16 @@ body ::-webkit-scrollbar:hover {
   width: 100%;
   margin: 2em 0;
 }
-/* line 142, ../sass/_main.scss */
+/* line 152, ../sass/_main.scss */
 .global-controls-palette .slider:hover {
   border: 1pt solid white;
   background: rgba(255, 0, 0, 0.25);
 }
-/* line 146, ../sass/_main.scss */
+/* line 156, ../sass/_main.scss */
 .global-controls-palette .slider:hover::-webkit-slider-thumb {
   opacity: 1;
 }
-/* line 151, ../sass/_main.scss */
+/* line 161, ../sass/_main.scss */
 .global-controls-palette .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   background: white;
@@ -248,11 +261,11 @@ body ::-webkit-scrollbar:hover {
   cursor: pointer;
   opacity: .75;
 }
-/* line 159, ../sass/_main.scss */
+/* line 169, ../sass/_main.scss */
 .global-controls-palette .slider::-webkit-slider-thumb:hover {
   opacity: 1;
 }
-/* line 164, ../sass/_main.scss */
+/* line 174, ../sass/_main.scss */
 .global-controls-palette .slider.vertical {
   -webkit-transform: rotate(-90deg);
 }

@@ -77,12 +77,22 @@
 			document.getElementById("autoplay").onclick = function(){
 				autoPlay = !autoPlay;
 				console.log(autoPlay);
+				if ($(this).hasClass("on")) {
+    				displayMessage("Autoplay enabled.");
+				} else {
+                    displayMessage("Autoplay disabled.");
+				}
 			};
 			
 			document.getElementById("loop").onclick = function(){
 				loop = !loop;
 				console.log(loop);
 				socket.emit("loop_playlist", loop);
+                if ($(this).hasClass("on")) {
+				    displayMessage("Autoplay enabled.");
+				} else {
+				    displayMessage("Autoplay disabled.");
+				}
 			};
     </script>
     <section id="controls"></section>

@@ -11,7 +11,7 @@ Our goal is to make a DJing app that can be used simultaneously across multiple 
 How to Use
 
 To run the app, run "node app". On a desktop, go to "http://localhost:8999/static/index.html" in your browser. 
-On mobile, *********.
+On mobile, email/text Deanna your IP address.
 
 This app can be run on multiple devices of varying screen sizes in one session. 
 When you first open the app, you should login through SoundCloud.

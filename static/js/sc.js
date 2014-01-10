@@ -1,3 +1,10 @@
+/*
+Deanna Zhu
+AND project- A DJ-turntable application that works across multiple mobile devices
+sc.js- Connects to SoundCloud API; 
+	   Client-side requests to get info and change the displayed elements
+*/
+
 var current; //currentSound id
 var currentSound;
 var currentID;
@@ -117,7 +124,6 @@ function eventHandlersInit() {
 			window.console.log("gr");
 		};
 		
-		//alert('a');
 		for (key in sounds) {
 			console.log("SOUND KEY IS : ", key);
 			//var aud = sounds[key].source.mediaElement;
@@ -135,12 +141,10 @@ function eventHandlersInit() {
 					$('#'+key).removeClass("playing");
 				});*/
 		}
-		window.console.log('aaaa');
 	});
 }
 
 function connectDevice(){	
-	//var username = $("#username").val();
 	var session = $("input#username").val();
 	var un = session;
 	username = session;
@@ -201,9 +205,9 @@ function getDevices() {
 		success: function(data) {
 			var num = data.deviceNum;
 			for (var i = 0; i < num; num++) {
-				/*var button = $('<input>').html("Device"+(i+1));
-				$('#devices').append(button);*/
-				console.log("track"+i);
+				var button = $('<input>').html("Device"+(i+1));
+				$('#devices').append(button);
+				//console.log("track"+i);
 			}
 		}
 	});
@@ -214,7 +218,6 @@ function getModules(){
 	for (track in tracks) {
 		if (tracks[track]['appended'] == undefined) {
 			//console.log(track);
-			
 			tracks[track]['appended'] = true;
 			var trackbut = $('<input type=button>')
 							.addClass("panel-button")
@@ -231,15 +234,12 @@ function getModules(){
 				console.log('sending module');
 				sendModule2(2, 'track', parseFloat(this.value.substring(0, 8)));
 			});
-				//console.log(tracks[track].song);
 			$('#modules').append(trackbut);
 		}
 	}
 }
 
 function sendModule2(device, module, modulename) {
-	//socket.emit("sendModule", device, module, modulename);
-	
 	socket.emit("sendModule", tracks[modulename], device);
 }
 
@@ -253,8 +253,7 @@ function sendModule(device, module, modulename) {
 		},
 		url: "/sendModule",
 		success: function(data) {
-			console.log(data);
-			
+			console.log(data);			
 		}
 	});
 }
@@ -263,7 +262,6 @@ function sendModule(device, module, modulename) {
 function getPlaylists(SCuser){
 	username = SCuser;
 	SC.get('/users/'+SCuser+'/playlists', function(lists){
-		
 		lists.forEach(function(playlist){
 			tracks = {};
 			var temp = {tracks: {}};
@@ -315,11 +313,8 @@ function getPlaylists(SCuser){
 					addTrack(SCuser, track2);
 				}
 			}					
-			//socket.emit('tracklist', tracks);
-			//var temp = {};
 			temp.name = playlist.title;
 			temp.length = playlist.tracks.length;
-			//temp.tracks = tracks;
 			playlists[playlist.id] = temp;
 			tracks = {};
 		});
@@ -338,8 +333,8 @@ function addSound(id, sound) {
 
 
 function ended(id) {
-	console.log("ended!", id);
 	$('.turntable #'+id).removeClass("playing");
+	console.log("ended!", id);
 }
 
 
@@ -350,7 +345,6 @@ function play(){
 }
 
 function stop(){
-	//console.log("pause");
 	this.source.mediaElement.pause();
 	this.playing = false;
 };
@@ -389,8 +383,4 @@ function getCurrentSong(userID){
 			localStorage["current"] = data.current.id;
 		}
 	});
-}
-
-function addControl(){
-
 }
